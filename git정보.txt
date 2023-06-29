@@ -1,6 +1,5 @@
-username : SMEasyFactory
-password : smfactory23
+https://github.com/SMEasyFactory/EASYFACTORY
 
-password로 로그인 안 되면 비밀번호 대신 아래 토큰 입력
+username : 깃허브 ID
+password : 깃허브 토큰
 
-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
