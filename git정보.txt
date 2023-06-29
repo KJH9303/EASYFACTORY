@@ -1,0 +1,6 @@
+username : SMEasyFactory
+password : smfactory23
+
+password로 로그인 안 되면 비밀번호 대신 아래 토큰 입력
+
+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
