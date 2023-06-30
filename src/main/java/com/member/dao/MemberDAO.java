@@ -81,7 +81,7 @@ public class MemberDAO {
 	
 	// 로그인
 	public MemberVO login(String id, String pw) {
-		String SQL = "SELECT CODE, DEPARTMENT, ID, NAME, PHONE, EMAIL, PW, REPW FROM MEMBER WHERE ID = ? AND PW = ?";
+		String SQL = "SELECT CODE, DEPARTMENT, ID, NAME, PHONE, EMAIL, PW, REPW FROM MEMBER WHERE UPPER(ID) = UPPER(?) AND PW = ?";
 		MemberVO memberVO = jdbcTemplate.queryForObject(SQL, new Object[]{id, pw}, new signinMapper());
 		return memberVO;
 	}
