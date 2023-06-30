@@ -18,6 +18,8 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
+				com.energy.*
+				com.feb.*
 				com.member.*
 			</param-value>
 		</init-param>
