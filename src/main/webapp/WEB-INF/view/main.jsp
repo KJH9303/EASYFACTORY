@@ -10,6 +10,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
+    	var code = $("#code").val();
+    	if(code == 'INTERNAL'){
+    		alert("내부인입니다.");
+    	}
+    	if(code == 'EXTERNAL'){
+    		alert("외부인입니다. 해당 페이지에 접근할 수 없습니다.");
+    	}
     	
     	// 회원정보 수정
     	$("#memUpdateBtn").on('click', function() {
@@ -83,7 +90,14 @@
 		<button type="button" id="memUpdateBtn">회원정보 수정</button>
 		<button type="button" id="logoutBtn">로그아웃</button>
 	</c:if>
-	
+	<c:if test="${member.code == 'INTERNAL'}">
+		<p>${member.code} 내부인입니다.</p>
+		<input type="text" id="code" value="${member.code}">
+	</c:if>
+	<c:if test="${member.code == 'EXTERNAL'}">
+		<p>${member.code} 외부인입니다.</p>
+		<input type="text" id="code" value="${member.code}">
+	</c:if>
     <div class="mainInner">
         <div>PURE CSS SIDEBAR TOGGLE MENU</div>
     </div>
