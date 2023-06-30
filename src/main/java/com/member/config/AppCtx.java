@@ -8,9 +8,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.member.dao.MemberDAO;
-import com.member.dao.TestDAO;
 import com.member.service.MemberService;
-import com.member.service.TestService;
 
 @Configuration
 @EnableTransactionManagement
@@ -53,16 +51,6 @@ public class AppCtx {
 		return new MemberService(memberDAO());
 	}
 	
-	@Bean
-	public TestDAO testDAO() {
-		System.out.println("[TestDAO] testDAO()");
-		return new TestDAO(dataSource());
-	}
-
-	@Bean
-	public TestService testRegSvc() {
-		return new TestService(testDAO());
-	}
 /*
 	@Bean
 	public ChangePasswordService changePwdSvc() {
