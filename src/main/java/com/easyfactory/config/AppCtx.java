@@ -7,6 +7,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.energy.dao.EnergyDAO;
+import com.energy.service.EnergyService;
 import com.feb.dao.FebDAO;
 import com.feb.service.FebService;
 import com.member.dao.MemberDAO;
@@ -57,7 +59,7 @@ public class AppCtx {
 	// com.feb.*
 	@Bean
 	public FebDAO febDAO() {
-		System.out.println("[MemberDAO] memberDAO()");
+		System.out.println("[FebDAO] febDAO()");
 		return new FebDAO(dataSource());
 	}
 	
@@ -66,39 +68,15 @@ public class AppCtx {
 		return new FebService(febDAO());
 	}
 	
-/*
+	// com.energy.*
 	@Bean
-	public ChangePasswordService changePwdSvc() {
-		ChangePasswordService pwdSvc = new ChangePasswordService();
-		pwdSvc.setMemberDao(memberDao());
-		return pwdSvc;
-	}
-
-	@Bean
-	public MemberPrinter memberPrinter() {
-		return new MemberPrinter();
-	}
-
-	@Bean
-	public MemberListPrinter listPrinter() {
-		return new MemberListPrinter(memberDao(), memberPrinter());
-	}
-
-	@Bean
-	public MemberInfoPrinter infoPrinter() {
-		MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-		infoPrinter.setMemberDao(memberDao());
-		infoPrinter.setPrinter(memberPrinter());
-		return infoPrinter;
+	public EnergyDAO energyDAO() {
+		System.out.println("[EnergyDAO] energyDAO()");
+		return new EnergyDAO(dataSource());
 	}
 	
-	///////////////////////////////////////////////////////////////////
-	////////////////// TransactionalTestService.java //////////////////
-	///////////////////////////////////////////////////////////////////
 	@Bean
-	public TransactionalTestService transactionalTestService() {
-		return new TransactionalTestService(memberDao());
+	public EnergyService energyService() {
+		return new EnergyService(energyDAO());
 	}
-	*/
-	
 }

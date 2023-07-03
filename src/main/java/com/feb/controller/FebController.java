@@ -17,6 +17,7 @@ import com.feb.service.FebService;
 import com.feb.vo.FebVO;
 
 @RestController
+@RequestMapping("/feb")
 public class FebController {
     
     @Autowired

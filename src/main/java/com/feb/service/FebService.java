@@ -7,6 +7,7 @@ import com.feb.dao.FebDAO;
 import com.feb.vo.FebVO;
 
 public class FebService {
+	
 	private FebDAO febDAO;
 
 	public FebService(FebDAO febDAO) {

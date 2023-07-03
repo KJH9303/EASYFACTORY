@@ -9,23 +9,48 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.energy.dao.EnergyDao;
-import com.energy.dao.EnergyDao1;
+import com.energy.dao.EnergyDAO;
 import com.energy.vo.EnergyVO;
+import com.member.service.MemberService;
 import com.energy.service.EnergyService;
 
 @Controller
-public class TempController {
+@RequestMapping("/energy")
+public class EnergyController {
+	
+	@Autowired
     private EnergyService energyService;
 
-    public TempController(EnergyDao1 energyDao1) {
-        this.energyService = new EnergyService(energyDao1);
-    }
+    public void setEnergyService(EnergyService energyService) {
+		this.energyService = energyService;
+	}
+    
+    // 가동률:Opratio datepicker
+    @PostMapping("/chart3")
+    public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /chart3");
 
-    // 날짜 삽입
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        
+        // 웹에서 찍은 날짜 확인
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
+        
+        // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
+        List<EnergyVO> energyOpratioList = energyService.getOpratio(startDate, endDate);
+        JSONArray jsonArray = energyService.JSONOpratioChange(energyOpratioList);
+        writer.print(jsonArray.toJSONString());
+    }
+    
+    // 온도 datepicker
     @PostMapping("/chart4")
     public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart4");
@@ -43,7 +68,6 @@ public class TempController {
         // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
         List<EnergyVO> energyTempList = energyService.getTemp(startDate, endDate);
         JSONArray jsonArray = energyService.JSONTempChange(energyTempList);
-        writer.print(jsonArray.toJSONString());
     }
 }
       /*

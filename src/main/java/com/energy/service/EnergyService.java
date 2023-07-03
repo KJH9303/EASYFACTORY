@@ -4,20 +4,15 @@ import java.util.List;
 
 import org.json.simple.JSONArray;
 
-import com.energy.dao.EnergyDao;
-import com.energy.dao.EnergyDao1;
+import com.energy.dao.EnergyDAO;
 import com.energy.vo.EnergyVO;
 
 public class EnergyService {
-    //private EnergyDao energyDao;
-    private EnergyDao1 energyDao1;
-    /*
-    public EnergyService(EnergyDao energyDao) {
-        this.energyDao = energyDao;
-    }
-    */
-    public EnergyService(EnergyDao1 energyDao1) {
-        this.energyDao1 = energyDao1;
+
+	private EnergyDAO energyDAO;
+    
+    public EnergyService(EnergyDAO energyDAO) {
+        this.energyDAO = energyDAO;
     }
     /*
     // DB에 날짜 검색 확인 반환
@@ -26,11 +21,12 @@ public class EnergyService {
     }
     */
     public List<EnergyVO> getTemp(String startDate, String endDate) {
-        return energyDao1.getTemp(startDate, endDate);
+        return energyDAO.getTemp(startDate, endDate);
     }
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
-        return energyDao1.getOpratio(startDate, endDate);
+        return energyDAO.getOpratio(startDate, endDate);
     }
+    
     // DB에서 받은 데이터 Json으로 변환
     public JSONArray JSONOpratioChange(List<EnergyVO> energyOpratioList) {
         JSONArray jsonArray = new JSONArray();

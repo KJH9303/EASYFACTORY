@@ -19,6 +19,7 @@ import com.member.vo.MemberVO;
 @Controller
 @RequestMapping("/")
 public class MemberController {
+	
 	@Autowired
     private MemberService memberService;
     

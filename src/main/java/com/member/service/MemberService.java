@@ -4,6 +4,7 @@ import com.member.dao.MemberDAO;
 import com.member.vo.MemberVO;
 
 public class MemberService {
+	
 	private MemberDAO memberDAO;
 
 	public MemberService(MemberDAO memberDAO) {
