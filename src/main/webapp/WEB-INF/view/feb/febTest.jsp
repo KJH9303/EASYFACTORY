@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/feb.css" />
   <link rel="stylesheet" href="feb.css" />
 -->
-  <link rel="stylesheet" href="../../../resources/css/feb/feb.css">
+  <link rel="stylesheet" href="../../../resources/feb/css/feb.css">
   
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>

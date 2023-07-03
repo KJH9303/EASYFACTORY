@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../../../resources/css/main/main.css" type="text/css">
+    <link rel="stylesheet" href="../../../resources/main/css/main.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {

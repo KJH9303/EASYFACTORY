@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-<link rel="stylesheet" href="../../../resources/css/member/login.css">
+<link rel="stylesheet" href="../../../resources/member/css/login.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {

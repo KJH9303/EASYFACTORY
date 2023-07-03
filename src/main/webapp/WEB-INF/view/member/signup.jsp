@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SignUp</title>
-<link rel="stylesheet" href="../../../resources/css/member/signup.css">
+<link rel="stylesheet" href="../../../resources/member/css/signup.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
