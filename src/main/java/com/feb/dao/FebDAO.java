@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 
 import com.feb.vo.FebVO;
-import com.member.vo.MemberVO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,6 +21,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 @Repository
 public class FebDAO {
+	
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
