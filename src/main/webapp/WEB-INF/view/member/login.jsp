@@ -17,7 +17,7 @@
 		
 		// 회원가입 페이지
 		$("#signupBtn").on('click', function() {
-			location.href="/signup";
+			location.href="/member/signup";
 		});
 		
 		// 로그인
@@ -47,7 +47,7 @@
 			
 			if (id.trim().length != 0 && pw.trim().length != 0) {
 				$.ajax({
-			        url: "/loginCheck",
+			        url: "/member/loginCheck",
 			        type: "POST",
 			        data: {
 			        	id: id
@@ -84,7 +84,7 @@
 	</ul>
 	<div class="formContainer">
 		<div class="signin">
-			<form id="loginForm" name="loginForm" action="loginSubmit" method="post">
+			<form id="loginForm" name="loginForm" action="/member/loginSubmit" method="post">
 				<div class="logo">
 					<img src="../../resources/img/logo.jpeg">
 					<i class="fa fa-user-circle-o"></i>

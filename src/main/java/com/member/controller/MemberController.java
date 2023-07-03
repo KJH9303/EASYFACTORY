@@ -17,7 +17,7 @@ import com.member.service.MemberService;
 import com.member.vo.MemberVO;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/member")
 public class MemberController {
 	
 	@Autowired
@@ -45,7 +45,7 @@ public class MemberController {
     @RequestMapping(value="/signupSubmit", method=RequestMethod.POST)
     public String postSignUp(@ModelAttribute MemberVO memberVO) throws Exception {
     	memberService.signUp(memberVO);
-		return "/login";
+		return "/member/login";
     }
     
     // id, 비밀번호 체크 Ajax

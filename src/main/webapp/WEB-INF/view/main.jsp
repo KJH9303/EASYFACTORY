@@ -20,12 +20,13 @@
     	
     	// 회원정보 수정
     	$("#memUpdateBtn").on('click', function() {
-			location.href="/updateCheck";
+			location.href="/member/updateCheck";
 		});
     	
     	// 로그아웃
     	$("#logoutBtn").on('click', function() {
-			location.href="/logout";
+    		alert("로그아웃 되었습니다.")
+			location.href="/member/logout";
 		});
     	
         function updateTime() {
@@ -82,7 +83,8 @@
 </div>
 <div class="main">
 	<c:if test="${member.id == null}">
-		<p><a href="login"> 로그인 </a></p>
+		<p><a href="/member/login"> 로그인 </a></p>
+		<p><a href="/member/signup"> 회원가입 </a></p>
 	</c:if>
 	<c:if test="${member.id != null}">
 		<p>${member.id} 님 환영합니다.</p>

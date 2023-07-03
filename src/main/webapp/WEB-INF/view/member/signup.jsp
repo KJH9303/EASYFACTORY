@@ -10,10 +10,10 @@
 <script>
 	$(document).ready(function() {
 		$("#mainBtn").on('click', function() {
-			location.href="/";
+			location.href="/main";
 		});
 		$("#signupBtn").on('click', function() {
-			location.href="/signup";
+			location.href="/member/signup";
 		});
 		
 		$("#btnDuplicate").on('click', function() {
@@ -35,7 +35,7 @@
 			}
 			if (id.trim().length != 0) {
 				    $.ajax({
-				        url: "/checkDuplicateId", // Spring 컨트롤러의 매핑 주소
+				        url: "/member/checkDuplicateId", // Spring 컨트롤러의 매핑 주소
 				        type: "POST",
 				        data: {id: id},
 				        success: function (result) {
@@ -170,7 +170,7 @@
 			<div class="signup">
 				<div class="logo"></div>
 				<div class="internal-form">
-					<form id="signupForm" name="signupForm" action="signupSubmit" method="post">
+					<form id="signupForm" name="signupForm" action="/member/signupSubmit" method="post">
 						<label><input type="radio" name="code" value="INTERNAL" checked /> INTERNAL</label>
     					<label><input type="radio" name="code" value="EXTERNAL" /> EXTERNAL</label>
 						<div class="input-group">
