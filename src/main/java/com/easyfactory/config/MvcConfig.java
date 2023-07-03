@@ -1,4 +1,4 @@
-package com.member.config;
+package com.easyfactory.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +33,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		registry.addViewController("/login").setViewName("login");
 		// registry.addViewController("/board").setViewName("board");
 	}
-
+/*
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authCheckInterceptor())
@@ -45,7 +45,7 @@ public class MvcConfig implements WebMvcConfigurer {
 	public AuthCheckInterceptor authCheckInterceptor() {
 		return new AuthCheckInterceptor();
 	}
-
+*/
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource ms = new ResourceBundleMessageSource();

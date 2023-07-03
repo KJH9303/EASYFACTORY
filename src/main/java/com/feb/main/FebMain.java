@@ -1,28 +1,27 @@
 package com.feb.main;
 
+import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.feb.config.AppConfig;
-import com.feb.dao.InsertDao;
-import com.feb.dao.SelectDao;
+import com.easyfactory.config.AppCtx;
+import com.feb.dao.FebDAO;
 import com.feb.vo.FebVO;
-
-import javax.sql.DataSource;
-import java.util.List;
 
 public class FebMain {
 
     public static void main(String[] args) {
-        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppCtx.class);
         DataSource dataSource = ctx.getBean(DataSource.class);
 
-        InsertDao insertDAO = new InsertDao(dataSource);
-        SelectDao selectDAO = new SelectDao(dataSource);
+        FebDAO febDAO = new FebDAO(dataSource);
 
         // Get data from "feb1" table and print
-        List<FebVO> feb1DataList = selectDAO.getTableData("feb1");
-        List<FebVO> feb2DataList = selectDAO.getTableData("feb2");
+        List<FebVO> feb1DataList = febDAO.getTableData("feb1");
+        List<FebVO> feb2DataList = febDAO.getTableData("feb2");
         
         for (FebVO data1 : feb1DataList) {
             System.out.println(data1);

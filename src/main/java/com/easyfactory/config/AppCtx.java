@@ -1,4 +1,4 @@
-package com.member.config;
+package com.easyfactory.config;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
@@ -7,6 +7,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.feb.dao.FebDAO;
+import com.feb.service.FebService;
 import com.member.dao.MemberDAO;
 import com.member.service.MemberService;
 
@@ -40,6 +42,7 @@ public class AppCtx {
 		return tm;
 	}
 
+	// com.member.*
 	@Bean
 	public MemberDAO memberDAO() {
 		System.out.println("[MemberDAO] memberDAO()");
@@ -47,8 +50,20 @@ public class AppCtx {
 	}
 
 	@Bean
-	public MemberService memberRegSvc() {
+	public MemberService memberService() {
 		return new MemberService(memberDAO());
+	}
+	
+	// com.feb.*
+	@Bean
+	public FebDAO febDAO() {
+		System.out.println("[MemberDAO] memberDAO()");
+		return new FebDAO(dataSource());
+	}
+	
+	@Bean
+	public FebService febService() {
+		return new FebService(febDAO());
 	}
 	
 /*

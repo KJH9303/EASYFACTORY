@@ -18,9 +18,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				com.energy.*
-				com.feb.*
-				com.member.*
+				com.easyfactory.config
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

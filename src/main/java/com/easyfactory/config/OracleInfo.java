@@ -1,4 +1,4 @@
-package com.feb.config;
+package com.easyfactory.config;
 
 public class OracleInfo {
 	public static String driver = "oracle.jdbc.OracleDriver";
