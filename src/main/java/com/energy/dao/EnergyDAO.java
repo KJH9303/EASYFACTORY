@@ -1,6 +1,5 @@
 package com.energy.dao;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,11 +9,11 @@ import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.stereotype.Repository;
 
 import com.energy.vo.EnergyVO;
 
+@Repository
 public class EnergyDAO {
 	
     private JdbcTemplate jdbcTemplate;
