@@ -13,21 +13,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.energy.dao.EnergyDao;
+import com.energy.dao.EnergyDao1;
 import com.energy.vo.EnergyVO;
 import com.energy.service.EnergyService;
 
 @Controller
-public class EnChartController {
+public class TempController {
     private EnergyService energyService;
 
-    public EnChartController(EnergyDao energyDao) {
-        this.energyService = new EnergyService(energyDao);
+    public TempController(EnergyDao1 energyDao1) {
+        this.energyService = new EnergyService(energyDao1);
     }
 
     // 날짜 삽입
-    @PostMapping("/chart3")
-    public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart3");
+    @PostMapping("/chart4")
+    public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /chart4");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -38,9 +39,10 @@ public class EnChartController {
         String endDate = request.getParameter("endDate");
         System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
         
+        
         // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
-        List<EnergyVO> energyDataList = energyService.getSelectDay(startDate, endDate);
-        JSONArray jsonArray = energyService.JSONChange(energyDataList);
+        List<EnergyVO> energyTempList = energyService.getTemp(startDate, endDate);
+        JSONArray jsonArray = energyService.JSONTempChange(energyTempList);
         writer.print(jsonArray.toJSONString());
     }
 }

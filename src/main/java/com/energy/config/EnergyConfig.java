@@ -8,6 +8,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import  com.energy.dao.EnergyDao;
+import com.energy.dao.EnergyDao1;
 
 @Configuration
 @EnableTransactionManagement
@@ -39,6 +40,11 @@ public class EnergyConfig {
 	@Bean
 	public EnergyDao energyDao() {
 		return new EnergyDao(dataSource());
+		
+	}
+	@Bean
+	public EnergyDao1 energyDao1() {
+		return new EnergyDao1(dataSource());
 		
 	}
 

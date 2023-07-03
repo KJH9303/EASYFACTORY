@@ -118,15 +118,6 @@ public class EnergyVO {
 	      return msg;
 	   }
 	
-	 public EnergyVO(java.sql.Date hiredate, double opratio, int costs, double usingratio, java.sql.Date hiredate1) {
-		 	this.hiredate = hiredate;
-	        this.opratio = opratio;
-	        this.costs = costs;
-	        this.usingratio = usingratio;
-	        this.hiredate = hiredate1;
-	    }
-
-	
 	}
 
 

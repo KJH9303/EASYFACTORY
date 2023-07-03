@@ -37,7 +37,8 @@ public class EnergyDao {
     	String sql ="SELECT ROUND(AVG(avg_opratio), 2) AS average_opratio "+
     			    "FROM FEB_DSUM "+
     			    "WHERE hiredate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
-        
+    	
+    
         return jdbcTemplate.query(sql, new Object[] {startDate, endDate}, new ResultSetExtractor<List<EnergyVO>>() {
             @Override
             public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
