@@ -15,18 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.energy.vo.EnergyVO;
 
-public class EnergyDao1 {
+public class EnergyDAO {
+	
     private JdbcTemplate jdbcTemplate;
 
-    public EnergyDao1(DataSource dataSource) {
+    public EnergyDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
-    @RequestMapping(value = "/energy", method = RequestMethod.GET)
-    public String energy() {
-        return "energyData";
-    }
-  
+    // 가동률
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
         String sql = "SELECT ROUND(AVG(avg_opratio), 2) AS average_opratio "
                 + "FROM FEB_DSUM "
@@ -48,6 +45,7 @@ public class EnergyDao1 {
         return list;
     }
     
+    // 온도
     public List<EnergyVO> getTemp(String startDate, String endDate) {
         String sql = "SELECT ROUND(AVG(AVG_TEMP), 0) AS AVG_TEMP "
                 + "FROM FEB_DSUM "
