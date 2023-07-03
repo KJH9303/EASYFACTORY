@@ -23,8 +23,7 @@ public class DataDao {
     }
 
     public List<FebVO> getTableData(Date startDate, Date endDate) {
-        // 여기에 쿼리를 작성하고, 데이터베이스에서 데이터를 가져오는 작업을 수행합니다.
-        // 시간 범위를 쿼리에 적용하려면 관련 날짜를 이용하세요.
+        // 여기에 쿼리를 작성하고, 데이터베이스에서 데이터를 가져오는 작업을 수행
         String SQL = "SELECT * FROM + your_table_name WHERE hiredate BETWEEN ? AND ?;";
 
         List<FebVO> resultList = jdbcTemplate.query(SQL, 

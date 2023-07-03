@@ -30,6 +30,11 @@ public class InsertDao {
         return processVO;
     }
 
+    /*
+     * 테이블에 데이터 insert 작업 수행
+     * 
+     * tableName : 데이터를 삽입할 테이블
+     */
     public void insertTable(String tableName) {
         Random random = new Random();
 
@@ -62,6 +67,9 @@ public class InsertDao {
         }
     }
 
+    /*
+     * 여러 개의 테이블에 대한 insertTable() 메소드 호출 (update 작업 수행)
+     */
     public void updateTables() {
         insertTable("feb1");
         insertTable("feb2");

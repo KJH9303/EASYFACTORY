@@ -22,6 +22,10 @@ public class DataController {
         this.dataDao = dataDao;
     }
     
+    /*
+     * startDate와 endDate는 필수적으로 입력을 받아야함.
+     * yyyy-MM-dd 형태로 입력받도록 요청파라미터를 어노테이션을 활용하여 변환함.
+     */
     @GetMapping("/fetch-data")
     public List<FebVO> fetchData(@RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                              @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
