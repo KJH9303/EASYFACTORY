@@ -1953,7 +1953,7 @@ video {
     align-items: center;
   }
 
-  .sm\:text-2xl {
+  .sm\:text-2xl { 
     font-size: 1.5rem;
     line-height: 2rem;
   }

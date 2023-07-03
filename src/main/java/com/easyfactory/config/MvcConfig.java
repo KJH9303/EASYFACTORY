@@ -32,7 +32,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		registry.addViewController("/member/login").setViewName("member/login");
 		// registry.addViewController("/energy/??").setViewName("energy/??");
 		registry.addViewController("/feb/febTest").setViewName("feb/febTest");
-		// registry.addViewController("/board").setViewName("board");
+		// registry.addViewController("/board").setViewName("board"); 
 	}
 /*
 	@Override
