@@ -102,6 +102,60 @@ public class EnergyDAO {
 
         return list;
     }
-}
+    public List<EnergyVO> getMonthlyCosts(String startDate) {
+        String sql = "WITH "
+                + "  date_input AS ("
+                + "    SELECT TO_DATE('" + startDate + "', 'YYYY-MM-DD') AS input_date FROM DUAL "
+                + "  ),"
+                + "  month_range AS ("
+                + "    SELECT EXTRACT(MONTH FROM ADD_MONTHS(input_date, LEVEL - 1)) AS mth "
+                + "    FROM date_input, DUAL "
+                + "    CONNECT BY LEVEL <= 12 - EXTRACT(MONTH FROM (SELECT input_date FROM date_input)) + 1 "
+                + "  ), "
+                + "  monthly_sum AS ("
+                + "    SELECT"
+                + "      EXTRACT(MONTH FROM HIREDATE) AS \"MONTH\","
+                + "      SUM(SUM_COSTS) AS \"MONTH_COST\" "
+                + "    FROM ("
+                + "      SELECT HIREDATE, SUM_COSTS "
+                + "      FROM FEB_DSUM, date_input "
+                + "      WHERE TRUNC(HIREDATE, 'MONTH') >= TRUNC(input_date, 'MONTH') "
+                + "        AND TRUNC(HIREDATE, 'MONTH') <= TRUNC(ADD_MONTHS(input_date, 12), 'YEAR') "
+                + "    ) "
+                + "    GROUP BY EXTRACT(YEAR FROM HIREDATE), EXTRACT(MONTH FROM HIREDATE) "
+                + "  ) "
+                + "SELECT "
+                + "  LISTAGG(\"MONTH_COST\", ', ') WITHIN GROUP (ORDER BY mth) as monthly_costs "
+                + "FROM   ("
+                + "  SELECT mr.mth, NVL(ms.\"MONTH_COST\", 0) as \"MONTH_COST\" "
+                + "  FROM month_range mr "
+                + "  LEFT JOIN monthly_sum ms ON mr.mth = ms.\"MONTH\" "
+                + ")";
+        // ... 기존 코드를 유지하면서 ...
+        
+      
 
+            List<EnergyVO> list = jdbcTemplate.query(sql,
+                    new ResultSetExtractor<List<EnergyVO>>() {
+                        public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                            List<EnergyVO> list = new ArrayList<>();
+
+                            if (rs.next()) {
+                                String monthly_costs_str = rs.getString(1);
+                                String[] monthly_costs = monthly_costs_str.split(", ");
+
+                                for (int i = 0; i < monthly_costs.length; i++) {
+                                    EnergyVO energyData = new EnergyVO();
+                                    energyData.setMonth(i + 1);
+                                    energyData.setMonthCosts(Integer.parseInt(monthly_costs[i]));
+                                    list.add(energyData);
+                                }
+                            }
+                            return list;
+                        }
+                    });
+
+            return list;
+        }
+    }
        

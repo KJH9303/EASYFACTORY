@@ -44,7 +44,7 @@ public class EnergyController {
         
         // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
         List<EnergyVO> energyOpratioList = energyService.getOpratio(startDate, endDate);
-        JSONArray jsonArray = energyService.JSONOpratioChange(energyOpratioList);
+        JSONArray jsonArray = energyService.JsonOpratioChange(energyOpratioList);
         writer.print(jsonArray.toJSONString());
     }
     
@@ -65,7 +65,7 @@ public class EnergyController {
         
         // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
         List<EnergyVO> energyTempList = energyService.getTemp(startDate, endDate);
-        JSONArray jsonArray = energyService.JSONTempChange(energyTempList);
+        JSONArray jsonArray = energyService.JsonTempChange(energyTempList);
         writer.print(jsonArray.toJSONString());
     }
     @PostMapping("/chart3")
@@ -84,7 +84,29 @@ public class EnergyController {
         // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
     
         List<EnergyVO> energyAllopratioList = energyService.getAllOpratio(startDate, endDate);
-        JSONArray jsonArray = energyService.JSONAllOpratioChange(energyAllopratioList);
+        JSONArray jsonArray = energyService.JsonAllOpratioChange(energyAllopratioList);
+        
+    
+         writer.print(jsonArray.toJSONString());
+    }
+    
+    @PostMapping("/chart4")
+    public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /chart4");
+
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        
+        // 웹에서 찍은 날짜 확인
+        String startDate = request.getParameter("startDate");
+        
+        System.out.printf("Parameter: startDate(%s)",startDate);
+        
+        // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
+    
+        List<EnergyVO> energyWeekcostsList = energyService.getMonthcosts(startDate);
+        JSONArray jsonArray = energyService.JsonMonthcostsChange(energyWeekcostsList);
         
     
          writer.print(jsonArray.toJSONString());

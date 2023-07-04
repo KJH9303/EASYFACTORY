@@ -16,6 +16,10 @@ public class EnergyVO {
     private Date hiredate;
     private double[] allopratio;
    
+    private int year;
+    private int month;
+    private int monthCosts;
+   
     public EnergyVO() {
     	
     }
@@ -49,6 +53,8 @@ public class EnergyVO {
 	   public void setAllopratio(double[] allopratio) {
 	      this.allopratio = allopratio;
 	   }
+	   
+	 
 	   public double getOpratio() {
 	      return opratio;
 	   }
@@ -97,22 +103,47 @@ public class EnergyVO {
 	   public void setHiredate(Date hiredate) {
 	      this.hiredate = hiredate;
 	   }
+	   public int getYear() {
+	        return year;
+	    }
 
-	@Override
-	public String toString() {
-		return "EnergyVO [date=" + date + ", startDate=" + startDate + ", endDate=" + endDate + ", opratio=" + opratio
-				+ ", temp=" + temp + ", tr=" + tr + ", fal=" + fal + ", stock=" + stock + ", costs=" + costs
-				+ ", usingratio=" + usingratio + ", hiredate=" + hiredate + ", allopratio=" + allopratio
-				+ ", getDate()=" + getDate() + ", getStartDate()=" + getStartDate() + ", getEndDate()=" + getEndDate()
-				+ ", getallOpratio()=" + getAllopratio() + ", getOpratio()=" + getOpratio() + ", getTemp()=" + getTemp()
-				+ ", getTr()=" + getTr() + ", getFal()=" + getFal() + ", getStock()=" + getStock() + ", getCosts()="
-				+ getCosts() + ", getUsingratio()=" + getUsingratio() + ", getHiredate()=" + getHiredate()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+	    public void setYear(int year) {
+	        this.year = year;
+	    }
+
+	    public int getMonth() {
+	        return month;
+	    }
+
+	    public void setMonth(int month) {
+	        this.month = month;
+	    }
+
+	    public int getMonthCosts() {
+	        return monthCosts;
+	    }
+
+	    public void setMonthCosts(int monthCosts) {
+	        this.monthCosts = monthCosts;
+	    }
+
+	  
+	    @Override
+	    public String toString() {
+	        return "EnergyVO [date=" + date + ", startDate=" + startDate + ", endDate=" + endDate + ", opratio=" + opratio
+	                + ", temp=" + temp + ", tr=" + tr + ", fal=" + fal + ", stock=" + stock + ", costs=" + costs
+	                + ", usingratio=" + usingratio + ", hiredate=" + hiredate + ", allopratio=" + allopratio
+	                + ", year=" + year + ", month=" + month + ", monthCost=" + monthCosts
+	                + ", getDate()=" + getDate() + ", getStartDate()=" + getStartDate() + ", getEndDate()=" + getEndDate()
+	                + ", getallOpratio()=" + getAllopratio() + ", getOpratio()=" + getOpratio() + ", getTemp()=" + getTemp()
+	                + ", getTr()=" + getTr() + ", getFal()=" + getFal() + ", getStock()=" + getStock() + ", getCosts()="
+	                + getCosts() + ", getUsingratio()=" + getUsingratio() + ", getHiredate()=" + getHiredate()
+	                + ", getYear()=" + getYear() + ", getMonth()=" + getMonth() + ", getMonthCost()=" + getMonthCosts()
+	                + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+	                + "]";
+	    }
 	}
-	   
 	
 	
-	}
 
 
