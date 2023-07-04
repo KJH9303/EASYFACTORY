@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../../../resources/member/css/signup.css" type="text/css">
+    <link rel="stylesheet" href="../../../resources/member/css/update.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
@@ -113,7 +113,7 @@
 			<form id="updateForm" name="updateForm" action="memberUpdateSubmit" method="post">
 				<div class="input-group">
 					<i class="fa fa-envelope"></i> 
-					<input type="text" id="id" name="id" value="${member.id}" readonly>
+					<input type="text" id="id" name="id" value="${member.id}" readonly style="border: none; background-color: rgba(180, 196, 255, 0.303);">
 				</div>
 				<div class="input-group">
 					<i class="fa fa-unlock-alt"></i>
@@ -126,9 +126,9 @@
 				<input type="hidden" id="phone" name="phone" value="${member.phone}" readonly>
 				<input type="hidden" id="email" name="email" value="${member.email}" readonly>
 				
-				<button type="button" id="updateBtn" style="text-decoration-line: none;">Update Info</button>
-				<button type="button" id="deleteBtn" style="text-decoration-line: none;">Leave Us</button>
-				<button type="button" id="cancelBtn" style="text-decoration-line: none;">Cancel</button>
+				<button type="button" id="updateBtn" style="color: white; text-decoration-line: none;">Update Info</button>
+				<button type="button" id="deleteBtn" style="color: white; text-decoration-line: none;">Leave Us</button>
+				<button type="button" id="cancelBtn" style="color: white; text-decoration-line: none;">Cancel</button>
 			</form>
 		</div>
 	</div>
