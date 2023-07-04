@@ -144,7 +144,6 @@
 <body>
  	
  
- 
     <div>
       <label>
         시작 날짜: <input type="text" id="startDate" name="startDate" />

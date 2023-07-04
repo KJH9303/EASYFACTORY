@@ -35,6 +35,8 @@ public class FebService {
 		febDAO.insertTable("feb6");
 		febDAO.insertTable("feb7");
 		febDAO.insertTable("feb8");
+		
+		System.out.println("FebService : updateTables 찍힘");
 	}
 	
 	public void startUpdateFeb() {

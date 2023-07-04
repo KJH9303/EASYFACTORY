@@ -1,5 +1,7 @@
 package com.ajaxEx.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +19,7 @@ public class LoginController {
 	
 	
 	@PostMapping("/login.post")
-	public String doLogin(Model model,
-			@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "name", required = false) String name,
-			@RequestParam(value = "email", required = false) String email) {
+	public String doLogin(Model model, @RequestParam(value = "id", required = true) String id, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "email", required = false) String email) {
 		
 		model.addAttribute("id", id);
 		model.addAttribute("name", name);
@@ -28,5 +27,19 @@ public class LoginController {
 		return "login";
 	}
 
+	@PostMapping("/login.post")
+	public String doLogin2(Model model, HttpServletRequest request) {
+		
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		
+		model.addAttribute("id", id);
+		model.addAttribute("name", name);
+		model.addAttribute("email", email);
+		
+		// jsp : ${id}
+		return "login";
+	}
 
 } 
