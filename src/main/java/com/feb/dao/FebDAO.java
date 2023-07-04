@@ -67,7 +67,6 @@ public class FebDAO {
         	 febVO.setCosts(rs.getInt("costs"));
         	 febVO.setUsingratio(rs.getDouble("usingratio"));
         	 febVO.setHiredate(rs.getDate("hiredate"));
-             // 필요한 다른 사용자 정보를 설정합니다.
              return febVO;
          }
     }
@@ -81,6 +80,48 @@ public class FebDAO {
 		return resultList;
     }
 // SelectDAO
+    // Chart에 테이블 데이터를 불러오는 메소드.
+	    public List<FebVO> getChartData1() {
+	    	String SQL = "SELECT * FROM feb1" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+	    public List<FebVO> getChartData2() {
+	    	String SQL = "SELECT * FROM feb2" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+	    public List<FebVO> getChartData3() {
+	    	String SQL = "SELECT * FROM feb3" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+	    public List<FebVO> getChartData4() {
+	    	String SQL = "SELECT * FROM feb4" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+	    public List<FebVO> getChartData5() {
+	    	String SQL = "SELECT * FROM feb5" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+	    public List<FebVO> getChartData6() {
+	    	String SQL = "SELECT * FROM feb6" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+	    public List<FebVO> getChartData7() {
+	    	String SQL = "SELECT * FROM feb7" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+	    public List<FebVO> getChartData8() {
+	    	String SQL = "SELECT * FROM feb8" ;
+	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
+			return resultList;
+	    }
+    
     
 // Author : kj9303
  	// Feb 데이터 가져오기
@@ -92,7 +133,6 @@ public class FebDAO {
 // Author : kj9303
  	
 // insertDAO
- 	// 특정 테이블에서 랜덤한 값을 "삽입"하는 메서드.
  	public void insertTable(String tableName) {
         Random random = new Random();
 
@@ -118,14 +158,12 @@ public class FebDAO {
                 System.out.println("[" + tableName.toUpperCase() + " 테이블의 INSERT 작업이 완료되었습니다.]");
 
             } catch (Exception e) {
-                // 예외 처리
                 e.printStackTrace();
                 System.out.println(">>> 날짜 " + currentDate + " INSERT 작업 중 예외가 발생하였습니다: " + e.getMessage());
             }
         }
     }
  	
- 	// 특정 테이블에서 랜덤한 값을 "업데이트"하는 메서드.
     public void updateTable(String tableName) {
         Random random = new Random();
 
@@ -149,14 +187,12 @@ public class FebDAO {
             java.sql.Date currentDate = java.sql.Date.valueOf(currentDateTime.toLocalDate());
 
             try {
-                // SQL UPDATE 쿼리문을 작성하여 실행.
                 String SQL = "UPDATE " + tableName + " SET opratio = ?, temp = ?, tr = ?, fal = ?, stock = ?, costs = ?, usingratio = ? WHERE hiredate = ?";
                 int result = jdbcTemplate.update(SQL, opratio, temp, tr, fal, stock, costs, usingratio, currentDate);
 
                 System.out.println("[" + tableName.toUpperCase() + " 테이블의 업데이트 작업이 완료되었습니다.]");
 
             } catch (Exception e) {
-                // 예외 처리.
                 e.printStackTrace();
                 System.out.println(">>> 날짜 " + currentDate + " 업데이트 작업 중 예외가 발생하였습니다: " + e.getMessage());
             }
@@ -164,63 +200,43 @@ public class FebDAO {
     }
 // insertDAO    
  
-
+// 임시 (추후 삭제예정)
 // MonthDataDao
     public void printMonthlyAvgOperationalRate() {
-    	// 데이터베이스에서 월별 평균 가동률을 구하는 SQL
         String sql = "SELECT EXTRACT(MONTH FROM hiredate) AS \"월\", AVG(opratio) AS \"가동률 평균\" FROM feb1 GROUP BY EXTRACT(MONTH FROM hiredate) ORDER BY EXTRACT(MONTH FROM hiredate)";
-        // SQL을 실행하고 결과를 List<Map> 형태로 받아옴
         List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
-        // 소수점 2자리까지만 출력하기 위한 DecimalFormat을 정의
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
-        // 출력
-        System.out.println("월별 가동률 평균값");
         for (Map<String, Object> row : resultList) {
-        	// 한달간 평균 가동률
         	BigDecimal avgOpratio = (BigDecimal) row.get("가동률 평균");
             System.out.println("월: " + row.get("월") + ", 가동률 평균: " + decimalFormat.format(avgOpratio));
         }
     }
 
-    
-
     public void printYearlyAvgTemperature() {
-    	// 데이터베이스에서 연도별 평균 온도를 구하는 SQL
         String sql = "SELECT TO_CHAR(hiredate, 'YYYY') AS \"당해\", AVG(TEMP) AS \"온도 평균\" FROM feb1 GROUP BY TO_CHAR(hiredate, 'YYYY')";
-        // SQL을 실행하고 결과를 List<Map> 형태로 받아옴
         List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
-        // 소수점 2자리까지만 출력하기 위한 DecimalFormat을 정의
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        // 출력
-        System.out.println("온도 평균값");
+        
         for (Map<String, Object> row : resultList) {
-        	// 연간 평균 온도
             BigDecimal avgTemp = (BigDecimal) row.get("온도 평균");
             System.out.println("당해: " + row.get("당해") + ", 온도 평균: " + decimalFormat.format(avgTemp));
         }
     }
 
     public void printMonthlyElectricityUsage() {
-    	// 데이터베이스에서 월별 전기 사용량을 구하는 SQL
         String sql = "SELECT EXTRACT(MONTH FROM hiredate) AS \"월\", SUM(usingratio) AS \"월별 전기사용량\" FROM feb1 GROUP BY EXTRACT(MONTH FROM HIREDATE) ORDER BY EXTRACT(MONTH FROM HIREDATE)";
-        // SQL을 실행하고 결과를 List<Map> 형태로 받아옴
         List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
-        // 출력
-        System.out.println("월별 전기사용량");
+
         for (Map<String, Object> row : resultList) {
             System.out.println("월: " + row.get("월") + ", 월별 전기사용량: " + row.get("월별 전기사용량"));
         }
     }
 
     public void printMonthlyCost() {
-    	// 데이터베이스에서 월별 비용을 구하는 SQL
         String sql = "SELECT EXTRACT(MONTH FROM hiredate) AS \"월\", SUM(costs) AS \"월별 비용\" FROM feb1 GROUP BY EXTRACT(MONTH FROM HIREDATE) ORDER BY EXTRACT(MONTH FROM HIREDATE)";
-        // SQL을 실행하고 결과를 List<Map> 형태로 받아옴
         List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
 
-        // 출력
-        System.out.println("월별 비용");
         for (Map<String, Object> row : resultList) {
             System.out.println("월: " + row.get("월") + ", 월별 비용: " + row.get("월별 비용"));
         }
