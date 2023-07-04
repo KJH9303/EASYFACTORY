@@ -134,42 +134,42 @@
 </script>
 </head>
 <body>
-	<ul class="slideshow">
-		<li><span></span></li>
-		<li><span></span></li>
-		<li><span></span></li>
-		<li><span></span></li>
-		<li><span></span></li>
-	</ul>
 	<div class="formContainer">
 		<div class="signin">
 			<div class="signup">
 				<div class="logo"></div>
 				<div class="internal-form">
-				<input type="text" id="codeValue" name="codeValue" value="${member.code}">
+				<input type="hidden" id="codeValue" name="codeValue" value="${member.code}">
 					<form id="updateForm" name="updateForm" action="/member/updateSubmit" method="post">
 						<label><input type="radio" class="codeBtn" name="code" id="inCode" value="INTERNAL" /> INTERNAL</label>
     					<label><input type="radio" class="codeBtn" name="code" id="exCode" value="EXTERNAL" /> EXTERNAL</label>
-						<div class="input-group">
-							<input type="text" id="department" name="department" value="${member.department}" placeholder="부서명">
+						<div class="input-group" style="padding-top: 30px">
+							UserID
+							<input type="text" id="id" name="id" placeholder="UserID" value="${member.id}" readonly style="border: none; background-color: rgba(180, 196, 255, 0.303);">
 						</div>
 						<div class="input-group">
-							<input type="text" id="id" name="id" placeholder="UserID" value="${member.id}" readonly>
+							부서명 / 거래처명
+							<input type="text" id="department" name="department" value="${member.department}">
 						</div>
 						<div class="input-group">
-							<input type="text" id="name" name="name" value="${member.name}" placeholder="Name">
+							Name
+							<input type="text" id="name" name="name" value="${member.name}">
 						</div>
 						<div class="input-group">
-							<input type="text" id="phone" name="phone" value="${member.phone}" placeholder="Phone Number">
+							Phone
+							<input type="text" id="phone" name="phone" value="${member.phone}">
 						</div>
 						<div class="input-group">
-							<input type="text" id="email" name="email" value="${member.email}" placeholder="Email">
+							Email
+							<input type="text" id="email" name="email" value="${member.email}">
 						</div>
 						<div class="input-group">
-							<input type="password" id="pw" name="pw" placeholder="Password" placeholder="Password">
+							Password
+							<input type="password" id="pw" name="pw">
 						</div>
 						<div class="input-group">
-							<input type="password" id="repw" name="repw" placeholder="Retype-Password" placeholder="Retype-Password">
+							Retype-Password
+							<input type="password" id="repw" name="repw">
 						</div>
 						<div id="pwCheckMsg"></div>
 						<button type="button" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
