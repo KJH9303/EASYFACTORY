@@ -1,5 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="org.json.*" %>
+<%@ page import="org.json.simple.*"%>
 <%@ page import="com.easyfactory.config.OracleInfo" %>
 
 <%
@@ -26,7 +27,7 @@
             row.put("costs", resultSet.getInt("costs"));
             row.put("usingratio", resultSet.getDouble("usingratio"));
             row.put("hiredate", resultSet.getDate("hiredate").toString());
-            jsonArray.put(row);
+            jsonArray.add(row);
         }
 
         response.setContentType("application/json");
