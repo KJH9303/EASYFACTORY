@@ -73,7 +73,7 @@ public class MemberController {
     		session.setAttribute("member", null);
     	} else {
     		session.setAttribute("member", signIn);
-    		session.setMaxInactiveInterval(1 * 60);
+    		session.setMaxInactiveInterval(10 * 60); // 세션 유지 시간 : 10분
     	}
     	return "/main";
     }
@@ -83,7 +83,7 @@ public class MemberController {
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	HttpSession session = request.getSession();
     	session.invalidate();
-    	return "redirect:/main";
+    	return "/main";
     }
     
     // 회원정보 수정
@@ -92,7 +92,18 @@ public class MemberController {
     	memberService.update(memberVO);
     	HttpSession session = request.getSession();
     	session.setAttribute("member", memberVO);
-    	session.setMaxInactiveInterval(1 * 60);
+    	session.setMaxInactiveInterval(10 * 60); // 세션 유지 시간 : 10분
+    	return "redirect:/main";
+    }
+    
+    // 회원 탈퇴
+    @RequestMapping(value="/delete", method=RequestMethod.GET)
+    public String delete(HttpSession session, HttpServletRequest request) throws Exception {
+    	MemberVO memberVO = (MemberVO) session.getAttribute("member");
+    	String id = memberVO.getId();
+    	memberService.delete(id);
+    	session.invalidate();
+    	System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmm" + session);
     	return "redirect:/main";
     }
     

@@ -115,4 +115,10 @@ public class MemberDAO {
 				, memberVO.getRepw()
 				, memberVO.getId());
 	}
+	
+	// 회원 탈퇴
+	public void delete(String id) {
+		String SQL = "DELETE FROM MEMBER WHERE ID = ?";
+		jdbcTemplate.update(SQL, id);
+	}
 }

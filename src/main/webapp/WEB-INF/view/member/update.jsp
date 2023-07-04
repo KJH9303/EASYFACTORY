@@ -5,14 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Update</title>
-<link rel="stylesheet" href="../../../resources/member/css/signup.css">
+<link rel="stylesheet" href="../../../resources/member/css/update.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
 		var id = $("#id").val();
 		var codeValue = $("#codeValue").val();
 		
-		if(codeValue == "INTERNAL") {
+		if (codeValue == "INTERNAL") {
 			$("#inCode").prop("checked", true);
 			$("#exCode").prop("checked", false);
 		} else if(codeValue == "EXTERNAL") {
@@ -20,29 +20,34 @@
 			$("#exCode").prop("checked", true);
 		}
 		
-		if(id == null || id == "") {
+		if (id == null || id == "") {
 			alert("잘못된 접근입니다.");
 			location.href="/main";
 		}
 		
+		// 메인 페이지
 		$("#mainBtn").on('click', function() {
 			location.href="/main";
 		});
-		$("#signupBtn").on('click', function() {
-			location.href="/member/signup";
+		
+		// 뒤로가기
+		$("#backBtn").on('click', function() {
+			history.back();
 		});
 		
+		// 비밀번호 & 비밀번호 확인 값 체크
 		$("#repw").on("propertychange change keyup paste input", function() {
 			var pw = $("#pw").val();
 			var repw = $("#repw").val();
 			
-			if(pw === repw) {
+			if (pw === repw) {
 				$("#pwCheckMsg").text("두 값이 일치합니다.");
 			} else {
 				$("#pwCheckMsg").text("비밀번호와 비밀번호 확인 값이 다릅니다.");
 			}
 		});
 		
+		// 회원 정보 수정
 		$("#submitBtn").on('click', function() {
 			var code = $(":input:radio[name=code]:checked").val();
 			var department = $("#department").val();
@@ -57,19 +62,19 @@
 			
 			$('input:radio[name=code]:input[value=' + code + ']').attr("checked", true);
 			
-			if( department == '' || department == null ){
+			if (department == '' || department == null) {
 			    alert( '부서명을 입력해주세요' );
 			    $("#department").focus();
 			    return false;
 			}
 			
-			if( name == '' || name == null ){
+			if (name == '' || name == null) {
 			    alert( '이름을 입력해주세요' );
 			    $("#name").focus();
 			    return false;
 			}
 			
-			if( phone == '' || phone == null ){
+			if (phone == '' || phone == null) {
 			    alert( '전화번호를 입력해주세요' );
 			    $("#phone").focus();
 			    return false;
@@ -81,7 +86,7 @@
 		        return false;
 		    }
 			
-			if( email == '' || email == null ){
+			if (email == '' || email == null) {
 			    alert( '이메일을 입력해주세요' );
 			    $("#email").focus();
 			    return false;
@@ -93,26 +98,26 @@
 		        return false;
 		    }
 			
-			if( pw == '' || pw == null ){
+			if (pw == '' || pw == null) {
 			    alert( '비밀번호를 입력해주세요' );
 			    $("#pw").focus();
 			    return false;
 			}
 			
-			if( repw == '' || repw == null ){
+			if (repw == '' || repw == null) {
 			    alert( '비밀번호 확인 값을 입력해주세요' );
 			    $("#repw").focus();
 			    return false;
 			}
 			
-			if( pw != repw){
+			if (pw != repw) {
 			    alert( '입력한 비밀번호 값이 다릅니다.' );
 			    $("#repw").focus();
 			    return false;
 			
 			}
 			
-			if( idDupChk == 'unChecked'){
+			if (idDupChk == 'unChecked') {
 			    alert( '중복확인 해주세요' );
 			    $("#id").focus();
 			    return false;

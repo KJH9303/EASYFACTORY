@@ -60,6 +60,50 @@
 		        $('#id').focus();
 		    }
 		});
+    	
+		$("#deleteBtn").on('click', function() {
+			var id = $("#id").val();
+			var pw = $("#pw").val();
+			var idRegExp = /[^A-Za-z0-9]/gi;
+			
+			if (pw == '') {
+				$("#message").text("비밀번호를 입력하세요");
+		        $('#pw').focus();
+		        return;
+		    }
+			
+			if (id.trim().length != 0 && pw.trim().length != 0) {
+				$.ajax({
+			        url: "/member/idAndPwCheck",
+			        type: "POST",
+			        data: {
+			        	id: id
+			        	, pw: pw
+			        	},
+			        success: function (result) {
+			            if (result === "exist") {
+			            	var result = confirm("회원 탈퇴를 진행합니다.");
+			    			if(result){
+			    			    alert("정상적으로 탈퇴되었습니다.");
+			    			    location.href="/member/delete";
+			    			}else{
+			    			    alert("취소하였습니다.");
+			    			    history.back();
+			    			}
+			            } else {
+			                $("#message").text("비밀번호가 틀립니다.");
+			            	return;
+			            }
+			        },
+			        error: function (xhr, status, error) {
+			            console.error(error);
+			        }
+			    });
+			}else {
+				alert('입력값을 다시 확인하세요');
+		        $('#id').focus();
+		    }
+		});
     });
     </script>
 </head>
@@ -76,15 +120,15 @@
 					<input type="password" id="pw" name="pw" placeholder="Password">
 				</div>
 					<div id="message"></div>
+				<input type="hidden" id="code" name="code" value="${member.code}" readonly>
+				<input type="hidden" id="department" name="department" value="${member.department}" readonly>
+				<input type="hidden" id="name" name="name" value="${member.name}" readonly>
+				<input type="hidden" id="phone" name="phone" value="${member.phone}" readonly>
+				<input type="hidden" id="email" name="email" value="${member.email}" readonly>
 				
-				<button type="button" id="updateBtn" style="text-decoration-line: none;">Confirm</button>
+				<button type="button" id="updateBtn" style="text-decoration-line: none;">Update Info</button>
+				<button type="button" id="deleteBtn" style="text-decoration-line: none;">Leave Us</button>
 				<button type="button" id="cancelBtn" style="text-decoration-line: none;">Cancel</button>
-				
-				<input type="text" id="code" name="code" value="${member.code}" readonly>
-				<input type="text" id="department" name="department" value="${member.department}" readonly>
-				<input type="text" id="name" name="name" value="${member.name}" readonly>
-				<input type="text" id="phone" name="phone" value="${member.phone}" readonly>
-				<input type="text" id="email" name="email" value="${member.email}" readonly>
 			</form>
 		</div>
 	</div>

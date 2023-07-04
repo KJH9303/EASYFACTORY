@@ -39,5 +39,10 @@ public class MemberService {
 		memberDAO.update(memberVO);
 	}
 	
+	// 회원 탈퇴
+	public void delete(String id) {
+		memberDAO.delete(id);
+	}
+	
 	
 }
