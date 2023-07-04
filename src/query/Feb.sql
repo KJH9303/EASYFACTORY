@@ -87,38 +87,6 @@ CREATE TABLE FEB8 (
     hiredate     DATE
 );
 
-SELECT EXTRACT(MONTH FROM HIREDATE) AS Month, COUNT(*) AS TotalOrders
-FROM FEB1
-GROUP BY EXTRACT(MONTH FROM HIREDATE)
-ORDER BY EXTRACT(MONTH FROM HIREDATE);
-
-------월별 가동률 평균값 구하기-------
-SELECT TO_CHAR(hiredate, 'YYYY-MM') AS "월",
-       AVG(opratio) AS "가동률 평균"
-FROM feb1
-GROUP BY EXTRACT(MONTH FROM HIREDATE)
-
-------온도 평균값 구하기-------
-SELECT TO_CHAR(hiredate, 'YYYY') AS "당해",
-        AVG(TEMP) AS "온도 평균"
-from feb1
-GROUP BY TO_CHAR(hiredate, 'YYYY');
-
-
-------월별 전기사용량 구하기-------
-SELECT TO_CHAR(hiredate, 'YYYY-MM') AS "월",
-       AVG(usingratio) AS "월별 전기사용량"
-FROM feb1
-GROUP BY TO_CHAR(hiredate, 'YYYY-MM');
-
-
-------월별 비용 구하기-------
-SELECT TO_CHAR(hiredate, 'YYYY-MM') AS "월",
-        sum(costs) AS "월별 비용"
-FROm feb1
-GROUP BY TO_CHAR(hiredate, 'YYYY-MM');
-
-
 SELECT stock FROM FEB8;
 
 commit;
