@@ -11,6 +11,8 @@ import com.energy.dao.EnergyDAO;
 import com.energy.service.EnergyService;
 import com.feb.dao.FebDAO;
 import com.feb.service.FebService;
+import com.issue.dao.IssueDAO;
+import com.issue.service.IssueService;
 import com.member.dao.MemberDAO;
 import com.member.service.MemberService;
 
@@ -78,5 +80,17 @@ public class AppCtx {
 	@Bean
 	public EnergyService energyService() {
 		return new EnergyService(energyDAO());
+	}
+	
+	// com.issue.*
+	@Bean
+	public IssueDAO issueDAO() {
+		System.out.println("[EnergyDAO] energyDAO()");
+		return new IssueDAO(dataSource());
+	}
+	
+	@Bean
+	public IssueService issueService() {
+		return new IssueService(issueDAO());
 	}
 }

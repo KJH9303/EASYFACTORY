@@ -8,6 +8,8 @@ import com.energy.controller.EnergyController;
 import com.energy.service.EnergyService;
 import com.feb.controller.FebController;
 import com.feb.service.FebService;
+import com.issue.controller.IssueController;
+import com.issue.service.IssueService;
 import com.member.controller.MemberController;
 import com.member.service.MemberService;
 
@@ -25,6 +27,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private EnergyService energyService;
+	
+	@Autowired
+	private IssueService issueService;
 	
 	@Bean
 	public MemberController memberController() {
@@ -45,6 +50,13 @@ public class ControllerConfig {
 		EnergyController energyController = new EnergyController();
 		energyController.setEnergyService(energyService);
 		return energyController;
+	}
+	
+	@Bean
+	public IssueController issueController() {
+		IssueController issueController = new IssueController();
+		issueController.setIssueService(issueService);
+		return issueController;
 	}
 
 }

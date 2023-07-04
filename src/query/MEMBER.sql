@@ -12,7 +12,7 @@ CREATE TABLE MEMBER (
       , REPW VARCHAR2(50) NOT NULL
       , PRIMARY KEY(ID)
 );
-drop table member;
+
 ----------------------------------------
 ---- 내부인 테스트 회원 데이터 삽입 ----
 ----------------------------------------
@@ -75,7 +75,3 @@ SELECT
 FROM MEMBER;
 
 commit;
-
-
-SELECT COUNT(*) FROM MEMBER WHERE UPPER(ID) = UPPER('ezen') and pw = '1234';
-SELECT CODE, DEPARTMENT, ID, NAME, PHONE, EMAIL, PW, REPW FROM MEMBER WHERE UPPER(ID) = UPPER('EXTERNALTEST') AND PW = 'EXTERNALTEST'
