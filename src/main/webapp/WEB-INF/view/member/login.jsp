@@ -75,35 +75,35 @@
 </script>
 </head>
 <body>
-	<ul class="slideshow">
-		<li><span></span></li>
-		<li><span></span></li>
-		<li><span></span></li>
-		<li><span></span></li>
-		<li><span></span></li>
-	</ul>
+  <!-- 배경이미지 -->
+  <ul class="slideshow">
+    <li><span></span></li>
+    <li><span></span></li>
+    <li><span></span></li>
+    <li><span></span></li>
+    <li><span></span></li>
+  </ul>
+  <!-- 로그인 컨테이너 -->
 	<div class="formContainer">
 		<div class="signin">
 			<form id="loginForm" name="loginForm" action="/member/loginSubmit" method="post">
 				<div class="logo">
 					<img src="../../resources/img/logo.jpeg">
-					<i class="fa fa-user-circle-o"></i>
 				</div>
 				<div class="input-group">
-					<i class="fa fa-envelope"></i> 
 					<input type="text" id="id" name="id" placeholder="id">
 				</div>
 				<div class="input-group">
-					<i class="fa fa-unlock-alt"></i>
 					<input type="password" id="pw" name="pw" placeholder="Password">
 				</div>
-					<div id="message"></div>
+				<div id="message"></div>
 				
-				
+				<!-- 로그인 버튼 -->
 				<button type="button" id="loginBtn" style="color: white; text-decoration-line: none;">Login</button>
+        <!-- 회원가입 버튼 -->
 				<button type="button" id="signupBtn" style="color: white; text-decoration-line: none;">Sign Up</button>
-				<br/>
-				<button type="button" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
+        <!-- 메인페이지로 이동 -->
+				<button type="button" class="main" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
 			</form>
 		</div>
 	</div>

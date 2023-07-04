@@ -119,7 +119,7 @@
       var endDate = $("#endDate").val();
 
       $.ajax({
-        url: "/EASYFACTORY/chart4",
+        url: "/energy/chart2",
         type: "POST",
         data: { startDate: startDate, endDate: endDate },
         success: function(data) {

@@ -26,6 +26,9 @@ public class EnergyService {
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
         return energyDAO.getOpratio(startDate, endDate);
     }
+    public List<EnergyVO> getAllOpratio(String startDate, String endDate) {
+        return energyDAO.getAllOpratio(startDate, endDate);
+    }
     
     // DB에서 받은 데이터 Json으로 변환
     public JSONArray JSONOpratioChange(List<EnergyVO> energyOpratioList) {
@@ -43,4 +46,19 @@ public class EnergyService {
         }
         return jsonArray;
     }
+    
+
+    public JSONArray JSONAllOpratioChange(List<EnergyVO> energyAllopratioList) {
+        JSONArray jsonArray = new JSONArray();
+        for (EnergyVO energyData : energyAllopratioList) {
+            
+        	double[] vals =  energyData.getAllopratio();
+        	for( double val : vals) {
+        		jsonArray.add(val);
+        	}
+            
+        }
+        return jsonArray;
+    }
+
 }

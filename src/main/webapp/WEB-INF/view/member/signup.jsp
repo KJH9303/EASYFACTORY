@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SignUp</title>
-<link rel="stylesheet" href="../../../resources/member/css/signup.css">
+<link rel="stylesheet" href="../../../resources/member/css/signup.css?after">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -176,12 +176,13 @@
 						<div class="input-group">
 							<input type="text" id="department" name="department" value="" placeholder="부서명">
 						</div>
-						<div class="input-group">
+						<div class="input-group2">
 							<input type="text" id="id" name="id" placeholder="UserID">
-							<input type="button" id="btnDuplicate" value="중복체크"/>
-							<input type="text" id="idDupChk" value="unChecked"/>
-							<div id="message"></div>
+							<input type="button" class="idcheck" id="btnDuplicate" value="중복체크"/>
+							<input type="hidden" id="idDupChk" value="unChecked"/>
 						</div>
+                        <!-- 아이디 확인 메세지 -->
+                        <div id="message"></div>
 						<div class="input-group">
 							<input type="text" id="name" name="name" placeholder="Name">
 						</div>
@@ -197,9 +198,12 @@
 						<div class="input-group">
 							<input type="password" id="repw" name="repw" placeholder="Retype-Password">
 						</div>
-						<button type="button" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
+                        <!-- 로그인 버튼 -->
 						<button type="button" id="loginBtn" style="color: white; text-decoration-line: none;">Login</button>
+                        <!-- 회원가입 버튼 -->
 						<button type="button" id="submitBtn" style="color: white; text-decoration-line: none;">Sign Up</button>
+                        <!-- 메인페이지 이동 -->
+                        <button type="button" class="main" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
 					</form>
 				</div>
 			</div>

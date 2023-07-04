@@ -29,8 +29,8 @@ public class EnergyController {
 	}
     
     // 가동률:Opratio datepicker
-    @PostMapping("/chart3")
-    public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @PostMapping("/chart1")
+    public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart3");
 
         request.setCharacterEncoding("utf-8");
@@ -49,8 +49,8 @@ public class EnergyController {
     }
     
     // 온도 datepicker
-    @PostMapping("/chart4")
-    public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @PostMapping("/chart2")
+    public void doChart2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart4");
 
         request.setCharacterEncoding("utf-8");
@@ -66,7 +66,31 @@ public class EnergyController {
         // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
         List<EnergyVO> energyTempList = energyService.getTemp(startDate, endDate);
         JSONArray jsonArray = energyService.JSONTempChange(energyTempList);
+        writer.print(jsonArray.toJSONString());
     }
+    @PostMapping("/chart3")
+    public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /chart3");
+
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        
+        // 웹에서 찍은 날짜 확인
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
+        
+        // DB에서 찾은 데이터 jsonarray 형태로 변환후 차트로 전송
+    
+        List<EnergyVO> energyAllopratioList = energyService.getAllOpratio(startDate, endDate);
+        JSONArray jsonArray = energyService.JSONAllOpratioChange(energyAllopratioList);
+        
+    
+         writer.print(jsonArray.toJSONString());
+    }
+    
+
 }
       /*
         startDate와 endDate를 Date 타입으로 변환

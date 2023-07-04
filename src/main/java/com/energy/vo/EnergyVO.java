@@ -14,6 +14,7 @@ public class EnergyVO {
     private int costs;
     private double usingratio;
     private Date hiredate;
+    private double[] allopratio;
    
     public EnergyVO() {
     	
@@ -42,7 +43,12 @@ public class EnergyVO {
         this.date = date;
     }
     
-	  
+       public double[] getAllopratio() {
+	      return allopratio;
+	   }
+	   public void setAllopratio(double[] allopratio) {
+	      this.allopratio = allopratio;
+	   }
 	   public double getOpratio() {
 	      return opratio;
 	   }
@@ -92,31 +98,20 @@ public class EnergyVO {
 	      this.hiredate = hiredate;
 	   }
 
-	   public EnergyVO(
-			   double opratio
-			   , int temp
-			   , int tr
-			   , int fal
-			   , int stock
-			   , int costs
-			   , double usingratio
-			   , Date hiredate) {
-	      this.opratio = opratio;
-	      this.temp = temp;
-	      this.tr = tr;
-	      this.fal = fal;
-	      this.stock = stock;
-	      this.costs = costs;
-	      this.usingratio = usingratio;
-	      this.hiredate = hiredate;
-	   }
-	   
 	@Override
-	   public String toString() {
-	      String msg = String.format("process [opratio=" + opratio + ", temp=" + temp + ", tr=" + tr + ", fal=" + fal + ", stock=" + stock + ", costs=" + costs
-	            + ", usingratio=" + usingratio + ", hiredate=" + hiredate + "]");
-	      return msg;
-	   }
+	public String toString() {
+		return "EnergyVO [date=" + date + ", startDate=" + startDate + ", endDate=" + endDate + ", opratio=" + opratio
+				+ ", temp=" + temp + ", tr=" + tr + ", fal=" + fal + ", stock=" + stock + ", costs=" + costs
+				+ ", usingratio=" + usingratio + ", hiredate=" + hiredate + ", allopratio=" + allopratio
+				+ ", getDate()=" + getDate() + ", getStartDate()=" + getStartDate() + ", getEndDate()=" + getEndDate()
+				+ ", getallOpratio()=" + getAllopratio() + ", getOpratio()=" + getOpratio() + ", getTemp()=" + getTemp()
+				+ ", getTr()=" + getTr() + ", getFal()=" + getFal() + ", getStock()=" + getStock() + ", getCosts()="
+				+ getCosts() + ", getUsingratio()=" + getUsingratio() + ", getHiredate()=" + getHiredate()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
+	   
+	
 	
 	}
 
