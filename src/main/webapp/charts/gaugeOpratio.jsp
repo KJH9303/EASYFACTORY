@@ -156,7 +156,7 @@ $(document).ready(function() {
       var endDate = $("#endDate").val();
 
       $.ajax({
-        url: "/SMFAjax23SP/chart3",
+        url: "/energy/chart1",
         type: "POST",
         data: { startDate: startDate, endDate: endDate },
         success: function(data) {
