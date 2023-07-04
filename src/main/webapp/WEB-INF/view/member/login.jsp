@@ -47,12 +47,12 @@
 			
 			if (id.trim().length != 0 && pw.trim().length != 0) {
 				$.ajax({
-			        url: "/member/loginCheck",
+			        url: "/member/idAndPwCheck",
 			        type: "POST",
 			        data: {
-			        	id: id
-			        	, pw: pw
-			        	},
+			        		id: id
+			        		, pw: pw
+			        		},
 			        success: function (result) {
 			            if (result === "exist") {
 			                alert("로그인 성공")

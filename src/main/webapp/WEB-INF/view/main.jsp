@@ -20,7 +20,7 @@
     	
     	// 회원정보 수정
     	$("#memUpdateBtn").on('click', function() {
-			location.href="/member/updateCheck";
+			location.href="/member/update";
 		});
     	
     	// 로그아웃
@@ -89,6 +89,10 @@
 	<c:if test="${member.id != null}">
 		<p>${member.id} 님 환영합니다.</p>
 		<p>${member.name} 님 환영합니다.</p>
+		<p>내/외부인 : ${member.code}</p>
+		<p>부서/거래처명 : ${member.department}</p>
+		<p>이메일 : ${member.email}</p>
+		<p>연락처 : ${member.phone}</p>
 		<button type="button" id="memUpdateBtn">회원정보 수정</button>
 		<button type="button" id="logoutBtn">로그아웃</button>
 	</c:if>

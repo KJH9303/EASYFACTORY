@@ -21,16 +21,16 @@
 			var idRegExp = /[^A-Za-z0-9]/gi;
 			
 			if (id == '') {
-				$("#message").text("ID를 입력하세요");
+				$("#idCheckMsg").text("ID를 입력하세요");
 		        $('#id').focus();
 		        return;
 		    }
 			if (id.search(/\s/) != -1) {
-				$("#message").text("아이디에는 공백이 삽입될 수 없습니다.");
+				$("#idCheckMsg").text("아이디에는 공백이 삽입될 수 없습니다.");
 		        return;
 		    }
 			if (idRegExp.test(id)) {
-				$("#message").text("아이디에는 한글 또는 특수문자가 삽입될 수 없습니다.");
+				$("#idCheckMsg").text("아이디에는 한글 또는 특수문자가 삽입될 수 없습니다.");
 		        return;
 			}
 			if (id.trim().length != 0) {
@@ -41,11 +41,11 @@
 				        success: function (result) {
 				            if (result === "duplicate") {
 				                // 중복된 ID가 존재하는 경우 처리
-				                $("#message").text("중복된 ID입니다.");
+				                $("#idCheckMsg").text("중복된 ID입니다.");
 				                $("#idDupChk").val("unChecked");
 				            } else {
 				                // 중복되지 않은 ID인 경우 처리
-				                $("#message").text("사용 가능한 ID입니다.");
+				                $("#idCheckMsg").text("사용 가능한 ID입니다.");
 				                $("#idDupChk").val("Checked");
 				            }
 				        },
@@ -54,7 +54,7 @@
 				        }
 				    });
 			} else {
-				$("#message").text("ID를 입력하세요");
+				$("#idCheckMsg").text("ID를 입력하세요");
 		        $('#id').focus();
 		    }
 		});
@@ -66,6 +66,17 @@
 			}
 			if($(this).val() == 'EXTERNAL') {
 				$('#department').attr("placeholder", "거래처명");
+			}
+		});
+		
+		$("#repw").on("propertychange change keyup paste input", function() {
+			var pw = $("#pw").val();
+			var repw = $("#repw").val();
+			
+			if(pw === repw) {
+				$("#pwCheckMsg").text("두 값이 일치합니다.");
+			} else {
+				$("#pwCheckMsg").text("비밀번호와 비밀번호 확인 값이 다릅니다.");
 			}
 		});
 		
@@ -133,7 +144,7 @@
 			}
 			
 			if( repw == '' || repw == null ){
-			    alert( '비밀번호 확인 입력해주세요' );
+			    alert( '비밀번호 확인 값을 입력해주세요' );
 			    $("#repw").focus();
 			    return false;
 			}
@@ -171,8 +182,8 @@
 				<div class="logo"></div>
 				<div class="internal-form">
 					<form id="signupForm" name="signupForm" action="/member/signupSubmit" method="post">
-						<label><input type="radio" name="code" value="INTERNAL" checked /> INTERNAL</label>
-    					<label><input type="radio" name="code" value="EXTERNAL" /> EXTERNAL</label>
+						<label><input type="radio" class="codeBtn" name="code" id="inCode" value="INTERNAL" checked /> INTERNAL</label>
+    					<label><input type="radio" class="codeBtn" name="code" id="exCode" value="EXTERNAL" /> EXTERNAL</label>
 						<div class="input-group">
 							<input type="text" id="department" name="department" value="" placeholder="부서명">
 						</div>
@@ -182,7 +193,7 @@
 							<input type="hidden" id="idDupChk" value="unChecked"/>
 						</div>
                         <!-- 아이디 확인 메세지 -->
-                        <div id="message"></div>
+                        <div id="idCheckMsg"></div>
 						<div class="input-group">
 							<input type="text" id="name" name="name" placeholder="Name">
 						</div>
@@ -198,6 +209,7 @@
 						<div class="input-group">
 							<input type="password" id="repw" name="repw" placeholder="Retype-Password">
 						</div>
+						<div id="pwCheckMsg"></div>
                         <!-- 로그인 버튼 -->
 						<button type="button" id="loginBtn" style="color: white; text-decoration-line: none;">Login</button>
                         <!-- 회원가입 버튼 -->

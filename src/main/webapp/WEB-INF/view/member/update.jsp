@@ -1,109 +1,184 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="kor">
 <head>
-    <meta charset="UTF-8">
-    <title>MainPage</title>
-    <link rel="stylesheet" href="../resources/css/Main.css" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function() {
-    	
-    	// 회원정보 수정
-    	$("#memUpdateBtn").on('click', function() {
-			location.href="/update";
+<meta charset="UTF-8">
+<title>Update</title>
+<link rel="stylesheet" href="../../../resources/member/css/signup.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var id = $("#id").val();
+		var codeValue = $("#codeValue").val();
+		
+		if(codeValue == "INTERNAL") {
+			$("#inCode").prop("checked", true);
+			$("#exCode").prop("checked", false);
+		} else if(codeValue == "EXTERNAL") {
+			$("#inCode").prop("checked", false);
+			$("#exCode").prop("checked", true);
+		}
+		
+		if(id == null || id == "") {
+			alert("잘못된 접근입니다.");
+			location.href="/main";
+		}
+		
+		$("#mainBtn").on('click', function() {
+			location.href="/main";
 		});
-    	
-    	// 로그아웃
-    	$("#logoutBtn").on('click', function() {
-			location.href="/logout";
+		$("#signupBtn").on('click', function() {
+			location.href="/member/signup";
 		});
-    	
-        function updateTime() {
-            var currentTime = new Date();
-            var hours = currentTime.getHours();
-            var minutes = currentTime.getMinutes();
-            var seconds = currentTime.getSeconds();
-            var year = currentTime.getFullYear();
-            var month = ("0" + (currentTime.getMonth() + 1)).slice(-2);
-            var day = ("0" + currentTime.getDate()).slice(-2);
-    
-            hours = ("0" + hours).slice(-2);
-            minutes = ("0" + minutes).slice(-2);
-            seconds = ("0" + seconds).slice(-2);
-    
-            var timeString = hours + ":" + minutes + ":" + seconds;
-            var dateString = year + "/" + month + "/" + day;
-    
-            document.getElementById("time").innerHTML = timeString;
-            document.getElementById("date").innerHTML = dateString;
-        }
-        setInterval(updateTime, 1000);
-    });
-    </script>
+		
+		$("#repw").on("propertychange change keyup paste input", function() {
+			var pw = $("#pw").val();
+			var repw = $("#repw").val();
+			
+			if(pw === repw) {
+				$("#pwCheckMsg").text("두 값이 일치합니다.");
+			} else {
+				$("#pwCheckMsg").text("비밀번호와 비밀번호 확인 값이 다릅니다.");
+			}
+		});
+		
+		$("#submitBtn").on('click', function() {
+			var code = $(":input:radio[name=code]:checked").val();
+			var department = $("#department").val();
+			var idDupChk = $("#idDupChk").val();
+			var name = $("#name").val();
+			var phone = $("#phone").val();
+			var phoneRegExp = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+			var email = $("#email").val();
+			var emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+			var pw = $("#pw").val();
+			var repw = $("#repw").val();
+			
+			$('input:radio[name=code]:input[value=' + code + ']').attr("checked", true);
+			
+			if( department == '' || department == null ){
+			    alert( '부서명을 입력해주세요' );
+			    $("#department").focus();
+			    return false;
+			}
+			
+			if( name == '' || name == null ){
+			    alert( '이름을 입력해주세요' );
+			    $("#name").focus();
+			    return false;
+			}
+			
+			if( phone == '' || phone == null ){
+			    alert( '전화번호를 입력해주세요' );
+			    $("#phone").focus();
+			    return false;
+			}
+			
+			if (!phoneRegExp.test(phone)) {
+		        alert('전화번호 형식에 맞춰주세요. (하이픈 "-" 없이 입력)');
+		        $("#phone").focus();
+		        return false;
+		    }
+			
+			if( email == '' || email == null ){
+			    alert( '이메일을 입력해주세요' );
+			    $("#email").focus();
+			    return false;
+			}
+			
+			if (!emailRegExp.test(email)) {
+		        alert('이메일 형식에 맞춰주세요.');
+		        $("#email").focus();
+		        return false;
+		    }
+			
+			if( pw == '' || pw == null ){
+			    alert( '비밀번호를 입력해주세요' );
+			    $("#pw").focus();
+			    return false;
+			}
+			
+			if( repw == '' || repw == null ){
+			    alert( '비밀번호 확인 값을 입력해주세요' );
+			    $("#repw").focus();
+			    return false;
+			}
+			
+			if( pw != repw){
+			    alert( '입력한 비밀번호 값이 다릅니다.' );
+			    $("#repw").focus();
+			    return false;
+			
+			}
+			
+			if( idDupChk == 'unChecked'){
+			    alert( '중복확인 해주세요' );
+			    $("#id").focus();
+			    return false;
+			} else {
+				alert( '회원 정보가 수정되었습니다.');
+				$("#updateForm").submit();
+			}
+		});
+			
+		$(".codeBtn").change(function(){
+			if($(".codeBtn").val() == 'INTERNAL') {
+				$('#department').attr("placeholder", "부서명");
+			}
+			if($(".codeBtn").val() == 'EXTERNAL') {
+				$('#department').attr("placeholder", "거래처명");
+			}
+		});
+	});
+</script>
 </head>
 <body>
-	<div class="header">
-	    <div class="header-left">
-	        <h2>Easy Factory</h2>
-	    </div>
-	    <div class="header-right">
-	        <div class="current-time">
-	            <span id="date"></span>
-	            <br>
-	            <span id="time"></span>
-	        </div>
-	    </div>
-	</div>
-	<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
-	<label for="openSidebarMenu" class="sidebarIconToggle">
-	    <div class="spinner diagonal part-1"></div>
-	    <div class="spinner horizontal"></div>
-	    <div class="spinner diagonal part-2"></div>
-	</label>
-	<div id="sidebarMenu">
-	    <ul class="sidebarMenuInner">
-	        <li>Main<span>page</span></li>
-	        <li><a>1</a></li>
-	        <li><a>2</a></li>
-	        <li><a>3</a></li>
-	        <li><a>4</a></li>
-	        <li><a>5</a></li>
-	    </ul>
-	</div>
-	<div class="main">
-		<div>
-			<table style="border:1px solid black">
-				<tr style="border:1px solid black">
-					<th style="border:1px solid black">
-						아이디
-					</th>
-					<td style="border:1px solid black">
-						${member.id}
-					</td>
-				</tr>
-				<tr style="border:1px solid black">
-					<td style="border:1px solid black">
-						${member.id}
-					</td>
-					<td style="border:1px solid black">
-						${member.name}
-					</td>
-				</tr>
-			</table>
+	<ul class="slideshow">
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+		<li><span></span></li>
+	</ul>
+	<div class="formContainer">
+		<div class="signin">
+			<div class="signup">
+				<div class="logo"></div>
+				<div class="internal-form">
+				<input type="text" id="codeValue" name="codeValue" value="${member.code}">
+					<form id="updateForm" name="updateForm" action="/member/updateSubmit" method="post">
+						<label><input type="radio" class="codeBtn" name="code" id="inCode" value="INTERNAL" /> INTERNAL</label>
+    					<label><input type="radio" class="codeBtn" name="code" id="exCode" value="EXTERNAL" /> EXTERNAL</label>
+						<div class="input-group">
+							<input type="text" id="department" name="department" value="${member.department}" placeholder="부서명">
+						</div>
+						<div class="input-group">
+							<input type="text" id="id" name="id" placeholder="UserID" value="${member.id}" readonly>
+						</div>
+						<div class="input-group">
+							<input type="text" id="name" name="name" value="${member.name}" placeholder="Name">
+						</div>
+						<div class="input-group">
+							<input type="text" id="phone" name="phone" value="${member.phone}" placeholder="Phone Number">
+						</div>
+						<div class="input-group">
+							<input type="text" id="email" name="email" value="${member.email}" placeholder="Email">
+						</div>
+						<div class="input-group">
+							<input type="password" id="pw" name="pw" placeholder="Password" placeholder="Password">
+						</div>
+						<div class="input-group">
+							<input type="password" id="repw" name="repw" placeholder="Retype-Password" placeholder="Retype-Password">
+						</div>
+						<div id="pwCheckMsg"></div>
+						<button type="button" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
+						<button type="button" id="backBtn" style="color: white; text-decoration-line: none;">Back</button>
+						<button type="button" id="submitBtn" style="color: white; text-decoration-line: none;">Confirm</button>
+					</form>
+				</div>
+			</div>
 		</div>
-		
-	    <div class="mainInner">
-	        <div>PURE CSS SIDEBAR TOGGLE MENU</div>
-	    </div>
-	    <div class="mainInner">
-	        <div>PURE CSS SIDEBAR TOGGLE MENU</div>
-	    </div>
-	    <div class="mainInner">
-	        <div>PURE CSS SIDEBAR TOGGLE MENU</div>
-	    </div>
 	</div>
 </body>
 </html>

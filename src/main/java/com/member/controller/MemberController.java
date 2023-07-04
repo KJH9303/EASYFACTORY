@@ -49,7 +49,7 @@ public class MemberController {
     }
     
     // id, 비밀번호 체크 Ajax
-    @PostMapping("/loginCheck")
+    @PostMapping("/idAndPwCheck")
     @ResponseBody
     public String loginCheck(@RequestParam("id") String id, @RequestParam("pw") String pw) throws Exception {
         boolean isExist = memberService.loginCheck(id, pw);
@@ -62,7 +62,7 @@ public class MemberController {
     
     // 로그인 기능
     @RequestMapping(value="/loginSubmit", method=RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpServletResponse response, MemberVO memberVO) {
+    public String login(HttpServletRequest request, HttpServletResponse response, MemberVO memberVO) throws Exception {
     	String id = request.getParameter("id");
     	String pw = request.getParameter("pw");
     	
@@ -80,18 +80,20 @@ public class MemberController {
     
     // 로그아웃 기능
     @RequestMapping(value="/logout", method=RequestMethod.GET)
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	HttpSession session = request.getSession();
     	session.invalidate();
     	return "redirect:/main";
     }
     
     // 회원정보 수정
-    @RequestMapping(value="/updateCheck", method=RequestMethod.GET)
-    public String update(HttpServletRequest request) {
+    @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
+    public String update(@ModelAttribute MemberVO memberVO, HttpServletRequest request) throws Exception {
+    	memberService.update(memberVO);
     	HttpSession session = request.getSession();
-    	session.getAttribute("member");
-    	System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmmmmm" + session.getAttribute("member"));
-    	return "/updateCheck";
+    	session.setAttribute("member", memberVO);
+    	session.setMaxInactiveInterval(1 * 60);
+    	return "redirect:/main";
     }
+    
 }

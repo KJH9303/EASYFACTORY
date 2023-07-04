@@ -33,4 +33,11 @@ public class MemberService {
 		MemberVO memberVO = memberDAO.login(id, pw);
 		return memberVO;
 	}
+	
+	// 회원 정보 수정
+	public void update(MemberVO memberVO) {
+		memberDAO.update(memberVO);
+	}
+	
+	
 }

@@ -77,6 +77,7 @@ public class MemberDAO {
         	memberVO.setDepartment(rs.getString("department"));
         	memberVO.setId(rs.getString("id"));
         	memberVO.setName(rs.getString("name"));
+        	memberVO.setPhone(rs.getString("phone"));
         	memberVO.setEmail(rs.getString("email"));
             // 필요한 다른 사용자 정보를 설정합니다.
             return memberVO;
@@ -88,5 +89,30 @@ public class MemberDAO {
 		String SQL = "SELECT CODE, DEPARTMENT, ID, NAME, PHONE, EMAIL, PW, REPW FROM MEMBER WHERE UPPER(ID) = UPPER(?) AND PW = ?";
 		MemberVO memberVO = jdbcTemplate.queryForObject(SQL, new Object[]{id, pw}, new signinMapper());
 		return memberVO;
+	}
+	
+	// 회원 정보 수정
+	public void update(MemberVO memberVO) {
+		String SQL = "UPDATE MEMBER"
+				+ "		SET"
+				+ "			CODE = ?"
+				+ ", 		DEPARTMENT = ?"
+				+ ", 		NAME = ?"
+				+ ", 		PHONE = ?"
+				+ ", 		EMAIL = ?"
+				+ ", 		PW = ?"
+				+ ", 		REPW = ?"
+				+ "		WHERE"
+				+ "			ID = ?";
+		jdbcTemplate.update (
+				SQL
+				, memberVO.getCode()
+				, memberVO.getDepartment()
+				, memberVO.getName()
+				, memberVO.getPhone()
+				, memberVO.getEmail()
+				, memberVO.getPw()
+				, memberVO.getRepw()
+				, memberVO.getId());
 	}
 }
