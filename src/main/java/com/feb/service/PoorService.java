@@ -1,11 +1,11 @@
-package com.feb.dao;
+package com.feb.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class PoorDAO {
+public class PoorService {
     
-	public String getRandomDefect() {
+	public static String getRandomPoor() {
 		while (true) {
 		    LocalDate nowdate = LocalDate.now();
 		    LocalTime nowtime = LocalTime.now();

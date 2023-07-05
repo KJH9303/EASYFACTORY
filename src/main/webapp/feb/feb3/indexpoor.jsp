@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %> 
-<%@ page import="com.feb.dao.PoorDAO" %> 
+<%@ page import="com.feb.service.PoorService" %> 
 <%@ page import="java.util.ArrayList" %>
 <html> 
 <head> 

@@ -34,15 +34,6 @@
             justify-content: center;
         }
         
-        .usingratio-and-defect {
-			display: flex;
-		}
-			
-		.current-defect-container {
-			text-align: right;
-		  	margin-right: 100px;
-		}
-         
 	</style>
 </head>
 <body>
@@ -74,10 +65,12 @@
 		<div id="opratioChart" style="width:50%; height:300px;"></div>
 		<div id="gaugeChart" style="width:50%; height:300px;"></div>
 		</div>
+		
+		<a href="http://localhost:8584/EASYFACTORY_Test/datePicker/datepicker.jsp"> test</a>
+		<div style="display: flex;">
 		<div id="usingratioChart" style="width:50%; height:300px;"></div>
 		
-		<a href="http://localhost:8584/EASYFACTORY_Test/datePicker/datepicker.jsp"> r r</a>
-		<div class="current-defect-container">
+		<div class="current-defect-container" style="width:50%; height:300px;">
             <h1>실시간 불량 현황</h1>
             <p id="currentDefect"></p>
             <h2>이전 불량 현황</h2>
@@ -213,8 +206,6 @@
 	
 	        return monthlyUsingratioAverage;
 	   		}
-	
-
 
 		// 가동률 바차트 ===================================================================================================================
 		function updateOpratioChart(dataList) {

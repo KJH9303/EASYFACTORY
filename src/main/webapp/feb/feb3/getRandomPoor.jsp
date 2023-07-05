@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.feb.dao.PoorDAO" %>
+<%@ page import="com.feb.service.PoorService" %>
 <%
-    PoorDAO poorDAO = new PoorDAO();
-    String result = poorDAO.getRandomDefect();
+	PoorService poorService = new PoorService();
+    String result = poorService.getRandomPoor();
     out.print(result);
 %>
