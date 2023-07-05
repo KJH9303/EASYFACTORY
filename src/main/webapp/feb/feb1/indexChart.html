@@ -33,11 +33,21 @@
             flex-flow: row wrap; /* 가로 배치를 위한 속성 추가 */
             justify-content: center;
         }
+        
+        .usingratio-and-defect {
+			display: flex;
+		}
+			
+		.current-defect-container {
+			text-align: right;
+		  	margin-right: 100px;
+		}
          
 	</style>
 </head>
 <body>
 	<h1>1공정의 모니터링</h1>
+    </ul>
 	
 	<table>
 		<thead>
@@ -65,6 +75,14 @@
 		<div id="gaugeChart" style="width:50%; height:300px;"></div>
 		</div>
 		<div id="usingratioChart" style="width:50%; height:300px;"></div>
+		
+		<a href="http://localhost:8584/EASYFACTORY_Test/datePicker/datepicker.jsp"> r r</a>
+		<div class="current-defect-container">
+            <h1>실시간 불량 현황</h1>
+            <p id="currentDefect"></p>
+            <h2>이전 불량 현황</h2>
+            <ul id="previousDefects"></ul>
+        </div>
 		
 	<script>
 		let opratioChart, gaugeChart, usingratioChart;
@@ -306,9 +324,27 @@
 		
 		// 전기사용량 바차트 끝 ===================================================================================================================
 
+		// 불량현황 리스트 ===================================================================================================================	
 		$(document).ready(function(){
 			fetchData();
 		});
+		
+		$(document).ready(function() {
+		    function updateRandomDefect() {
+		        $.ajax({
+		            url: "getRandomPoor.jsp",
+		            success: function(result) {
+		                $('#currentDefect').text(result);
+		                $('#previousDefects').prepend('<li>' + result + '</li>');
+		            },
+		            complete: function() {
+		                setTimeout(updateRandomDefect, 2000);
+		            }
+		        });
+		    }
+		    updateRandomDefect();
+		});
+
 	</script>
 </body>
 </html>
