@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.feb.service.FebService;
+import com.feb.service.PoorService;
+import com.feb.service.UpdateService;
 import com.feb.vo.FebVO;
-import com.member.vo.MemberVO;
 
 @RestController
 @RequestMapping("/feb")
@@ -51,18 +51,29 @@ public class FebController {
         return "/resultList";
     }
     
+    @RequestMapping("/datepicker")
+    public String index() {
+        return "datepicker";
+    }
+    
+    
+    ////////////////////////
     @RequestMapping(value="/febUpdateTest", method=RequestMethod.POST)
     public String index(HttpServletRequest request) {
-    
-	    String run = request.getParameter("run");
-		if(run == "run") {
-			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 시작");
-			febService.updateTables();
-		} else if(run == "stop") {
-			System.out.println("멈춤");
-		} else {
-			
-		}
-		return "/member/main";
+    	System.out.println("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+    	febService.startUpdateFeb();
+		return "";
     }
+    /////////////////////////
+
+	@GetMapping("/update-table")
+	public void updateTable() {
+		UpdateService.RunUpdate();
+	}
+	
+	@GetMapping("/poor")
+	public String poorService() {
+		PoorService.getRandomPoor();
+		return "/poorService";
+	}
 }
