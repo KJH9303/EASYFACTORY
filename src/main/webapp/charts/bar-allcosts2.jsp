@@ -65,7 +65,7 @@
         }
 
         $.ajax({
-            url: "/energy/chart4",
+            url: "/energy/chart7",
             type: "POST",
             data: { startDate: startDate },
             success: function (data) {

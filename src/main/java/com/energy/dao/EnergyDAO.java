@@ -68,7 +68,7 @@ public class EnergyDAO {
     }
 
     // 각 공정별 가동률
-    public List<EnergyVO> getAllOpratio(String startDate, String endDate) {
+    public List<EnergyVO> getFebOpratio(String startDate, String endDate) {
         String sql = "SELECT  ROUND(AVG(feb1), 2) AS feb1,"
         		+ "        ROUND(AVG(feb2), 2) AS feb2,"
         		+ "        ROUND(AVG(feb3), 2) AS feb3,"
@@ -86,12 +86,12 @@ public class EnergyDAO {
                 List<EnergyVO> list = new ArrayList<EnergyVO>();
                 while (rs.next()) {
                     EnergyVO energyData = new EnergyVO();
-                    double[] allopratios = new double[8];
-                    for(int cnt=0; cnt < allopratios.length; cnt++) {
-                    	allopratios[cnt] = rs.getDouble(cnt+1);
+                    double[] febopratios = new double[8];
+                    for(int cnt=0; cnt < febopratios.length; cnt++) {
+                    	febopratios[cnt] = rs.getDouble(cnt+1);
                     }
                  
-                    energyData.setAllopratio(allopratios);
+                    energyData.setFebopratio(febopratios);
            
                     list.add(energyData);
                 }
@@ -102,6 +102,7 @@ public class EnergyDAO {
 
         return list;
     }
+    // 월별 가변적 총 비용
     public List<EnergyVO> getMonthlyCosts(String startDate) {
         String sql = "WITH "
                 + "  date_input AS ("
@@ -131,11 +132,7 @@ public class EnergyDAO {
                 + "  FROM month_range mr "
                 + "  LEFT JOIN monthly_sum ms ON mr.mth = ms.\"MONTH\" "
                 + ")";
-        // ... 기존 코드를 유지하면서 ...
-        
-      
-
-            List<EnergyVO> list = jdbcTemplate.query(sql,
+               List<EnergyVO> list = jdbcTemplate.query(sql,
                     new ResultSetExtractor<List<EnergyVO>>() {
                         public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
                             List<EnergyVO> list = new ArrayList<>();
@@ -157,5 +154,111 @@ public class EnergyDAO {
 
             return list;
         }
+    // 각 공정별 총 생산량
+    public List<EnergyVO> getFebtr(String startDate, String endDate) {
+        String sql = "SELECT  ROUND(SUM(feb1), 2) AS feb1,"
+        		+ "        ROUND(SUM(feb2), 2) AS feb2,"
+        		+ "        ROUND(SUM(feb3), 2) AS feb3,"
+        		+ "        ROUND(SUM(feb4), 2) AS feb4,"
+        		+ "        ROUND(SUM(feb5), 2) AS feb5,"
+        		+ "        ROUND(SUM(feb6), 2) AS feb6,"
+        		+ "        ROUND(SUM(feb7), 2) AS feb7,"
+        		+ "        ROUND(SUM(feb8), 2) AS feb8 "
+        		+ "FROM FEB_TR "
+        		+ "WHERE hiredate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
+
+        List<EnergyVO> list = jdbcTemplate.query(sql, new Object[]{startDate, endDate}, new ResultSetExtractor<List<EnergyVO>>() {
+            @Override
+            public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<EnergyVO> list = new ArrayList<EnergyVO>();
+                while (rs.next()) {
+                    EnergyVO energyData = new EnergyVO();
+                    int[] febtrs = new int[8];
+                    for(int cnt1=0; cnt1 < febtrs.length; cnt1++) {
+                    	febtrs[cnt1] = rs.getInt(cnt1+1);
+                    }
+                 
+                    energyData.setFebtr(febtrs);
+           
+                    list.add(energyData);
+                }
+                return list;
+            }
+            
+        });
+
+        return list;
     }
+ // 각 공정별 총 비용
+    public List<EnergyVO> getFebcosts(String startDate, String endDate) {
+        String sql = "SELECT  ROUND(SUM(feb1), 2) AS feb1,"
+        		+ "        ROUND(SUM(feb2), 2) AS feb2,"
+        		+ "        ROUND(SUM(feb3), 2) AS feb3,"
+        		+ "        ROUND(SUM(feb4), 2) AS feb4,"
+        		+ "        ROUND(SUM(feb5), 2) AS feb5,"
+        		+ "        ROUND(SUM(feb6), 2) AS feb6,"
+        		+ "        ROUND(SUM(feb7), 2) AS feb7,"
+        		+ "        ROUND(SUM(feb8), 2) AS feb8 "
+        		+ "FROM FEB_COSTS "
+        		+ "WHERE hiredate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
+
+        List<EnergyVO> list = jdbcTemplate.query(sql, new Object[]{startDate, endDate}, new ResultSetExtractor<List<EnergyVO>>() {
+            @Override
+            public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<EnergyVO> list = new ArrayList<EnergyVO>();
+                while (rs.next()) {
+                    EnergyVO energyData2 = new EnergyVO();
+                    int[] febcosts = new int[8];
+                    for(int cnt=0; cnt < febcosts.length; cnt++) {
+                    	febcosts[cnt] = rs.getInt(cnt+1);
+                    }
+                 
+                    energyData2.setFebcosts(febcosts);
+           
+                    list.add(energyData2);
+                }
+                return list;
+            }
+            
+        });
+
+        return list;
+    }
+ // 각 공정별 총 사용량
+    public List<EnergyVO> getFebusingratio(String startDate, String endDate) {
+        String sql = "SELECT  ROUND(SUM(feb1), 2) AS feb1,"
+        		+ "        ROUND(SUM(feb2), 2) AS feb2,"
+        		+ "        ROUND(SUM(feb3), 2) AS feb3,"
+        		+ "        ROUND(SUM(feb4), 2) AS feb4,"
+        		+ "        ROUND(SUM(feb5), 2) AS feb5,"
+        		+ "        ROUND(SUM(feb6), 2) AS feb6,"
+        		+ "        ROUND(SUM(feb7), 2) AS feb7,"
+        		+ "        ROUND(SUM(feb8), 2) AS feb8 "
+        		+ "FROM FEB_USINGRATIO "
+        		+ "WHERE hiredate BETWEEN TO_DATE(?, 'YYYY-MM-DD') AND TO_DATE(?, 'YYYY-MM-DD')";
+
+        List<EnergyVO> list = jdbcTemplate.query(sql, new Object[]{startDate, endDate}, new ResultSetExtractor<List<EnergyVO>>() {
+            @Override
+            public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<EnergyVO> list = new ArrayList<EnergyVO>();
+                while (rs.next()) {
+                    EnergyVO energyData3 = new EnergyVO();
+                    int[] febusingratio = new int[8];
+                    for(int cnt3=0; cnt3 < febusingratio.length; cnt3++) {
+                    	febusingratio[cnt3] = rs.getInt(cnt3+1);
+                    }
+                 
+                    energyData3.setFebusingratio(febusingratio);
+           
+                    list.add(energyData3);
+                }
+                return list;
+            }
+            
+        });
+
+        return list;
+    }
+
+ }
        
