@@ -13,11 +13,9 @@
            justify-content: center;
 		border-collapse: collapse;
 	}
-
 	tr:nth-child(2n) {
 		background: #f0f0f0;
 	}
-
 	th, 
 	td {
 		border: 1px solid black;
@@ -25,17 +23,14 @@
 		text-align: center;
 		border-color: #e0e0e0;
 	}
-
 	.totals-row {
 		font-weight: bold;
 	}
-
-       .chart-container {
-           display: flex;
-           flex-flow: row wrap; /* 가로 배치를 위한 속성 추가 */
-           justify-content: center;
-       }
-       
+    .chart-container {
+        display: flex;
+        flex-flow: row wrap; 
+        justify-content: center;
+    }
 </style>
 </head>
 <body>
@@ -81,7 +76,7 @@
 	<script>
 	let opratioChart, gaugeChart, usingratioChart, costsChart;
 
-	// 실시간 데이터 가져오기 ajax, 차트를 추가하면 여기에도 메소드를 추가해야 함
+	// ajax
 	function fetchData() {
 		$.ajax({
 			type: "GET",
@@ -105,10 +100,10 @@
 				alert(`에러 발생: ${errorThrown}`);
 			}
 		});
-		setTimeout(fetchData, 2000); // 5초마다 데이터 새로 고침
+		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
 		}
 	
-			function updateTableData(dataList) {
+	function updateTableData(dataList) {
 		let total = {
 			stock: 0,
 			tr: 0,
@@ -120,105 +115,103 @@
 
 		let rowCount = dataList.length;
 
-		dataList.forEach(function(data) {
-			const stock = parseInt(data.stock);
-			const tr = parseInt(data.tr);
-			const fal = parseInt(data.fal);
-			const opratio = parseInt(data.opratio);
+	dataList.forEach(function(data) {
+		const stock = parseInt(data.stock);
+		const tr = parseInt(data.tr);
+		const fal = parseInt(data.fal);
+		const opratio = parseInt(data.opratio);
 
-			total.stock += stock;
-			total.tr += tr;
-			total.fal += fal;
-			avg.opratio += opratio;
-		});
+		total.stock += stock;
+		total.tr += tr;
+		total.fal += fal;
+		avg.opratio += opratio;
+	});
 
-		const avgOpRatio = avg.opratio / rowCount;
+	const avgOpRatio = avg.opratio / rowCount;
 
-		$("table .stock-total").text(total.stock);
-		$("table .tr-total").text(total.tr);
-		$("table .fal-total").text(total.fal);
-		$("table .opratio-avg").text(avgOpRatio.toFixed(2));
-		}
+	$("table .stock-total").text(total.stock);
+	$("table .tr-total").text(total.tr);
+	$("table .fal-total").text(total.fal);
+	$("table .opratio-avg").text(avgOpRatio.toFixed(2));
+	}
 	
-		// 월단위로 가동률,전기사용량,전기사용비용 데이터 평균값 가져오기
-		function calculateMonthlyData(dataList, key) {
-		    var monthlyData = {};
-		
-		    dataList.forEach(function (data) {
-		        var date = new Date(data.hiredate);
-		        var month = date.getMonth();
-		
-		        if (!monthlyData[month]) {
-		            monthlyData[month] = {
-		                count: 0,
-		                sum: 0
-		            };
-		        }
-		
-		        monthlyData[month].count += 1;
-		        monthlyData[month].sum += parseInt(data[key]);
-		    });
-		
-		    return monthlyData;
-		}
-		
-		function getMonthlyAverage(monthlyData) {
-		    var monthlyAverage = [];
-		
-		    for (var month in monthlyData) {
-		        var avg = monthlyData[month].sum / monthlyData[month].count;
-		        monthlyAverage[month] = avg;
-		    }
-		
-		    return monthlyAverage;
+	// 월단위로 가동률,전기사용량,전기사용비용 데이터 평균값 가져오기
+	function calculateMonthlyData(dataList, key) {
+	    var monthlyData = {};
+	
+	    dataList.forEach(function (data) {
+	        var date = new Date(data.hiredate);
+	        var month = date.getMonth();
+	
+	        if (!monthlyData[month]) {
+	            monthlyData[month] = {
+	                count: 0,
+	                sum: 0
+	            };
+	        }
+	
+	        monthlyData[month].count += 1;
+	        monthlyData[month].sum += parseInt(data[key]);
+	    });
+	
+	    return monthlyData;
+	}
+	
+	function getMonthlyAverage(monthlyData) {
+	    var monthlyAverage = [];
+	
+	    for (var month in monthlyData) {
+	        var avg = monthlyData[month].sum / monthlyData[month].count;
+	        monthlyAverage[month] = avg;
+	    }
+	
+	    return monthlyAverage;
+	}
+
+	// 가동률 바차트 ===================================================================================================================
+	function updateOpratioChart(dataList) {
+		var monthlyOpratioData = calculateMonthlyData(dataList, 'opratio');
+		var monthlyOpratioAverage = getMonthlyAverage(monthlyOpratioData);
+
+	    // 차트가 없을 경우에만 새로운 차트 생성
+	    if (!opratioChart) {
+		    opratioChart = echarts.init(document.getElementById("opratioChart"));
 		}
 
-		// 가동률 바차트 ===================================================================================================================
-		function updateOpratioChart(dataList) {
-			var monthlyOpratioData = calculateMonthlyData(dataList, 'opratio');
-			var monthlyOpratioAverage = getMonthlyAverage(monthlyOpratioData);
-	
-		    // 차트가 없을 경우에만 새로운 차트 생성
-		    if (!opratioChart) {
-			    opratioChart = echarts.init(document.getElementById("opratioChart"));
-			}
-	
-		    var option = {
-		        tooltip: {
-		            trigger: 'axis',
-		            axisPointer: {
-		                type: 'shadow'
-		            },
-		            borderWidth: 1,
-		            formatter: function (params) {
-		                if (params.length > 0) {
-		                    return params[0].value.toFixed(2);
-		                }
-		                return '-';
-		            }
-		        },  	
-		        xAxis: {
-		            type: "category",
-		            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-		        },
-		        yAxis: {
-		            type: "value"		
-		        },
-		        series: [
-		            {
-		                data: monthlyOpratioAverage,
-		                type: "bar",
-	                	barWidth: "30%" 
-		            }
-		        ]
-		    };
+	    var option = {
+	        tooltip: {
+	            trigger: 'axis',
+	            axisPointer: {
+	                type: 'shadow'
+	            },
+	            borderWidth: 1,
+	            formatter: function (params) {
+	                if (params.length > 0) {
+	                    return params[0].value.toFixed(2);
+	                }
+	                return '-';
+	            }
+	        },  	
+	        xAxis: {
+	            type: "category",
+	            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
+	        },
+	        yAxis: {
+	            type: "value"		
+	        },
+	        series: [
+	            {
+	                data: monthlyOpratioAverage,
+	                type: "bar",
+                	barWidth: "30%" 
+	            }
+	        ]
+	    };
 	
 		    // 차트 옵션 설정 및 렌더링
 		    opratioChart.setOption(option);
-	
 			}
-	// 가동률 바차트 끝 ===================================================================================================================
-	
+
 	// 게이지 차트 ===================================================================================================================
 	function updateGaugeChart(dataList) {
 	    let totalTemp = 0;
@@ -257,12 +250,10 @@
 	    		data: [{value: avgTemp, name: 'Temp'}]
 	    	}]
 	    };
-    // 차트 옵션 설정 및 렌더링
-    gaugeChart.setOption(option);
-	}
+	    // 차트 옵션 설정 및 렌더링
+	    gaugeChart.setOption(option);
+		}
 
-	// 게이지 차트 끝 ===================================================================================================================
-	
 	// 전기사용량 바차트 ===================================================================================================================
 	function updateUsingratioChart(dataList) {
 		var monthlyUsingratioData = calculateMonthlyData(dataList, 'usingratio');
@@ -301,12 +292,10 @@
                 barWidth: "33%" 
             }]
 	    };
-    // 차트 옵션 설정 및 렌더링
-	usingratioChart.setOption(option);
-	}
+	    // 차트 옵션 설정 및 렌더링
+		usingratioChart.setOption(option);
+		}
 	
-	// 전기사용량 바차트 끝 ===================================================================================================================
-
 	// 불량현황 리스트 ===================================================================================================================	
 	$(document).ready(function() {
 	    function updateRandomDefect() {
@@ -361,15 +350,13 @@
                 type: "bar",
                 barWidth: "33%" 
             }]
-	    };
-	    // 차트 옵션 설정 및 렌더링
-		costsChart.setOption(option);
-		}
-		$(document).ready(function(){
-			fetchData();
-		});
-		// 전기사용량 바차트 끝 ===================================================================================================================
-
+	   	 };
+		    // 차트 옵션 설정 및 렌더링
+			costsChart.setOption(option);
+			}
+			$(document).ready(function(){
+				fetchData();
+			});
 </script>
 </body>
 </html>
