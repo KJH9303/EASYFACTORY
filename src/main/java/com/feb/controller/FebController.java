@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.feb.service.FebService;
 import com.feb.service.PoorService;
-import com.feb.service.UpdateService;
 import com.feb.vo.FebVO;
 
 @RestController
@@ -65,11 +64,6 @@ public class FebController {
 		return "";
     }
     /////////////////////////
-
-	@GetMapping("/update-table")
-	public void updateTable() {
-		UpdateService.RunUpdate();
-	}
 	
 	@GetMapping("/poor")
 	public String poorService() {
