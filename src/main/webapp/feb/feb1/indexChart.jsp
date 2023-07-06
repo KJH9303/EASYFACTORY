@@ -142,7 +142,7 @@
 	function fetchData() {
 		$.ajax({
 			type: "GET",
-			url: "/feb/select-data",
+			url: "select1.jsp",
 			dataType: "json",
 			success: function(response) {
 				if (response.Error) {
