@@ -105,7 +105,7 @@
         <li><a>4</a></li>
         <li>
         	<a id="issueList">ISSUE</a>
-        	<input type="text" id="id" value="${member.id}">
+        	<input type="hidden" id="id" value="${member.id}">
         </li>
     </ul>
 </div>

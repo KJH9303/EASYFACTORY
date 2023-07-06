@@ -17,6 +17,7 @@ import com.issue.service.IssueService;
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
 import com.issue.vo.PageMaker;
+import com.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/issue")
@@ -48,9 +49,16 @@ public class IssueController {
     
     // 글 쓰기 페이지
     @RequestMapping(value="/write", method=RequestMethod.GET)
-    public String postSignUp(HttpServletRequest request, Model model) throws Exception {
+    public String writeView(HttpServletRequest request, Model model) throws Exception {
     	HttpSession session = request.getSession();
     	session.getAttribute("member");
-		return "/write";
+		return "issue/write";
+    }
+    
+    // 글 쓰기 기능
+    @RequestMapping(value="/writeSubmit", method=RequestMethod.POST)
+    public String write(@ModelAttribute IssueVO issueVO, Model model) throws Exception {
+    	issueService.write(issueVO);
+		return "redirect:/issue/list";
     }
 }

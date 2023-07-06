@@ -12,8 +12,29 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     $(document).ready(function() {
+    	
+    	var id = $("#id").val();
+    	
+    	// 페이지 진입 시
+		if (id == '' || id == null) {
+			alert("잘못된 접근입니다.");
+			alert("로그인 후 이용해주세요.");
+			location.href="/member/login";
+		}
+		
+    	// 글 작성 버튼 클릭 시
     	$("#writeBtn").on('click', function(){
-    		location.href="/issue/write";
+       		if(id == null || id == "") {
+       			var result = confirm("로그인 후 이용해주세요.");
+       			if(result){
+       			    location.href="/member/login";
+       			}else{
+       			    alert("취소하였습니다.");
+       			    location.href="/main";
+       			}
+       		} else if(id != null || id != "") {
+       			location.href="write";
+       		}
     	});
     });
     </script>
@@ -22,11 +43,12 @@
     <div id="headerContainer"></div>
     <div class="container">
         <h1>Table</h1>      
-        <form id="searchForm">
+        <form id="searchForm" action="/list" method="get">
             <label for="searchTerm">검색:</label>
             <input type="text" name="searchTerm" id="searchTerm">
-            <button type="submit">검색</button>
+            <button type="button">검색</button>
             <button type="button" id="writeBtn">새 글 작성</button>  
+            <input type="hidden" id="id" value="${member.id}">
         </form>
         
 		<c:if test="${totCnt != null}">

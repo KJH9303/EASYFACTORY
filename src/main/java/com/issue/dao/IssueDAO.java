@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
-import com.issue.vo.PageMaker;
+import com.member.vo.MemberVO;
 
 @Repository
 public class IssueDAO {
@@ -80,7 +80,28 @@ public class IssueDAO {
 	}
 	*/
 	
-	// 회원 정보 수정
+	// 글 작성
+	public void write(IssueVO issueVO) {
+		String SQL = "INSERT INTO ISSUE ("
+				+ "				NO"
+				+ "				, TITLE"
+				+ "				, CONTENT"
+				+ "				, AUTHOR"
+				+ "				, REGDATE )"
+				+ "		VALUES ("
+				+ "				ISSUE_SEQ.NEXTVAL"
+				+ "				, ?"
+				+ "				, ?"
+				+ "				, ?"
+				+ "				, to_char(sysdate,'yyyy-mm-dd'))";
+		jdbcTemplate.update(
+				SQL
+				, issueVO.getTitle()
+				, issueVO.getContent()
+				, issueVO.getAuthor());
+	}
+	
+	// 글 수정
 	public void update(IssueVO issueVO) {
 		String SQL = "UPDATE MEMBER"
 				+ "		SET"

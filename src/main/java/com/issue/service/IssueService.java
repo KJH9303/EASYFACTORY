@@ -1,11 +1,11 @@
 package com.issue.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.issue.dao.IssueDAO;
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
+import com.member.vo.MemberVO;
 
 public class IssueService {
 	
@@ -26,6 +26,12 @@ public class IssueService {
 		List<IssueVO> issueList = issueDAO.issueList(cri);
 		return issueList;
 	}
+	
+	// 글 작성
+	public void write(IssueVO issueVO) {
+		issueDAO.write(issueVO);
+	}
+	
 	// 글 수정
 	public void update(IssueVO issueVO) {
 		issueDAO.update(issueVO);
