@@ -60,7 +60,8 @@ public class FebController {
     @RequestMapping(value="/febUpdateTest", method=RequestMethod.POST)
     public String index(HttpServletRequest request) {
     	System.out.println("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
-    	febService.startUpdateFeb();
+    	String run = request.getParameter("run");
+    	febService.startUpdateFeb(run);
 		return "";
     }
     /////////////////////////

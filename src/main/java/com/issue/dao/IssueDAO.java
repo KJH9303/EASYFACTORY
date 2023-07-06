@@ -2,6 +2,7 @@ package com.issue.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -10,7 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
+import com.issue.vo.PageMaker;
 
 @Repository
 public class IssueDAO {
@@ -38,6 +41,36 @@ public class IssueDAO {
         }
     }
 	
+	// 게시글 갯수
+	public int issueListCnt() {
+		String SQL = "SELECT COUNT(NO) FROM ISSUE WHERE NO > 0";
+		int cnt = jdbcTemplate.queryForObject(SQL, Integer.class);
+		return cnt;
+	}
+	
+	// 게시판 목록
+	public List<IssueVO> issueList(Criteria cri) {
+		String SQL = "SELECT "
+				+ "			ROWNUM"
+				+ "			, a.*"
+				+ "		FROM ("
+				+ "			SELECT"
+				+ "			ROWNUM rnum"
+				+ "			, b.*"
+				+ "		FROM ("
+				+ "				SELECT"
+				+ "					*"
+				+ "				FROM ISSUE"
+				+ "		ORDER BY NO DESC) b) a"
+				+ "		WHERE"
+				+ "			rnum BETWEEN ? AND ?";
+		int startPage = cri.getRowStart();
+		int endPage = cri.getRowEnd();
+		System.out.println("startPage : " + startPage + ", endPage : " + endPage);
+		List<IssueVO> issueList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
+		return issueList;
+	}
+
 	/*
 	// 로그인
 	public MemberVO login(String id, String pw) {

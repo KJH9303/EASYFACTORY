@@ -48,7 +48,6 @@ public class MemberDAO {
 	
 	// ID 중복체크
 	public boolean loginCheck(String id, String pw) {
-		System.out.println("MemberDAO : id : " + id + pw);
 		Integer count = jdbcTemplate.queryForObject (
 				"  SELECT COUNT(*)"
 				+ " 	FROM MEMBER "

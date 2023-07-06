@@ -39,8 +39,9 @@ public class FebService {
 		System.out.println("FebService : updateTables 찍힘");
 	}
 	
-	public void startUpdateFeb() {
-        while (true) {
+	public void startUpdateFeb(String run) {
+		System.out.println("■■■■■■■■■■ startUpdateFeb. ■■■■■■■■■■");
+        while (run.equals("run")) {
         	febDAO.updateTable("feb1");
         	febDAO.updateTable("feb2");
         	febDAO.updateTable("feb3");

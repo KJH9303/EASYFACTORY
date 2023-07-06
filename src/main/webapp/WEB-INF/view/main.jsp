@@ -30,6 +30,30 @@
 			location.href="/member/logout";
 		});
     	
+    	// febTest2
+    	$("#febTestBtn").on('click', function() {
+			location.href="/feb/febTest2";
+		});
+    	
+    	$("#issueList").on('click', function() {
+    		var id = $("#id").val();
+    		if(id == null || id == "") {
+    			var result = confirm("로그인 하세요.");
+    			if(result){
+    			    location.href="/member/login";
+    			}else{
+    			    alert("취소하였습니다.");
+    			    location.href="/main";
+    			}
+    		} else if(id != null || id != "") {
+    			location.href="/issue/list";
+    		}
+		});
+    	
+    	$("#writeBtn").on('click', function() {
+			location.href="/issue/write";
+		});
+    	
         function updateTime() {
             var currentTime = new Date();
             var hours = currentTime.getHours();
@@ -79,7 +103,10 @@
         <li><a>2</a></li>
         <li><a>3</a></li>
         <li><a>4</a></li>
-        <li><a>5</a></li>
+        <li>
+        	<a id="issueList">ISSUE</a>
+        	<input type="text" id="id" value="${member.id}">
+        </li>
     </ul>
 </div>
 <div class="main">
@@ -105,6 +132,7 @@
 		<p>${member.code} 외부인입니다.</p>
 		<input type="text" id="code" value="${member.code}">
 	</c:if>
+	<button type="button" id="febTestBtn">feb 테스트</button>
     <div class="mainInner">
         <div>PURE CSS SIDEBAR TOGGLE MENU</div>
     </div>
