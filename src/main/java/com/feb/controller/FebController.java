@@ -46,10 +46,13 @@ public class FebController {
     }
     
     @GetMapping("/select-data")
-    public String selectData(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-    	Connection conn = null;
+    @ResponseBody
+    public void selectData(HttpServletResponse response) {
+
+        Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet resultSet = null;
+
         try {
 
             Class.forName(OracleInfo.driver);
@@ -60,9 +63,6 @@ public class FebController {
             resultSet = pstmt.executeQuery();
 
             JSONArray jsonArray = new JSONArray();
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jsonArray.toString());
             while (resultSet.next()) {
                 JSONObject row = new JSONObject();
                 row.put("opratio", resultSet.getDouble("opratio"));
@@ -75,18 +75,39 @@ public class FebController {
                 row.put("hiredate", resultSet.getDate("hiredate").toString());
                 jsonArray.add(row);
             }
+            
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try { resultSet.close(); } catch (Exception e) { e.printStackTrace(); }
+            }
+            if (pstmt != null) {
+                try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
+            }
+            if (conn != null) {
+                try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
+            }
         }
-        finally {
-            if (resultSet != null) resultSet.close();
-            if (pstmt != null) pstmt.close();
-            if (conn != null) conn.close();
-        }
-        return "/feb/indexChart";
     }
+
+    /*
+    @GetMapping("/select-data")
+    public String getTableData(HttpServletRequest request, HttpServletResponse response) {
+    	String feb = "feb1";
+    	List<FebVO> dataList = febService.getTableData(feb);
+    	System.out.println("[ChartController] /chart2");
+
+        request.setAttribute("feb1", "feb1");
+        request.setAttribute("resultList", dataList); 
+        //request.getRequestDispatcher("indexChart.jsp").forward(request, response); // JSP 페이지로 forwarding
+        return "/indexChart";
+    }
+    */
     
     @RequestMapping("/datepicker")
     public String index() {

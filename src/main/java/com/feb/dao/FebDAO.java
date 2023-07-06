@@ -105,49 +105,30 @@ public class FebDAO {
     	}
     	return resultList;
     }
-// SelectDAO
-    // Chart에 테이블 데이터를 불러오는 메소드.
-	    public List<FebVO> getChartData1() {
-	    	String SQL = "SELECT * FROM feb1" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-	    public List<FebVO> getChartData2() {
-	    	String SQL = "SELECT * FROM feb2" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-	    public List<FebVO> getChartData3() {
-	    	String SQL = "SELECT * FROM feb3" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-	    public List<FebVO> getChartData4() {
-	    	String SQL = "SELECT * FROM feb4" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-	    public List<FebVO> getChartData5() {
-	    	String SQL = "SELECT * FROM feb5" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-	    public List<FebVO> getChartData6() {
-	    	String SQL = "SELECT * FROM feb6" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-	    public List<FebVO> getChartData7() {
-	    	String SQL = "SELECT * FROM feb7" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-	    public List<FebVO> getChartData8() {
-	    	String SQL = "SELECT * FROM feb8" ;
-	    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-			return resultList;
-	    }
-    
+ 	
+    public JSONArray getTableData() {
+        String query = "SELECT * FROM feb1";
+
+        List<JSONObject> jsonList = jdbcTemplate.query(query, new RowMapper<JSONObject>() {
+            @Override
+            public JSONObject mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+                JSONObject row = new JSONObject();
+                row.put("opratio", resultSet.getDouble("opratio"));
+                row.put("temp", resultSet.getInt("temp"));
+                row.put("tr", resultSet.getInt("tr"));
+                row.put("fal", resultSet.getInt("fal"));
+                row.put("stock", resultSet.getInt("stock"));
+                row.put("costs", resultSet.getInt("costs"));
+                row.put("usingratio", resultSet.getDouble("usingratio"));
+                row.put("hiredate", resultSet.getDate("hiredate").toString());
+                return row;
+            }
+        });
+
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.addAll(jsonList);
+        return jsonArray;
+    }
     
 // Author : kj9303
  	// Feb 데이터 가져오기
