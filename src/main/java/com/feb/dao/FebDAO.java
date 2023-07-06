@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -233,13 +235,33 @@ public class FebDAO {
         }
     }
 
-    public void printMonthlyCost() {
-        String sql = "SELECT EXTRACT(MONTH FROM hiredate) AS \"월\", SUM(costs) AS \"월별 비용\" FROM feb1 GROUP BY EXTRACT(MONTH FROM HIREDATE) ORDER BY EXTRACT(MONTH FROM HIREDATE)";
-        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
-
-        for (Map<String, Object> row : resultList) {
-            System.out.println("월: " + row.get("월") + ", 월별 비용: " + row.get("월별 비용"));
-        }
-    }
-// MonthDataDao
+	public static String getRandomDefect() {
+		while (true) {
+		    LocalDate nowdate = LocalDate.now();
+		    LocalTime nowtime = LocalTime.now();
+	
+		    int num = (int)(Math.random()*8) +1;
+		    String result = "";
+		    
+		    if (num == 1) {
+		        result = "Wafer에 결함이 발생했습니다." + nowdate + " " + nowtime;
+		    } else if (num == 2) {
+		        result = "Pattern이 손상 되었습니다." + nowdate + " " + nowtime;
+		    } else if (num == 3) {
+		        result = "공정이 무너졌습니다." + nowdate + " " + nowtime;
+		    } else if (num == 4) {
+		        result = "particle불량 입니다." + nowdate + " " + nowtime;
+		    } else if (num == 5) {
+		        result = "Crack이 발생했습니다." + nowdate + " " + nowtime;
+		    } else if (num == 6) {
+		        result = "Parameter 뒤틀림이 발생했습니다." + nowdate + " " + nowtime;    
+		    } else {
+		        result = "공정불량 입니다." + nowdate + " " + nowtime;
+		    }
+		    System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● Defect 작동 ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●");
+		    System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●Random defect: " + result); 
+		    
+		    return result;
+		}
+	}
 }

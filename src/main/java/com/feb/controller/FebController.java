@@ -8,10 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.feb.service.FebService;
@@ -28,11 +30,7 @@ public class FebController {
     public void setFebService(FebService febService) {
 		this.febService = febService;
 	}
-    
-    /*
-     * startDate와 endDate는 필수적으로 입력을 받아야함.
-     * yyyy-MM-dd 형태로 입력받도록 요청파라미터를 어노테이션을 활용하여 변환함.
-     */
+
     @GetMapping("/fetch-data")
     public List<FebVO> fetchData(@RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                              @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
@@ -66,9 +64,15 @@ public class FebController {
     }
     /////////////////////////
 	
-	@GetMapping("/poor")
-	public String poorService() {
-		PoorService.getRandomPoor();
-		return "/poorService";
-	}
+    @RequestMapping(value="/Defect", produces="application/text;charset=UTF-8", method=RequestMethod.GET)
+    @ResponseBody
+    public String DefectService(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    	request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		
+    	String result = febService.getRandomDefect();
+        System.out.println("result: " + result);
+        
+        return result;
+    }
 }

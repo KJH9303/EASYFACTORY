@@ -14,13 +14,11 @@ public class FebService {
 		this.febDAO = febDAO;
 	}
 	
-	// feb 데이터 출력
 	public List<FebVO> getTableData(String tableName) {
 		List<FebVO> tableData = febDAO.getTableData(tableName);
 		return tableData;
 	}
 		
-	// feb 데이터 출력 (DatePicker)
 	public List<FebVO> getDatePickerData(Date startDate, Date endDate) {
 		List<FebVO> tableData = febDAO.getDatePickerData(startDate, endDate);
 		return tableData;
@@ -61,8 +59,8 @@ public class FebService {
         }
     }
         
-    public void stopUpdateFeb() {
-        System.out.println("■■■■■■■■■■ 모든 공정의 데이터 UPDATE작업이 멈춤 ■■■■■■■■■■");
-    	
-    }
+    public String getRandomDefect() throws Exception {
+		String result = febDAO.getRandomDefect();
+		return result;
+	}
 }
