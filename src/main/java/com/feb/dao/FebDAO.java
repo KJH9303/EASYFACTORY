@@ -13,13 +13,15 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.sql.DataSource;
-import org.springframework.stereotype.Repository;
 
-import com.feb.vo.FebVO;
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.feb.vo.FebVO;
 
 @Repository
 public class FebDAO {
@@ -75,11 +77,33 @@ public class FebDAO {
  	
     
 // SelectDAO    
-    // 특정 테이블에서 데이터를 가져오는 메서드.
-    public List<FebVO> getTableData(String tableName) {
-    	String SQL = "SELECT * FROM " + tableName;
+ 	// 특정 테이블에서 데이터를 가져오는 메서드.
+    public List<FebVO> getTableData(String feb) {
+    	
+    	String SQL = "SELECT * FROM " + feb;
     	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-		return resultList;
+    	ResultSet rs = (ResultSet) jdbcTemplate.query(SQL, new FebMapper());
+    	JSONArray jsonArray = new JSONArray();
+    	try {
+	    	while (resultList != null) {
+	            JSONObject row = new JSONObject();
+	            row.put("opratio", rs.getDouble("opratio"));
+	            row.put("temp", rs.getInt("temp"));
+	            row.put("tr", rs.getInt("tr"));
+	            row.put("fal", rs.getInt("fal"));
+	            row.put("stock", rs.getInt("stock"));
+	            row.put("costs", rs.getInt("costs"));
+	            row.put("usingratio", rs.getDouble("usingratio"));
+	            row.put("hiredate", rs.getDate("hiredate").toString());
+	            jsonArray.add(row);
+	            
+	            
+	            return (List<FebVO>) rs;
+	    	}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return resultList;
     }
 // SelectDAO
     // Chart에 테이블 데이터를 불러오는 메소드.

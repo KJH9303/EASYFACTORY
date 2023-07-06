@@ -14,8 +14,8 @@ public class FebService {
 		this.febDAO = febDAO;
 	}
 	
-	public List<FebVO> getTableData(String tableName) {
-		List<FebVO> tableData = febDAO.getTableData(tableName);
+	public List<FebVO> getTableData(String feb) {
+		List<FebVO> tableData = febDAO.getTableData(feb);
 		return tableData;
 	}
 		

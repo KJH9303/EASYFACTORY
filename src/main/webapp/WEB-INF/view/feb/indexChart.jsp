@@ -1,16 +1,12 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko" style="height: 100%">
+<html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta charset="utf-8">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-</head>
+<meta charset="UTF-8">
+<title>Feb1</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
 <style>
 	table {
 		width: 25%;
@@ -59,82 +55,24 @@
 		</tbody>
 		
 	</table>
-		<h3>장비가동률</h3>
-		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_opratio" name="startDate_opratio" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_opratio" name="endDate_opratio" />
-		    </label>
-		    <button type="button" id="searchData_opratio">데이터 검색</button>
-		  </div>
-		  	<div style="display: flex;">
-		  <div id="container" style="height: 500px"></div>
+	<div style="display: flex;">
 	    <div id="opratioChart" style="width:50%; height:300px;"></div>
-	    <h3>온도</h3>
-   		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_temp" name="startDate_temp" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_temp" name="endDate_temp" />
-		    </label>
-		    <button type="button" id="searchData_temp">데이터 검색</button>
-		  </div>
 	    <div id="gaugeChart" style="width:50%; height:300px;"></div>
 	</div>
 
-		<h3>전기사용량</h3>
-		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_usingratio" name="startDate_usingratio" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_usingratio" name="endDate_usingratio" />
-		    </label>
-		    <button type="button" id="searchData_usingratio">데이터 검색</button>
-		  </div>
-		  	<div style="display: flex;">
+	<div style="display: flex;">
 	    <div id="usingratioChart" style="width:50%; height:300px;"></div>
 	    <div class="current-defect-container" style="width:50%; height:300px;">
-	        <h2>실시간 불량 현황</h2>
+	        <h1>실시간 불량 현황</h1>
+	        <p id="currentDefect"></p>
+	        <h2>이전 불량 현황</h2>
 	        <ul id="previousDefects"></ul>
     </div></div>
 
-		<h3>비용</h3>
-		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_costs" name="startDate_costs" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_costs" name="endDate_costs" />
-		    </label>
-		    <button type="button" id="searchData_costs">데이터 검색</button>
-		  </div>
-		  <div style="display: flex; justify-content: left; width: 100%; height: 300px;">
+	<div style="display: flex; justify-content: left; width: 100%; height: 300px;">
 	    <div id="costsChart" style="width:50%; height:100%;"></div>
 	</div>
 
-	  <script>
-    $(document).ready(function() {
-      $("#startDate_opratio, #endDate_opratio").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      $("#startDate_temp, #endDate_temp").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      $("#startDate_usingratio, #endDate_usingratio").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      $("#startDate_costs, #endDate_costs").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      // 여기에 각각의 검색 버튼에 대한 클릭 이벤트를 정의합니다.
-      // $('#searchData_opratio').click(...) 등
-    });
-  </script>
-  
 	<script>
 	let opratioChart, gaugeChart, usingratioChart, costsChart;
 
@@ -146,7 +84,8 @@
 			dataType: "json",
 			success: function(response) {
 				if (response.Error) {
-					alert(response.Error);
+					alert(response);
+					//alert(response.Error);
 				} else {
 					let dataList = response;
 					let tbody = $("table tbody");
@@ -159,7 +98,8 @@
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생: ${errorThrown}`);
+				alert(response);
+				//alert(`에러 발생: ${errorThrown}`);
 			}
 		});
 		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
@@ -365,6 +305,7 @@
 	            url: "/feb/Defect",
 	            type: 'GET',
 	            success: function(result) {
+	                $('#currentDefect').text(result);
 	                $('#previousDefects').prepend('<li>' + result + '</li>');
 	            },
 	            complete: function() {
