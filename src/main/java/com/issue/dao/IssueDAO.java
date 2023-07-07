@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
-import com.member.vo.MemberVO;
 
 @Repository
 public class IssueDAO {
@@ -70,15 +69,21 @@ public class IssueDAO {
 		List<IssueVO> issueList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
 		return issueList;
 	}
-
-	/*
-	// 로그인
-	public MemberVO login(String id, String pw) {
-		String SQL = "SELECT CODE, DEPARTMENT, ID, NAME, PHONE, EMAIL, PW, REPW FROM MEMBER WHERE UPPER(ID) = UPPER(?) AND PW = ?";
-		MemberVO memberVO = jdbcTemplate.queryForObject(SQL, new Object[]{id, pw}, new signinMapper());
-		return memberVO;
+	
+	// 글 보기
+	public IssueVO viewContent(int no) {
+		String SQL = "SELECT"
+				+ "    		NO"
+				+ "			, TITLE"
+				+ "			, CONTENT"
+				+ "			, AUTHOR"
+				+ "			, REGDATE"
+				+ "			, MODDATE"
+				+ "		FROM ISSUE"
+				+ "		WHERE NO = ?";
+		IssueVO issueVO = jdbcTemplate.queryForObject(SQL, new Object[]{no}, new issueMapper());
+		return issueVO;
 	}
-	*/
 	
 	// 글 작성
 	public void write(IssueVO issueVO) {
@@ -103,7 +108,7 @@ public class IssueDAO {
 	
 	// 글 수정
 	public void update(IssueVO issueVO) {
-		String SQL = "UPDATE MEMBER"
+		String SQL = "UPDATE ISSUE"
 				+ "		SET"
 				+ "			TITLE = ?"
 				+ ", 		CONTENT = ?"
@@ -113,15 +118,13 @@ public class IssueDAO {
 				+ "			NO = ?";
 		jdbcTemplate.update (
 				SQL
-				, issueVO.getNo()
 				, issueVO.getTitle()
 				, issueVO.getContent()
 				, issueVO.getAuthor()
-				, issueVO.getRegDate()
-				, issueVO.getModDate());
+				, issueVO.getNo());
 	}
 	
-	// 회원 탈퇴
+	// 글 삭제
 	public void delete(int no) {
 		String SQL = "DELETE FROM ISSUE WHERE NO = ?";
 		jdbcTemplate.update(SQL, no);

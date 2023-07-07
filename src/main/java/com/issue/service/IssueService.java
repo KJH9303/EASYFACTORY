@@ -27,6 +27,12 @@ public class IssueService {
 		return issueList;
 	}
 	
+	// 글 보기
+	public IssueVO viewContent(int no) {
+		IssueVO issueVO = issueDAO.viewContent(no);
+		return issueVO; 
+	}
+	
 	// 글 작성
 	public void write(IssueVO issueVO) {
 		issueDAO.write(issueVO);

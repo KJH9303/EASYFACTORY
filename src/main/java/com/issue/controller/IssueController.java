@@ -1,7 +1,6 @@
 package com.issue.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,7 +16,6 @@ import com.issue.service.IssueService;
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
 import com.issue.vo.PageMaker;
-import com.member.vo.MemberVO;
 
 @Controller
 @RequestMapping("/issue")
@@ -47,6 +45,14 @@ public class IssueController {
     	return "issue/list";
     }
     
+    // 글 보기
+    @RequestMapping(value="/view", method=RequestMethod.GET)
+    public void viewContent(HttpServletRequest request, Model model) throws Exception {
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	IssueVO issueVO = issueService.viewContent(no);
+    	model.addAttribute("issue", issueVO);
+    }
+    
     // 글 쓰기 페이지
     @RequestMapping(value="/write", method=RequestMethod.GET)
     public String writeView(HttpServletRequest request, Model model) throws Exception {
@@ -60,5 +66,29 @@ public class IssueController {
     public String write(@ModelAttribute IssueVO issueVO, Model model) throws Exception {
     	issueService.write(issueVO);
 		return "redirect:/issue/list";
+    }
+    
+    // 글 수정 페이지
+    @RequestMapping(value="/update", method=RequestMethod.GET)
+    public void updateView(HttpServletRequest request, Model model) throws Exception {
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	IssueVO issueVO = issueService.viewContent(no);
+    	model.addAttribute("issue", issueVO);
+    }
+    
+    // 글 수정 기능
+    @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
+    public String update(@ModelAttribute IssueVO issueVO, HttpServletRequest request) {
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	issueService.update(issueVO);
+    	return "redirect:/issue/view?no="+no;
+    }
+    
+    // 글 삭제
+    @RequestMapping(value="/delete", method=RequestMethod.GET)
+    public String delete(@ModelAttribute IssueVO issueVO, HttpServletRequest request) {
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	issueService.delete(no);
+    	return "redirect:/issue/list";
     }
 }

@@ -40,6 +40,7 @@
     </script>
 </head>
 <body>
+
     <div id="headerContainer"></div>
     <div class="container">
         <h1>Table</h1>      
@@ -66,7 +67,7 @@
            			<c:forEach items="${issueList}" var="issueList">
            				<tr>
 	                		<td>${issueList.no}</td>
-	                		<td><a href="#">${issueList.title}</a></td>
+	                		<td><a href="/issue/view?no=${issueList.no}">${issueList.title}</a></td>
 	                		<td>${issueList.author}</td>
 	                		<td>${issueList.regDate}</td>
                 		</tr>
