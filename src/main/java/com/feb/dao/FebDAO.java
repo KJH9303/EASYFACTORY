@@ -76,60 +76,27 @@ public class FebDAO {
     }
  	
     
-// SelectDAO    
- 	// 특정 테이블에서 데이터를 가져오는 메서드.
-    public List<FebVO> getTableData(String feb) {
-    	
-    	String SQL = "SELECT * FROM " + feb;
-    	List<FebVO> resultList = jdbcTemplate.query(SQL, new FebMapper());
-    	ResultSet rs = (ResultSet) jdbcTemplate.query(SQL, new FebMapper());
-    	JSONArray jsonArray = new JSONArray();
-    	try {
-	    	while (resultList != null) {
-	            JSONObject row = new JSONObject();
-	            row.put("opratio", rs.getDouble("opratio"));
-	            row.put("temp", rs.getInt("temp"));
-	            row.put("tr", rs.getInt("tr"));
-	            row.put("fal", rs.getInt("fal"));
-	            row.put("stock", rs.getInt("stock"));
-	            row.put("costs", rs.getInt("costs"));
-	            row.put("usingratio", rs.getDouble("usingratio"));
-	            row.put("hiredate", rs.getDate("hiredate").toString());
-	            jsonArray.add(row);
-	            
-	            
-	            return (List<FebVO>) rs;
-	    	}
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    	}
-    	return resultList;
-    }
- 	
-    public JSONArray getTableData() {
+ 	// Select    
+    public JSONArray selectData() {
         String query = "SELECT * FROM feb1";
-
-        List<JSONObject> jsonList = jdbcTemplate.query(query, new RowMapper<JSONObject>() {
-            @Override
-            public JSONObject mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+        return jdbcTemplate.query(query, rs -> {
+            JSONArray jsonArray = new JSONArray();
+            while (rs.next()) {
                 JSONObject row = new JSONObject();
-                row.put("opratio", resultSet.getDouble("opratio"));
-                row.put("temp", resultSet.getInt("temp"));
-                row.put("tr", resultSet.getInt("tr"));
-                row.put("fal", resultSet.getInt("fal"));
-                row.put("stock", resultSet.getInt("stock"));
-                row.put("costs", resultSet.getInt("costs"));
-                row.put("usingratio", resultSet.getDouble("usingratio"));
-                row.put("hiredate", resultSet.getDate("hiredate").toString());
-                return row;
+                row.put("opratio", rs.getDouble("opratio"));
+                row.put("temp", rs.getInt("temp"));
+                row.put("tr", rs.getInt("tr"));
+                row.put("fal", rs.getInt("fal"));
+                row.put("stock", rs.getInt("stock"));
+                row.put("costs", rs.getInt("costs"));
+                row.put("usingratio", rs.getDouble("usingratio"));
+                row.put("hiredate", rs.getDate("hiredate").toString());
+                jsonArray.add(row);
             }
+            return jsonArray;
         });
-
-        JSONArray jsonArray = new JSONArray();
-        jsonArray.addAll(jsonList);
-        return jsonArray;
     }
-    
+ 	    
 // Author : kj9303
  	// Feb 데이터 가져오기
  	public List<FebVO> getDatePickerData(Date startDate, Date endDate) {

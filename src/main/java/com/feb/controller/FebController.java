@@ -1,10 +1,5 @@
 package com.feb.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -23,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.easyfactory.config.OracleInfo;
 import com.feb.service.FebService;
 import com.feb.vo.FebVO;
 
@@ -48,50 +41,14 @@ public class FebController {
     @GetMapping("/select-data")
     @ResponseBody
     public void selectData(HttpServletResponse response) {
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet resultSet = null;
-
         try {
+            JSONArray jsonArray = febService.selectData();
 
-            Class.forName(OracleInfo.driver);
-            conn = DriverManager.getConnection(OracleInfo.url, OracleInfo.username, OracleInfo.password);
-
-            String query = "SELECT * FROM feb1";
-            pstmt = conn.prepareStatement(query);
-            resultSet = pstmt.executeQuery();
-
-            JSONArray jsonArray = new JSONArray();
-            while (resultSet.next()) {
-                JSONObject row = new JSONObject();
-                row.put("opratio", resultSet.getDouble("opratio"));
-                row.put("temp", resultSet.getInt("temp"));
-                row.put("tr", resultSet.getInt("tr"));
-                row.put("fal", resultSet.getInt("fal"));
-                row.put("stock", resultSet.getInt("stock"));
-                row.put("costs", resultSet.getInt("costs"));
-                row.put("usingratio", resultSet.getDouble("usingratio"));
-                row.put("hiredate", resultSet.getDate("hiredate").toString());
-                jsonArray.add(row);
-            }
-            
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonArray.toString());
-
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (resultSet != null) {
-                try { resultSet.close(); } catch (Exception e) { e.printStackTrace(); }
-            }
-            if (pstmt != null) {
-                try { pstmt.close(); } catch (Exception e) { e.printStackTrace(); }
-            }
-            if (conn != null) {
-                try { conn.close(); } catch (Exception e) { e.printStackTrace(); }
-            }
         }
     }
 

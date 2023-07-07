@@ -3,6 +3,8 @@ package com.feb.service;
 import java.util.Date;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+
 import com.feb.dao.FebDAO;
 import com.feb.vo.FebVO;
 
@@ -14,10 +16,9 @@ public class FebService {
 		this.febDAO = febDAO;
 	}
 	
-	public List<FebVO> getTableData(String feb) {
-		List<FebVO> tableData = febDAO.getTableData(feb);
-		return tableData;
-	}
+	public JSONArray selectData() {
+        return febDAO.selectData();
+    }
 		
 	public List<FebVO> getDatePickerData(Date startDate, Date endDate) {
 		List<FebVO> tableData = febDAO.getDatePickerData(startDate, endDate);
