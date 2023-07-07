@@ -132,11 +132,84 @@
       });
       // 여기에 각각의 검색 버튼에 대한 클릭 이벤트를 정의합니다.
       // $('#searchData_opratio').click(...) 등
+      
+      $("#searchData_opratio").click(function() {
+    	    fetchChartData("op_ratio");
+    	});
+
+    	$("#searchData_temp").click(function() {
+    	    fetchChartData("temp");
+    	});
+
+    	$("#searchData_usingratio").click(function() {
+    	    fetchChartData("using_ratio");
+    	});
+
+    	$("#searchData_costs").click(function() {
+    	    fetchChartData("costs");
+    	});
+
     });
   </script>
   
 	<script>
 	let opratioChart, gaugeChart, usingratioChart, costsChart;
+	
+	function fetchChartData(type) {
+	    var startDateInputId, endDateInputId, uri, updateChartFunc;
+
+	    switch (type) {
+	        case "op_ratio":
+	            startDateInputId = "startDate_opratio";
+	            endDateInputId = "endDate_opratio";
+	            uri = "/feb/select-data-opratio";
+	            updateChartFunc = updateOpratioChart;
+	            break;
+	        case "temp":
+	            startDateInputId = "startDate_temp";
+	            endDateInputId = "endDate_temp";
+	            uri = "/feb/select-data-temp";
+	            updateChartFunc = updateGaugeChart;
+	            break;
+	        case "using_ratio":
+	            startDateInputId = "startDate_usingratio";
+	            endDateInputId = "endDate_usingratio";
+	            uri = "/feb/select-data-usingratio";
+	            updateChartFunc = updateUsingratioChart;
+	            break;
+	        case "costs":
+	            startDateInputId = "startDate_costs";
+	            endDateInputId = "endDate_costs";
+	            uri = "/feb/select-data-costs";
+	            updateChartFunc = updateCostsChart;
+	            break;
+	    }
+
+	    var startDate = $("#" + startDateInputId).val();
+	    var endDate = $("#" + endDateInputId).val();
+
+	    $.ajax({
+	        type: "GET",
+	        url: uri,
+	        data: {
+	            start_date: startDate,
+	            end_date: endDate
+	        },
+	        dataType: "json",
+	        success: function(response) {
+	            if (response.Error) {
+	                alert(response.Error);
+	            } else {
+	                var dataList = response;
+	                updateChartFunc(dataList);
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            alert(`에러 발생: ${errorThrown}`);
+	        }
+	    });
+	}
+
 
 	// ajax
 	function fetchData() {

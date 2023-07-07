@@ -1,12 +1,9 @@
 package com.feb.service;
 
-import java.util.Date;
-import java.util.List;
 
 import org.json.simple.JSONArray;
 
 import com.feb.dao.FebDAO;
-import com.feb.vo.FebVO;
 
 public class FebService {
 	
@@ -20,11 +17,6 @@ public class FebService {
         return febDAO.selectData();
     }
 		
-	public List<FebVO> getDatePickerData(Date startDate, Date endDate) {
-		List<FebVO> tableData = febDAO.getDatePickerData(startDate, endDate);
-		return tableData;
-	}
-	
 	public void updateTables() {
 		febDAO.insertTable("feb1");
 		febDAO.insertTable("feb2");
@@ -64,4 +56,5 @@ public class FebService {
 		String result = febDAO.getRandomDefect();
 		return result;
 	}
+
 }

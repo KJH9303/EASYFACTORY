@@ -1,24 +1,18 @@
 package com.feb.controller;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.feb.service.FebService;
-import com.feb.vo.FebVO;
 
 @Controller
 @RequestMapping("/feb")
@@ -31,13 +25,6 @@ public class FebController {
 		this.febService = febService;
 	}
 
-    @GetMapping("/fetch-data")
-    public List<FebVO> fetchData(@RequestParam("start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                             @RequestParam("end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        List<FebVO> data = febService.getDatePickerData(startDate, endDate);
-        return data;
-    }
-    
     @GetMapping("/select-data")
     @ResponseBody
     public void selectData(HttpServletResponse response) {
@@ -52,26 +39,6 @@ public class FebController {
         }
     }
 
-    /*
-    @GetMapping("/select-data")
-    public String getTableData(HttpServletRequest request, HttpServletResponse response) {
-    	String feb = "feb1";
-    	List<FebVO> dataList = febService.getTableData(feb);
-    	System.out.println("[ChartController] /chart2");
-
-        request.setAttribute("feb1", "feb1");
-        request.setAttribute("resultList", dataList); 
-        //request.getRequestDispatcher("indexChart.jsp").forward(request, response); // JSP 페이지로 forwarding
-        return "/indexChart";
-    }
-    */
-    
-    @RequestMapping("/datepicker")
-    public String index() {
-        return "datepicker";
-    }
-    
-    
     ////////////////////////
     @RequestMapping(value="/febUpdateTest", method=RequestMethod.POST)
     public String index(HttpServletRequest request) {
