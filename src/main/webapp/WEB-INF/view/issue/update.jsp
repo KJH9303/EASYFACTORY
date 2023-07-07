@@ -37,7 +37,7 @@
 			    $("#content").focus();
 			    return false;
 			}
-			alert("글 작성 완료.");
+			alert("수정 완료.");
 			$("#updateForm").submit();
 		});
 	});
