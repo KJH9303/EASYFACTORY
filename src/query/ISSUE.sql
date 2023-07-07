@@ -57,15 +57,31 @@ FROM (
         FROM issue
     ORDER BY no desc) b) a
 WHERE
-    rnum BETWEEN 1 AND 10;
+    rnum BETWEEN 1 AND 10
+    AND REGDATE BETWEEN TO_DATE('2023-07-06', 'YYYY/MM/DD') AND TO_DATE('2023-07-06', 'YYYY/MM/DD');
+
+----------------------------------------
+-------- 이슈 게시판 글 보기 -----------
+----------------------------------------
+SELECT
+    NO
+    , TITLE
+    , CONTENT
+    , AUTHOR
+    , REGDATE
+    , MODDATE
+FROM ISSUE
+    WHERE NO = 1;
 
 
 
 
+SELECT ROWNUM , a.* FROM ( SELECT ROWNUM rnum , b.* FROM ( SELECT * FROM ISSUE ORDER BY NO DESC) b) a WHERE rnum BETWEEN 1 AND 10 AND UPPER(title) LIKE UPPER('%tt%');
+
+SELECT COUNT(NO) FROM ISSUE WHERE NO > 0 AND REGDATE BETWEEN TO_DATE('2023-07-06', 'YYYY/MM/DD') AND TO_DATE('2023-07-06', 'YYYY/MM/DD');
+
+SELECT * FROM ISSUE WHERE NO > 0 AND REGDATE BETWEEN TO_DATE('2023-07-06', 'YYYY/MM/DD') AND TO_DATE('2023-07-06', 'YYYY/MM/DD');
 
 
-
-
-
-SELECT * FROM ISSUE;
+SELECT * FROM ISSUE order by no desc;
 COMMIT;

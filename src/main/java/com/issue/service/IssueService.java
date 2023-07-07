@@ -27,6 +27,18 @@ public class IssueService {
 		return issueList;
 	}
 	
+	// 글 검색
+	public List<IssueVO> search(String searchType, String keyword, String startDate, String endDate, Criteria cri) {
+		List<IssueVO> searchIsList = issueDAO.search(searchType, keyword, startDate, endDate, cri);
+		return searchIsList;
+	}
+	
+	// 키워드와 일치하는 글 갯수
+	public int issueSearchCnt(String searchType, String keyword, String startDate, String endDate) {
+		int cnt = issueDAO.issueSearchCnt(searchType, keyword, startDate, endDate);
+		return cnt;
+	}
+	
 	// 글 보기
 	public IssueVO viewContent(int no) {
 		IssueVO issueVO = issueDAO.viewContent(no);

@@ -10,6 +10,9 @@ public class IssueVO {
 	private Date regDate;
 	private Date modDate;
 	
+	private String searchType;
+	private String keyword;
+	
 	public IssueVO() {}
 
 	public IssueVO(int no, String title, String content, String author, Date regDate, Date modDate) {
@@ -19,6 +22,17 @@ public class IssueVO {
 		this.author = author;
 		this.regDate = regDate;
 		this.modDate = modDate;
+	}
+	
+	public IssueVO(int no, String title, String content, String author, Date regDate, Date modDate, String searchType, String keyword) {
+		this.no = no;
+		this.title = title;
+		this.content = content;
+		this.author = author;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.searchType = searchType;
+		this.keyword = keyword;
 	}
 
 	public int getNo() {
@@ -69,10 +83,26 @@ public class IssueVO {
 		this.modDate = modDate;
 	}
 
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
-		return "IssueVO [no=" + no + ", title=" + title + ", content=" + content + ", author=" + author + ", regdate="
-				+ regDate + ", moddate=" + modDate + "]";
+		return "IssueVO [no=" + no + ", title=" + title + ", content=" + content + ", author=" + author + ", regDate="
+				+ regDate + ", modDate=" + modDate + ", searchType=" + searchType + ", keyword=" + keyword + "]";
 	}
-	
+
 }

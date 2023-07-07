@@ -2,6 +2,7 @@ package com.issue.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -18,6 +19,27 @@ import com.issue.vo.IssueVO;
 public class IssueDAO {
 
 	private JdbcTemplate jdbcTemplate;
+	/*
+	private String[] search = new String[] {
+		"where title like '% || %s || %",
+		
+	};
+	
+	HashMap<String, String> wheres = new HashMap<>() {
+	}
+	
+	final static String where = "title like '% || %s || %";
+
+	String makeWhere(String searchType, String keyword) {
+		String sql = null;
+		
+		switch(searchType) {
+		case "title":
+			sql = String.format(where, keyword[0]);
+		}
+		
+		return sql;
+	}*/
 	
 	@Autowired
 	public IssueDAO(DataSource dataSource) {
@@ -65,9 +87,52 @@ public class IssueDAO {
 				+ "			rnum BETWEEN ? AND ?";
 		int startPage = cri.getRowStart();
 		int endPage = cri.getRowEnd();
-		System.out.println("startPage : " + startPage + ", endPage : " + endPage);
 		List<IssueVO> issueList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
 		return issueList;
+	}
+	
+	// 글 검색
+	public List<IssueVO> search(String searchType, String keyword, String startDate, String endDate, Criteria cri) {
+		int startPage = cri.getRowStart();
+		int endPage = cri.getRowEnd();
+		System.out.println(startPage + endPage + searchType + keyword);
+		
+		String SQL = "SELECT "
+				+ "			ROWNUM"
+				+ "			, a.*"
+				+ "		FROM ("
+				+ "			SELECT"
+				+ "			ROWNUM rnum"
+				+ "			, b.*"
+				+ "		FROM ("
+				+ "				SELECT"
+				+ "					*"
+				+ "				FROM ISSUE"
+				+ "		ORDER BY NO DESC) b) a"
+				+ "		WHERE"
+				+ "			rnum BETWEEN ? AND ?";
+		if(searchType.equals("regDate")) {
+			SQL += " AND " + searchType + " BETWEEN TO_DATE('" + startDate + "', 'YYYY/MM/DD') AND TO_DATE('" + endDate + "', 'YYYY/MM/DD')";
+		} else if(searchType.equals("title") || searchType.equals("content") || searchType.equals("author")) {
+			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + keyword + "%')";
+		} else if(searchType.equals("") || searchType == null) {
+			List<IssueVO> searchIsList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
+		}
+		List<IssueVO> searchIsList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
+		return searchIsList;
+	}
+	
+	// 검색어가 일치하는 게시물 갯수
+	public int issueSearchCnt(String searchType, String keyword, String startDate, String endDate) {
+		String SQL = "SELECT COUNT(NO) FROM ISSUE WHERE NO > 0";
+		if(searchType.equals("regDate")) {
+			SQL += " AND " + searchType + " BETWEEN TO_DATE('" + startDate + "', 'YYYY/MM/DD') AND TO_DATE('" + endDate + "', 'YYYY/MM/DD')";
+		} else if(searchType.equals("title") || searchType.equals("content") || searchType.equals("author")) {
+			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + keyword + "%')";
+		}
+		
+		int cnt = jdbcTemplate.queryForObject(SQL, Integer.class);
+		return cnt;
 	}
 	
 	// 글 보기

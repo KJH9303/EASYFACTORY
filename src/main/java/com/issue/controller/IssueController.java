@@ -45,12 +45,44 @@ public class IssueController {
     	return "issue/list";
     }
     
+    // 글 검색
+    @RequestMapping(value="/list/search", method=RequestMethod.GET)
+    public String search(HttpServletRequest request, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+    	
+    	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
+    	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
+    	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
+    	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	String page = request.getParameter("page") == null ? "" : request.getParameter("page");
+    	String perPageNum = request.getParameter("perPageNum") == null ? "" : request.getParameter("perPageNum");
+    	
+    	int totCnt = issueService.issueSearchCnt(searchType, keyword, startDate, endDate);
+   	 	model.addAttribute("totCnt", totCnt);
+   	 	model.addAttribute("searchType", searchType);
+   	 	model.addAttribute("startDate", startDate);
+   	 	model.addAttribute("endDate", endDate);
+   	 	
+    	List<IssueVO> searchIsList = issueService.search(searchType, keyword, startDate, endDate, cri);
+    	model.addAttribute("issueList", searchIsList);
+    	model.addAttribute("page", page);
+    	model.addAttribute("perPageNum", perPageNum);
+    	
+    	PageMaker pageMaker = new PageMaker();
+    	pageMaker.setCri(cri);
+    	 
+    	pageMaker.setTotalCount(totCnt);
+    	model.addAttribute("pageMaker", pageMaker);
+    	
+    	return "issue/list";
+    }
+    
     // 글 보기
     @RequestMapping(value="/view", method=RequestMethod.GET)
-    public void viewContent(HttpServletRequest request, Model model) throws Exception {
+    public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
     	int no = Integer.parseInt(request.getParameter("no"));
     	IssueVO issueVO = issueService.viewContent(no);
     	model.addAttribute("issue", issueVO);
+    	model.addAttribute("cri", cri);
     }
     
     // 글 쓰기 페이지

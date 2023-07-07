@@ -35,6 +35,10 @@
 			    location.href="/issue/list";
 			}
 		});
+		
+		$("#goBackBtn").on('click', function() {
+			self.location = "/issue/list?page=${pageMaker.page}&perPageNum=${pageMaker.perPageNum}"
+		});
 	});
 </script>
 </head>
@@ -57,10 +61,14 @@
             	<input type="button" id=updateBtn value="수정">
             	<input type="button" id=deleteBtn value="삭제">
            	</c:if>
+           	<input type="text" id="page" value="${page}" readonly>
+        	<input type="text" id="perPageNum" value="${perPageNum}" readonly>
+            <input type="text" id="searchType" value="${issue.searchType}" readonly>
+            <input type="text" id="keyword" value="${issue.keyword}" readonly>
         <hr>
 			<textarea id="reply" name="reply" rows="2" cols="50" placeholder="댓글 작성"></textarea><br><br>
 		<hr>
-        <button onclick="location.href='/issue/list'">돌아가기</button>
+        <button type="button" id="goBackBtn">돌아가기</button>
     </div>
 </body>
 </html>
