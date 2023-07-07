@@ -1,9 +1,10 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en" style="height: 100%">
 <head>
 <meta charset="utf-8">
+
 <script type="text/javascript" src="js/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="js/echarts.min.js"></script>
 <script type="text/javascript"

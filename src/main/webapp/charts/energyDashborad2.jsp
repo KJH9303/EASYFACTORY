@@ -114,73 +114,19 @@
 			  });
 			
 			  // 데이터 피커의 기본 설정을 정의합니다.
-			  function loadData(chartType, startDate, endDate) {
-					  var url;
-					
-					  switch (chartType) {
-					    case "energyCost":
-					      url = "/energy/chart2";
-					      break;
-					    case "energyUsingratio":
-					      url = "/energy/chart10";
-					      break;
-					    case "energyOpratio":
-					      url = "/energy/chart1";
-					      break;
-					    default:
-					      throw new Error("Invalid chart type");
-					  }
-					
-					  $.ajax({
-					    url: url,
-					    type: "POST",
-					    data: { startDate: startDate, endDate: endDate },
-					    success: function (data) {
-					      console.log("Raw Data:", data);
-					      // 차트 데이터를 처리하고 대시보드에 값을 표시하는 코드를 작성합니다.
-					    },
-					    error: function (err) {
-					      console.log(err);
-					    }
-					  });
-					}
-					
-					function onApplyDateRange(chartType) {
-					  var startDate, endDate;
-					
-					  // 각 차트 타입별로 데이터 피커의 값을 가져옵니다.
-					  switch (chartType) {
-					    case "energyCost":
-					      startDate = $("#energyCostStartDate").val();
-					      endDate = $("#energyCostEndDate").val();
-					      break;
-					    case "energyUsingratio":
-					      startDate = $("#energyUsingratioStartDate").val();
-					      endDate = $("#energyUsingratioEndDate").val();
-					      break;
-					    case "energyOpratio":
-					      startDate = $("#energyOpratioStartDate").val();
-					      endDate = $("#energyOpratioEndDate").val();
-					      break;
-					    default:
-					      throw new Error("Invalid chart type");
-					  }
-					
-					  // 선택한 날짜 범위를 사용하여 차트 데이터를 불러옵니다.
-					  loadData(chartType, startDate, endDate);
-					}
-					
-					$("#applyEnergyCost").click(function () {
-					  onApplyDateRange("energyCost");
-					});
-					
-					$("#applyEnergyUsingratio").click(function () {
-					  onApplyDateRange("energyUsingratio");
-					});
-					
-					$("#applyEnergyOpratio").click(function () {
-					  onApplyDateRange("energyOpratio");
-					});
+			  $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+			
+			  // 날짜를 선택하고 '적용'을 클릭할 때 실행할 함수를 정의합니다.
+			  function onApplyDateRange() {
+			    // 여기에서 각 차트 작성을 위해 loadData 등의 함수를 호출하고,
+			    // 선택한 날짜 범위를 사용하여 각 차트 데이터를 제공합니다.
+			  }
+			
+			  // 각 "적용" 버튼에 클릭 이벤트를 설정합니다.
+			  $("#applyEnergyCost").click(onApplyDateRange);
+			  $("#applyEnergyUsingratio").click(onApplyDateRange);
+			  $("#applyEnergyOpratio").click(onApplyDateRange);
+			});
 		</script>
 		</body>
 		</html>

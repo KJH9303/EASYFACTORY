@@ -30,14 +30,14 @@
 
     var option = {
         title: {
-            text: '총 비용 대비 총 생산량',
-            subtext: '총비용 단위 (천원)'
+            text: '총 비용 대비 총 에너지사용량',
+            subtext: '에너지사용량 단위 (kWh)\n총 비용 단위(천원)'
         },
         tooltip: {
             trigger: 'axis'
         },
         legend: {
-            data: ['비용', '생산량']
+            data: ['비용', '에너지 사용량']
         },
         toolbox: {
             show: true,
@@ -68,7 +68,7 @@
                 }
             },
             {
-                name: '생산량',
+                name: '에너지 사용량',
                 type: 'bar',
                 data: [],
                 markPoint: {
@@ -89,14 +89,14 @@
         var endDate = $("#endDate").val();
 
         $.ajax({
-            url: "/energy/chart8",
+            url: "/energy/chart9",
             type: "POST",
             data: {startDate: startDate,endDate: endDate},
             success: function(data) {
                 console.log("Raw Data:", data);
                 var chartData = JSON.parse(data);
                 var febcosts = chartData.febcosts;
-                var febtr = chartData.febtr;
+                var febcvusingratio = chartData.febcvusingratio;
 
                 var xAxisData = ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정'];
 
@@ -109,8 +109,8 @@
                             data: febcosts,
                         },
                         {
-                            name: '생산량',
-                            data: febtr,
+                            name: '에너지 사용량',
+                            data: febcvusingratio,
                         }
                     ],
                 });

@@ -16,12 +16,16 @@ public class EnergyService {
         this.energyDAO = energyDAO;
     }
    
-    public List<EnergyVO> getTemp(String startDate, String endDate) {
-        return energyDAO.getTemp(startDate, endDate);
-    }
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
         return energyDAO.getOpratio(startDate, endDate);
     }
+    public List<EnergyVO> getUsingratio(String startDate, String endDate) {
+        return energyDAO.getUsingratio(startDate, endDate);
+    }
+    public List<EnergyVO> getCosts(String startDate, String endDate) {
+        return energyDAO.getCosts(startDate, endDate);
+    }
+    
     public List<EnergyVO> getFebOpratio(String startDate, String endDate) {
         return energyDAO.getFebOpratio(startDate, endDate);
     }
@@ -37,6 +41,9 @@ public class EnergyService {
     public List<EnergyVO> getFebUsingratio(String startDate, String endDate) {
         return energyDAO.getFebusingratio(startDate, endDate);
     }
+    public List<EnergyVO> getFebcvusingratio(String startDate, String endDate) {
+        return energyDAO.getFebCVusingratio(startDate, endDate);
+    }
     
     // 가동률
     public JSONArray JsonOpratioChange(List<EnergyVO> energyOpratioList) {
@@ -46,14 +53,23 @@ public class EnergyService {
         }
         return jsonArray;
     }
-    // 온도
-    public JSONArray JsonTempChange(List<EnergyVO> energyTempList) {
+    // 에너지 사용량
+    public JSONArray JsonUsingratioChange(List<EnergyVO> energyUsingtioList) {
         JSONArray jsonArray = new JSONArray();
-        for (EnergyVO energyData : energyTempList) {
-            jsonArray.add(energyData.getTemp());
+        for (EnergyVO energyData : energyUsingtioList) {
+            jsonArray.add(energyData.getUsingratio());
         }
         return jsonArray;
     }
+    // 에너지 사용 비용
+    public JSONArray JsonCostsChange(List<EnergyVO> energyCostsList) {
+        JSONArray jsonArray = new JSONArray();
+        for (EnergyVO energyData : energyCostsList) {
+            jsonArray.add(energyData.getCosts());
+        }
+        return jsonArray;
+    }
+  
     // 공정별 가동률 각 평균
     public JSONArray JsonFebOpratioChange(List<EnergyVO> energyFebopratioList) {
         JSONArray jsonArray = new JSONArray();
@@ -85,29 +101,42 @@ public class EnergyService {
     
     // 공정별 각 총 전기비용
     public JSONArray JsonFebCostsChange(List<EnergyVO> energyFebCostsList) {
-        JSONArray jsonArray2 = new JSONArray();
-        for (EnergyVO energyData2 : energyFebCostsList) {
+        JSONArray jsonArray = new JSONArray();
+        for (EnergyVO energyData : energyFebCostsList) {
             
-        	int[] vals =  energyData2.getFebcosts();
+        	int[] vals =  energyData.getFebcosts();
         	for( int val : vals) {
-        		jsonArray2.add(val);
+        		jsonArray.add(val);
         	}
             
         }
-        return jsonArray2;
+        return jsonArray;
     }
-    // 공정별 각 총 생산량
-    public JSONArray JsonFebUsingratioChange(List<EnergyVO> energyFebUsingratioList) {
-        JSONArray jsonArray3 = new JSONArray();
-        for (EnergyVO energyData3 : energyFebUsingratioList) {
+    // 공정별 각 총생산대비 전력사용량 khw -> w로 변경 하는 쿼리
+    public JSONArray JsonCVUsingratioChange(List<EnergyVO> energyFebCVUsingratioList) {
+        JSONArray jsonArray = new JSONArray();
+        for (EnergyVO energyData : energyFebCVUsingratioList) {
             
-        	int[] vals =  energyData3.getFebusingratio();
-        	for( int val : vals) {
-        		jsonArray3.add(val);
+        	double[] vals =  energyData.getFebcvusingratio();
+        	for( double val : vals) {
+        		jsonArray.add(val);
         	}
             
         }
-        return jsonArray3;
+        return jsonArray;
+    }
+    // 공절별 각 전기사용량 
+    public JSONArray JsonFebUsingratioChange(List<EnergyVO> energyFebUsingratioList) {
+        JSONArray jsonArray = new JSONArray();
+        for (EnergyVO energyData : energyFebUsingratioList) {
+            
+        	int[] vals =  energyData.getFebusingratio();
+        	for( int val : vals) {
+        		jsonArray.add(val);
+        	}
+            
+        }
+        return jsonArray;
     }
     
     // 비용별 월별 가변 전력비용
