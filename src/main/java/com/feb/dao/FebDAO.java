@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -74,8 +75,7 @@ public class FebDAO {
              return febVO;
          }
     }
- 	
-    
+ 	    
  	// Select    
     public JSONArray selectData() {
         String query = "SELECT * FROM feb1";
@@ -170,40 +170,6 @@ public class FebDAO {
                 e.printStackTrace();
                 System.out.println(">>> 날짜 " + currentDate + " 업데이트 작업 중 예외가 발생하였습니다: " + e.getMessage());
             }
-        }
-    }
-// insertDAO    
- 
-// 임시 (추후 삭제예정)
-// MonthDataDao
-    public void printMonthlyAvgOperationalRate() {
-        String sql = "SELECT EXTRACT(MONTH FROM hiredate) AS \"월\", AVG(opratio) AS \"가동률 평균\" FROM feb1 GROUP BY EXTRACT(MONTH FROM hiredate) ORDER BY EXTRACT(MONTH FROM hiredate)";
-        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-
-        for (Map<String, Object> row : resultList) {
-        	BigDecimal avgOpratio = (BigDecimal) row.get("가동률 평균");
-            System.out.println("월: " + row.get("월") + ", 가동률 평균: " + decimalFormat.format(avgOpratio));
-        }
-    }
-
-    public void printYearlyAvgTemperature() {
-        String sql = "SELECT TO_CHAR(hiredate, 'YYYY') AS \"당해\", AVG(TEMP) AS \"온도 평균\" FROM feb1 GROUP BY TO_CHAR(hiredate, 'YYYY')";
-        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
-        DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        
-        for (Map<String, Object> row : resultList) {
-            BigDecimal avgTemp = (BigDecimal) row.get("온도 평균");
-            System.out.println("당해: " + row.get("당해") + ", 온도 평균: " + decimalFormat.format(avgTemp));
-        }
-    }
-
-    public void printMonthlyElectricityUsage() {
-        String sql = "SELECT EXTRACT(MONTH FROM hiredate) AS \"월\", SUM(usingratio) AS \"월별 전기사용량\" FROM feb1 GROUP BY EXTRACT(MONTH FROM HIREDATE) ORDER BY EXTRACT(MONTH FROM HIREDATE)";
-        List<Map<String, Object>> resultList = jdbcTemplate.queryForList(sql);
-
-        for (Map<String, Object> row : resultList) {
-            System.out.println("월: " + row.get("월") + ", 월별 전기사용량: " + row.get("월별 전기사용량"));
         }
     }
 
