@@ -58,14 +58,15 @@ public class IssueController {
     	
     	int totCnt = issueService.issueSearchCnt(searchType, keyword, startDate, endDate);
    	 	model.addAttribute("totCnt", totCnt);
-   	 	model.addAttribute("searchType", searchType);
-   	 	model.addAttribute("startDate", startDate);
-   	 	model.addAttribute("endDate", endDate);
    	 	
     	List<IssueVO> searchIsList = issueService.search(searchType, keyword, startDate, endDate, cri);
     	model.addAttribute("issueList", searchIsList);
     	model.addAttribute("page", page);
     	model.addAttribute("perPageNum", perPageNum);
+    	model.addAttribute("searchType", searchType);
+   	 	model.addAttribute("keyword", keyword);
+   	 	model.addAttribute("startDate", startDate);
+   	 	model.addAttribute("endDate", endDate);
     	
     	PageMaker pageMaker = new PageMaker();
     	pageMaker.setCri(cri);
@@ -80,7 +81,19 @@ public class IssueController {
     @RequestMapping(value="/view", method=RequestMethod.GET)
     public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
     	int no = Integer.parseInt(request.getParameter("no"));
+    	
     	IssueVO issueVO = issueService.viewContent(no);
+    	
+    	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
+    	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
+    	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
+    	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	
+    	model.addAttribute("searchType", searchType);
+   	 	model.addAttribute("keyword", keyword);
+   	 	model.addAttribute("startDate", startDate);
+   	 	model.addAttribute("endDate", endDate);
+   	 	
     	model.addAttribute("issue", issueVO);
     	model.addAttribute("cri", cri);
     }

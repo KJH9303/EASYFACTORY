@@ -58,7 +58,6 @@ public class MemberDAO {
 	
 	// id, 비밀번호 체크 Ajax
 	public boolean checkDuplicateId(String id) {
-		System.out.println("MemberDAO : id : " + id);
 		Integer count = jdbcTemplate.queryForObject (
 				"  SELECT COUNT(*)"
 				+ " 	FROM MEMBER "

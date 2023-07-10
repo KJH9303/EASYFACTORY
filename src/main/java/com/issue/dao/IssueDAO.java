@@ -95,7 +95,6 @@ public class IssueDAO {
 	public List<IssueVO> search(String searchType, String keyword, String startDate, String endDate, Criteria cri) {
 		int startPage = cri.getRowStart();
 		int endPage = cri.getRowEnd();
-		System.out.println(startPage + endPage + searchType + keyword);
 		
 		String SQL = "SELECT "
 				+ "			ROWNUM"

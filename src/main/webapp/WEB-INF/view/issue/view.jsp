@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Write</title>
+<title>View</title>
 <link rel="stylesheet" href="../../../resources/issue/css/board.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -37,7 +37,7 @@
 		});
 		
 		$("#goBackBtn").on('click', function() {
-			self.location = "/issue/list?page=${pageMaker.page}&perPageNum=${pageMaker.perPageNum}"
+			self.location = "/issue/list/search?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}"
 		});
 	});
 </script>
@@ -61,14 +61,16 @@
             	<input type="button" id=updateBtn value="수정">
             	<input type="button" id=deleteBtn value="삭제">
            	</c:if>
-           	<input type="text" id="page" value="${page}" readonly>
-        	<input type="text" id="perPageNum" value="${perPageNum}" readonly>
-            <input type="text" id="searchType" value="${issue.searchType}" readonly>
-            <input type="text" id="keyword" value="${issue.keyword}" readonly>
+           	<input type="hidden" id="page" value="${cri.page}" readonly>
+        	<input type="hidden" id="perPageNum" value="${cri.perPageNum}" readonly>
+            <input type="hidden" id="searchType" value="${searchType}" readonly>
+            <input type="hidden" id="keyword" value="${keyword}" readonly>
+            <input type="hidden" id="startDate" value="${startDate}" readonly>
+            <input type="hidden" id="endDate" value="${endDate}" readonly>
         <hr>
 			<textarea id="reply" name="reply" rows="2" cols="50" placeholder="댓글 작성"></textarea><br><br>
 		<hr>
-        <button type="button" id="goBackBtn">돌아가기</button>
+        <button type="button" id="goBackBtn">목록</button>
     </div>
 </body>
 </html>

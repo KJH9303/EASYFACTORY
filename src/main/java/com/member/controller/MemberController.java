@@ -103,7 +103,6 @@ public class MemberController {
     	String id = memberVO.getId();
     	memberService.delete(id);
     	session.invalidate();
-    	System.out.println("mmmmmmmmmmmmmmmmmmmmmmmmmm" + session);
     	return "redirect:/main";
     }
     
