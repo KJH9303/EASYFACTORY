@@ -19,24 +19,21 @@
 		
 		// 글 수정 페이지
 		$("#updateBtn").on('click', function() {
-			var no = $("#no").val();
-			location.href="/issue/update?no="+no;
+			location.href="/issue/update?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
 		});
 		
 		// 글 삭제
 		$("#deleteBtn").on('click', function() {
-			var no = $("#no").val();
 			var result = confirm("삭제하시겠습니까?");
 			if(result){
 			    alert("정상적으로 삭제되었습니다.");
-			    location.href="/issue/delete?no="+no;
+			    location.href="/issue/delete?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
 			}else{
 			    alert("취소하였습니다.");
-			    location.href="/issue/list";
 			}
 		});
 		
-		$("#goBackBtn").on('click', function() {
+		$("#toListBtn").on('click', function() {
 			self.location = "/issue/list/search?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}"
 		});
 	});
@@ -61,16 +58,16 @@
             	<input type="button" id=updateBtn value="수정">
             	<input type="button" id=deleteBtn value="삭제">
            	</c:if>
-           	<input type="hidden" id="page" value="${cri.page}" readonly>
-        	<input type="hidden" id="perPageNum" value="${cri.perPageNum}" readonly>
-            <input type="hidden" id="searchType" value="${searchType}" readonly>
-            <input type="hidden" id="keyword" value="${keyword}" readonly>
-            <input type="hidden" id="startDate" value="${startDate}" readonly>
-            <input type="hidden" id="endDate" value="${endDate}" readonly>
+           	<input type="text" id="page" value="${cri.page}" readonly>
+        	<input type="text" id="perPageNum" value="${cri.perPageNum}" readonly>
+            <input type="text" id="searchType" value="${searchType}" readonly>
+            <input type="text" id="keyword" value="${keyword}" readonly>
+            <input type="text" id="startDate" value="${startDate}" readonly>
+            <input type="text" id="endDate" value="${endDate}" readonly>
         <hr>
 			<textarea id="reply" name="reply" rows="2" cols="50" placeholder="댓글 작성"></textarea><br><br>
 		<hr>
-        <button type="button" id="goBackBtn">목록</button>
+        <button type="button" id="toListBtn">목록</button>
     </div>
 </body>
 </html>

@@ -53,8 +53,8 @@ public class IssueController {
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
     	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
     	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
-    	String page = request.getParameter("page") == null ? "" : request.getParameter("page");
-    	String perPageNum = request.getParameter("perPageNum") == null ? "" : request.getParameter("perPageNum");
+    	String page = request.getParameter("page") == null ? "" : request.getParameter("page").toString();
+    	String perPageNum = request.getParameter("perPageNum") == null ? "" : request.getParameter("perPageNum").toString();
     	
     	int totCnt = issueService.issueSearchCnt(searchType, keyword, startDate, endDate);
    	 	model.addAttribute("totCnt", totCnt);
@@ -81,7 +81,6 @@ public class IssueController {
     @RequestMapping(value="/view", method=RequestMethod.GET)
     public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
     	int no = Integer.parseInt(request.getParameter("no"));
-    	
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
@@ -115,25 +114,53 @@ public class IssueController {
     
     // 글 수정 페이지
     @RequestMapping(value="/update", method=RequestMethod.GET)
-    public void updateView(HttpServletRequest request, Model model) throws Exception {
+    public void updateView(@ModelAttribute Criteria cri, HttpServletRequest request, Model model) throws Exception {
+    	
     	int no = Integer.parseInt(request.getParameter("no"));
     	IssueVO issueVO = issueService.viewContent(no);
+    	
+    	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
+    	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
+    	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
+    	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	
+    	model.addAttribute("searchType", searchType);
+   	 	model.addAttribute("keyword", keyword);
+   	 	model.addAttribute("startDate", startDate);
+   	 	model.addAttribute("endDate", endDate);
+   	 	
     	model.addAttribute("issue", issueVO);
+    	model.addAttribute("cri", cri);
     }
     
     // 글 수정 기능
     @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
-    public String update(@ModelAttribute IssueVO issueVO, HttpServletRequest request) {
+    public String update(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request) {
     	int no = Integer.parseInt(request.getParameter("no"));
+    	System.out.println("dddddddddddddddddddddddd"+no);
+    	int page = cri.getPage();
+    	int perPageNum = cri.getPerPageNum();
+    	
     	issueService.update(issueVO);
-    	return "redirect:/issue/view?no="+no;
+    	return "redirect:/issue/view?no="+no+"&page="+page+"&perPageNum="+perPageNum;
     }
     
     // 글 삭제
     @RequestMapping(value="/delete", method=RequestMethod.GET)
-    public String delete(@ModelAttribute IssueVO issueVO, HttpServletRequest request) {
+    public String delete(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
     	int no = Integer.parseInt(request.getParameter("no"));
     	issueService.delete(no);
-    	return "redirect:/issue/list";
+    	
+    	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
+    	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
+    	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
+    	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	
+    	int page = cri.getPage();
+    	int perPageNum = cri.getPerPageNum();
+    	
+    	System.out.println("++++++++++++++++++++++++++++++"+startDate+"++++++++++++++++++"+endDate);
+    	
+    	return "redirect:/issue/list?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
     }
 }

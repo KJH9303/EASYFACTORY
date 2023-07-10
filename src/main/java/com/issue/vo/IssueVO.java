@@ -2,6 +2,8 @@ package com.issue.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class IssueVO {
 	private int no;
 	private String title;
@@ -12,7 +14,9 @@ public class IssueVO {
 	
 	private String searchType;
 	private String keyword;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date endDate;
 	
 	public IssueVO() {}

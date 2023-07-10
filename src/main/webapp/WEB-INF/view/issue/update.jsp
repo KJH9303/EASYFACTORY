@@ -18,8 +18,7 @@
 		}
 		
 		$("#cancelBtn").on('click', function() {
-			var no = $("#no").val();
-			location.href="/issue/view?no="+no;
+			location.href="/issue/view?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
 		});
 		
 		$("#submitBtn").on('click', function() {
@@ -40,7 +39,12 @@
 			alert("수정 완료.");
 			$("#updateForm").submit();
 		});
+		
+		$("#toListBtn").on('click', function() {
+			self.location = "/issue/list/search?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}"
+		});
 	});
+	
 </script>
 </head>
 <body>
@@ -61,11 +65,18 @@
             
             <input type="button" id=cancelBtn value="취소">
             <input type="button" id=submitBtn value="수정 완료">
+            
+            <input type="text" id="page" value="${cri.page}" readonly>
+        	<input type="text" id="perPageNum" value="${cri.perPageNum}" readonly>
+            <input type="text" id="searchType" value="${searchType}" readonly>
+            <input type="text" id="keyword" value="${keyword}" readonly>
+            <input type="text" id="startDate" value="${startDate}" readonly>
+            <input type="text" id="endDate" value="${endDate}" readonly>
         </form>
 
         <hr>
 
-        <button onclick="location.href='/issue/list'">돌아가기</button>
+        <button type="button" id="toListBtn">목록</button>
     </div>
 </body>
 </html>

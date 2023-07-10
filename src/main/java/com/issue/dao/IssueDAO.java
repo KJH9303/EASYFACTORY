@@ -80,7 +80,12 @@ public class IssueDAO {
 				+ "			, b.*"
 				+ "		FROM ("
 				+ "				SELECT"
-				+ "					*"
+				+ "					NO"
+				+ "					, TITLE"
+				+ "				 	, CONTENT"
+				+ "					, AUTHOR"
+				+ "					, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE"
+				+ "					, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE"
 				+ "				FROM ISSUE"
 				+ "		ORDER BY NO DESC) b) a"
 				+ "		WHERE"
@@ -105,18 +110,23 @@ public class IssueDAO {
 				+ "			, b.*"
 				+ "		FROM ("
 				+ "				SELECT"
-				+ "					*"
+				+ "					NO"
+				+ "            		, TITLE"
+				+ "            		, CONTENT"
+				+ "            		, AUTHOR"
+				+ "            		, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE"
+				+ "            		, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE"
 				+ "				FROM ISSUE"
 				+ "		ORDER BY NO DESC) b) a"
 				+ "		WHERE"
 				+ "			rnum BETWEEN ? AND ?";
 		if(searchType.equals("regDate")) {
-			SQL += " AND " + searchType + " BETWEEN TO_DATE('" + startDate + "', 'YYYY/MM/DD') AND TO_DATE('" + endDate + "', 'YYYY/MM/DD')";
+			//SQL += " AND " + searchType + " BETWEEN TO_DATE('" + startDate + "', 'YYYY/MM/DD') AND TO_DATE('" + endDate + "', 'YYYY/MM/DD')";
+			SQL += " AND " + searchType + " BETWEEN '" + startDate + "'|| ' 00:00:00' AND '" + endDate + "' || ' 23:59:59'";
+			//AND REGDATE BETWEEN '2023-07-10' || ' 00:00:00' AND '2023-07-10' || ' 23:59:59';
 		} else if(searchType.equals("title") || searchType.equals("content") || searchType.equals("author")) {
 			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + keyword + "%')";
-		} else if(searchType.equals("") || searchType == null) {
-			List<IssueVO> searchIsList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
-		}
+		} 
 		List<IssueVO> searchIsList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
 		return searchIsList;
 	}
@@ -162,7 +172,7 @@ public class IssueDAO {
 				+ "				, ?"
 				+ "				, ?"
 				+ "				, ?"
-				+ "				, to_char(sysdate,'yyyy-mm-dd'))";
+				+ "				, sysdate)";
 		jdbcTemplate.update(
 				SQL
 				, issueVO.getTitle()
