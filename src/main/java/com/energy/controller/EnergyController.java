@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,22 +31,6 @@ public class EnergyController {
 		this.energyService = energyService;
 	}
     
-    // 가동률:Opratio datepicker
-    @PostMapping("/chart1")
-    public String doChart1(HttpServletRequest request, Model model) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart1");
-
-        request.setCharacterEncoding("utf-8");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
-        List<EnergyVO> energyOpratioList = energyService.getOpratio(startDate, endDate);
-            
-        JSONArray jsonArray = energyService.JsonOpratioChange(energyOpratioList);
-        model.addAttribute("Opratio", jsonArray.toJSONString());
-        return "chart1";
-    }
-    
     // 에너지 사용비용 :Costs 
     @PostMapping("/chart2")
     public void doChart2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,11 +43,29 @@ public class EnergyController {
         String endDate = request.getParameter("endDate");
         System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
         List<EnergyVO> energyCostsList = energyService.getCosts(startDate, endDate);
-        
         JSONArray jsonArray = energyService.JsonCostsChange(energyCostsList);
-        writer.print(jsonArray.toJSONString());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("SUM_COSTS", jsonArray);
+        writer.print(jsonObject.toJSONString());
+        System.out.println(jsonObject.toJSONString());
     }
-    // 총 에너지 사용량 Usingratio
+    // 에너지 사용비용 : default
+    @PostMapping("/cost")
+    public void Cost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /cost");
+
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        List<EnergyVO> energyCostsDEList = energyService.getCosts();
+        JSONArray jsonArray = energyService.JsonCostsDEChange(energyCostsDEList);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("SUM_COSTS", jsonArray);
+        writer.print(jsonObject.toJSONString());
+        System.out.println(jsonObject.toJSONString());
+    }
+    
+  // 총 에너지 사용량 Usingratio
     @PostMapping("/chart10")
     public void doChart10(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart10");
@@ -76,12 +79,60 @@ public class EnergyController {
         List<EnergyVO> energyUsingratioList = energyService.getUsingratio(startDate, endDate);
         
         JSONArray jsonArray = energyService.JsonUsingratioChange(energyUsingratioList);
-        writer.print(jsonArray.toJSONString());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("SUM_USINGRATIO", jsonArray);
+        writer.print(jsonObject.toJSONString());
+        System.out.println(jsonObject.toJSONString());
     }
-    
-    
+    // 에너지 사용비용 : default
+    @PostMapping("/usingratio")
+    public void Usingratio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /usingratio");
 
-    
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        List<EnergyVO> energyUsingtioDEList = energyService.getUsingratio();
+        JSONArray jsonArray = energyService.JsonUsingratioDEChange(energyUsingtioDEList);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("SUM_USINGRATIO", jsonArray);
+        writer.print(jsonObject.toJSONString());
+        System.out.println(jsonObject.toJSONString());
+    }
+    // 가동률:Opratio datepicker
+    @PostMapping("/chart1")
+    public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /chart1");
+
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
+        List<EnergyVO> energyOpratioList = energyService.getOpratio(startDate, endDate);
+            
+        JSONArray jsonArray = energyService.JsonOpratioChange(energyOpratioList);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("AVERAGE_OPRATIO", jsonArray);
+        writer.print(jsonObject.toJSONString());
+        System.out.println(jsonObject.toJSONString());   
+    }
+    // 가동률 : default
+    @PostMapping("/opratio")
+    public void opratio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("[ChartController] /opratio");
+
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+        List<EnergyVO> energyUsingtioDEList = energyService.getOpratio();
+        JSONArray jsonArray = energyService.JsonopratioDEChange(energyUsingtioDEList);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("AVERAGE_OPRATIO", jsonArray);
+        writer.print(jsonObject.toJSONString());
+        System.out.println(jsonObject.toJSONString());
+    }
     // 각 공정 가동률
     @PostMapping("/chart3")
     public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

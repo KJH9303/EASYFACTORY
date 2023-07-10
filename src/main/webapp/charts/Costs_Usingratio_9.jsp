@@ -22,11 +22,11 @@
 	 <br /> 
 	 <button type="button" id="searchData">데이터 검색</button> 
   </div> 
-  <div id="container" style="height: 500px"></div>
+  <div id="Costs_Usingratio_Chart" style="height: 500px"></div>
   
   
    <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('container'));
+    var myChart = echarts.init(document.getElementById('Costs_Usingratio_Chart'));
 
     var option = {
         title: {

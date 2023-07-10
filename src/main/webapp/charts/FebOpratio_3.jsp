@@ -17,7 +17,7 @@
 <script type="text/javascript">
   $(document).ready(function() {
     function barChart(vals) {
-      var dom = document.getElementById('container');
+      var dom = document.getElementById('FebOpratio_Chart');
       var myChart = echarts.init(dom, null, {
         renderer: 'canvas',
         useDirtyRect: false
@@ -93,7 +93,7 @@
         <br />
         <button type="button" id="searchData">데이터 검색</button>
     	</div>
-      <div id="container" style="height: 500px"></div>
+      <div id="FebOpratio_Chart" style="height: 500px"></div>
      
   </body>
   </html>

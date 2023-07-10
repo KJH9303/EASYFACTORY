@@ -13,7 +13,7 @@
   <script type="text/javascript">
     $(document).ready(function () {
       function barChart(vals) {
-        var dom = document.getElementById('container');
+        var dom = document.getElementById('Feb_Costs_Chart');
         var myChart = echarts.init(dom, null, {
           renderer: 'canvas',
           useDirtyRect: false
@@ -101,7 +101,7 @@
     <br />
     <button type="button" id="submitDates">제출</button>
   </div>
-  <div id="container" style="height: 500px"></div>
+  <div id="Feb_Costs_Chart" style="height: 500px"></div>
 </body>
 
 </html>

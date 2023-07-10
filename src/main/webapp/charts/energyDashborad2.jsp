@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -150,7 +150,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <canvas id="barChart1"></canvas>
+            <canvas id="barChart3"></canvas>
           </div>
         </div>
 
@@ -169,7 +169,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <canvas id="barChart2"></canvas>
+            <canvas id="barChart4"></canvas>
           </div>
         </div>
       </div>
@@ -190,7 +190,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <canvas id="barChart1"></canvas>
+            <canvas id="barChart5"></canvas>
           </div>
         </div>
 
@@ -209,7 +209,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <canvas id="barChart2"></canvas>
+            <canvas id="barChart6"></canvas>
           </div>
         </div>
       </div>
@@ -280,38 +280,46 @@
           $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
     
           // 날짜를 선택하고 '제출'을 클릭할 때 실행할 함수를 정의합니다.
-          function onApplyDateRange() {
-            var startDate = $(this).siblings("input[name='energyCostStartDate']").val();
-            var endDate = $(this).siblings("input[name='energyCostEndDate']").val();
+       		window.applyDateRange = function(event, url) {
+			  parent = $(event.target).parent();
+			  parent.find(".datepicker").hide();
+			  $(event.target).hide();
+			
+			  const startDate = parent.find("input[name='energyCostStartDate']").val();
+			  const endDate = parent.find("input[name='energyCostEndDate']").val();
+			        	  
             
             // 서버에 선택한 날짜 범위를 전달하는 로직을 추가하세요.
             // 예시: Ajax 요청으로 서버에 전달
             $.ajax({
-              url: "your-server-url",
+              url: url,
               method: "POST",
               data: {
                 startDate: startDate,
                 endDate: endDate
               },
               success: function (response) {
-                // 서버로부터의 응답을 처리하는 로직을 추가하세요.
+            	  console.log('Raw Data:', data);
+                  var chartData = JSON.parse(data);
+                  barChart(chartData);
+                  console.log('chartData:', chartData);
               },
               error: function (error) {
-                // 오류 처리 로직을 추가하세요.
+            	  console.log("startDate:", startDate, "endDate:", endDate);
               }
             });
           }
     
           // 각 "제출" 버튼에 클릭 이벤트를 설정합니다.
-          $("#applyEnergyCost1").click(onApplyDateRange);
-          $("#applyEnergyCost2").click(onApplyDateRange);
-          $("#applyEnergyCost3").click(onApplyDateRange);
-          $("#applyEnergyCost4").click(onApplyDateRange);
-          $("#applyEnergyCost5").click(onApplyDateRange);
-          $("#applyEnergyCost6").click(onApplyDateRange);
-          $("#applyEnergyCost7").click(onApplyDateRange);
-          $("#applyEnergyCost8").click(onApplyDateRange);
-          $("#applyEnergyCost9").click(onApplyDateRange);
+          $("#applyEnergyCost1").click((event) => applyDateRange(event, "/energy/chart1"));
+          $("#applyEnergyCost2").click((event) => applyDateRange(event, "/energy/chart2"));
+          $("#applyEnergyCost3").click((event) => applyDateRange(event, "/energy/chart10"));
+          $("#applyEnergyCost4").click((event) => applyDateRange(event, "/energy/chart3"));
+          $("#applyEnergyCost5").click((event) => applyDateRange(event, "/energy/chart4"));
+          $("#applyEnergyCost6").click((event) => applyDateRange(event, "/energy/chart5"));
+          $("#applyEnergyCost7").click((event) => applyDateRange(event, "/energy/chart6"));
+          $("#applyEnergyCost8").click((event) => applyDateRange(event, "/energy/chart8"));
+          $("#applyEnergyCost9").click((event) => applyDateRange(event, "/energy/chart9"));
         });
       </script>
     </div>
