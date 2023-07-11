@@ -1,6 +1,9 @@
 package com.issue.vo;
 
-import java.util.Date;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+// import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,19 +12,17 @@ public class IssueVO {
 	private String title;
 	private String content;
 	private String author;
-	private Date regDate;
-	private Date modDate;
+	private String regDate;
+	private String modDate;
 	
 	private String searchType;
 	private String keyword;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date startDate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	
 	public IssueVO() {}
 
-	public IssueVO(int no, String title, String content, String author, Date regDate, Date modDate) {
+	public IssueVO(int no, String title, String content, String author, String regDate, String modDate) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
@@ -30,7 +31,7 @@ public class IssueVO {
 		this.modDate = modDate;
 	}
 	
-	public IssueVO(int no, String title, String content, String author, Date regDate, Date modDate, String searchType, String keyword, Date startDate, Date endDate) {
+	public IssueVO(int no, String title, String content, String author, String regDate, String modDate, String searchType, String keyword, String startDate, String endDate) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
@@ -75,19 +76,19 @@ public class IssueVO {
 		this.author = author;
 	}
 
-	public Date getRegDate() {
+	public String getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
 
-	public Date getModDate() {
+	public String getModDate() {
 		return modDate;
 	}
 
-	public void setModDate(Date modDate) {
+	public void setModDate(String modDate) {
 		this.modDate = modDate;
 	}
 
@@ -107,19 +108,19 @@ public class IssueVO {
 		this.keyword = keyword;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 

@@ -55,9 +55,8 @@ public class IssueDAO {
         	issueVO.setTitle(rs.getString("title"));
         	issueVO.setContent(rs.getString("content"));
         	issueVO.setAuthor(rs.getString("author"));
-        	issueVO.setRegDate(rs.getDate("regDate"));
-        	issueVO.setModDate(rs.getDate("modDate"));
-            // 필요한 다른 사용자 정보를 설정합니다.
+        	issueVO.setRegDate(rs.getString("regDate"));
+        	issueVO.setModDate(rs.getString("modDate"));
             return issueVO;
         }
     }
@@ -71,25 +70,21 @@ public class IssueDAO {
 	
 	// 게시판 목록
 	public List<IssueVO> issueList(Criteria cri) {
-		String SQL = "SELECT "
-				+ "			ROWNUM"
-				+ "			, a.*"
-				+ "		FROM ("
-				+ "			SELECT"
-				+ "			ROWNUM rnum"
+		String SQL = "SELECT"
+				+ "			ROWNUM as rno"
 				+ "			, b.*"
-				+ "		FROM ("
-				+ "				SELECT"
-				+ "					NO"
-				+ "					, TITLE"
-				+ "				 	, CONTENT"
-				+ "					, AUTHOR"
-				+ "					, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE"
-				+ "					, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE"
-				+ "				FROM ISSUE"
-				+ "		ORDER BY NO DESC) b) a"
-				+ "		WHERE"
-				+ "			rnum BETWEEN ? AND ?";
+				+ "	  FROM ("
+				+ "			SELECT"
+				+ "				NO"
+				+ "				, TITLE"
+				+ "				 , CONTENT"
+				+ "				, AUTHOR"
+				+ "				, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as regDate"
+				+ "				, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as modDate"
+				+ "			FROM ISSUE"
+				+ "	  ORDER BY NO DESC) b"
+				+ "	  WHERE"
+				+ "			ROWNUM BETWEEN ? AND ?";
 		int startPage = cri.getRowStart();
 		int endPage = cri.getRowEnd();
 		List<IssueVO> issueList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
@@ -101,12 +96,8 @@ public class IssueDAO {
 		int startPage = cri.getRowStart();
 		int endPage = cri.getRowEnd();
 		
-		String SQL = "SELECT "
-				+ "			ROWNUM"
-				+ "			, a.*"
-				+ "		FROM ("
-				+ "			SELECT"
-				+ "			ROWNUM rnum"
+		String SQL = "  SELECT"
+				+ "			ROWNUM as rno"
 				+ "			, b.*"
 				+ "		FROM ("
 				+ "				SELECT"
@@ -117,13 +108,11 @@ public class IssueDAO {
 				+ "            		, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE"
 				+ "            		, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE"
 				+ "				FROM ISSUE"
-				+ "		ORDER BY NO DESC) b) a"
+				+ "		ORDER BY NO DESC) b"
 				+ "		WHERE"
-				+ "			rnum BETWEEN ? AND ?";
+				+ "			ROWNUM BETWEEN ? AND ?";
 		if(searchType.equals("regDate")) {
-			//SQL += " AND " + searchType + " BETWEEN TO_DATE('" + startDate + "', 'YYYY/MM/DD') AND TO_DATE('" + endDate + "', 'YYYY/MM/DD')";
 			SQL += " AND " + searchType + " BETWEEN '" + startDate + "'|| ' 00:00:00' AND '" + endDate + "' || ' 23:59:59'";
-			//AND REGDATE BETWEEN '2023-07-10' || ' 00:00:00' AND '2023-07-10' || ' 23:59:59';
 		} else if(searchType.equals("title") || searchType.equals("content") || searchType.equals("author")) {
 			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + keyword + "%')";
 		} 
@@ -133,9 +122,9 @@ public class IssueDAO {
 	
 	// 검색어가 일치하는 게시물 갯수
 	public int issueSearchCnt(String searchType, String keyword, String startDate, String endDate) {
-		String SQL = "SELECT COUNT(NO) FROM ISSUE WHERE NO > 0";
+		String SQL = "SELECT COUNT(*) FROM ISSUE WHERE NO > 0";
 		if(searchType.equals("regDate")) {
-			SQL += " AND " + searchType + " BETWEEN TO_DATE('" + startDate + "', 'YYYY/MM/DD') AND TO_DATE('" + endDate + "', 'YYYY/MM/DD')";
+			SQL += " and " + searchType + " BETWEEN TO_DATE('" + startDate + " 00:00:00','YYYY-MM-DD HH24:MI:SS') AND TO_DATE('" + endDate + " 23:59:59', 'YYYY-MM-DD HH24:MI:SS')";
 		} else if(searchType.equals("title") || searchType.equals("content") || searchType.equals("author")) {
 			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + keyword + "%')";
 		}

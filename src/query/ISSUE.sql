@@ -42,38 +42,50 @@ VALUES (
 );
 
 ----------------------------------------
------ 이슈 게시판 테스트 (페이징) ------
-----------------------------------------
-SELECT 
-    rownum
-    , a.*
-FROM (
-    SELECT
-        rownum rnum
-        , b.*
-    FROM (
-        SELECT
-            *
-        FROM issue
-    ORDER BY no desc) b) a
-WHERE
-    rnum BETWEEN 1 AND 10
-    AND REGDATE BETWEEN TO_DATE('2023-07-06', 'YYYY/MM/DD') AND TO_DATE('2023-07-06', 'YYYY/MM/DD');
-
-----------------------------------------
--------- 이슈 게시판 글 보기 -----------
+----- 이슈 게시판 글 보기(페이징) ------
 ----------------------------------------
 SELECT
-    NO
-    , TITLE
-    , CONTENT
-    , AUTHOR
-    , REGDATE
-    , MODDATE
+    ROWNUM as rnum
+    , b.*
+FROM (
+        SELECT
+            NO
+            , TITLE
+            , CONTENT
+            , AUTHOR
+            , TO_DATE(TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as REGDATE
+            , TO_DATE(TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as MODDATE
+        FROM ISSUE
+        ORDER BY NO DESC) b
+WHERE
+    ROWNUM BETWEEN 1 AND 10;
+    
+----------------------------------------
+----------- 날짜 포멧 변경 -------------
+----------------------------------------
+ALTER SESSION SET NLS_DATE_FORMAT='YYYY/MM/DD HH24:MI:SS';
+ALTER SESSION SET NLS_TIME_FORMAT='HH24:MI:SSXFF';
+ALTER SESSION SET NLS_TIMESTAMP_FORMAT='YYYY/MM/DD HH24:MI:SSXFF';
+
+COMMIT;
+
+------------------------------------------------------------------
+
+
+
+
+SELECT * FROM nls_session_parameters WHERE PARAMETER LIKE '%DATE%' OR PARAMETER LIKE '%LANG%'; 
+
+
+SELECT 
+    COUNT(NO)
 FROM ISSUE
-    WHERE NO = 1;
+WHERE
+    NO > 0
+--and regDate BETWEEN '2023-07-10' || '00:00:00' AND '2023-07-11' || '23:59:59';
+and regDate BETWEEN '2023-07-11 00:00:00' AND '2023-07-11 23:59:59' ;
 
-
+------------------------------------------------------------------
 
 
 SELECT ROWNUM , a.* FROM ( SELECT ROWNUM rnum , b.* FROM ( SELECT * FROM ISSUE ORDER BY NO DESC) b) a WHERE rnum BETWEEN 1 AND 10 AND UPPER(title) LIKE UPPER('%tt%');
@@ -85,3 +97,4 @@ SELECT * FROM ISSUE WHERE NO > 0 AND REGDATE BETWEEN TO_DATE('2023-07-06', 'YYYY
 
 SELECT * FROM ISSUE order by no desc;
 COMMIT;
+
