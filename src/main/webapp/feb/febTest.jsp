@@ -113,11 +113,11 @@
           </div>
         </div>
 
-        <!-- Defect -->
+        <!-- Defect monitoring -->
         <div class="bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b border-color ">
-            <h4 class="text-lg font-semibold-defect text-gray-5001">DEFECT MONITORING</h4>
+            <h4 class="text-lg font-semibold-defect text-gray-500s">DEFECT MONITORING</h4>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72" style= "overflow: auto">
