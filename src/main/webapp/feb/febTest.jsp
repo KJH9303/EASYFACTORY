@@ -38,6 +38,9 @@
               총 재고
             </h6>
     		<span class="text-xl font-semibold stock-total"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : EA)
+            </span>
           </div>
         </div>
 
@@ -49,6 +52,8 @@
               정상품 수
             </h6>
    			<span class="text-xl font-semibold tr-total"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : EA)
           </div>
         </div>
 
@@ -60,6 +65,8 @@
               불량품 수
             </h6>
             <span class="text-xl font-semibold fal-total"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : EA)            
           </div>
         </div>
 
@@ -71,6 +78,8 @@
               장비가동률
             </h6>
             <span class="text-xl font-semibold opratio-avg"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : %)
           </div>
         </div>
       </div>
@@ -107,14 +116,13 @@
         <!-- Defect -->
         <div class="bg-white rounded-md">
           <!-- Card header -->
-          <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">실시간 불량 현황</h4>
+          <div class="flex items-center justify-between p-4 border-b border-color ">
+            <h4 class="text-lg font-semibold-defect text-gray-5001">DEFECT MONITORING</h4>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72" style= "overflow: auto">
             <table>
 	            <tr>
-	           		<th>DEFECT MONITORING</th>
 	           	</tr>
            		<tr>
 	        		<td id="previousDefects"></td>
