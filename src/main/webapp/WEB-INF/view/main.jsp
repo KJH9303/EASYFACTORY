@@ -6,54 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../../../resources/main/css/main.css" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../../resources/main/css/main.css?after">
     <script>
-    $(document).ready(function() {
-    	/*
-    	var code = $("#code").val();
-    	if(code == 'INTERNAL'){
-    		alert("내부인입니다.");
-    	}
-    	if(code == 'EXTERNAL'){
-    		alert("외부인입니다. 해당 페이지에 접근할 수 없습니다.");
-    	}*/
-    	
-    	// 회원정보 수정
-    	$("#memUpdateBtn").on('click', function() {
-			location.href="/member/updateCheck";
-		});
-    	
-    	// 로그아웃
-    	$("#logoutBtn").on('click', function() {
-    		alert("로그아웃 되었습니다.")
-			location.href="/member/logout";
-		});
-    	
-    	// febTest2
-    	$("#febTestBtn").on('click', function() {
-			location.href="/feb/febTest2";
-		});
-    	
-    	$("#issueList").on('click', function() {
-    		var id = $("#id").val();
-    		if(id == null || id == "") {
-    			var result = confirm("로그인 하세요.");
-    			if(result){
-    			    location.href="/member/login";
-    			}else{
-    			    alert("취소하였습니다.");
-    			    location.href="/main";
-    			}
-    		} else if(id != null || id != "") {
-    			location.href="/issue/list";
-    		}
-		});
-    	
-    	$("#writeBtn").on('click', function() {
-			location.href="/issue/write";
-		});
-    	
+        // 현재 날짜, 현재 시간 
+        // yyyy/mm/dd 
+        // hh/mm/ss
         function updateTime() {
             var currentTime = new Date();
             var hours = currentTime.getHours();
@@ -73,66 +30,74 @@
             document.getElementById("time").innerHTML = timeString;
             document.getElementById("date").innerHTML = dateString;
         }
-        setInterval(updateTime, 1000);
-    });
+    
+        setInterval(updateTime, 1000)
+    
+    function loadHTMLFile(targetSelector, url, callback) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.querySelector(targetSelector).innerHTML = this.responseText;
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+    
+    function loadHeaderAndSidebar() {
+        loadHTMLFile("#headerContainer", "../../resources/main/jsp/header.jsp", updateTime);
+    }
+    
+    
+    // 페이지가 로드될 때 헤더와 사이드바 파일을 불러와 삽입
+    window.addEventListener('load', loadHeaderAndSidebar);
     </script>
 </head>
 <body>
-<div class="header">
-    <div class="header-left">
-        <h2>Easy Factory</h2>
+    <div id="headerContainer"></div>
+<!-- 메인 이너 -->
+    <div class="main">
+        <section class="cover cover_fullpage">
+            <div class="cover-background">
+                <video class="cover-background-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" src="http://wizcore.co.kr/wp-content/uploads/sites/4/2020/10/video.mp4">
+                </video>
+            </div>
+            <div class="cover-inside">
+                <div class="l_wrapper">
+                    <div class="front">
+                        <div class="front-contents">
+                            <div class="front-slide">
+                                <div class="front-slide-item">
+                                    <div class="front-box">
+                                    <img class="front-box-cover" src="http://wizcore.co.kr/wp-content/themes/wizcore/statics/home/images/front-icon-03.png">
+                                        <h2>Innovative</h2>
+                                        <p>데이터 기반의 혁신적인 경험을 바탕으로 비즈니스 성장을 견인합니다.</p>
+                                    </div>
+                                </div>
+                                <div class="front-slide-item">
+                                    <div class="front-box">
+                                        <img class="front-box-cover" src="http://wizcore.co.kr/wp-content/themes/wizcore/statics/home/images/front-icon-02.png">
+                                        <h2>Intelligent</h2>
+                                        <p>스마트한 데이터 분석으로 예측 가능한 결과를 제공합니다.</p>
+                                    </div>
+                                </div>
+                                <div class="front-slide-item">
+                                    <div class="front-box">
+                                        <img class="front-box-cover" src="http://wizcore.co.kr/wp-content/themes/wizcore/statics/home/images/front-icon-01.png">
+                                        <h2>Insightful</h2>
+                                        <p>데이터로부터 얻은 의미있는 통찰력을 차별화 된 가치로 전환합니다.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    <div class="header-right">
-        <div class="current-time">
-            <span id="date"></span>
-            <br>
-            <span id="time"></span>
-        </div>
-    </div>
-</div>
-<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
-<label for="openSidebarMenu" class="sidebarIconToggle">
-    <div class="spinner diagonal part-1"></div>
-    <div class="spinner horizontal"></div>
-    <div class="spinner diagonal part-2"></div>
-</label>
-<div id="sidebarMenu">
-    <ul class="sidebarMenuInner">
-        <li>Main<span>page</span></li>
-        <li><a>1</a></li>
-        <li><a>2</a></li>
-        <li><a>3</a></li>
-        <li><a>4</a></li>
-        <li>
-        	<a id="issueList">ISSUE</a>
-        	<input type="hidden" id="id" value="${member.id}">
-        </li>
-    </ul>
-</div>
-<div class="main">
-	<c:if test="${member.id == null}">
-		<p><a href="/member/login"> 로그인 </a></p>
-		<p><a href="/member/signup"> 회원가입 </a></p>
-	</c:if>
-	<c:if test="${member.id != null}">
-		<p>${member.id} 님 환영합니다.</p>
-		<p>${member.name} 님 환영합니다.</p>
-		<p>내/외부인 : ${member.code}</p>
-		<p>부서/거래처명 : ${member.department}</p>
-		<p>이메일 : ${member.email}</p>
-		<p>연락처 : ${member.phone}</p>
-		<button type="button" id="memUpdateBtn">회원정보 수정</button>
-		<button type="button" id="logoutBtn">로그아웃</button>
-	</c:if>
-	<c:if test="${member.code == 'INTERNAL'}">
-		<p>${member.code} 내부인입니다.</p>
-		<input type="text" id="code" value="${member.code}">
-	</c:if>
-	<c:if test="${member.code == 'EXTERNAL'}">
-		<p>${member.code} 외부인입니다.</p>
-		<input type="text" id="code" value="${member.code}">
-	</c:if>
-	<button type="button" id="febTestBtn">feb 테스트</button>
-</div>
 </body>
 </html>
+
