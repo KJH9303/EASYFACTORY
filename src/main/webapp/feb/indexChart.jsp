@@ -66,7 +66,7 @@
 	    var startDate = $("#" + startDateInputId).val();
 	    var endDate = $("#" + endDateInputId).val();
 	    
-	    alert("Data요청 확인: [" + type + "] : " + startDateInputId + "=" + startDate + ", " + endDateInputId + "=" + endDate);
+	    //alert("Data요청 확인: [" + type + "] : " + startDateInputId + "=" + startDate + ", " + endDateInputId + "=" + endDate);
 
 	    $.ajax({
 	        type: "GET",
@@ -93,6 +93,7 @@
 
 	// ajax
 	function fetchData() {
+		
 		$.ajax({
 			type: "GET",
 			url: "/feb/select-data",
@@ -119,7 +120,7 @@
 				alert(`에러 발생:(/feb/select-data) ${errorThrown}`);
 			}
 		});
-		setTimeout(fetchData, 3000); // 10초마다 데이터 새로 고침
+		setTimeout(fetchData, 10000); // 3초마다 데이터 새로 고침
 		}
 	
 	function updateTableData(dataList) {
@@ -156,6 +157,7 @@
 
 	// 가동률 바차트 ===================================================================================================================
 	function updateOpratioChart(dataList, dateRange = null) {
+		
 	  if (!opratioChart) {
 	    opratioChart = echarts.init(document.getElementById("opratioChart"));
 	  }
@@ -435,6 +437,7 @@
 		</tbody>
 		
 	</table>
+	<button onClick="fetchData()">데이터 새로 고침</button>
 		<h3>장비가동률</h3>
 	    <div>
 	        <span>시작 날짜: <input type="date" id="startDate_opratio" name="startDate"></span>

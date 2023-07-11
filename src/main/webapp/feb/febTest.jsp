@@ -37,7 +37,7 @@
               class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               총 재고
             </h6>
-    		<span class="text-xl font-semibold stock-total">dddd</span>
+    		<span class="text-xl font-semibold stock-total"></span>
           </div>
         </div>
 
@@ -276,7 +276,7 @@
 
 		  const avgOpRatio = avg.opratio / rowCount;
 
-		  document.querySelector('.stock-total').textContent = `$${total.stock.toLocaleString()}`;
+		  document.querySelector('.stock-total').textContent = total.stock.toLocaleString();
 		  document.querySelector('.tr-total').textContent = total.tr.toLocaleString();
 		  document.querySelector('.fal-total').textContent = total.fal.toLocaleString();
 		  document.querySelector('.opratio-avg').textContent = avgOpRatio.toFixed(2);
