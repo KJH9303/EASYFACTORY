@@ -1,16 +1,11 @@
 package com.feb.dao;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.sql.DataSource;
@@ -33,32 +28,7 @@ public class FebDAO {
     public FebDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-/*
-    public List<FebVO> getTableData(Date startDate, Date endDate) {
-        // 여기에 쿼리를 작성하고, 데이터베이스에서 데이터를 가져오는 작업을 수행
-        String SQL = "SELECT * FROM + your_table_name WHERE hiredate BETWEEN ? AND ?;";
 
-        List<FebVO> resultList = jdbcTemplate.query(SQL, 
-                                                        new Object[]{startDate, endDate}, 
-                                                        new RowMapper<FebVO>() {
-            @Override
-            public FebVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new FebVO(
-                    rs.getDouble("opratio"),
-                    rs.getInt("temp"),
-                    rs.getInt("tr"),
-                    rs.getInt("fal"),
-                    rs.getInt("stock"),
-                    rs.getInt("costs"),
-                    rs.getDouble("usingratio"),
-                    rs.getDate("hiredate")
-                );
-            }
-        });
-
-        return resultList;
-    }
-*/    
     // Feb mapper
  	private static class FebMapper implements RowMapper<FebVO> {
          @Override
@@ -75,8 +45,8 @@ public class FebDAO {
              return febVO;
          }
     }
- 	    
- 	// Select    
+
+ 	/* Select    
     public JSONArray selectData() {
         String query = "SELECT * FROM feb1";
         return jdbcTemplate.query(query, rs -> {
@@ -96,17 +66,52 @@ public class FebDAO {
             return jsonArray;
         });
     }
- 	    
-// Author : kj9303
- 	// Feb 데이터 가져오기
- 	public List<FebVO> getDatePickerData(Date startDate, Date endDate) {
- 		String SQL = "SELECT * FROM + your_table_name WHERE hiredate BETWEEN ? AND ?";
- 		List<FebVO> datepickerList = jdbcTemplate.query(SQL, new Object[]{startDate, endDate}, new FebMapper());
- 		return datepickerList;
- 	}
-// Author : kj9303
- 	
-// insertDAO
+    */
+    
+ 	// Select    
+    public JSONArray selectDataHiredate(String tableName, String startDate, String endDate) {
+    	final HashMap<String, String> tables = new HashMap<>();
+    	tables.put("feb1", "SELECT * FROM feb1 WHERE hiredate BETWEEN ? AND ?");
+    	tables.put("feb2", "SELECT * FROM feb2 WHERE hiredate BETWEEN ? AND ?");
+    	tables.put("feb3", "SELECT * FROM feb3 WHERE hiredate BETWEEN ? AND ?");
+    	tables.put("feb4", "SELECT * FROM feb4 WHERE hiredate BETWEEN ? AND ?");
+    	tables.put("feb5", "SELECT * FROM feb5 WHERE hiredate BETWEEN ? AND ?");
+    	tables.put("feb6", "SELECT * FROM feb6 WHERE hiredate BETWEEN ? AND ?");
+    	tables.put("feb7", "SELECT * FROM feb7 WHERE hiredate BETWEEN ? AND ?");
+    	tables.put("feb8", "SELECT * FROM feb8 WHERE hiredate BETWEEN ? AND ?");
+    	
+    	String sql = tables.get(tableName);
+    	if(sql == null) {
+    		System.out.println("해당하는 테이블이 없습니다. table=" + tableName);
+    		return null;
+    	}
+    	
+    	System.out.println("[selectDataHiredate]");
+    	System.out.println("       - sql : " + sql);
+    	System.out.println(" - tableName : " + tableName);
+    	System.out.println(" - startDate : " + startDate);
+    	System.out.println(" -   endDate : " + endDate);
+
+    	
+        return jdbcTemplate.query(sql, new Object[]{startDate, endDate}, rs -> {
+            JSONArray jsonArray = new JSONArray();
+            while (rs.next()) {
+                JSONObject row = new JSONObject();
+                row.put("opratio", rs.getDouble("opratio"));
+                row.put("temp", rs.getInt("temp"));
+                row.put("tr", rs.getInt("tr"));
+                row.put("fal", rs.getInt("fal"));
+                row.put("stock", rs.getInt("stock"));
+                row.put("costs", rs.getInt("costs"));
+                row.put("usingratio", rs.getDouble("usingratio"));
+                row.put("hiredate", rs.getDate("hiredate").toString());
+                jsonArray.add(row);
+            }
+            return jsonArray;
+        });
+    }
+
+    // insertDAO
  	public void insertTable(String tableName) {
         Random random = new Random();
 
@@ -141,11 +146,9 @@ public class FebDAO {
     public void updateTable(String tableName) {
         Random random = new Random();
 
-        // 2023년 1월 1일부터 365일간의 데이터를 생성.
         LocalDateTime dateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
         for (int i = 0; i < 365; i++) {
 
-            // 랜덤한 값을 생성.
             double opratio = Math.round((70 + random.nextDouble() * (100 - 70)) * 100.0) / 100.0;
             int temp = random.nextInt(15) + 1;
             int tr = random.nextInt(10000) + 1;
@@ -154,7 +157,6 @@ public class FebDAO {
             int costs = random.nextInt(1000) + 1;
             double usingratio = Math.round(random.nextDouble() * 100 * 100.0) / 100.0;
 
-            // 온도 값이 0 미만일 경우 0으로, 15 초과할 경우 15로 맞춰줌.
             temp = Math.max(0, Math.min(15, temp));
 
             LocalDateTime currentDateTime = dateTime.plusDays(i);

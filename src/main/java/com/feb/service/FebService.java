@@ -1,6 +1,5 @@
 package com.feb.service;
 
-
 import org.json.simple.JSONArray;
 
 import com.feb.dao.FebDAO;
@@ -12,11 +11,15 @@ public class FebService {
 	public FebService(FebDAO febDAO) {
 		this.febDAO = febDAO;
 	}
-	
+	/*
 	public JSONArray selectData() {
         return febDAO.selectData();
     }
-		
+	*/
+	public JSONArray selectDataHiredate(String tableName, String startDate, String endDate) {
+        return febDAO.selectDataHiredate(tableName, startDate, endDate);
+    }
+	
 	public void updateTables() {
 		febDAO.insertTable("feb1");
 		febDAO.insertTable("feb2");

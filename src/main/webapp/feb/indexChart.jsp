@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html lang="ko" style="height: 100%">
 <head>
-  <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.2.1/echarts.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-</head>
 <style>
 	table {
 		width: 25%;
@@ -30,128 +30,10 @@
 	.totals-row {
 		font-weight: bold;
 	}
-    .chart-container {
-        display: flex;
-        flex-flow: row wrap; 
-        justify-content: center;
-    }
+
 </style>
 </head>
 <body>
-	<h1>1공정의 모니터링</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>재고</th>
-				<th>정상품</th>
-				<th>불량품</th>
-				<th>장비가동률</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<tr class="totals-row">
-				<td class="stock-total"></td>
-				<td class="tr-total"></td>
-				<td class="fal-total"></td>
-				<td class="opratio-avg"></td>
-			</tr>
-		</tbody>
-		
-	</table>
-		<h3>장비가동률</h3>
-		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_opratio" name="startDate_opratio" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_opratio" name="endDate_opratio" />
-		    </label>
-		    <button type="button" id="searchData_opratio">데이터 검색</button>
-		  </div>
-		  	<div style="display: flex;">
-		  <div id="container" style="height: 500px"></div>
-	    <div id="opratioChart" style="width:50%; height:300px;"></div>
-	    <h3>온도</h3>
-   		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_temp" name="startDate_temp" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_temp" name="endDate_temp" />
-		    </label>
-		    <button type="button" id="searchData_temp">데이터 검색</button>
-		  </div>
-	    <div id="gaugeChart" style="width:50%; height:300px;"></div>
-	</div>
-
-		<h3>전기사용량</h3>
-		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_usingratio" name="startDate_usingratio" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_usingratio" name="endDate_usingratio" />
-		    </label>
-		    <button type="button" id="searchData_usingratio">데이터 검색</button>
-		  </div>
-		  	<div style="display: flex;">
-	    <div id="usingratioChart" style="width:50%; height:300px;"></div>
-	    <div class="current-defect-container" style="width:50%; height:300px;">
-	        <h2>실시간 불량 현황</h2>
-	        <ul id="previousDefects"></ul>
-    </div></div>
-
-		<h3>비용</h3>
-		  <div>
-		    <label>
-		      시작 날짜: <input type="text" id="startDate_costs" name="startDate_costs" />
-		    </label>
-		    <label>
-		      종료 날짜: <input type="text" id="endDate_costs" name="endDate_costs" />
-		    </label>
-		    <button type="button" id="searchData_costs">데이터 검색</button>
-		  </div>
-		  <div style="display: flex; justify-content: left; width: 100%; height: 300px;">
-	    <div id="costsChart" style="width:50%; height:100%;"></div>
-	</div>
-
-	  <script>
-    $(document).ready(function() {
-      $("#startDate_opratio, #endDate_opratio").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      $("#startDate_temp, #endDate_temp").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      $("#startDate_usingratio, #endDate_usingratio").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      $("#startDate_costs, #endDate_costs").datepicker({
-        dateFormat: "yy-mm-dd",
-      });
-      // 여기에 각각의 검색 버튼에 대한 클릭 이벤트를 정의합니다.
-      // $('#searchData_opratio').click(...) 등
-      
-      $("#searchData_opratio").click(function() {
-    	    fetchChartData("op_ratio");
-    	});
-
-    	$("#searchData_temp").click(function() {
-    	    fetchChartData("temp");
-    	});
-
-    	$("#searchData_usingratio").click(function() {
-    	    fetchChartData("using_ratio");
-    	});
-
-    	$("#searchData_costs").click(function() {
-    	    fetchChartData("costs");
-    	});
-
-    });
-  </script>
-  
 	<script>
 	let opratioChart, gaugeChart, usingratioChart, costsChart;
 	
@@ -159,41 +41,39 @@
 	    var startDateInputId, endDateInputId, uri, updateChartFunc;
 
 	    switch (type) {
-	        case "op_ratio":
+	        case "opratio":
 	            startDateInputId = "startDate_opratio";
 	            endDateInputId = "endDate_opratio";
-	            uri = "/feb/select-data-opratio";
+	            uri = "/feb/select-data";
 	            updateChartFunc = updateOpratioChart;
 	            break;
-	        case "temp":
-	            startDateInputId = "startDate_temp";
-	            endDateInputId = "endDate_temp";
-	            uri = "/feb/select-data-temp";
-	            updateChartFunc = updateGaugeChart;
-	            break;
-	        case "using_ratio":
+
+	        case "usingratio":
 	            startDateInputId = "startDate_usingratio";
 	            endDateInputId = "endDate_usingratio";
-	            uri = "/feb/select-data-usingratio";
+	            uri = "/feb/select-data";
 	            updateChartFunc = updateUsingratioChart;
 	            break;
+	            
 	        case "costs":
 	            startDateInputId = "startDate_costs";
 	            endDateInputId = "endDate_costs";
-	            uri = "/feb/select-data-costs";
+	            uri = "/feb/select-data";
 	            updateChartFunc = updateCostsChart;
 	            break;
 	    }
 
 	    var startDate = $("#" + startDateInputId).val();
 	    var endDate = $("#" + endDateInputId).val();
+	    
+	    alert("Data요청 확인: [" + type + "] : " + startDateInputId + "=" + startDate + ", " + endDateInputId + "=" + endDate);
 
 	    $.ajax({
 	        type: "GET",
-	        url: uri,
+	        url: "/feb/select-data",
 	        data: {
-	            start_date: startDate,
-	            end_date: endDate
+	        	startDate: startDate,
+	        	endDate: endDate
 	        },
 	        dataType: "json",
 	        success: function(response) {
@@ -201,15 +81,15 @@
 	                alert(response.Error);
 	            } else {
 	                var dataList = response;
+	                
 	                updateChartFunc(dataList);
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
-	            alert(`에러 발생: ${errorThrown}`);
+	            alert(`에러 발생:(/feb/feb1) ${errorThrown}`);
 	        }
 	    });
 	}
-
 
 	// ajax
 	function fetchData() {
@@ -217,6 +97,10 @@
 			type: "GET",
 			url: "/feb/select-data",
 			dataType: "json",
+			data: {
+		        	startDate: "2023-01-01",
+		        	endDate: "2023-12-31"
+		    },
 			success: function(response) {
 				if (response.Error) {
 					alert(response.Error);
@@ -232,10 +116,10 @@
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생: ${errorThrown}`);
+				alert(`에러 발생:(/feb/select-data) ${errorThrown}`);
 			}
 		});
-		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
+		setTimeout(fetchData, 3000); // 10초마다 데이터 새로 고침
 		}
 	
 	function updateTableData(dataList) {
@@ -269,83 +153,72 @@
 	$("table .fal-total").text(total.fal);
 	$("table .opratio-avg").text(avgOpRatio.toFixed(2));
 	}
-	
-	// 월단위로 가동률,전기사용량,전기사용비용 데이터 평균값 가져오기
-	function calculateMonthlyData(dataList, key) {
-	    var monthlyData = {};
-	
-	    dataList.forEach(function (data) {
-	        var date = new Date(data.hiredate);
-	        var month = date.getMonth();
-	
-	        if (!monthlyData[month]) {
-	            monthlyData[month] = {
-	                count: 0,
-	                sum: 0
-	            };
-	        }
-	
-	        monthlyData[month].count += 1;
-	        monthlyData[month].sum += parseInt(data[key]);
-	    });
-	
-	    return monthlyData;
-	}
-	
-	function getMonthlyAverage(monthlyData) {
-	    var monthlyAverage = [];
-	
-	    for (var month in monthlyData) {
-	        var avg = monthlyData[month].sum / monthlyData[month].count;
-	        monthlyAverage[month] = avg;
-	    }
-	
-	    return monthlyAverage;
-	}
 
 	// 가동률 바차트 ===================================================================================================================
-	function updateOpratioChart(dataList) {
-		var monthlyOpratioData = calculateMonthlyData(dataList, 'opratio');
-		var monthlyOpratioAverage = getMonthlyAverage(monthlyOpratioData);
-
-	    // 차트가 없을 경우에만 새로운 차트 생성
-	    if (!opratioChart) {
-		    opratioChart = echarts.init(document.getElementById("opratioChart"));
-		}
-
-	    var option = {
-	        tooltip: {
-	            trigger: 'axis',
-	            axisPointer: {
-	                type: 'shadow'
-	            },
-	            borderWidth: 1,
-	            formatter: function (params) {
-	                if (params.length > 0) {
-	                    return params[0].value.toFixed(2);
-	                }
-	                return '-';
-	            }
-	        },  	
-	        xAxis: {
-	            type: "category",
-	            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-	        },
-	        yAxis: {
-	            type: "value"		
-	        },
-	        series: [
-	            {
-	                data: monthlyOpratioAverage,
-	                type: "bar",
-                	barWidth: "30%" 
-	            }
-	        ]
-	    };
-	
-		    // 차트 옵션 설정 및 렌더링
-		    opratioChart.setOption(option);
-			}
+	function updateOpratioChart(dataList, dateRange = null) {
+	  if (!opratioChart) {
+	    opratioChart = echarts.init(document.getElementById("opratioChart"));
+	  }
+	  let displayData, dateList;
+	  let currentDate = new Date();
+	  let currentMonth = currentDate.getMonth();
+	  let currentYear = currentDate.getFullYear();
+	  
+	  if (!dateRange) {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
+	        dateList.push(dateString);
+	        displayData.push(data.opratio);
+	      }
+	    });
+	  } else {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
+	        dateList.push(dateString);
+	        displayData.push(data.opratio);
+	      }
+	    });
+	  }
+	  
+	  var option = {
+	    tooltip: {
+	      trigger: "axis",
+	      axisPointer: {
+	        type: "shadow",
+	      },
+	      borderWidth: 1,
+	      formatter: function (params) {
+	        if (params.length > 0) {
+	          return params[0].value.toFixed(2);
+	        }
+	        return "-";
+	      },
+	    },
+	    xAxis: {
+	      type: "category",
+	      data: dateList,
+	    },
+	    yAxis: {
+	      type: "value",
+	    },
+	    series: [
+	      {
+	        data: displayData,
+	        type: "bar",
+	        animationDelay: (idx) => idx * 10,
+	      },
+	    ],
+	  };
+	  opratioChart.setOption(option);
+	}
 
 	// 게이지 차트 ===================================================================================================================
 	function updateGaugeChart(dataList) {
@@ -353,10 +226,10 @@
 	    const rowCount = dataList.length;
 	
 	    dataList.forEach(function(data) {
-	        totalTemp += parseFloat(data.temp); // parseFloat로 변경
+	        totalTemp += parseFloat(data.temp); 
 	    });
 	
-	    const avgTemp = parseFloat((totalTemp / rowCount).toFixed(2)); // 계산 시 소수점 두 자리로 표시하도록 변경
+	    const avgTemp = parseFloat((totalTemp / rowCount).toFixed(2));
 	
 		if (!gaugeChart) {
 	        gaugeChart = echarts.init(document.getElementById('gaugeChart'));
@@ -388,49 +261,73 @@
 	    // 차트 옵션 설정 및 렌더링
 	    gaugeChart.setOption(option);
 		}
-
-	// 전기사용량 바차트 ===================================================================================================================
-	function updateUsingratioChart(dataList) {
-		var monthlyUsingratioData = calculateMonthlyData(dataList, 'usingratio');
-		var monthlyUsingratioAverage = getMonthlyAverage(monthlyUsingratioData);
-
-	 	// 차트가 없을 경우에만 새로운 차트 생성
-	 	if (!usingratioChart) {
-		    usingratioChart = echarts.init(document.getElementById("usingratioChart"));
-		}
-
-	    var option = {
-	        tooltip: {
-	            trigger: 'axis',
-	            axisPointer: {
-	                type: 'shadow'
-	            },
-	            borderWidth: 1,
-	            formatter: function (params) {
-	                if (params.length > 0) {
-	                    return params[0].value.toFixed(2);
-	                }
-	                return '-';
-	            }
-	        },    				
-	        xAxis: {
-	            type: "category",
-	            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-	        },
-	        yAxis: {
-	            type: "value"
-	        },
-		        series: [
-	            {
-                data: monthlyUsingratioAverage,
-                type: "bar",
-                barWidth: "33%" 
-            }]
-	    };
-	    // 차트 옵션 설정 및 렌더링
-		usingratioChart.setOption(option);
-		}
 	
+	// 전기사용량 바차트 ===================================================================================================================
+	function updateUsingratioChart(dataList, dateRange = null) {
+	  if (!usingratioChart) {
+		  usingratioChart = echarts.init(document.getElementById("usingratioChart"));
+	  }
+	  let displayData, dateList;
+	  let currentDate = new Date();
+	  let currentMonth = currentDate.getMonth();
+	  let currentYear = currentDate.getFullYear();
+	  
+	  if (!dateRange) {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
+	        dateList.push(dateString);
+	        displayData.push(data.usingratio);
+	      }
+	    });
+	  } else {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
+	        dateList.push(dateString);
+	        displayData.push(data.usingratio);
+	      }
+	    });
+	  }
+	  
+	  var option = {
+	    tooltip: {
+	      trigger: "axis",
+	      axisPointer: {
+	        type: "shadow",
+	      },
+	      borderWidth: 1,
+	      formatter: function (params) {
+	        if (params.length > 0) {
+	          return params[0].value.toFixed(2);
+	        }
+	        return "-";
+	      },
+	    },
+	    xAxis: {
+	      type: "category",
+	      data: dateList,
+	    },
+	    yAxis: {
+	      type: "value",
+	    },
+	    series: [
+	      {
+	        data: displayData,
+	        type: "bar",
+	        animationDelay: (idx) => idx * 10,
+	      },
+	    ],
+	  };
+	  usingratioChart.setOption(option);
+	}
+
 	// 불량현황 리스트 ===================================================================================================================	
 	$(document).ready(function() {
 	    function updateRandomDefect() {
@@ -449,50 +346,128 @@
 	});
 
 	// 전기사용비용 바차트 ===================================================================================================================
-	function updateCostsChart(dataList) {
-		var monthlyCostsData = calculateMonthlyData(dataList, 'costs');
-		var monthlyCostsAverage = getMonthlyAverage(monthlyCostsData);
+	function updateCostsChart(dataList, dateRange = null) {
+	  if (!costsChart) {
+		  costsChart = echarts.init(document.getElementById("costsChart"));
+	  }
+	  let displayData, dateList;
+	  let currentDate = new Date();
+	  let currentMonth = currentDate.getMonth();
+	  let currentYear = currentDate.getFullYear();
+	  
+	  if (!dateRange) {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
+	        dateList.push(dateString);
+	        displayData.push(data.costs);
+	      }
+	    });
+	  } else {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
+	        dateList.push(dateString);
+	        displayData.push(data.costs);
+	      }
+	    });
+	  }
+	  
+	  var option = {
+	    tooltip: {
+	      trigger: "axis",
+	      axisPointer: {
+	        type: "shadow",
+	      },
+	      borderWidth: 1,
+	      formatter: function (params) {
+	        if (params.length > 0) {
+	          return params[0].value.toFixed(2);
+	        }
+	        return "-";
+	      },
+	    },
+	    xAxis: {
+	      type: "category",
+	      data: dateList,
+	    },
+	    yAxis: {
+	      type: "value",
+	    },
+	    series: [
+	      {
+	        data: displayData,
+	        type: "bar",
+	        animationDelay: (idx) => idx * 10,
+	      },
+	    ],
+	  };
+	  costsChart.setOption(option);
+	}
+	$(document).ready(function(){
+		fetchData();
+	});
+	</script>
 
-	 	// 차트가 없을 경우에만 새로운 차트 생성
-		if (!costsChart) {
-		    costsChart = echarts.init(document.getElementById("costsChart"));
-		}
+	<table>
+		<thead>
+			<tr>
+				<th>재고</th>
+				<th>정상품</th>
+				<th>불량품</th>
+				<th>장비가동률</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr class="totals-row">
+				<td class="stock-total"></td>
+				<td class="tr-total"></td>
+				<td class="fal-total"></td>
+				<td class="opratio-avg"></td>
+			</tr>
+		</tbody>
+		
+	</table>
+		<h3>장비가동률</h3>
+	    <div>
+	        <span>시작 날짜: <input type="date" id="startDate_opratio" name="startDate"></span>
+	        <span>종료 날짜: <input type="date" id="endDate_opratio" name="endDate"></span>
+	        <button onClick="fetchChartData('opratio')">데이터 가져오기</button>
+	    </div>
+		  <div style="display: flex;">
+	      <div id="opratioChart" style="width:50%; height:300px;"></div>
+	    <h3>온도</h3>
+	    <div id="gaugeChart" style="width:50%; height:300px;"></div>
+	</div>
 
-	    var option = {
-	        tooltip: {
-	            trigger: 'axis',
-	            axisPointer: {
-	                type: 'shadow'
-	            },
-	            formatter: function (params) {
-	                if (params.length > 0) {
-	                    return params[0].value.toFixed(2);
-	                }
-	                return '-';
-	            }
-	        },
-	        xAxis: {
-	            type: "category",
-	            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-	        },
-	        yAxis: {
-	            type: "value"
-	        },
-		        series: [
-	            {
-                data: monthlyCostsAverage,
-                type: "bar",
-                barWidth: "33%" 
-            }]
-	   	 };
-		    // 차트 옵션 설정 및 렌더링
-			costsChart.setOption(option);
-			}
-			$(document).ready(function(){
-				fetchData();
-			});
-</script>
+		<h3>전기사용량</h3>
+	    <div>
+	        <span>시작 날짜: <input type="date" id="startDate_usingratio" name="startDate"></span>
+	        <span>종료 날짜: <input type="date" id="endDate_usingratio" name="endDate"></span>
+	        <button onClick="fetchChartData('usingratio')">데이터 가져오기</button>
+	    </div>
+		  	<div style="display: flex;">
+	    <div id="usingratioChart" style="width:50%; height:300px;"></div>
+	    <div class="current-defect-container" style="width:50%; height:300px;">
+	        <h2>실시간 불량 현황</h2>
+	        <ul id="previousDefects"></ul>
+    </div></div>
+
+		<h3>비용</h3>
+	    <div>
+	        <span>시작 날짜: <input type="date" id="startDate_costs" name="startDate"></span>
+	        <span>종료 날짜: <input type="date" id="endDate_costs" name="endDate"></span>
+	        <button onClick="fetchChartData('costs')">데이터 가져오기</button>
+	    </div>
+		  <div style="display: flex; justify-content: left; width: 100%; height: 300px;">
+	    <div id="costsChart" style="width:50%; height:100%;"></div>
+	</div>
 </body>
-</html>
-</head>
 </html>

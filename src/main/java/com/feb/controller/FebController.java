@@ -1,5 +1,8 @@
 package com.feb.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,10 +29,19 @@ public class FebController {
 	}
 
     @GetMapping("/select-data")
-    @ResponseBody
-    public void selectData(HttpServletResponse response) {
+    //@ResponseBody
+    public void selectData(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb1";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
         try {
-            JSONArray jsonArray = febService.selectData();
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -38,16 +50,6 @@ public class FebController {
             e.printStackTrace();
         }
     }
-
-    ////////////////////////
-    @RequestMapping(value="/febUpdateTest", method=RequestMethod.POST)
-    public String index(HttpServletRequest request) {
-    	System.out.println("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
-    	String run = request.getParameter("run");
-    	febService.startUpdateFeb(run);
-		return "";
-    }
-    /////////////////////////
 	
     @RequestMapping(value="/Defect", produces="application/text;charset=UTF-8", method=RequestMethod.GET)
     @ResponseBody
