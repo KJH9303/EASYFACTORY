@@ -27,62 +27,50 @@
     <!-- Content -->
     <div class="mt-2">
       
-      <!-- State cards -->
+      <!-- Stock cards -->
       <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
         
-        <!-- Value card -->
+        <!-- Stock card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
             <h6
               class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              Value
+              총 재고
             </h6>
-            <span class="text-xl font-semibold">$30,000</span>
-            <!-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              +4.4%
-            </span> -->
+    		<span class="text-xl font-semibold stock-total">dddd</span>
           </div>
         </div>
 
-        <!-- Users card -->
+        <!-- Tr card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
             <h6
               class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              Users
+              정상품 수
             </h6>
-            <span class="text-xl font-semibold">50,021</span>
-            <!-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              +2.6%
-            </span> -->
+   			<span class="text-xl font-semibold tr-total"></span>
           </div>
         </div>
 
-        <!-- Orders card -->
+        <!-- Fal card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
             <h6
               class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              Orders
+              불량품 수
             </h6>
-            <span class="text-xl font-semibold">45,021</span>
-            <!-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              +3.1%
-            </span> -->
+            <span class="text-xl font-semibold fal-total"></span>
           </div>
         </div>
 
-        <!-- Tickets card -->
+        <!-- Usingratio card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
             <h6
               class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              Tickets
+              장비가동률
             </h6>
-            <span class="text-xl font-semibold">20,516</span>
-            <!-- <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              +3.1%
-            </span> -->
+            <span class="text-xl font-semibold opratio-avg"></span>
           </div>
         </div>
       </div>
@@ -263,36 +251,36 @@
 		}
 	
 	function updateTableData(dataList) {
-		let total = {
-			stock: 0,
-			tr: 0,
-			fal: 0,
-		};
-		let avg = {
-			opratio: 0,
-		};
+		  let total = {
+		    stock: 0,
+		    tr: 0,
+		    fal: 0,
+		  };
+		  let avg = {
+		    opratio: 0,
+		  };
 
-		let rowCount = dataList.length;
+		  let rowCount = dataList.length;
 
-	dataList.forEach(function(data) {
-		const stock = parseInt(data.stock);
-		const tr = parseInt(data.tr);
-		const fal = parseInt(data.fal);
-		const opratio = parseInt(data.opratio);
+		  dataList.forEach(function (data) {
+		    const stock = parseInt(data.stock);
+		    const tr = parseInt(data.tr);
+		    const fal = parseInt(data.fal);
+		    const opratio = parseInt(data.opratio);
 
-		total.stock += stock;
-		total.tr += tr;
-		total.fal += fal;
-		avg.opratio += opratio;
-	});
+		    total.stock += stock;
+		    total.tr += tr;
+		    total.fal += fal;
+		    avg.opratio += opratio;
+		  });
 
-	const avgOpRatio = avg.opratio / rowCount;
+		  const avgOpRatio = avg.opratio / rowCount;
 
-	$("table .stock-total").text(total.stock);
-	$("table .tr-total").text(total.tr);
-	$("table .fal-total").text(total.fal);
-	$("table .opratio-avg").text(avgOpRatio.toFixed(2));
-	}
+		  document.querySelector('.stock-total').textContent = `$${total.stock.toLocaleString()}`;
+		  document.querySelector('.tr-total').textContent = total.tr.toLocaleString();
+		  document.querySelector('.fal-total').textContent = total.fal.toLocaleString();
+		  document.querySelector('.opratio-avg').textContent = avgOpRatio.toFixed(2);
+		}
 
 	// 가동률 바차트 ===================================================================================================================
 	function updateOpratioChart(dataList, dateRange = null) {
@@ -410,7 +398,7 @@
 	    				color: 'auto'
 	    			}
 	    		},
-	    		data: [{value: avgTemp, name: 'Temp'}]
+	    		data: [{value: avgTemp}]
 	    	}]
 	    };
 	    // 차트 옵션 설정 및 렌더링
