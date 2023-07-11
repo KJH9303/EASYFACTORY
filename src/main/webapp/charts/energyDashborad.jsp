@@ -34,7 +34,13 @@
             type: 'bar',
             showBackground: true,
             backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
-        }]
+        }],
+	    grid: {
+	        top: 20, // 상단 여백
+	        bottom: 20, // 하단 여백
+	        left: 30, // 좌측 여백
+	        right: 10 // 우측 여백
+	    }
       };
       if (option && typeof option === 'object') {
         myChart.setOption(option);
@@ -61,7 +67,13 @@
 	           type: 'bar',
 	           showBackground: true,
 	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
-	       }]
+	       }],
+		    grid: {
+		        top: 20, // 상단 여백
+		        bottom: 20, // 하단 여백
+		        left: 30, // 좌측 여백
+		        right: 10 // 우측 여백
+		    }
 	     };
 	     if (option && typeof option === 'object') {
 	       myChart.setOption(option);
@@ -88,7 +100,13 @@
 	           type: 'bar',
 	           showBackground: true,
 	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
-	       }]
+	       }],
+		    grid: {
+		        top: 20, // 상단 여백
+		        bottom: 20, // 하단 여백
+		        left: 30, // 좌측 여백
+		        right: 10 // 우측 여백
+		    }
 	     };
 	     if (option && typeof option === 'object') {
 	       myChart.setOption(option);
@@ -115,7 +133,13 @@
 	           type: 'bar',
 	           showBackground: true,
 	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
-	       }]
+	       }],
+		    grid: {
+		        top: 20, // 상단 여백
+		        bottom: 20, // 하단 여백
+		        left: 30, // 좌측 여백
+		        right: 10 // 우측 여백
+		    }
 	     };
 	     if (option && typeof option === 'object') {
 	       myChart.setOption(option);
@@ -195,6 +219,12 @@
 	                 data: febtr,
 	             }
 	         ],
+	 	    grid: {
+		        top: 80, // 상단 여백
+		        bottom: 20, // 하단 여백
+		        left: 30, // 좌측 여백
+		        right: 10 // 우측 여백
+		    }
 	     });
 	}  // function CostsTrChart
    </script> 
@@ -271,6 +301,12 @@
 	                 data: febcvusingratio,
 	             }
 	         ],
+	 	    grid: {
+		        top: 80, // 상단 여백
+		        bottom: 20, // 하단 여백
+		        left: 30, // 좌측 여백
+		        right: 10 // 우측 여백
+		    }
 	     });
 	}  // function CostsUsingratioChart
    </script>
@@ -362,7 +398,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <div id=FebOpratio_Chart style="height: 350px"></div>
+            <div id=FebOpratio_Chart style="height: 100%"></div>
           </div>
         </div>
         <!-- Bar chart card -->
@@ -380,7 +416,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-      		<div id="FebTr_Chart" style="height: 350px"></div>
+      		<div id="FebTr_Chart" style="height: 100%"></div>
           </div>
         </div>
       </div>
@@ -401,7 +437,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <div id="FebCost_Chart" style="height: 350px"></div>
+            <div id="FebCost_Chart" style="height: 100%"></div>
           </div>
         </div>
         <!-- Bar chart card -->
@@ -419,7 +455,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-             <div id="FebUsingratio_Chart" style="height: 350px"></div>
+             <div id="FebUsingratio_Chart" style="height: 100%"></div>
           </div>
         </div>
       </div>
@@ -440,7 +476,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-             <div id="Costs_Tr_Chart" style="height: 500px"></div>
+             <div id="Costs_Tr_Chart" style="height: 100%"></div>
           </div>
         </div>
         <!-- Bar chart card -->
@@ -458,7 +494,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-           <div id="Costs_Usingratio_Chart" style="height: 500px"></div>
+           <div id="Costs_Usingratio_Chart" style="height: 100%"></div>
           </div>
         </div>
       </div>

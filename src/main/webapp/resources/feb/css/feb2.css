@@ -357,3 +357,33 @@ canvas {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+#FebOpratio_Chart {
+    width: 100%;
+    height: 350px;
+}
+
+#FebTr_Chart {
+    width: 100%;
+    height: 350px;
+}
+
+#FebCost_Chart {
+    width: 100%;
+    height: 350px;
+}
+
+#FebUsingratio_Chart {
+    width: 100%;
+    height: 100%;
+}
+
+#Costs_Tr_Chart {
+    width: 100%;
+    height: 100%;
+}
+
+#Costs_Usingratio_Chart {
+    width: 100%;
+    height: 100%;
+}
