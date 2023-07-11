@@ -32,9 +32,9 @@ public class EnergyController {
 	}
     
     // 에너지 사용비용 :Costs 
-    @PostMapping("/chart2")
+    @PostMapping("/chart1")
     public void doChart2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart2");
+        System.out.println("[ChartController] /chart1");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -52,9 +52,9 @@ public class EnergyController {
    
     
   // 총 에너지 사용량 Usingratio
-    @PostMapping("/chart10")
+    @PostMapping("/chart2")
     public void doChart10(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart10");
+        System.out.println("[ChartController] /chart2");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -72,9 +72,9 @@ public class EnergyController {
     }
  
     // 가동률:Opratio datepicker
-    @PostMapping("/chart1")
+    @PostMapping("/chart3")
     public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart1");
+        System.out.println("[ChartController] /chart3");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -92,9 +92,9 @@ public class EnergyController {
     }
    
     // 각 공정 가동률
-    @PostMapping("/chart3")
+    @PostMapping("/chart4")
     public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart3");
+        System.out.println("[ChartController] /chart4");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -109,9 +109,9 @@ public class EnergyController {
          System.out.println(jsonArray.toJSONString());   
     }
     // 각 공정 총 생산량
-    @PostMapping("/chart4")
+    @PostMapping("/chart5")
     public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart4");
+        System.out.println("[ChartController] /chart5");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -125,9 +125,9 @@ public class EnergyController {
          writer.print(jsonArray.toJSONString());
     }
     // 각 공정 총 비용
-    @PostMapping("/chart5")
+    @PostMapping("/chart6")
     public void doChart5(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart5");
+        System.out.println("[ChartController] /chart6");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -141,9 +141,9 @@ public class EnergyController {
          writer.print(jsonArray2.toJSONString());
     }
     // 각 공정 총 전기사용량
-    @PostMapping("/chart6")
+    @PostMapping("/chart7")
     public void doChart6(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart6");
+        System.out.println("[ChartController] /chart7");
 
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
@@ -155,22 +155,6 @@ public class EnergyController {
         
         JSONArray jsonArray3 = energyService.JsonFebUsingratioChange(energyFebusingratoList);
          writer.print(jsonArray3.toJSONString());
-    }
-    // 가변적 월 총 비용
-    @PostMapping("/chart7")
-    public void doChart7(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart7");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        System.out.printf("Parameter: startDate(%s)",startDate);
-       
-        List<EnergyVO> energyMonthcostsList = energyService.getMonthcosts(startDate);
-        JSONArray jsonArray = energyService.JsonMonthcostsChange(energyMonthcostsList);
-    
-         writer.print(jsonArray.toJSONString());
     }
     // 총 비용대비 총생산량 차트 연결
     @PostMapping("/chart8")
