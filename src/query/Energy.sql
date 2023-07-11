@@ -1,8 +1,8 @@
 
 -- 공정별 전체 합 --
 CREATE VIEW FEB_DSUM AS
-select hiredate, ROUND(AVG(AVG_OPRATIO),2) as avg_opratio, ROUND(AVG(AVG_TEMP),0) as avg_temp, sum(SUM_TR) as sum_tr, sum(SUM_FAL) as sum_fal, 
-sum(SUM_STOCK) as sum_stock, sum(SUM_COSTS) as sum_costs, sum(SUM_USINGRATIO) as sum_usingratio
+select hiredate, ROUND(AVG(OPRATIO),2) as avg_opratio, ROUND(AVG(TEMP),0) as avg_temp, sum(TR) as sum_tr, sum(FAL) as sum_fal, 
+sum(STOCK) as sum_stock, sum(COSTS) as sum_costs, sum(USINGRATIO) as sum_usingratio
 FROM (
     SELECT hiredate,  opratio,temp,tr,fal,stock, costs, usingratio FROM FEB1
     union
@@ -217,3 +217,71 @@ FROM FEB_USINGRATIO
 WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-07', 'YYYY-MM-DD');
 
 
+-- 기간별 각 공정별 가동률 평균 값 --
+SELECT  ROUND(AVG(feb1), 2) AS feb1,
+        ROUND(AVG(feb2), 2) AS feb2,
+        ROUND(AVG(feb3), 2) AS feb3,
+        ROUND(AVG(feb4), 2) AS feb4,
+        ROUND(AVG(feb5), 2) AS feb5,
+        ROUND(AVG(feb6), 2) AS feb6,
+        ROUND(AVG(feb7), 2) AS feb7,
+        ROUND(AVG(feb8), 2) AS feb8 
+        FROM FEB_OPRATIO 
+        WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-01', 'YYYY-MM-DD');
+        
+-- 기간별 각 공정별 총 생산량 --
+SELECT  ROUND(SUM(feb1), 2) AS feb1,
+        ROUND(SUM(feb2), 2) AS feb2,
+        ROUND(SUM(feb3), 2) AS feb3,
+        ROUND(SUM(feb4), 2) AS feb4,
+        ROUND(SUM(feb5), 2) AS feb5,
+        ROUND(SUM(feb6), 2) AS feb6,
+        ROUND(SUM(feb7), 2) AS feb7,
+        ROUND(SUM(feb8), 2) AS feb8 
+        FROM FEB_TR 
+        WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-10', 'YYYY-MM-DD');
+        
+-- 기간별 각 공정별 총 비용 --
+SELECT  ROUND(SUM(feb1), 2) AS feb1,
+        ROUND(SUM(feb2), 2) AS feb2,
+        ROUND(SUM(feb3), 2) AS feb3,
+        ROUND(SUM(feb4), 2) AS feb4,
+        ROUND(SUM(feb5), 2) AS feb5,
+        ROUND(SUM(feb6), 2) AS feb6,
+        ROUND(SUM(feb7), 2) AS feb7,
+        ROUND(SUM(feb8), 2) AS feb8 
+        FROM FEB_COSTS 
+        WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-10', 'YYYY-MM-DD');
+        
+-- 기간별 각 공정별 총 에너지 사용량 --
+SELECT  ROUND(SUM(feb1), 2) AS feb1,
+        ROUND(SUM(feb2), 2) AS feb2,
+        ROUND(SUM(feb3), 2) AS feb3,
+        ROUND(SUM(feb4), 2) AS feb4,
+        ROUND(SUM(feb5), 2) AS feb5,
+        ROUND(SUM(feb6), 2) AS feb6,
+        ROUND(SUM(feb7), 2) AS feb7,
+        ROUND(SUM(feb8), 2) AS feb8 
+        FROM FEB_USINGRATIO
+        WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-10', 'YYYY-MM-DD');
+
+
+
+
+
+
+
+
+
+
+
+
+
+drop table feb1;
+drop table feb2;
+drop table feb3;
+drop table feb4;
+drop table feb5;
+drop table feb6;
+drop table feb7;
+drop table feb8;
