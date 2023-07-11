@@ -382,7 +382,7 @@ tr > td {
   color: lightslategray;
   border-bottom: 1px solid lightslategray;
   padding: 5px;
-  text-align: center;
+  text-align: left;
   font-size: 15px
 }
 

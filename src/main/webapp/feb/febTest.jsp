@@ -75,13 +75,13 @@
         </div>
       </div>
 
-      <!-- Charts -->
+      <!-- gauge Chart -->
       <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
 		<!-- Doughnut chart card -->
         <div class="bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">Gauge Chart</h4>
+            <h4 class="text-lg font-semibold text-gray-500">온도</h4>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
@@ -89,11 +89,11 @@
           </div>
         </div>
 
-        <!-- Bar chart card -->
+        <!-- opratioChart card -->
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">Utilization Rate Chart</h4>
+            <h4 class="text-lg font-semibold text-gray-500">장비 가동률</h4>
             <div class="flex items-center space-x-2">
               <span class="text-sm text-gray-500">DatePicker</span>
             </div>
@@ -104,17 +104,17 @@
           </div>
         </div>
 
-        <!-- Doughnut chart card -->
+        <!-- Defect -->
         <div class="bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">Doughnut Chart</h4>
+            <h4 class="text-lg font-semibold text-gray-500">실시간 불량 현황</h4>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72" style= "overflow: auto">
             <table>
 	            <tr>
-	           		<th>실시간 불량 현황</th>
+	           		<th>DEFECT MONITORING</th>
 	           	</tr>
            		<tr>
 	        		<td id="previousDefects"></td>
@@ -130,7 +130,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">Bar Chart</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기 사용량</h4>
             <div class="flex items-center space-x-2">
               <span class="text-sm text-gray-500">DatePicker</span>
             </div>
@@ -145,7 +145,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">Costs Chart</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기사용 비용</h4>
             <div class="flex items-center space-x-2">
               <span class="text-sm text-gray-500">DatePicker</span>
             </div>
