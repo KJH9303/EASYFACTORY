@@ -325,7 +325,7 @@ canvas {
   }
 
   .lg\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -364,16 +364,18 @@ table {
   border-collapse: collapse;
   margin-bottom: 20px;
   border: 1px solid white;
-  font-size: 12px;
+  /* font-size: 18px; */
 }
 
 tr > th {
   text-align: left;
-  background-color: white;
+  background-color: red;
   color: lightslategray;
-  padding: 3px;
+  padding: 15px 5px;
   text-align: center;
-  border: 1px solid lightslategray;
+  border: none;
+  color: white;
+  margin: 5px
 }
 
 tr > td {
@@ -381,6 +383,7 @@ tr > td {
   border-bottom: 1px solid lightslategray;
   padding: 5px;
   text-align: center;
+  font-size: 15px
 }
 
   #opratioChart {
@@ -396,6 +399,12 @@ tr > td {
   }
   
   #gaugeChart {
+    width: 100%;
+    height: 100%;
+    display: false;
+  }
+  
+  #costsChart {
     width: 100%;
     height: 100%;
     display: false;
