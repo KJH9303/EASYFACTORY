@@ -1,6 +1,6 @@
-@charset "UTF-8";
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
 
+/* 바디 */
 html, body {
     overflow-x: hidden;
     height: 100%;
@@ -8,51 +8,18 @@ html, body {
 
 body {
     background: #fff;
+    background-color: transparent;
     padding: 0;
     margin: 0;
-    font-family: 'Varela Round', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
-.header {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    background-color: black;
-    color: white;
-    padding: 0 20px;
-    opacity: 0.8;
-}
-
-.header-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-}
-
-.header-left h2 {
-    margin: auto;
-}
-
-.header-right {
-    position: relative;
-}
-
-.current-time {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
-}
-
+/* 이너 */
 .main {
     margin: 0 auto;
     display: block;
     height: 100%;
-    margin-top: 60px;
+    margin-top: 0px;
 }
 
 .mainInner {
@@ -70,120 +37,122 @@ body {
     letter-spacing: 1.25px;
 }
 
-#sidebarMenu {
-    height: 100%;
-    position: fixed;
+/* 배경 */
+.cover {
+    color: white;
+    background-color: #ddd;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    height: auto;
+}
+
+.cover-background {
+    position: relative;
     left: 0;
-    width: 250px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-position: center;
+    background-size: cover;
+    z-index: 0;
+    filter: brightness(0.6);
+}
+
+.cover_fullpage {
+    height: 100vh;
+}
+
+.cover-background-video {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 0%);
+    min-width: 100%;
+    min-height: 101%;
+}
+
+.cover-inside {
+    position: relative;
+    z-index: 10;
     margin-top: 0px;
-    transform: translateX(-250px);
-    transition: transform 250ms ease-in-out;
-    background: linear-gradient(180deg, black 0%, lightgray 100%);
-    opacity: 0.8;
 }
 
-.sidebarMenuInner {
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
-}
-
-.sidebarMenuInner li {
-    list-style: none;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: bold;
-    padding: 20px;
-    cursor: pointer;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
-}
-
-.sidebarMenuInner li span {
-    display: block;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.50);
-}
-
-.sidebarMenuInner li a {
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-input[type="checkbox"]:checked ~ #sidebarMenu {
-    transform: translateX(0);
-}
-
-input[type=checkbox] {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    display: none;
-}
-
-.sidebarIconToggle {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    cursor: pointer;
-    position: absolute;
-    z-index: 99;
-    height: 100%;
-    width: 100%;
-    top: 22px;
-    left: 15px;
-    height: 22px;
-    width: 22px;
-}
-
-.spinner {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: absolute;
-    height: 3px;
-    width: 100%;
-    background-color: #fff;
-}
-
-.horizontal {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: relative;
-    float: left;
-    margin-top: 3px;
-}
-
-.diagonal.part-1 {
-    position: relative;
-    transition: all 0.3s;
-    box-sizing: border-box;
-    float: left;
-}
-
-.diagonal.part-2 {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: relative;
-    float: left;
-    margin-top: 3px;
-}
-
-input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
-    transition: all 0.3s;
-    box-sizing: border-box;
+.lazy {
     opacity: 0;
 }
 
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    transform: rotate(135deg);
-    margin-top: 8px;
+.lazy-loaded {
+    transition: opacity 1s;
+    opacity: 1s;
 }
 
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    transform: rotate(-135deg);
-    margin-top: -9px;
+.l_wrapper { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 0 15px; 
+} 
+
+/* -------------------------------------------------------------------- */
+
+.front { 
+    text-align: center; 
+    padding: 60px 0; 
+    margin-top: 150px;
+} 
+
+.front-contents { 
+    overflow: hidden;
+} 
+
+.front-slide { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 40px; 
+    flex-wrap: wrap;
+} 
+
+.front-slide-item { 
+    flex: 1; 
+    padding: 0 15px; 
+    box-sizing: border-box; 
+    width: calc(50% -15px);
+    margin-bottom: 40px;
+} 
+
+.front-box { 
+    /* border: 1px solid #ddd;  */
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    padding: 30px; 
+} 
+
+.front-box-cover { 
+    width: 60px; 
+    height: 60px; 
+    margin-bottom: 20px; 
+} 
+
+.front-box h2 { 
+    font-size: 32px; 
+    margin-bottom: 10px; 
+} 
+
+.front-box p { 
+    font-size: 16px; 
+    color: rgb(175, 175, 175); 
+    line-height: 1.5; 
+}
+
+@media (max-width: 992px) {
+    .front-slide-item {
+        width: calc(50% - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+    .front-slide-item {
+        width: 100%;
+        margin-bottom: 40px;
+    }
 }

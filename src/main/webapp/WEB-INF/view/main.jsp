@@ -133,15 +133,6 @@
 		<input type="text" id="code" value="${member.code}">
 	</c:if>
 	<button type="button" id="febTestBtn">feb 테스트</button>
-    <div class="mainInner">
-        <div>PURE CSS SIDEBAR TOGGLE MENU</div>
-    </div>
-    <div class="mainInner">
-        <div>PURE CSS SIDEBAR TOGGLE MENU</div>
-    </div>
-    <div class="mainInner">
-        <div>PURE CSS SIDEBAR TOGGLE MENU</div>
-    </div>
 </div>
 </body>
 </html>
