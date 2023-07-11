@@ -42,18 +42,11 @@
       }
       window.addEventListener('resize', myChart.resize);
     }
-    $(function() {
-        $("#startDate").datepicker({
-          dateFormat: "yy-mm-dd",
-        });
-        $("#endDate").datepicker({
-          dateFormat: "yy-mm-dd",
-        });
-      });
 
-      function loadData() {
+    function loadData() {
         var startDate = $("#startDate").val();
         var endDate = $("#endDate").val();
+
 
         $.ajax({
           url: "/energy/chart3",

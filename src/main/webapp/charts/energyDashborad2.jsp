@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  
+  
+  
 </head>
 <body>
 <div id="headerContainer"></div>
@@ -32,63 +35,60 @@
         <!-- Value card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6
-              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              총 에너지 사용 비용(천원)
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+              총 에너지 사용 비용
             </h6>
-            <span class="text-xl font-semibold">$30,000</span>
+            <span id="value1" class="text-xl font-semibold">0</span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              +4.4%
+              (단위 : 천원)
             </span>
           </div>
           <div>
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon1" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
-              <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate" style="display: none;" />
-               <button id="applyEnergyCost1" style="display: none;">제출</button>
+            <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate"  style="display: none;" />
+            <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate"   style="display: none;" />
+            <button id="applyEnergyCost1" style="display: none;">제출</button>
           </div>
         </div>
 
         <!-- Users card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6
-              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              총 에너지 사용량(Kwh)
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+              총 에너지 사용량
             </h6>
-            <span class="text-xl font-semibold">50,021</span>
+            <span id="value2" class="text-xl font-semibold"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              +2.6%
+              (단위 : Kwh)
             </span>
           </div>
           <div>
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon2" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
-              <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" style="display: none;" />
-               <button id="applyEnergyCost2" style="display: none;">제출</button>
+            <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" style="display: none;" />
+            <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" style="display: none;" />
+            <button id="applyEnergyCost2" style="display: none;">제출</button>
           </div>
         </div>
 
         <!-- Orders card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6
-              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               총 공정 가동률 평균(%)
             </h6>
-            <span class="text-xl font-semibold">45,021</span>
+            <span id="value3" class="text-xl font-semibold"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              +3.1%
+              (단위 : %)
             </span>
           </div>
           <div>
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon3" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
-              <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" style="display: none;" />
-               <button id="applyEnergyCost3" style="display: none;">제출</button>
+            <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" style="display: none;" />
+            <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" style="display: none;" />
+            <button id="applyEnergyCost3" style="display: none;">제출</button>
           </div>
         </div>
       </div>
@@ -105,12 +105,12 @@
               <i id="energyCostIcon4" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
               <input type="text" id="energyCostStartDate4" class="datepicker" name="energyCostStartDate" style="display: none;" />
               <input type="text" id="energyCostEndDate4" class="datepicker" name="energyCostEndDate" style="display: none;" />
-               <button id="applyEnergyCost4" style="display: none;">제출</button>
+              <button id="applyEnergyCost4" style="display: none;">제출</button>
             </div>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <canvas id="barChart1"></canvas>
+            <div id="FebOpratio_Chart"></div>
           </div>
         </div>
 
@@ -118,7 +118,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">공정별 총 생산량</h4>
+           <h4 class="text-lg font-semibold text-gray-500">공정별 총 생산량</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon5" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
@@ -213,11 +213,20 @@
           </div>
         </div>
       </div>
+      <script>
       
+      let today = new Date(); // 시작일자
+      let year = today.getFullYear(); // 년도
+      let month = today.getMonth() + 1;  // 월
+      let date = today.getDate();  // 날짜
       
-
-
-       <script>
+      var startDate = new Array(3);
+      var endDate = new Array(3);
+      for(var cnt=0; cnt < 3; cnt++) {
+      	startDate[cnt] = year + '-' + month + '-' + date;
+      	endDate[cnt] = year + '-' + month + '-' + date;
+      }
+      
         $(document).ready(function () {
           // 달력 아이콘 클릭 시 데이터 피커를 토글합니다.
           $("#energyCostIcon1").click(function () {
@@ -225,13 +234,13 @@
             $("#energyCostEndDate1").toggle();
             $("#applyEnergyCost1").toggle();
           });
-    
+
           $("#energyCostIcon2").click(function () {
             $("#energyCostStartDate2").toggle();
             $("#energyCostEndDate2").toggle();
             $("#applyEnergyCost2").toggle();
           });
-    
+
           $("#energyCostIcon3").click(function () {
             $("#energyCostStartDate3").toggle();
             $("#energyCostEndDate3").toggle();
@@ -243,84 +252,176 @@
             $("#energyCostEndDate4").toggle();
             $("#applyEnergyCost4").toggle();
           });
-    
+
           $("#energyCostIcon5").click(function () {
             $("#energyCostStartDate5").toggle();
             $("#energyCostEndDate5").toggle();
             $("#applyEnergyCost5").toggle();
           });
-          
+
           $("#energyCostIcon6").click(function () {
-              $("#energyCostStartDate6").toggle();
-              $("#energyCostEndDate6").toggle();
-              $("#applyEnergyCost6").toggle();
+            $("#energyCostStartDate6").toggle();
+            $("#energyCostEndDate6").toggle();
+            $("#applyEnergyCost6").toggle();
           });
-          
+
           $("#energyCostIcon7").click(function () {
-              $("#energyCostStartDate7").toggle();
-              $("#energyCostEndDate7").toggle();
-              $("#applyEnergyCost7").toggle();
+            $("#energyCostStartDate7").toggle();
+            $("#energyCostEndDate7").toggle();
+            $("#applyEnergyCost7").toggle();
           });
-          
+
           $("#energyCostIcon8").click(function () {
-              $("#energyCostStartDate8").toggle();
-              $("#energyCostEndDate8").toggle();
-              $("#applyEnergyCost8").toggle();
+            $("#energyCostStartDate8").toggle();
+            $("#energyCostEndDate8").toggle();
+            $("#applyEnergyCost8").toggle();
           });
-          
+
           $("#energyCostIcon9").click(function () {
-              $("#energyCostStartDate9").toggle();
-              $("#energyCostEndDate9").toggle();
-              $("#applyEnergyCost9").toggle();
-              
+            $("#energyCostStartDate9").toggle();
+            $("#energyCostEndDate9").toggle();
+            $("#applyEnergyCost9").toggle();
           });
-          
-    
           // 데이터 피커의 기본 설정을 정의합니다.
           $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
-    
-          // 날짜를 선택하고 '제출'을 클릭할 때 실행할 함수를 정의합니다.
-       		window.applyDateRange = function(event, url) {
-			  parent = $(event.target).parent();
-			  parent.find(".datepicker").hide();
-			  $(event.target).hide();
-			
-			  const startDate = parent.find("input[name='energyCostStartDate']").val();
-			  const endDate = parent.find("input[name='energyCostEndDate']").val();
-			        	  
-            
-            // 서버에 선택한 날짜 범위를 전달하는 로직을 추가하세요.
-            // 예시: Ajax 요청으로 서버에 전달
-            $.ajax({
-              url: url,
-              method: "POST",
-              data: {
-                startDate: startDate,
-                endDate: endDate
-              },
-              success: function (response) {
-            	  console.log('Raw Data:', data);
-                  var chartData = JSON.parse(data);
-                  barChart(chartData);
-                  console.log('chartData:', chartData);
-              },
-              error: function (error) {
-            	  console.log("startDate:", startDate, "endDate:", endDate);
-              }
-            });
-          }
-    
-          // 각 "제출" 버튼에 클릭 이벤트를 설정합니다.
-          $("#applyEnergyCost1").click((event) => applyDateRange(event, "/energy/chart1"));
-          $("#applyEnergyCost2").click((event) => applyDateRange(event, "/energy/chart2"));
-          $("#applyEnergyCost3").click((event) => applyDateRange(event, "/energy/chart10"));
-          $("#applyEnergyCost4").click((event) => applyDateRange(event, "/energy/chart3"));
+
+          // 전기사용비용 합계
+          window.applyDateRange1 = function (event, url, targetValueId, valueKey) {
+    	   		if(event !== null) {
+	     			let parent = $(event.target).parent();
+					parent.find(".datepicker").hide();
+					$(event.target).hide();
+					  startDate[0] = parent.find("input[name='energyCostStartDate']").val();
+					  endDate[0] = parent.find("input[name='energyCostEndDate']").val();
+       			}
+       			  $.ajax({
+			    url: "/energy/chart2",
+			    method: "POST",
+			    data: {
+			      startDate: startDate[0],
+			      endDate: endDate[0]
+			    },
+			    success: function (response) {
+			      let data = JSON.parse(response);
+			      if (data["SUM_COSTS"] !== undefined) {
+			        const value = data["SUM_COSTS"];
+			        $("#value1").text((value).toLocaleString());
+			      } else {
+			        console.error("'SUM_COSTS' not found in received data.", response);
+			      }
+			    }
+			  });
+			}  
+    		// 전기사용량 합계
+			window.applyDateRange2 = function (event, url, targetValueId, valueKey) {
+    	   		if(event !== null) {
+				  let parent = $(event.target).parent();
+				  parent.find(".datepicker").hide();
+				  $(event.target).hide();
+				  startDate[1] = parent.find("input[name='energyCostStartDate']").val();
+				  endDate[1] = parent.find("input[name='energyCostEndDate']").val();
+    	   		}
+			  $.ajax({
+			    url: "/energy/chart10",
+			    method: "POST",
+			    data: {
+			      startDate: startDate[1],
+			      endDate: endDate[1]
+			    },
+			    success: function (response) {
+			      let data = JSON.parse(response);
+			      if (data["SUM_USINGRATIO"] !== undefined) {
+			        const value = data["SUM_USINGRATIO"];
+			        $("#value2").text((value).toLocaleString());
+			      } else {
+			        console.error("'SUM_USINGRATIO' not found in received data.", response);
+			      }
+			    }
+			  });
+			};
+			  // 가동률 평균
+			 window.applyDateRange3 = function (event, url, targetValueId, valueKey) {
+				  if(event !== null) {
+					  let parent = $(event.target).parent();
+					  parent.find(".datepicker").hide();
+					  $(event.target).hide();
+					  startDate[2] = parent.find("input[name='energyCostStartDate']").val();
+					  endDate[2] = parent.find("input[name='energyCostEndDate']").val();
+				  }
+				  $.ajax({
+				    url: "/energy/chart1",
+				    method: "POST",
+				    data: {
+				      startDate: startDate[2],
+				      endDate: endDate[2]
+				    },
+				    success: function (response) {
+				      let data = JSON.parse(response);
+				      if (data["AVERAGE_OPRATIO"] !== undefined) {
+				        const value = data["AVERAGE_OPRATIO"];
+				        $("#value3").text((value).toLocaleString());
+				      } else {
+				        console.error("'AVERAGE_OPRATIO' not found in received data.", response);
+				      }
+				    }
+				  });
+	          }
+	          window.applyDateRange4 = function (event, url, targetValueId) {
+	     			let parent = $(event.target).parent();
+					parent.find(".datepicker").hide();
+					$(event.target).hide();
+					  let startDate = parent.find("input[name='energyCostStartDate']").val();
+					  let endDate = parent.find("input[name='energyCostEndDate']").val();
+					  
+					  $.ajax({
+				          url: "/energy/chart3",
+				          type: "POST",
+				          data: { startDate: startDate, endDate: endDate },
+				          success: function(data) {
+				            console.log('Raw Data:', data);
+				            var chartData = JSON.parse(data);
+				            barChart(chartData);
+				            console.log('chartData:', chartData);
+				          },
+				          error: function(err) {
+				            console.log(err);
+				          }
+				        });
+				      }
+	          $("#searchData").click(function() {
+	              loadData();
+	              setInterval(loadData, 5000);
+	            });
+	          
+	          
+	          
+			// 각 "제출" 버튼에 클릭 이벤트를 설정합니다.
+			$("#applyEnergyCost1").click(function (event) {
+			  applyDateRange1(event, "/energy/chart2", "#value1", "SUM_COSTS");
+			});	
+			$("#applyEnergyCost2").click(function (event) {
+			  applyDateRange2(event, "/energy/chart10", "#value2", "SUM_USINGRATIO");
+			});
+			$("#applyEnergyCost3").click(function (event) {
+			  applyDateRange3(event, "/energy/chart1", "#value3", "AVERAGE_OPRATIO");
+			});
+			$("#applyEnergyCost4").click(function (event) {
+				  applyDateRange4(event, "/energy/chart3", "FebOpratio_Chart");
+			});
+
           $("#applyEnergyCost5").click((event) => applyDateRange(event, "/energy/chart4"));
           $("#applyEnergyCost6").click((event) => applyDateRange(event, "/energy/chart5"));
           $("#applyEnergyCost7").click((event) => applyDateRange(event, "/energy/chart6"));
           $("#applyEnergyCost8").click((event) => applyDateRange(event, "/energy/chart8"));
           $("#applyEnergyCost9").click((event) => applyDateRange(event, "/energy/chart9"));
-        });
+        });  
+          // 새로운 interval 실행
+        setInterval(() => {
+            applyDateRange1(null, "/energy/cost", "#value1", "SUM_COSTS");
+            applyDateRange2(null,"/energy/usingratio", "#value2", "SUM_USINGRATIO");
+            applyDateRange3(null,"/energy/opratio", "#value3", "AVERAGE_OPRATIO");
+        }, 3000);
+
       </script>
     </div>
   </main>

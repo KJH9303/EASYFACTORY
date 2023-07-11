@@ -49,21 +49,7 @@ public class EnergyController {
         writer.print(jsonObject.toJSONString());
         System.out.println(jsonObject.toJSONString());
     }
-    // 에너지 사용비용 : default
-    @PostMapping("/cost")
-    public void Cost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /cost");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        List<EnergyVO> energyCostsDEList = energyService.getCosts();
-        JSONArray jsonArray = energyService.JsonCostsDEChange(energyCostsDEList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SUM_COSTS", jsonArray);
-        writer.print(jsonObject.toJSONString());
-        System.out.println(jsonObject.toJSONString());
-    }
+   
     
   // 총 에너지 사용량 Usingratio
     @PostMapping("/chart10")
@@ -84,21 +70,7 @@ public class EnergyController {
         writer.print(jsonObject.toJSONString());
         System.out.println(jsonObject.toJSONString());
     }
-    // 에너지 사용비용 : default
-    @PostMapping("/usingratio")
-    public void Usingratio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /usingratio");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        List<EnergyVO> energyUsingtioDEList = energyService.getUsingratio();
-        JSONArray jsonArray = energyService.JsonUsingratioDEChange(energyUsingtioDEList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SUM_USINGRATIO", jsonArray);
-        writer.print(jsonObject.toJSONString());
-        System.out.println(jsonObject.toJSONString());
-    }
+ 
     // 가동률:Opratio datepicker
     @PostMapping("/chart1")
     public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -118,21 +90,7 @@ public class EnergyController {
         writer.print(jsonObject.toJSONString());
         System.out.println(jsonObject.toJSONString());   
     }
-    // 가동률 : default
-    @PostMapping("/opratio")
-    public void opratio(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /opratio");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        List<EnergyVO> energyUsingtioDEList = energyService.getOpratio();
-        JSONArray jsonArray = energyService.JsonopratioDEChange(energyUsingtioDEList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("AVERAGE_OPRATIO", jsonArray);
-        writer.print(jsonObject.toJSONString());
-        System.out.println(jsonObject.toJSONString());
-    }
+   
     // 각 공정 가동률
     @PostMapping("/chart3")
     public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -148,6 +106,7 @@ public class EnergyController {
         
         JSONArray jsonArray = energyService.JsonFebOpratioChange(energyAllopratioList);
          writer.print(jsonArray.toJSONString());
+         System.out.println(jsonArray.toJSONString());   
     }
     // 각 공정 총 생산량
     @PostMapping("/chart4")

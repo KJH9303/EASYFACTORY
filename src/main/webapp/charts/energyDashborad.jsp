@@ -7,10 +7,73 @@
   <title>Dashboard</title>
   <link rel="stylesheet" href="/../resources/feb/css/feb2.css" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="js/echarts.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script type="text/javascript">
+  	// 각 공정별 가동률 평균 차트
+    function barChart(vals) {
+    
+      var dom = document.getElementById('FebOpratio_Chart');
+      var myChart = echarts.init(dom, null, {
+        renderer: 'canvas',
+        useDirtyRect: false
+      });
+   
+        var option = {
+                xAxis: {
+                  type: 'category',
+                  data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
+                },
+        yAxis: {type: 'value'},
+        series: [{
+            data: vals,
+            type: 'bar',
+            showBackground: true,
+            backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
+        }]
+      };
+      
+      if (option && typeof option === 'object') {
+        myChart.setOption(option);
+      }
+      window.addEventListener('resize', myChart.resize);
+    }
+   </script>
+   <script type="text/javascript">
+	// 각 공정별 총생산량 합계 차트
+	   function barChart(vals) {
+	     var dom = document.getElementById('FebTr_Chart');
+	     var myChart = echarts.init(dom, null, {
+	       renderer: 'canvas',
+	       useDirtyRect: false
+	     });
+	  
+	       var option = {
+	               xAxis: {
+	                 type: 'category',
+	                 data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
+	               },
+	       yAxis: {type: 'value'},
+	       series: [{
+	           data: vals,
+	           type: 'bar',
+	           showBackground: true,
+	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
+	       }]
+	     };
+	     
+	     if (option && typeof option === 'object') {
+	       myChart.setOption(option);
+	     }
+	     window.addEventListener('resize', myChart.resize);
+	   }
+   
+   </script>
+  
 </head>
 <body>
 <div id="headerContainer"></div>
@@ -35,7 +98,7 @@
             <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               총 에너지 사용 비용
             </h6>
-            <span id="value1" class="text-xl font-semibold"></span>
+            <span id="value1" class="text-xl font-semibold">0</span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
               (단위 : 천원)
             </span>
@@ -107,7 +170,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <canvas id="barChart1"></canvas>
+            <div id="FebOpratio_Chart" style="height: 350px"></div>
           </div>
         </div>
 
@@ -126,7 +189,7 @@
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-            <canvas id="barChart2"></canvas>
+            <div id="FebTr_Chart" style="height: 350px"></div>
           </div>
         </div>
       </div>
@@ -212,6 +275,18 @@
       </div>
       <script>
       
+      let today = new Date(); // 시작일자
+      let year = today.getFullYear(); // 년도
+      let month = today.getMonth() + 1;  // 월
+      let date = today.getDate();  // 날짜
+      
+      var startDate = new Array(9);
+      var endDate = new Array(9);
+      for(var cnt=0; cnt < 9; cnt++) {
+      	startDate[cnt] = year + '-' + month + '-' + date;
+      	endDate[cnt] = year + '-' + month + '-' + date;
+      }
+      
         $(document).ready(function () {
           // 달력 아이콘 클릭 시 데이터 피커를 토글합니다.
           $("#energyCostIcon1").click(function () {
@@ -267,28 +342,24 @@
             $("#energyCostEndDate9").toggle();
             $("#applyEnergyCost9").toggle();
           });
-
-
           // 데이터 피커의 기본 설정을 정의합니다.
           $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
 
-          // 날짜를 선택하고 '제출'을 클릭할 때 실행할 함수를 정의합니다.
-     
+          // 전기사용비용 합계
           window.applyDateRange1 = function (event, url, targetValueId, valueKey) {
-     			let parent = $(event.target).parent();
-				parent.find(".datepicker").hide();
-				$(event.target).hide();
-				
-				  let startDate = parent.find("input[name='energyCostStartDate']").val();
-				  let endDate = parent.find("input[name='energyCostEndDate']").val();
-				
-			  // 전기사용비용 합계
-			  $.ajax({
+    	   		if(event !== null) {
+	     			let parent = $(event.target).parent();
+					parent.find(".datepicker").hide();
+					$(event.target).hide();
+					  startDate[0] = parent.find("input[name='energyCostStartDate']").val();
+					  endDate[0] = parent.find("input[name='energyCostEndDate']").val();
+       			}
+       			  $.ajax({
 			    url: "/energy/chart2",
 			    method: "POST",
 			    data: {
-			      startDate: startDate,
-			      endDate: endDate
+			      startDate: startDate[0],
+			      endDate: endDate[0]
 			    },
 			    success: function (response) {
 			      let data = JSON.parse(response);
@@ -301,37 +372,21 @@
 			    }
 			  });
 			}  
-          // 전기사용비용 합계 디폴트 값 
-          window.applyDateRange1_1 = function (url, targetValueId, valueKey) {
-			  $.ajax({
-			    url: "/energy/cost",
-			    method: "POST",
-			    data: {
-			    },
-			    success: function (response) {
-			      let data = JSON.parse(response);
-			      if (data["SUM_COSTS"] !== undefined) {
-			        const value = data["SUM_COSTS"];
-			        $(targetValueId).text((value).toLocaleString());
-			      } else {
-			        console.error("'SUM_COSTS' not found in received data.", response);
-			      }
-			    }
-			  });
-			}
     		// 전기사용량 합계
 			window.applyDateRange2 = function (event, url, targetValueId, valueKey) {
+    	   		if(event !== null) {
 				  let parent = $(event.target).parent();
 				  parent.find(".datepicker").hide();
 				  $(event.target).hide();
-				  let startDate = parent.find("input[name='energyCostStartDate']").val();
-				  let endDate = parent.find("input[name='energyCostEndDate']").val();
+				  startDate[1] = parent.find("input[name='energyCostStartDate']").val();
+				  endDate[1] = parent.find("input[name='energyCostEndDate']").val();
+    	   		}
 			  $.ajax({
 			    url: "/energy/chart10",
 			    method: "POST",
 			    data: {
-			      startDate: startDate,
-			      endDate: endDate
+			      startDate: startDate[1],
+			      endDate: endDate[1]
 			    },
 			    success: function (response) {
 			      let data = JSON.parse(response);
@@ -344,40 +399,21 @@
 			    }
 			  });
 			};
-			  // 전기사용량 합계 디폴트 값 
-	          window.applyDateRange2_1 = function (url, targetValueId, valueKey) {
-				  $.ajax({
-				    url: "/energy/usingratio",
-				    method: "POST",
-				    data: {
-				    },
-				    success: function (response) {
-				      let data = JSON.parse(response);
-				      if (data["SUM_USINGRATIO"] !== undefined) {
-				        const value = data["SUM_USINGRATIO"];
-				        $(targetValueId).text((value).toLocaleString());
-				      } else {
-				        console.error("'SUM_USINGRATIO' not found in received data.", response);
-				      }
-				    }
-				  });
-				}
-			  
+			  // 가동률 평균
 			 window.applyDateRange3 = function (event, url, targetValueId, valueKey) {
-				  let parent = $(event.target).parent();
-				  parent.find(".datepicker").hide();
-				  $(event.target).hide();
-				
-				  let startDate = parent.find("input[name='energyCostStartDate']").val();
-				  let endDate = parent.find("input[name='energyCostEndDate']").val();
-				
-				  // 평균 가동률
+				  if(event !== null) {
+					  let parent = $(event.target).parent();
+					  parent.find(".datepicker").hide();
+					  $(event.target).hide();
+					  startDate[2] = parent.find("input[name='energyCostStartDate']").val();
+					  endDate[2] = parent.find("input[name='energyCostEndDate']").val();
+				  }
 				  $.ajax({
 				    url: "/energy/chart1",
 				    method: "POST",
 				    data: {
-				      startDate: startDate,
-				      endDate: endDate
+				      startDate: startDate[2],
+				      endDate: endDate[2]
 				    },
 				    success: function (response) {
 				      let data = JSON.parse(response);
@@ -390,24 +426,61 @@
 				    }
 				  });
 	          }
-			// 전기사용량 합계 디폴트 값 
-	          window.applyDateRange3_1 = function (url, targetValueId, valueKey) {
-				  $.ajax({
-				    url: "/energy/opratio",
-				    method: "POST",
-				    data: {
-				    },
-				    success: function (response) {
-				      let data = JSON.parse(response);
-				      if (data["AVERAGE_OPRATIO"] !== undefined) {
-				        const value = data["AVERAGE_OPRATIO"];
-				        $(targetValueId).text((value).toLocaleString());
-				      } else {
-				        console.error("'AVERAGE_OPRATIO' not found in received data.", response);
+			  // 각 공정별 가동률 평균
+	          window.applyDateRange4 = function (event, url, targetValueId) {
+	        	  if(event !== null) {
+	     			let parent = $(event.target).parent();
+					parent.find(".datepicker").hide();
+					$(event.target).hide();
+					  startDate[3] = parent.find("input[name='energyCostStartDate']").val();
+					  endDate[3] = parent.find("input[name='energyCostEndDate']").val();
+	        	  }
+					  $.ajax({
+				          url: "/energy/chart3",
+				          type: "POST",
+				          data: { 
+			        	  startDate: startDate[3], 
+			        	  endDate: endDate[3]
+					  },
+				          success: function(data) {
+				            console.log('Raw Data:', data);
+				            var chartData = JSON.parse(data);
+				            barChart(chartData);
+				            console.log('chartData:', chartData);
+				          },
+				          error: function(err) {
+				            console.log(err);
+				          }
+				        });
 				      }
-				    }
-				  });
-				}
+	          // 각 공정별 생산량 합계
+	          window.applyDateRange5 = function (event, url, targetValueId) {
+	        	  if(event !== null) {
+	     			let parent = $(event.target).parent();
+					parent.find(".datepicker").hide();
+					$(event.target).hide();
+					  startDate[4] = parent.find("input[name='energyCostStartDate']").val();
+					  endDate[4] = parent.find("input[name='energyCostEndDate']").val();
+	        	  }
+					  $.ajax({
+				          url: "/energy/chart4",
+				          type: "POST",
+				          data: { 
+			        	  startDate: startDate[4], 
+			        	  endDate: endDate[4]
+					  },
+				          success: function(data) {
+				            console.log('Raw Data:', data);
+				            var chartData = JSON.parse(data);
+				            barChart(chartData);
+				            console.log('chartData:', chartData);
+				          },
+				          error: function(err) {
+				            console.log(err);
+				          }
+				        });
+				      }
+	   
 			// 각 "제출" 버튼에 클릭 이벤트를 설정합니다.
 			$("#applyEnergyCost1").click(function (event) {
 			  applyDateRange1(event, "/energy/chart2", "#value1", "SUM_COSTS");
@@ -418,18 +491,27 @@
 			$("#applyEnergyCost3").click(function (event) {
 			  applyDateRange3(event, "/energy/chart1", "#value3", "AVERAGE_OPRATIO");
 			});
+			$("#applyEnergyCost4").click(function (event) {
+			  applyDateRange4(event, "/energy/chart3", "FebOpratio_Chart");
+			});
+			$("#applyEnergyCost5").click(function (event) {
+				  applyDateRange4(event, "/energy/char4", "FebOpratio_Chart");
+			});
 
-          $("#applyEnergyCost4").click((event) => applyDateRange(event, "/energy/chart3"));
           $("#applyEnergyCost5").click((event) => applyDateRange(event, "/energy/chart4"));
           $("#applyEnergyCost6").click((event) => applyDateRange(event, "/energy/chart5"));
           $("#applyEnergyCost7").click((event) => applyDateRange(event, "/energy/chart6"));
           $("#applyEnergyCost8").click((event) => applyDateRange(event, "/energy/chart8"));
           $("#applyEnergyCost9").click((event) => applyDateRange(event, "/energy/chart9"));
-          applyDateRange1_1("/energy/cost", "#value1", "SUM_COSTS");
-          applyDateRange2_1("/energy/usingratio", "#value2", "SUM_USINGRATIO");
-          applyDateRange3_1("/energy/opratio", "#value3", "AVERAGE_OPRATIO");
-        });     
-        
+        });  
+          // 새로운 interval 실행
+        setInterval(() => {
+            applyDateRange1(null, "/energy/chart2", "#value1", "SUM_COSTS");
+            applyDateRange2(null,"/energy/chart10", "#value2", "SUM_USINGRATIO");
+            applyDateRange3(null,"/energy/chart1", "#value3", "AVERAGE_OPRATIO");
+            applyDateRange4(null,"/energy/chart3", "#value4", "FebOpratio_Chart");
+            applyDateRange5(null,"/energy/chart4", "#value5", "FebTr_Chart");
+        }, 3000);
 
       </script>
     </div>

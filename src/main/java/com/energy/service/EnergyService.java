@@ -19,22 +19,15 @@ public class EnergyService {
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
         return energyDAO.getOpratio(startDate, endDate);
     }
-    public List<EnergyVO> getOpratio() {
-        return energyDAO.getOpratio();
-    }
+
     public List<EnergyVO> getUsingratio(String startDate, String endDate) {
         return energyDAO.getUsingratio(startDate, endDate);
     }
-    public List<EnergyVO> getUsingratio() {
-        return energyDAO.getUsingratio();
-    }
+
     public List<EnergyVO> getCosts(String startDate, String endDate) {
         return energyDAO.getCosts(startDate, endDate);
     }
-    public List<EnergyVO> getCosts() {
-        return energyDAO.getCosts();
-    }
-    
+
     public List<EnergyVO> getFebOpratio(String startDate, String endDate) {
         return energyDAO.getFebOpratio(startDate, endDate);
     }
@@ -62,15 +55,7 @@ public class EnergyService {
 	        }
 	        return jsonArray;
 	    }
-	 // 에너지 사용 비용 디폴트 값 
-	    public JSONArray JsonCostsDEChange(List<EnergyVO> energyCostsDEList) {
-	        JSONArray jsonArray = new JSONArray();
-	        for (EnergyVO energyData1 : energyCostsDEList) {
-	            int costs = energyData1.getCosts();
-	            jsonArray.add(costs);
-	        }
-	        return jsonArray;
-	    }
+	
 	    // 에너지 사용량
 	    public JSONArray JsonUsingratioChange(List<EnergyVO> energyUsingtioList) {
 	        JSONArray jsonArray = new JSONArray();
@@ -79,14 +64,7 @@ public class EnergyService {
 	        }
 	        return jsonArray;
 	    }
-	    // 에너지 사용량 디폴트 값
-	    public JSONArray JsonUsingratioDEChange(List<EnergyVO> energyUsingtioDEList) {
-	        JSONArray jsonArray = new JSONArray();
-	        for (EnergyVO energyData1 : energyUsingtioDEList) {
-	            jsonArray.add(energyData1.getUsingratio());
-	        }
-	        return jsonArray;
-	    }
+	   
 	    // 가동률
 	    public JSONArray JsonOpratioChange(List<EnergyVO> energyOpratioList) {
 	        JSONArray jsonArray = new JSONArray();
@@ -95,14 +73,7 @@ public class EnergyService {
 	        }
 	        return jsonArray;
 	    }
-	    // 가동률 디폴트 값
-	    public JSONArray JsonopratioDEChange(List<EnergyVO> energyopratioDEList) {
-	        JSONArray jsonArray = new JSONArray();
-	        for (EnergyVO energyData1 : energyopratioDEList) {
-	            jsonArray.add(energyData1.getUsingratio());
-	        }
-	        return jsonArray;
-	    }
+	  
     // 공정별 가동률 각 평균
     public JSONArray JsonFebOpratioChange(List<EnergyVO> energyFebopratioList) {
         JSONArray jsonArray = new JSONArray();

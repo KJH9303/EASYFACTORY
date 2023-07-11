@@ -43,27 +43,7 @@ public class EnergyDAO {
 
         return list;
     } 
-    // 에너지 사용비용 default
-    public List<EnergyVO> getCosts() {
-        String sql = "SELECT ROUND(SUM(SUM_COSTS), 2) AS SUM_COSTS "
-                + "FROM FEB_DSUM "
-                + "WHERE HIREDATE BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE)";
-
-        List<EnergyVO> list = jdbcTemplate.query(sql, new Object[]{}, new ResultSetExtractor<List<EnergyVO>>() {
-            @Override
-            public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List<EnergyVO> list = new ArrayList<EnergyVO>();
-                while (rs.next()) {
-                    EnergyVO energyData1 = new EnergyVO();
-                    energyData1.setCosts(rs.getInt("SUM_COSTS"));
-                    list.add(energyData1);
-                }
-                return list;
-            }
-        });
-
-        return list;
-    }
+   
 	 // 에너지 사용량
 	    public List<EnergyVO> getUsingratio(String startDate, String endDate) {
 	        String sql = "SELECT ROUND(SUM(SUM_USINGRATIO), 2) AS SUM_USINGRATIO "
@@ -85,28 +65,7 @@ public class EnergyDAO {
 	
 	        return list;
 	    }
-	 // 에너지 사용량 default
-	    public List<EnergyVO> getUsingratio() {
-	        String sql = "SELECT ROUND(SUM(SUM_USINGRATIO), 2) AS SUM_USINGRATIO "
-	                + "FROM FEB_DSUM "
-	                + "WHERE HIREDATE BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE)";
-
-	        List<EnergyVO> list = jdbcTemplate.query(sql, new Object[]{}, new ResultSetExtractor<List<EnergyVO>>() {
-	            @Override
-	            public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
-	                List<EnergyVO> list = new ArrayList<EnergyVO>();
-	                while (rs.next()) {
-	                    EnergyVO energyData1 = new EnergyVO();
-	                    energyData1.setUsingratio(rs.getDouble("SUM_USINGRATIO"));
-	                    list.add(energyData1);
-	                }
-	                return list;
-	            }
-	        });
-
-	        return list;
-	    }
-	    
+	
     // 가동률
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
         String sql = "SELECT ROUND(AVG(avg_opratio), 2) AS avg_opratio "
@@ -121,27 +80,6 @@ public class EnergyDAO {
                     EnergyVO energyData = new EnergyVO();
                     energyData.setOpratio(rs.getDouble("avg_opratio"));
                     list.add(energyData);
-                }
-                return list;
-            }
-        });
-
-        return list;
-    }
-    // 에너지 사용량 default
-    public List<EnergyVO> getOpratio() {
-        String sql = "SELECT ROUND(AVG(avg_opratio), 2) AS avg_opratio "
-                + "FROM FEB_DSUM "
-                + "WHERE HIREDATE BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE)";
-
-        List<EnergyVO> list = jdbcTemplate.query(sql, new Object[]{}, new ResultSetExtractor<List<EnergyVO>>() {
-            @Override
-            public List<EnergyVO> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List<EnergyVO> list = new ArrayList<EnergyVO>();
-                while (rs.next()) {
-                    EnergyVO energyData1 = new EnergyVO();
-                    energyData1.setUsingratio(rs.getDouble("avg_opratio"));
-                    list.add(energyData1);
                 }
                 return list;
             }
