@@ -47,17 +47,21 @@
         xhttp.send();
     }
     
+    /*
     function loadHeaderAndSidebar() {
-        loadHTMLFile("#headerContainer", "../../resources/main/jsp/header.jsp", updateTime);
+        loadHTMLFile("#headerContainer", updateTime);
     }
+    */
     
     
     // 페이지가 로드될 때 헤더와 사이드바 파일을 불러와 삽입
-    window.addEventListener('load', loadHeaderAndSidebar);
+    window.addEventListener('load', updateTime);
     </script>
 </head>
 <body>
-    <div id="headerContainer"></div>
+    <div id="headerContainer">
+    	<%@ include file="header.jsp" %>
+    </div>
 <!-- 메인 이너 -->
     <div class="main">
         <section class="cover cover_fullpage">
