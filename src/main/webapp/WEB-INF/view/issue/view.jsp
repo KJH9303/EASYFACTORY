@@ -98,79 +98,55 @@
    				error:function(){
    					alert("Error");
    				}
-			});// 댓글 비동기 끝
+			}); // $.ajax
 		}; // writeReply()
 		
-		/*
-		//댓글 목록 
-		function commentList(){
-			var no = $('#no').val();
-		    $.ajax({
-		        url : '/issue/viewReply',
-		        type : 'get',
-		        data : {'no':no},
-		        success : function(data) {
-		            var a =''; 
-		            $.each(data, function(key, value){ 
-		                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-		                a += '<div class="commentInfo'+value.no+'">'+'댓글번호 : '+value.no+' / 작성자 : '+value.author;
-		                a += '<a onclick="commentUpdate('+value.no+',\''+value.content+'\');"> 수정 </a>';
-		                a += '<a onclick="commentDelete('+value.no+');"> 삭제 </a> </div>';
-		                a += '<div class="commentContent'+value.no+'"> <p> 내용 : '+value.content +'</p>';
-		                a += '</div></div>';
-		            });
-		            
-		            $(".output").html(a);
-		        }
-		    });
-		}
-		*/
-		
-		// 댓글 보기
-		
 		function viewReply() {
+			var url = "/issue/viewReply";
 			var no = $('#no').val();
+			
 			$.ajax({
-	        	type : "post",
-	        	async : false, 
-	           	url : "/issue/viewReply",
-	           	data: {no: no},
-	           	success : function (data,textStatus) {
-	           		
-	           	var jsonInfo = JSON.parse(data);
-	           	
-	           	var replyInfo = "";
-	           	replyInfo += "<hr>";
-	        
-	        	if (jsonInfo.replylist == null || jsonInfo.replylist == 'undefined') {
-	        		replyInfo += "<div>"
-	        		replyInfo += "<span> 등록된 댓글이 없습니다. </span>";
-        			replyInfo += "</div>"
-	        	} else {
-	        		for (var i = 1; i < jsonInfo.replylist.length; i ++) {
-		        		replyInfo += "<div>"
-		        		replyInfo += "<input type='hidden' value='" + jsonInfo.replylist[1].reno + "'>";
-		        		replyInfo += "<input type='text' value='" + jsonInfo.replylist[i].author + "'>";
-		        		replyInfo += "<span> : </span>";
-		        		replyInfo += "<textarea rows='1' cols='100' style='margin-bottom:-6px'>" + jsonInfo.replylist[i].content + "</textarea>";
-		        		replyInfo += "<button type='button' id='updateReplyBtn'>댓글수정</button>";
-		        		replyInfo += "<button type='button' id='deleteReplyBtn'>댓글삭제</button>";
-		        		replyInfo += "</div>";
-		        	}
-	        	}
-	        	replyInfo += "<hr>"
-	        	
-	        	$("#output").html(replyInfo);
-	       	},
-	       	error : function(data,textStatus) {
-	        		alert("에러가 발생했습니다.");
-	      	},
-	      	complete:function(data,textStatus) {
-	       	}
-	   		
-			}); 
+				url : url,
+				type : 'post',
+				data : {no : no},
+				dataType : 'json',
+				async: true,
+				success : function(result) {
+					var replyList = "";
+					if(result.length < 1) {
+						replyList = "<div><span>등록된 댓글이 없습니다.</span></div>";
+					} // if
+					else {
+						$(result).each(function() {
+							replyList += '<br/>																	';
+							replyList += '<strong>																';
+							replyList += '		작성자 : ' + this.author										 ;
+							replyList += '</strong>																';
+							replyList += '<br/> 																';
+							replyList += '		댓글 내용 : ' + this.content									 ;
+							replyList += '<br/> 																';
+							replyList += '<p>																	';
+							replyList += '		작성 날짜 : ' + this.regDate									 ;
+							replyList += '</p>																	';
+							replyList += '<button type="button" id="replyUpdateBtn" data-reno=' + this.reno	+'> ';
+							replyList += '		댓글 수정														';	
+							replyList += '</button>																';
+							replyList += '<button type="button" id="replydeleteBtn" data-reno=' + this.reno	+'> ';
+							replyList += '		댓글 삭제														';	
+							replyList += '</button>																';
+							
+						}); // $(result).each(function()
+					} // else
+					$("#output").html(replyList);
+				} // success
+			});
 		}
-	});
+		
+		$("button[name=updateReplyBtn]").on('click', function() {
+			var reno = $('input[name=reply_reno]').val();
+			alert(reno);
+		});
+	}); // document
 </script>
 </head>
 <body>
@@ -201,40 +177,31 @@
             <input type="text" id="endDate" value="${endDate}" readonly>
         <hr>
 	</div>
-		<!-- 게시물 끝 -->
-		<div id="output"></div>
-		<!--
-		<c:if test="${replylist != null}">
-			<span>등록된 댓글 : ${replyCnt}</span>
-        	<c:forEach items="${replylist}" var="replylist">
-   				<div>
-	         		<div>
-	         			<input type="text" value="${replylist.content}">
-	         			<input type="text" value="${replylist.author}">
-	         			<input type="text" value="${replylist.regDate}">
-	        		</div>
-        		</div>
-       		</c:forEach>
-       	</c:if>
-       	<c:if test="${replylist == null}">
-       		<div>
-       			<div> 작성된 게시물이 없습니다. </div>
-       		</div>
-       	</c:if>
-        <hr>
-         -->
-	        <div class="comment-box">
-		        <div class="reply-author">
-		        	<span>작성자 : ${member.id}</span>
-		        </div>
-		        <input type="hidden" id="reply_author" name="author" value="${member.id}">
-	        </div>
-	        <div>
-	        	<textarea class="reply-content" id="reply_content" cols="80" rows="2" name="content"></textarea>
-	        </div>
-	        <div class="regBtn">
-	        	<button id="writeReplyBtn"> 댓글등록</button>
-	        </div>
-	        <button type="button" id="toListBtn">목록</button>
+	<!-- 게시물 끝 -->
+	
+	<div id="output"></div>
+<!--
+	<span>등록된 댓글 :</span>
+   	<div>
+   		<input type="hidden" value="">
+   		<input type="text" value="">
+   		<input type="text" value="">
+   	</div>
+    <hr>
+ -->
+        
+    <div class="comment-box">
+        <div class="reply-author">
+        	<span>작성자 : ${member.id}</span>
+        </div>
+        <input type="hidden" id="reply_author" name="author" value="${member.id}">
+    </div>
+    <div>
+    	<textarea class="reply-content" id="reply_content" cols="80" rows="2" name="content"></textarea>
+    </div>
+    <div class="regBtn">
+       	<button id="writeReplyBtn">댓글등록</button>
+    </div>
+    <button type="button" id="toListBtn">목록</button>
 </body>
 </html>

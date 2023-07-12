@@ -11,21 +11,21 @@ body {
   padding: 80px;
 }
 
-h1 {
+.container h1 {
   text-align: center;
 }
 
-form {
+.container form {
   margin-bottom: 20px;
 }
 
-table {
+.container table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-tr > th {
+.container tr > th {
   text-align: left;
   background-color: black;
   color: white;
@@ -34,13 +34,13 @@ tr > th {
   
 }
 
-tr > td {
+.container tr > td {
   border-bottom: 1px solid black;
   padding: 10px 30px 10px 0px;
   text-align: center;
 }
 
-button {
+.container button {
   background-color: black;
   color: white;
   padding: 8px 14px;
@@ -55,17 +55,17 @@ button {
   border-radius: 5px;
 }
 
-button:hover {
+.container button:hover {
   background-color: #444;
 }
 
-hr {
+.container hr {
   margin: 40px 0;
   /* margin-top: 0; */
   border: 1px solid black;
 }
 
-select {
+.container select {
   box-sizing: border-box;
   border: none;
   width: 100px;

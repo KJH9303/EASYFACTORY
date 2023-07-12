@@ -7,17 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.issue.service.IssueService;
 import com.issue.service.ReplyIssueService;
 import com.issue.vo.Criteria;
@@ -128,7 +128,7 @@ public class IssueController {
 			return "InsertSuccess";
 		}
     }
-    
+    /*
     // 댓글 출력 ajax
     @SuppressWarnings("unchecked")
 	@PostMapping("/viewReply")
@@ -160,7 +160,24 @@ public class IssueController {
         String jsonInfo = replyList.toJSONString();
         System.out.print(jsonInfo);
         writer.print(jsonInfo);
+    }*/
+    // 댓글 출력 ajax
+    @PostMapping("/viewReply")
+    public void replylist(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+    	PrintWriter writer = response.getWriter();
+    	
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+    	List<ReplyIssueVO> replylist= replyIssueService.getReplyList(no);
+    	
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	String jsonString = objectMapper.writeValueAsString(replylist);
+    	writer.print(jsonString);
     }
+    
+    
     
     // 글 쓰기 페이지
     @RequestMapping(value="/write", method=RequestMethod.GET)

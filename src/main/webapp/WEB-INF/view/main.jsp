@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../../resources/main/css/main.css?after">
+    <link rel="stylesheet" href="../../resources/main/css/main.css">
     <script>
         // 현재 날짜, 현재 시간 
         // yyyy/mm/dd 
