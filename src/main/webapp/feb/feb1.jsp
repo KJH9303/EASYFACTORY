@@ -16,6 +16,7 @@
 <body>
 <div id="headerContainer"></div>
 <div class="flex-1 h-full">
+
   
   <!-- Main content -->
   <main>
@@ -33,8 +34,7 @@
         <!-- Stock card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6
-              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               총 재고
             </h6>
     		<span class="text-xl font-semibold stock-total"></span>
@@ -47,39 +47,36 @@
         <!-- Tr card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6
-              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               정상품 수
             </h6>
    			<span class="text-xl font-semibold tr-total"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              (단위 : EA)
+              (단위 : EA)</span>
           </div>
         </div>
 
         <!-- Fal card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6
-              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               불량품 수
             </h6>
             <span class="text-xl font-semibold fal-total"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              (단위 : EA)            
+              (단위 : EA)</span>            
           </div>
         </div>
 
         <!-- Usingratio card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6
-              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               장비가동률
             </h6>
             <span class="text-xl font-semibold opratio-avg"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              (단위 : %)
+              (단위 : %)</span>
           </div>
         </div>
       </div>
@@ -89,8 +86,10 @@
 		<!-- Doughnut chart card -->
         <div class="bg-white rounded-md">
           <!-- Card header -->
-          <div class="flex items-center justify-between p-4 border-b">
+          <div class="flex items-center p-4 border-b">
             <h4 class="text-lg font-semibold text-gray-500">온도</h4>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : ℃)</span>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
@@ -102,9 +101,15 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">장비 가동률</h4>
+            <h4 class="text-lg font-semibold text-gray-500">당월 장비 가동률</h4>
+            <!-- DatePicker -->
             <div class="flex items-center space-x-2">
-              <span class="text-sm text-gray-500">DatePicker</span>
+      	    <div>
+		        <input type="date" id="startDate_opratio" name="startDate">
+		        <input type="date" id="endDate_opratio" name="endDate">
+		        <button onClick="fetchChartData('opratio')" style="background-color: black; color: white;">GET</button>
+		        <button onClick="clearDatePicker('opratio')" style="background-color: white;">CLEAR</button>
+	   		</div>
             </div>
           </div>
           <!-- Chart -->
@@ -125,7 +130,7 @@
 	            <tr>
 	           	</tr>
            		<tr>
-	        		<td id="previousDefects"></td>
+        			<td id="previousDefects" style="font-size: 20px;"></td>
 	        	</tr>
             </table>
           </div>
@@ -138,9 +143,15 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">전기 사용량</h4>
+            <h4 class="text-lg font-semibold text-gray-500">당월 전기 사용량</h4>
+            <!-- DatePicker -->
             <div class="flex items-center space-x-2">
-              <span class="text-sm text-gray-500">DatePicker</span>
+      	    <div>
+		        <input type="date" id="startDate_usingratio" name="startDate">
+		        <input type="date" id="endDate_usingratio" name="endDate">
+		        <button onClick="fetchChartData('usingratio')" style="background-color: black; color: white;">GET</button>
+		        <button onClick="clearDatePicker('usingratio')" style="background-color: white;">CLEAR</button>
+	   		</div>
             </div>
           </div>
           <!-- Chart -->
@@ -153,9 +164,15 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">전기사용 비용</h4>
+            <h4 class="text-lg font-semibold text-gray-500">당월 전기사용 비용</h4>
+            <!-- DatePicker -->
             <div class="flex items-center space-x-2">
-              <span class="text-sm text-gray-500">DatePicker</span>
+      	    <div>
+		        <input type="date" id="startDate_costs" name="startDate">
+		        <input type="date" id="endDate_costs" name="endDate">
+		        <button onClick="fetchChartData('costs')" style="background-color: black; color: white;">GET</button>
+		        <button onClick="clearDatePicker('costs')" style="background-color: white;">CLEAR</button>
+	   		</div>
             </div>
           </div>
           <!-- Chart -->
@@ -173,6 +190,10 @@
 	<script>
 	let opratioChart, gaugeChart, usingratioChart, costsChart;
 	
+	var opratio = null;
+	var usingratio = null;
+	var costs = null;
+	
 	function fetchChartData(type) {
 	    var startDateInputId, endDateInputId, uri, updateChartFunc;
 
@@ -180,33 +201,45 @@
 	        case "opratio":
 	            startDateInputId = "startDate_opratio";
 	            endDateInputId = "endDate_opratio";
-	            uri = "/feb/select-data";
+	            uri = "/feb/select-data-feb1";
 	            updateChartFunc = updateOpratioChart;
+	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
+	            	opratio = false;
+	            }
+	            opratio = true;
 	            break;
 
 	        case "usingratio":
 	            startDateInputId = "startDate_usingratio";
 	            endDateInputId = "endDate_usingratio";
-	            uri = "/feb/select-data";
+	            uri = "/feb/select-data-feb1";
 	            updateChartFunc = updateUsingratioChart;
+	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
+	            	usingratio = false;
+	            }
+	            usingratio = true;
 	            break;
 	            
 	        case "costs":
 	            startDateInputId = "startDate_costs";
 	            endDateInputId = "endDate_costs";
-	            uri = "/feb/select-data";
+	            uri = "/feb/select-data-feb1";
 	            updateChartFunc = updateCostsChart;
+	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
+	            	costs = false;
+	            }
+	            costs = true;
 	            break;
 	    }
 
 	    var startDate = $("#" + startDateInputId).val();
 	    var endDate = $("#" + endDateInputId).val();
 	    
-	    alert("Data요청 확인: [" + type + "] : " + startDateInputId + "=" + startDate + ", " + endDateInputId + "=" + endDate);
+	    //alert("Data 요청 확인: [" + type + "] : " + startDateInputId + "=" + startDate + ", " + endDateInputId + "=" + endDate);
 
 	    $.ajax({
 	        type: "GET",
-	        url: "/feb/select-data",
+	        url: "/feb/select-data-feb1",
 	        data: {
 	        	startDate: startDate,
 	        	endDate: endDate
@@ -227,11 +260,36 @@
 	    });
 	}
 
+	function clearDatePicker(type) {
+		var startDateInputId, endDateInputId, uri, updateChartFunc;
+
+	    switch (type) {
+	        case "opratio":
+	            startDateInputId = "startDate_opratio";
+	            endDateInputId = "endDate_opratio";
+	            opratio = false;
+	            break;
+
+	        case "usingratio":
+	            startDateInputId = "startDate_usingratio";
+	            endDateInputId = "endDate_usingratio";
+	            usingratio = false;
+	            break;
+	            
+	        case "costs":
+	            startDateInputId = "startDate_costs";
+	            endDateInputId = "endDate_costs";
+	            costs = false;
+	            break;
+	    }
+	    $("#" + startDateInputId).val("");
+	    $("#" + endDateInputId).val("");
+	}
 	// ajax
 	function fetchData() {
 		$.ajax({
 			type: "GET",
-			url: "/feb/select-data",
+			url: "/feb/select-data-feb1",
 			dataType: "json",
 			data: {
 		        	startDate: "2023-01-01",
@@ -245,18 +303,28 @@
 					let tbody = $("table tbody");
 
 					updateTableData(dataList); 			// 테이블 업데이트
-					updateOpratioChart(dataList); 		// 가동률 바차트 업데이트
+					
+					if(opratio != true) {
+						updateOpratioChart(dataList); 		// 가동률 바차트 업데이트
+					}
+					
 					updateGaugeChart(dataList); 		// 게이지 차트 업데이트
-					updateUsingratioChart(dataList);	// 전기사용량 바차트 업데이트
-					updateCostsChart(dataList)			// 전기사용비용 바차트 업데이트
+
+					if(usingratio != true) {
+						updateUsingratioChart(dataList);	// 전기사용량 바차트 업데이트
+					}
+					
+					if(costs != true) {
+						updateCostsChart(dataList)			// 전기사용비용 바차트 업데이트
+					}
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생:(/feb/select-data) ${errorThrown}`);
+				alert(`에러 발생:(/feb/select-data-feb1) ${errorThrown}`);
 			}
 		});
 		setTimeout(fetchData, 3000); // 10초마다 데이터 새로 고침
-		}
+	}
 	
 	function updateTableData(dataList) {
 		  let total = {
@@ -329,33 +397,56 @@
 	  }
 	  
 	  var option = {
-	    tooltip: {
-	      trigger: "axis",
-	      axisPointer: {
-	        type: "shadow",
-	      },
-	      borderWidth: 1,
-	      formatter: function (params) {
-	        if (params.length > 0) {
-	          return params[0].value.toFixed(2);
-	        }
-	        return "-";
-	      },
-	    },
-	    xAxis: {
-	      type: "category",
-	      data: dateList,
-	    },
-	    yAxis: {
-	      type: "value",
-	    },
-	    series: [
-	      {
-	        data: displayData,
-	        type: "bar",
-	        animationDelay: (idx) => idx * 10,
-	      },
-	    ],
+			    tooltip: {
+			        trigger: "axis",
+			        axisPointer: {
+			          type: "shadow",
+			        },
+			        borderWidth: 1,
+			        formatter: function (params) {
+			          if (params.length > 0) {
+			            return params[0].value.toFixed(2);
+			          }
+			          return "-";
+			        },
+			      },
+			      xAxis: {
+			        type: "category",
+			        data: dateList,
+			        axisLabel: {
+			          interval: 0, // 모든 레이블을 표시
+			          textStyle: {
+			            color: "#333", // x축 레이블 텍스트 색상
+			            fontSize: 10, // x축 레이블 텍스트 크기
+			          },
+			        },
+			      },
+			      yAxis: {
+			        type: "value",
+			        axisLine: {
+			          lineStyle: {
+			            color: "#999", // y축 선 색상
+			          },
+			        },
+			        splitLine: {
+			          lineStyle: {
+			            color: "#ccc", // y축 분할 선 색상
+			          },
+			        },
+			        axisLabel: {
+			            fontStyle: "normal", // 폰트 기울기 설정 제거
+			          },
+			      },
+			      series: [
+			        {
+			          data: displayData,
+			          type: "bar",
+			          animationDelay: (idx) => idx * 10,
+			          itemStyle: {
+			            color: "#37a2da", // 막대 색상
+			          },
+			        },
+			      ],
 	    // grid 옵션 추가
 	    grid: {
 	        top: 20, // 상단 여백
@@ -369,46 +460,69 @@
 
 	// 게이지 차트 ===================================================================================================================
 	function updateGaugeChart(dataList) {
-	    let totalTemp = 0;
-	    const rowCount = dataList.length;
+	    const today = new Date().toISOString().split('T')[0]; // 오늘 날짜를 yyyy-mm-dd 형식으로 가져옴
+	    const todayData = dataList.find(data => data.hiredate === today); // 오늘의 데이터를 찾음
+	    const todayTemp = parseFloat(todayData.temp); // 오늘의 온도값을 가져옴
 	
-	    dataList.forEach(function(data) {
-	        totalTemp += parseFloat(data.temp); 
-	    });
-	
-	    const avgTemp = parseFloat((totalTemp / rowCount).toFixed(2));
-	
-		if (!gaugeChart) {
+	    if (!gaugeChart) {
 	        gaugeChart = echarts.init(document.getElementById('gaugeChart'));
 	        
 	        window.addEventListener('resize', function () {
 	            gaugeChart.resize();
 	        });
-		}
+	    }
 	
 	    const option = {
-	    	series: [{
-	    		type: 'gauge',
-	    		min: 0,
-	    		max: 15, 
-	    		axisLine: {
-	    			lineStyle: {
-	    				width: 10,
-	    				color: [
-	    					[0.3, '#67e0e3'],
-	    					[0.7, '#37a2da'],
-	    					[1, '#fd666d']
-	    				]
-	    			}
-	    		},
-	    		pointer: {
-	    			itemStyle: {
-	    				color: 'auto'
-	    			}
-	    		},
-	    		data: [{value: avgTemp}]
-	    	}]
-	    };
+	            series: [{
+	                type: 'gauge',
+	                min: 0,
+	                max: 15,
+	                radius: '100%', 
+	                splitNumber: 2,
+	                startAngle: 210, 
+	                endAngle: -30,
+	                axisLine: {
+	                    lineStyle: {
+	                        width: 15, 
+	                        color: [
+	                            [0.3, '#67e0e3'],
+	                            [0.7, '#37a2da'],
+	                            [1, '#fd666d']
+	                        ]
+	                    }
+	                },
+	                axisTick: {
+	                    length: 10, 
+	                    lineStyle: {
+	                        color: 'auto'
+	                    }
+	                },
+	                splitLine: {
+	                    length: 25, 
+	                    lineStyle: {
+	                        color: 'auto'
+	                    }
+	                },
+	                axisLabel: {
+	                    distance: 20,
+	                    color: '#aaa',
+	                    fontSize: 10,
+	                    fontFamily: 'Arial, sans-serif'
+	                },
+	                pointer: {
+	                    width: 7,
+	                    length: "70%",
+	                  },
+	                detail: {
+	                    valueAnimation: true,
+	                    color: 'auto',
+	                    fontSize: 30,
+	                    fontFamily: 'Arial, sans-serif',
+	                    fontWeight: 'bold'
+	                },
+	                  data: [{ value: todayTemp, itemStyle: { color: "auto" } }],
+	            }]
+	        };
 	    // 차트 옵션 설정 및 렌더링
 	    gaugeChart.setOption(option);
 		}
@@ -452,33 +566,56 @@
 	  }
 	  
 	  var option = {
-	    tooltip: {
-	      trigger: "axis",
-	      axisPointer: {
-	        type: "shadow",
-	      },
-	      borderWidth: 1,
-	      formatter: function (params) {
-	        if (params.length > 0) {
-	          return params[0].value.toFixed(2);
-	        }
-	        return "-";
-	      },
-	    },
-	    xAxis: {
-	      type: "category",
-	      data: dateList,
-	    },
-	    yAxis: {
-	      type: "value",
-	    },
-	    series: [
-	      {
-	        data: displayData,
-	        type: "bar",
-	        animationDelay: (idx) => idx * 10,
-	      },
-	    ],
+			    tooltip: {
+			        trigger: "axis",
+			        axisPointer: {
+			          type: "shadow",
+			        },
+			        borderWidth: 1,
+			        formatter: function (params) {
+			          if (params.length > 0) {
+			            return params[0].value.toFixed(2);
+			          }
+			          return "-";
+			        },
+			      },
+			      xAxis: {
+			        type: "category",
+			        data: dateList,
+			        axisLabel: {
+			          interval: 0, // 모든 레이블을 표시
+			          textStyle: {
+			            color: "#333", // x축 레이블 텍스트 색상
+			            fontSize: 10, // x축 레이블 텍스트 크기
+			          },
+			        },
+			      },
+			      yAxis: {
+			        type: "value",
+			        axisLine: {
+			          lineStyle: {
+			            color: "#999", // y축 선 색상
+			          },
+			        },
+			        splitLine: {
+			          lineStyle: {
+			            color: "#ccc", // y축 분할 선 색상
+			          },
+			        },
+			        axisLabel: {
+			            fontStyle: "normal", // 폰트 기울기 설정 제거
+			          },
+			      },
+			      series: [
+			        {
+			          data: displayData,
+			          type: "bar",
+			          animationDelay: (idx) => idx * 10,
+			          itemStyle: {
+			            color: "#ffbf00", // 막대 색상
+			          },
+			        },
+			      ],
 	    
 	    //grid 옵션 추가
 	    grid: {
@@ -547,34 +684,56 @@
 	  }
 	  
 	  var option = {
-	    tooltip: {
-	      trigger: "axis",
-	      axisPointer: {
-	        type: "shadow",
-	      },
-	      borderWidth: 1,
-	      formatter: function (params) {
-	        if (params.length > 0) {
-	          return params[0].value.toFixed(2);
-	        }
-	        return "-";
-	      },
-	    },
-	    xAxis: {
-	      type: "category",
-	      data: dateList,
-	    },
-	    yAxis: {
-	      type: "value",
-	    },
-	    series: [
-	      {
-	        data: displayData,
-	        type: "bar",
-	        animationDelay: (idx) => idx * 10,
-	      },
-	    ],
-	    
+			    tooltip: {
+			        trigger: "axis",
+			        axisPointer: {
+			          type: "shadow",
+			        },
+			        borderWidth: 1,
+			        formatter: function (params) {
+			          if (params.length > 0) {
+			            return params[0].value.toFixed(2);
+			          }
+			          return "-";
+			        },
+			      },
+			      xAxis: {
+			        type: "category",
+			        data: dateList,
+			        axisLabel: {
+			          interval: 0, // 모든 레이블을 표시
+			          textStyle: {
+			            color: "#333", // x축 레이블 텍스트 색상
+			            fontSize: 10, // x축 레이블 텍스트 크기
+			          },
+			        },
+			      },
+			      yAxis: {
+			        type: "value",
+			        axisLine: {
+			          lineStyle: {
+			            color: "#999", // y축 선 색상
+			          },
+			        },
+			        splitLine: {
+			          lineStyle: {
+			            color: "#ccc", // y축 분할 선 색상
+			          },
+			        },
+			        axisLabel: {
+			            fontStyle: "normal", // 폰트 기울기 설정 제거
+			          },
+			      },
+			      series: [
+			        {
+			          data: displayData,
+			          type: "bar",
+			          animationDelay: (idx) => idx * 10,
+			          itemStyle: {
+			            color: "#008120", // 막대 색상
+			          },
+			        },
+			      ],
 	    // grid 옵션 추가
 	    grid: {
 	        top: 20, // 상단 여백
