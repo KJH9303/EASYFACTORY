@@ -22,8 +22,20 @@
 			location.href="/main";
 		});
     	
-    	// 회원 정보 수정
-		$("#updateBtn").on('click', function() {
+    	// Enter키를 눌렀을 때 회원 정보 확인 함수 실행
+		$("#id, #pw").on('keyup', function(event) {
+		    if (event.keyCode === 13) {
+		    	updateChk();
+		    }
+		});
+		
+		// 로그인 버튼을 눌렀을 때 회원 정보 확인 함수 실행
+		$("#updateChkBtn").on('click', function() {
+			updateChk();
+		});
+		
+    	// 회원 정보 확인
+		function updateChk() {
 			var id = $("#id").val();
 			var pw = $("#pw").val();
 			var idRegExp = /[^A-Za-z0-9]/gi;
@@ -59,7 +71,7 @@
 				alert('입력값을 다시 확인하세요');
 		        $('#id').focus();
 		    }
-		});
+		};
     	
 		$("#deleteBtn").on('click', function() {
 			var id = $("#id").val();
@@ -126,7 +138,7 @@
 				<input type="hidden" id="phone" name="phone" value="${member.phone}" readonly>
 				<input type="hidden" id="email" name="email" value="${member.email}" readonly>
 				
-				<button type="button" id="updateBtn" style="color: white; text-decoration-line: none;">Update Info</button>
+				<button type="button" id="updateChkBtn" style="color: white; text-decoration-line: none;">Update Info</button>
 				<button type="button" id="deleteBtn" style="color: white; text-decoration-line: none;">Leave Us</button>
 				<button type="button" id="cancelBtn" style="color: white; text-decoration-line: none;">Cancel</button>
 			</form>

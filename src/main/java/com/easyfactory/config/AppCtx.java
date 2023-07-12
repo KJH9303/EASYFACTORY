@@ -12,7 +12,9 @@ import com.energy.service.EnergyService;
 import com.feb.dao.FebDAO;
 import com.feb.service.FebService;
 import com.issue.dao.IssueDAO;
+import com.issue.dao.ReplyIssueDAO;
 import com.issue.service.IssueService;
+import com.issue.service.ReplyIssueService;
 import com.member.dao.MemberDAO;
 import com.member.service.MemberService;
 
@@ -85,12 +87,21 @@ public class AppCtx {
 	// com.issue.*
 	@Bean
 	public IssueDAO issueDAO() {
-		System.out.println("[EnergyDAO] energyDAO()");
 		return new IssueDAO(dataSource());
 	}
 	
 	@Bean
 	public IssueService issueService() {
 		return new IssueService(issueDAO());
+	}
+	
+	@Bean
+	public ReplyIssueDAO replyIssueDAO() {
+		return new ReplyIssueDAO(dataSource());
+	}
+	
+	@Bean
+	public ReplyIssueService replyIssueService() {
+		return new ReplyIssueService(replyIssueDAO());
 	}
 }

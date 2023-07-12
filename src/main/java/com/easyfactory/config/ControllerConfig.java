@@ -10,6 +10,7 @@ import com.feb.controller.FebController;
 import com.feb.service.FebService;
 import com.issue.controller.IssueController;
 import com.issue.service.IssueService;
+import com.issue.service.ReplyIssueService;
 import com.member.controller.MemberController;
 import com.member.service.MemberService;
 
@@ -30,6 +31,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private IssueService issueService;
+	
+	@Autowired
+	private ReplyIssueService replyIssueService;
 	
 	@Bean
 	public MemberController memberController() {
@@ -56,6 +60,7 @@ public class ControllerConfig {
 	public IssueController issueController() {
 		IssueController issueController = new IssueController();
 		issueController.setIssueService(issueService);
+		issueController.setReplyIssueService(replyIssueService);
 		return issueController;
 	}
 

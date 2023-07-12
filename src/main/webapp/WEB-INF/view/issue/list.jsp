@@ -17,11 +17,12 @@
     	var id = $("#id").val();
     	
     	// 페이지 진입 시
+    	/*
 		if (id == '' || id == null) {
 			alert("잘못된 접근입니다.");
 			alert("로그인 후 이용해주세요.");
 			location.href="/member/login";
-		}
+		}*/
     	
     	var searchType = $("#searchType").val();
 		var keyword = $("#keyword").val();
@@ -95,7 +96,9 @@
 </head>
 <body>
 
-    <div id="headerContainer"></div>
+    <div id="headerContainer">
+    	<%@ include file="../header.jsp" %>
+    </div>
     <div class="container">
         <h1>Table</h1>      
         <form id="searchForm" action="/issue/list/search" method="get">

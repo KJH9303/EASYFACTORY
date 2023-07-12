@@ -20,8 +20,20 @@
 			location.href="/member/signup";
 		});
 		
-		// 로그인
+		// Enter키를 눌렀을 때 로그인 함수 실행
+		$("#id, #pw").on('keyup', function(event) {
+		    if (event.keyCode === 13) {
+		        login();
+		    }
+		});
+		
+		// 로그인 버튼을 눌렀을 때 로그인 함수 실행
 		$("#loginBtn").on('click', function() {
+		    login();
+		});
+		
+		// 로그인
+		function login() {
 			var id = $("#id").val();
 			var pw = $("#pw").val();
 			var idRegExp = /[^A-Za-z0-9]/gi;
@@ -70,7 +82,7 @@
 				alert('입력값을 다시 확인하세요');
 		        $('#id').focus();
 		    }
-		});
+		};
 	});
 </script>
 </head>

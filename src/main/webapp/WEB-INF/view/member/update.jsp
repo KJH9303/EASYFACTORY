@@ -20,6 +20,7 @@
 			$("#exCode").prop("checked", true);
 		}
 		
+		// 로그인하지 않은 상태일 경우
 		if (id == null || id == "") {
 			alert("잘못된 접근입니다.");
 			location.href="/main";
@@ -47,8 +48,30 @@
 			}
 		});
 		
+		// 회원 코드 radio 체크시
+		$(".codeBtn").change(function(){
+			if($(".codeBtn").val() == 'INTERNAL') {
+				$('#department').attr("placeholder", "부서명");
+			}
+			if($(".codeBtn").val() == 'EXTERNAL') {
+				$('#department').attr("placeholder", "거래처명");
+			}
+		});
+		
+		// Enter키를 눌렀을 때 로그인 함수 실행
+		$("#repw").on('keyup', function(event) {
+		    if (event.keyCode === 13) {
+		    	update();
+		    }
+		});
+		
+		// 로그인 버튼을 눌렀을 때 로그인 함수 실행
+		$("#updateBtn").on('click', function() {
+			update();
+		});
+		
 		// 회원 정보 수정
-		$("#submitBtn").on('click', function() {
+		function update() {
 			var code = $(":input:radio[name=code]:checked").val();
 			var department = $("#department").val();
 			var idDupChk = $("#idDupChk").val();
@@ -125,16 +148,7 @@
 				alert( '회원 정보가 수정되었습니다.');
 				$("#updateForm").submit();
 			}
-		});
-			
-		$(".codeBtn").change(function(){
-			if($(".codeBtn").val() == 'INTERNAL') {
-				$('#department').attr("placeholder", "부서명");
-			}
-			if($(".codeBtn").val() == 'EXTERNAL') {
-				$('#department').attr("placeholder", "거래처명");
-			}
-		});
+		};
 	});
 </script>
 </head>
@@ -179,7 +193,7 @@
 						<div id="pwCheckMsg"></div>
 						<button type="button" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
 						<button type="button" id="backBtn" style="color: white; text-decoration-line: none;">Back</button>
-						<button type="button" id="submitBtn" style="color: white; text-decoration-line: none;">Confirm</button>
+						<button type="button" id="updateBtn" style="color: white; text-decoration-line: none;">Confirm</button>
 					</form>
 				</div>
 			</div>

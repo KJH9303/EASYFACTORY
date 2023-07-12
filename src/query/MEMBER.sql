@@ -29,12 +29,12 @@ INSERT INTO MEMBER (
 VALUES (
     'INTERNAL'
     ,'이젠아카데미'
-    ,'internalTest'
-    ,'내부인테스트회원1'
-    ,'01030299233'
-    ,'internaltest1@naver.com'
-    ,'testpw1'
-    ,'testpw1'
+    ,'test'
+    ,'테스트'
+    ,'01051889303'
+    ,'test1@naver.com'
+    ,'1234'
+    ,'1234'
 );
 
 ----------------------------------------

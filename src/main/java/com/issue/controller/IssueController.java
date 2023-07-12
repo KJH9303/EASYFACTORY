@@ -3,19 +3,24 @@ package com.issue.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.issue.service.IssueService;
+import com.issue.service.ReplyIssueService;
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
 import com.issue.vo.PageMaker;
+import com.issue.vo.ReplyIssueVO;
 
 @Controller
 @RequestMapping("/issue")
@@ -26,6 +31,13 @@ public class IssueController {
     
     public void setIssueService(IssueService issueService) {
 		this.issueService = issueService;
+	}
+    
+    @Autowired
+    private ReplyIssueService replyIssueService;
+    
+    public void setReplyIssueService(ReplyIssueService replyIssueService) {
+		this.replyIssueService = replyIssueService;
 	}
     
     // 글 목록
@@ -80,7 +92,8 @@ public class IssueController {
     // 글 보기
     @RequestMapping(value="/view", method=RequestMethod.GET)
     public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
-    	int no = Integer.parseInt(request.getParameter("no"));
+    	int no = request.getParameter("no").toString() == null ? 0 : Integer.parseInt(request.getParameter("no"));
+    	System.out.println("jjjjjjjjjjjjjjjj"+Integer.parseInt(request.getParameter("no")));
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
@@ -95,6 +108,31 @@ public class IssueController {
    	 	
     	model.addAttribute("issue", issueVO);
     	model.addAttribute("cri", cri);
+    	
+    	// 댓글
+    	List<ReplyIssueVO> replylist = replyIssueService.getReplyList(no);
+        int replyCnt = replyIssueService.issueListCnt(no);
+        model.addAttribute("replylist", replylist);
+    	model.addAttribute("replyCnt", replyCnt);
+    }
+    
+    // 댓글 작성 ajax
+    @PostMapping("/writeReply")
+    @ResponseBody
+    public String writeReply(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    	System.out.println("---------------------------------------------"+session.getAttribute("member"));
+    	
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	String author = request.getParameter("author");
+    	String content = request.getParameter("content");
+    	System.out.println("---------------------------------------------"+ no + "----" + author + "----" + content);
+    	
+    	if(session.getAttribute("member") == null) {
+			return "fail";
+		} else {
+			replyIssueService.writeReply(no, author, content);
+			return "InsertSuccess";
+		}
     }
     
     // 글 쓰기 페이지

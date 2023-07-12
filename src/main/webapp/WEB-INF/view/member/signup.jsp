@@ -80,7 +80,20 @@
 			}
 		});
 		
-		$("#submitBtn").on('click', function() {
+		// Enter키를 눌렀을 때 회원가입 함수 실행
+		$("#repw").on('keyup', function(event) {
+		    if (event.keyCode === 13) {
+		    	signup();
+		    }
+		});
+		
+		// Sign Up 버튼을 눌렀을 때 회원가입 함수 실행
+		$("#signupBtn").on('click', function() {
+			signup();
+		});
+		
+		// 회원가입 함수
+		function signup() {
 			var code = $(":input:radio[name=code]:checked").val();
 			var department = $("#department").val();
 			var id = $("#id").val();
@@ -164,7 +177,7 @@
 				alert( '회원가입 되었습니다.');
 				$("#signupForm").submit();
 			}
-		});
+		};
 	});
 </script>
 </head>
@@ -213,7 +226,7 @@
                         <!-- 로그인 버튼 -->
 						<button type="button" id="loginBtn" style="color: white; text-decoration-line: none;">Login</button>
                         <!-- 회원가입 버튼 -->
-						<button type="button" id="submitBtn" style="color: white; text-decoration-line: none;">Sign Up</button>
+						<button type="button" id="signupBtn" style="color: white; text-decoration-line: none;">Sign Up</button>
                         <!-- 메인페이지 이동 -->
                         <button type="button" class="main" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
 					</form>
