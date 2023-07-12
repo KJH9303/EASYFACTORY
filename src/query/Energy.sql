@@ -216,6 +216,70 @@ SELECT feb1,feb2,feb3,feb4,feb5,feb6,feb7,feb8
 FROM FEB_USINGRATIO 
 WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-07', 'YYYY-MM-DD');
 
+-- 공정별 재고량 --
+CREATE VIEW FEB_STOCK AS
+SELECT
+  t1.HIREDATE,
+  t1.STOCK as "FEB1",
+  t2.STOCK as "FEB2",
+  t3.STOCK as "FEB3",
+  t4.STOCK as "FEB4",
+  t5.STOCK as "FEB5",
+  t6.STOCK as "FEB6",
+  t7.STOCK as "FEB7",
+  t8.STOCK as "FEB8"
+FROM FEB1 t1
+JOIN FEB2 t2 ON t1.HIREDATE = t2.HIREDATE
+JOIN FEB3 t3 ON t1.HIREDATE = t3.HIREDATE
+JOIN FEB4 t4 ON t1.HIREDATE = t4.HIREDATE
+JOIN FEB5 t5 ON t1.HIREDATE = t5.HIREDATE
+JOIN FEB6 t6 ON t1.HIREDATE = t6.HIREDATE
+JOIN FEB7 t7 ON t1.HIREDATE = t7.HIREDATE
+JOIN FEB8 t8 ON t1.HIREDATE = t8.HIREDATE
+
+ORDER BY HIREDATE;
+
+drop view FEB_STOCK;
+
+select * from FEB_STOCK;
+
+-- 날짜별 쿼리 날짜별로 행수 추가 열값은 8개로 고정--
+SELECT feb1,feb2,feb3,feb4,feb5,feb6,feb7,feb8 
+FROM FEB_STOCK 
+WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-07', 'YYYY-MM-DD');
+
+-- 공정별 불량 --
+CREATE VIEW FEB_FAL AS
+SELECT
+  t1.HIREDATE,
+  t1.FAL as "FEB1",
+  t2.FAL as "FEB2",
+  t3.FAL as "FEB3",
+  t4.FAL as "FEB4",
+  t5.FAL as "FEB5",
+  t6.FAL as "FEB6",
+  t7.FAL as "FEB7",
+  t8.FAL as "FEB8"
+FROM FEB1 t1
+JOIN FEB2 t2 ON t1.HIREDATE = t2.HIREDATE
+JOIN FEB3 t3 ON t1.HIREDATE = t3.HIREDATE
+JOIN FEB4 t4 ON t1.HIREDATE = t4.HIREDATE
+JOIN FEB5 t5 ON t1.HIREDATE = t5.HIREDATE
+JOIN FEB6 t6 ON t1.HIREDATE = t6.HIREDATE
+JOIN FEB7 t7 ON t1.HIREDATE = t7.HIREDATE
+JOIN FEB8 t8 ON t1.HIREDATE = t8.HIREDATE
+
+ORDER BY HIREDATE;
+
+drop view FEB_FAL;
+
+select * from FEB_FAL;
+
+-- 날짜별 쿼리 날짜별로 행수 추가 열값은 8개로 고정--
+SELECT feb1,feb2,feb3,feb4,feb5,feb6,feb7,feb8 
+FROM FEB_FAL 
+WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-07', 'YYYY-MM-DD');
+
 
 -- 기간별 각 공정별 가동률 평균 값 --
 SELECT  ROUND(AVG(feb1), 2) AS feb1,
@@ -264,9 +328,32 @@ SELECT  ROUND(SUM(feb1), 2) AS feb1,
         ROUND(SUM(feb8), 2) AS feb8 
         FROM FEB_USINGRATIO
         WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-10', 'YYYY-MM-DD');
+        
+    
+-- 기간별 각 공정별 총 재고량 --
+SELECT  ROUND(SUM(feb1), 2) AS feb1,
+        ROUND(SUM(feb2), 2) AS feb2,
+        ROUND(SUM(feb3), 2) AS feb3,
+        ROUND(SUM(feb4), 2) AS feb4,
+        ROUND(SUM(feb5), 2) AS feb5,
+        ROUND(SUM(feb6), 2) AS feb6,
+        ROUND(SUM(feb7), 2) AS feb7,
+        ROUND(SUM(feb8), 2) AS feb8 
+        FROM FEB_STOCK
+        WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-10', 'YYYY-MM-DD');
 
 
-
+-- 기간별 각 공정별 총 불량 --
+SELECT  ROUND(SUM(feb1), 2) AS feb1,
+        		        ROUND(SUM(feb2), 2) AS feb2,
+        		        ROUND(SUM(feb3), 2) AS feb3,
+        		        ROUND(SUM(feb4), 2) AS feb4,
+        		        ROUND(SUM(feb5), 2) AS feb5,
+        		        ROUND(SUM(feb6), 2) AS feb6,
+        		        ROUND(SUM(feb7), 2) AS feb7,
+        		        ROUND(SUM(feb8), 2) AS feb8 
+        		 FROM FEB_FAL 
+        		 WHERE hiredate BETWEEN TO_DATE('2023-01-01', 'YYYY-MM-DD') AND TO_DATE('2023-01-01', 'YYYY-MM-DD');
 
 
 

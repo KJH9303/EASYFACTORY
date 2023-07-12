@@ -19,7 +19,12 @@ public class EnergyService {
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
         return energyDAO.getOpratio(startDate, endDate);
     }
-
+    public List<EnergyVO> getStock(String startDate, String endDate) {
+        return energyDAO.getStock(startDate, endDate);
+    }
+    public List<EnergyVO> getFal(String startDate, String endDate) {
+        return energyDAO.getFal(startDate, endDate);
+    }
     public List<EnergyVO> getUsingratio(String startDate, String endDate) {
         return energyDAO.getUsingratio(startDate, endDate);
     }
@@ -27,12 +32,9 @@ public class EnergyService {
     public List<EnergyVO> getCosts(String startDate, String endDate) {
         return energyDAO.getCosts(startDate, endDate);
     }
-
+   
     public List<EnergyVO> getFebOpratio(String startDate, String endDate) {
         return energyDAO.getFebOpratio(startDate, endDate);
-    }
-    public List<EnergyVO> getMonthcosts(String startDate) {
-        return energyDAO.getMonthlyCosts(startDate);
     }
     public List<EnergyVO> getFebTr(String startDate, String endDate) {
         return energyDAO.getFebtr(startDate, endDate);
@@ -40,11 +42,17 @@ public class EnergyService {
     public List<EnergyVO> getFebCosts(String startDate, String endDate) {
         return energyDAO.getFebcosts(startDate, endDate);
     }
+    public List<EnergyVO> getFebFal(String startDate, String endDate) {
+        return energyDAO.getFebfal(startDate, endDate);
+    }
     public List<EnergyVO> getFebUsingratio(String startDate, String endDate) {
         return energyDAO.getFebusingratio(startDate, endDate);
     }
     public List<EnergyVO> getFebcvusingratio(String startDate, String endDate) {
         return energyDAO.getFebCVusingratio(startDate, endDate);
+    }
+    public List<EnergyVO> getFebStock(String startDate, String endDate) {
+        return energyDAO.getFebstock(startDate, endDate);
     }
 	 // 에너지 사용 비용
 	    public JSONArray JsonCostsChange(List<EnergyVO> energyCostsList) {
@@ -140,21 +148,48 @@ public class EnergyService {
         }
         return jsonArray;
     }
-    
-    // 비용별 월별 가변 전력비용
-    public JSONArray JsonMonthcostsChange(List<EnergyVO> energyMonthcostsList) {
+    //-----------------------------------------------------------------------------------------
+    // 재고량
+    public JSONArray JsonStockChange(List<EnergyVO> StockList) {
         JSONArray jsonArray = new JSONArray();
-
-        for (EnergyVO energyData : energyMonthcostsList) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("month", energyData.getMonth());
-            jsonObject.put("monthCost", energyData.getMonthCosts());
-
-            jsonArray.add(jsonObject);
+        for (EnergyVO energyData : StockList) {
+            jsonArray.add(energyData.getStock());
         }
-
         return jsonArray;
     }
-    
-   
+    // 불량재고량
+    public JSONArray JsonFalChange(List<EnergyVO> FalList) {
+        JSONArray jsonArray = new JSONArray();
+        for (EnergyVO energyData : FalList) {
+            jsonArray.add(energyData.getFal());
+        }
+        return jsonArray;
+    }
+    // 공정별 각 재고량
+    public JSONArray JsonFebStockChange(List<EnergyVO> energyFebStockList) {
+        JSONArray jsonArray = new JSONArray();
+        
+        for (EnergyVO energyData : energyFebStockList) {
+            
+        	int[] vals =  energyData.getFebstock();
+        	for( int val : vals) {
+        		jsonArray.add(val);
+        	}
+        }
+        return jsonArray;
+    }
+    // 공정별 각 불량
+    public JSONArray JsonFebFalChange(List<EnergyVO> energyFebFalList) {
+        JSONArray jsonArray = new JSONArray();
+        
+        for (EnergyVO energyData : energyFebFalList) {
+            
+        	int[] vals =  energyData.getFebfal();
+        	for( int val : vals) {
+        		jsonArray.add(val);
+        	}
+        }
+        return jsonArray;
+    }
 }
+
