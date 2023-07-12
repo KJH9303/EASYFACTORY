@@ -28,9 +28,9 @@ public class FebController {
 		this.febService = febService;
 	}
 
-    @GetMapping("/select-data")
+    @GetMapping("/select-data-feb1")
     //@ResponseBody
-    public void selectData(HttpServletRequest request, HttpServletResponse response) 
+    public void selectDatafeb1(HttpServletRequest request, HttpServletResponse response) 
     		 throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String tableName = "feb1";
@@ -51,6 +51,167 @@ public class FebController {
         }
     }
 	
+    @GetMapping("/select-data-feb2")
+    //@ResponseBody
+    public void selectDatafeb2(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb2";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
+        try {
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/select-data-feb3")
+    //@ResponseBody
+    public void selectDatafeb3(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb3";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
+        try {
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/select-data-feb4")
+    //@ResponseBody
+    public void selectDatafeb4(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb4";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
+        try {
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/select-data-feb5")
+    //@ResponseBody
+    public void selectDatafeb5(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb5";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
+        try {
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/select-data-feb6")
+    //@ResponseBody
+    public void selectDatafeb6(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb6";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
+        try {
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/select-data-feb7")
+    //@ResponseBody
+    public void selectDatafeb7(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb7";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
+        try {
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/select-data-feb8")
+    //@ResponseBody
+    public void selectDatafeb8(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb8";
+        String startDate = request.getParameter("startDate");
+        String endDate = request.getParameter("endDate");
+        
+        System.out.println("### select-data: "+ startDate + " -> "+ endDate);
+
+        try {
+            // JSONArray jsonArray = febService.selectData();
+            JSONArray jsonArray = febService.selectDataHiredate(tableName, startDate, endDate);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     @RequestMapping(value="/Defect", produces="application/text;charset=UTF-8", method=RequestMethod.GET)
     @ResponseBody
     public String DefectService(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {

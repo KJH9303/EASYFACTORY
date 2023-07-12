@@ -184,19 +184,19 @@ public class FebDAO {
 		    String result = "";
 		    
 		    if (num == 1) {
-		        result = "Wafer에 결함이 발생했습니다." + nowdate + " " + nowtime;
+		        result = "Wafer 결함 발생.　　" + " " + nowdate + " " + nowtime;
 		    } else if (num == 2) {
-		        result = "Pattern이 손상 되었습니다." + nowdate + " " + nowtime;
+		        result = "Pattern  손상.　　　" + " " + nowdate + " " + nowtime;
 		    } else if (num == 3) {
-		        result = "공정이 무너졌습니다." + nowdate + " " + nowtime;
+		        result = "공정 무너짐.　　　　" + " " + nowdate + " " + nowtime;
 		    } else if (num == 4) {
-		        result = "particle불량 입니다." + nowdate + " " + nowtime;
+		        result = "particle 불량.　　　" + " " + nowdate + " " + nowtime;
 		    } else if (num == 5) {
-		        result = "Crack이 발생했습니다." + nowdate + " " + nowtime;
+		        result = "Crack  발생.　　　　" + " " + nowdate + " " + nowtime;
 		    } else if (num == 6) {
-		        result = "Parameter 뒤틀림이 발생했습니다." + nowdate + " " + nowtime;    
+		        result = "Parameter  뒤틀림.　" + " " + nowdate + " " + nowtime;    
 		    } else {
-		        result = "공정불량 입니다." + nowdate + " " + nowtime;
+		        result = "공정불량.　　　　　" + " "  + nowdate + " " + nowtime;
 		    }
 		    System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● Defect 작동 ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●");
 		    System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●Random defect: " + result); 
