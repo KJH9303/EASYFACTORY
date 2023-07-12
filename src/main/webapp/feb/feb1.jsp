@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.feb.main.UpdateMain" %>
+
 <!DOCTYPE html>
 <html lang="">
 <head>
@@ -130,7 +131,7 @@
 	            <tr>
 	           	</tr>
            		<tr>
-        			<td id="previousDefects" style="font-size: 20px;"></td>
+        			<td id="previousDefects" style="font-size: 15px;"></td>
 	        	</tr>
             </table>
           </div>
@@ -323,39 +324,41 @@
 				alert(`에러 발생:(/feb/select-data-feb1) ${errorThrown}`);
 			}
 		});
-		setTimeout(fetchData, 3000); // 10초마다 데이터 새로 고침
+		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
 	}
 	
 	function updateTableData(dataList) {
+		  const today = new Date().toISOString().split('T')[0];
 		  let total = {
 		    stock: 0,
 		    tr: 0,
 		    fal: 0,
-		  };
-		  let avg = {
 		    opratio: 0,
 		  };
 
-		  let rowCount = dataList.length;
+		  let rowCount = 0;
 
 		  dataList.forEach(function (data) {
-		    const stock = parseInt(data.stock);
-		    const tr = parseInt(data.tr);
-		    const fal = parseInt(data.fal);
-		    const opratio = parseInt(data.opratio);
+		    if (data.hiredate === today) {
+		      rowCount++;
+		      const stock = parseInt(data.stock);
+		      const tr = parseInt(data.tr);
+		      const fal = parseInt(data.fal);
+		      const opratio = parseFloat(data.opratio);
 
-		    total.stock += stock;
-		    total.tr += tr;
-		    total.fal += fal;
-		    avg.opratio += opratio;
+		      total.stock += stock;
+		      total.tr += tr;
+		      total.fal += fal;
+		      total.opratio += opratio;
+		    }
 		  });
 
-		  const avgOpRatio = avg.opratio / rowCount;
+		  const opratioDecimal = total.opratio.toFixed(1);
 
 		  document.querySelector('.stock-total').textContent = total.stock.toLocaleString();
 		  document.querySelector('.tr-total').textContent = total.tr.toLocaleString();
 		  document.querySelector('.fal-total').textContent = total.fal.toLocaleString();
-		  document.querySelector('.opratio-avg').textContent = avgOpRatio.toFixed(2);
+		  document.querySelector('.opratio-avg').textContent = opratioDecimal;
 		}
 
 	// 가동률 바차트 ===================================================================================================================
@@ -390,7 +393,7 @@
 	        displayData.push(data.opratio);
 	      }
 	    });
-	    /*  */
+
 	    window.addEventListener('resize', function () {
 	        opratioChart.resize();
 	    });
@@ -638,7 +641,7 @@
 	                $('#previousDefects').prepend('<li>' + result + '</li>');
 	            },
 	            complete: function() {
-	                setTimeout(updateRandomDefect, 2000);
+	                setTimeout(updateRandomDefect, 3000);
 	            }
 	        });
 	    }
@@ -746,6 +749,12 @@
 	}
 	$(document).ready(function(){
 		fetchData();
+	});
+	window.addEventListener('resize', function () {
+	    opratioChart.resize();
+	    usingratioChart.resize();
+	    costsChart.resize();
+	    gaugeChart.resize();
 	});
 	</script>
 </body>
