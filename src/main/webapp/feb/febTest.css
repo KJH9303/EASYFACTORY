@@ -198,7 +198,7 @@ canvas {
 }
 
 .text-xs {
-  font-size: 0.75rem;
+  font-size: 1rem;
   line-height: 1rem;
 }
 
@@ -235,7 +235,7 @@ canvas {
 }
 
 .p-4 {
-  padding: 1rem;
+  padding: 0.7rem;
 }
 
 .px-2 {
