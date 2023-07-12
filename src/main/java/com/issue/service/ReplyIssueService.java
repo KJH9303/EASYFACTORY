@@ -29,8 +29,8 @@ public class ReplyIssueService {
 	}
 	
 	// 글 작성
-	public void writeReply(int no, String author, String content) {
-		replyIssueDAO.writeReply(no, author, content);
+	public void writeReply(int no, String content, String author) {
+		replyIssueDAO.writeReply(no, content, author);
 	}
 	
 	// 글 수정

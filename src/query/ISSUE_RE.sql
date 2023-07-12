@@ -30,9 +30,34 @@ CREATE SEQUENCE ISSUE_RE_SEQ
        NOCACHE
        NOORDER;
        
-commit;
+----------------------------------------
+---- 이슈 게시판 댓글 작성 테스트 ------
+----------------------------------------
+INSERT INTO ISSUE_RE (
+    NO
+    , RENO
+    , CONTENT
+    , AUTHOR
+    , REGDATE
+)
+VALUES (
+    183
+    , ISSUE_RE_SEQ.NEXTVAL
+    , '테스트 댓글입니다.'
+    , 'test'
+    , sysdate
+);
+
+
+-------------------------------------------------------
+drop table issue_re;
+drop sequence ISSUE_RE_SEQ;
+
+select * from issue_re order by reno desc;
+
+delete from issue_re where reno > 1;
        
-       
+commit;      
        
        
        

@@ -70,8 +70,13 @@ public class ReplyIssueVO {
 
 	@Override
 	public String toString() {
+		/*
 		return "IssueReVO [no=" + no + ", reno=" + reno + ", content=" + content + ", author=" + author + ", regDate="
 				+ regDate + ", modDate=" + modDate + "]";
+		*/
+	
+		return String.format("['%d', '%d', '%s', '%s', '%s', '%s']", no, reno, content, author, regDate, modDate);
+		
 	}
 	
 	

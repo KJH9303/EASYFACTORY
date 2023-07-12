@@ -83,12 +83,11 @@ public class ReplyIssueDAO {
 				+ "			NO = ?";
 		
 		List<ReplyIssueVO> replyList = jdbcTemplate.query(SQL, new Object[]{no}, new issueReMapper());
-		System.out.println("++++++++++++++++++++++++++++++++++++" + no + "++++++++++++" + replyList);
 		return replyList;
 	}
 	
 	// 댓글 작성
-	public void writeReply(int no, String author, String content) {
+	public void writeReply(int no, String content, String author) {
 		String SQL = "INSERT INTO ISSUE_RE ("
 				+ "				NO"
 				+ "				, RENO"
@@ -103,7 +102,7 @@ public class ReplyIssueDAO {
 				+ "				, sysdate)";
 		jdbcTemplate.update(
 				SQL
-				, no, author, content);
+				, no, content, author);
 	}
 	
 	// 댓글 수정

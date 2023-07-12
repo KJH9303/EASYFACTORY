@@ -1,11 +1,14 @@
 package com.issue.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,7 +96,6 @@ public class IssueController {
     @RequestMapping(value="/view", method=RequestMethod.GET)
     public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
     	int no = request.getParameter("no").toString() == null ? 0 : Integer.parseInt(request.getParameter("no"));
-    	System.out.println("jjjjjjjjjjjjjjjj"+Integer.parseInt(request.getParameter("no")));
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
@@ -108,31 +110,56 @@ public class IssueController {
    	 	
     	model.addAttribute("issue", issueVO);
     	model.addAttribute("cri", cri);
-    	
-    	// 댓글
-    	List<ReplyIssueVO> replylist = replyIssueService.getReplyList(no);
-        int replyCnt = replyIssueService.issueListCnt(no);
-        model.addAttribute("replylist", replylist);
-    	model.addAttribute("replyCnt", replyCnt);
     }
     
     // 댓글 작성 ajax
     @PostMapping("/writeReply")
     @ResponseBody
     public String writeReply(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-    	System.out.println("---------------------------------------------"+session.getAttribute("member"));
     	
     	int no = Integer.parseInt(request.getParameter("no"));
-    	String author = request.getParameter("author");
     	String content = request.getParameter("content");
-    	System.out.println("---------------------------------------------"+ no + "----" + author + "----" + content);
+    	String author = request.getParameter("author");
     	
     	if(session.getAttribute("member") == null) {
 			return "fail";
 		} else {
-			replyIssueService.writeReply(no, author, content);
+			replyIssueService.writeReply(no, content, author);
 			return "InsertSuccess";
 		}
+    }
+    
+    // 댓글 출력 ajax
+    @SuppressWarnings("unchecked")
+	@PostMapping("/viewReply")
+    public void viewReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
+        PrintWriter writer = response.getWriter();
+
+        int no = Integer.parseInt(request.getParameter("no"));
+
+        JSONObject replyList = new JSONObject();
+        JSONArray replyArray = new JSONArray();
+
+        List<ReplyIssueVO> replylist = replyIssueService.getReplyList(no);
+        
+        for(ReplyIssueVO vo : replylist) {
+            JSONObject replyInfo = new JSONObject();
+            replyInfo.put("no",  vo.getNo());
+            replyInfo.put("reno",  vo.getReno());
+            replyInfo.put("content",  vo.getContent());
+            replyInfo.put("author",  vo.getAuthor());
+            replyInfo.put("regDate",  vo.getRegDate());
+            replyInfo.put("modDate",  vo.getModDate());
+            replyArray.add(replyInfo);        			
+        }
+
+        replyList.put("replylist", replyArray);
+
+        String jsonInfo = replyList.toJSONString();
+        System.out.print(jsonInfo);
+        writer.print(jsonInfo);
     }
     
     // 글 쓰기 페이지
@@ -175,7 +202,6 @@ public class IssueController {
     @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
     public String update(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request) {
     	int no = Integer.parseInt(request.getParameter("no"));
-    	System.out.println("dddddddddddddddddddddddd"+no);
     	int page = cri.getPage();
     	int perPageNum = cri.getPerPageNum();
     	
@@ -196,8 +222,6 @@ public class IssueController {
     	
     	int page = cri.getPage();
     	int perPageNum = cri.getPerPageNum();
-    	
-    	System.out.println("++++++++++++++++++++++++++++++"+startDate+"++++++++++++++++++"+endDate);
     	
     	return "redirect:/issue/list?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
     }
