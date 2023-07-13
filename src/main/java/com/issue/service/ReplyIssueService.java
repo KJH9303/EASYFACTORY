@@ -2,10 +2,7 @@ package com.issue.service;
 
 import java.util.List;
 
-import com.issue.dao.IssueDAO;
 import com.issue.dao.ReplyIssueDAO;
-import com.issue.vo.Criteria;
-import com.issue.vo.IssueVO;
 import com.issue.vo.ReplyIssueVO;
 
 public class ReplyIssueService {
@@ -16,8 +13,8 @@ public class ReplyIssueService {
 		this.replyIssueDAO = replyIssueDAO;
 	}
 	
-	// 글 갯수
-	public int issueListCnt(int reply_no) {
+	// 댓글 갯수
+	public int issueReplyListCnt(int reply_no) {
 		int cnt = replyIssueDAO.issueReplyListCnt(reply_no);
 		return cnt;
 	}
@@ -34,12 +31,12 @@ public class ReplyIssueService {
 	}
 	
 	// 글 수정
-	public void update(ReplyIssueVO replyIssueVO) {
-		replyIssueDAO.updateReply(replyIssueVO);
+	public void updateReply(int reno, String content) {
+		replyIssueDAO.updateReply(reno, content);
 	}
 	
 	// 글 삭제
-	public void delete(int reno) {
+	public void deleteReply(int reno) {
 		replyIssueDAO.deleteReply(reno);
 	}
 	

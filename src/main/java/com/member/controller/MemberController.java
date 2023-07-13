@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,9 +61,17 @@ public class MemberController {
         }
     }
     
+    // 로그인 페이지 이동
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String getLoginPage(HttpServletRequest request, Model model) throws Exception {
+    	String prevPage = request.getHeader("referer");
+    	model.addAttribute("prevPage", prevPage); // 이전 페이지 URL 전달
+    	return "member/login";
+    }
+    
     // 로그인 기능
     @RequestMapping(value="/loginSubmit", method=RequestMethod.POST)
-    public String login(HttpServletRequest request, HttpServletResponse response, MemberVO memberVO) throws Exception {
+    public String loginSubmit(HttpServletRequest request, HttpServletResponse response, MemberVO memberVO) throws Exception {
     	String id = request.getParameter("id");
     	String pw = request.getParameter("pw");
     	
@@ -70,12 +79,18 @@ public class MemberController {
     	MemberVO signIn = memberService.login(id, pw);
     	
     	if(signIn == null) {
-    		session.setAttribute("member", null);
-    	} else {
-    		session.setAttribute("member", signIn);
-    		session.setMaxInactiveInterval(10 * 60); // 세션 유지 시간 : 10분
-    	}
-    	return "/main";
+            session.setAttribute("member", null);
+        } else {
+            session.setAttribute("member", signIn);
+            session.setMaxInactiveInterval(30 * 60); // 세션 유지 시간 : 30분
+            
+            String prevPage = request.getParameter("prevPage");
+            
+            if (prevPage != null && !prevPage.isEmpty()) {
+                return "redirect:" + prevPage; // 로그인 이전 페이지로 리디렉션
+            }
+        }
+        return "redirect:/main";
     }
     
     // 로그아웃 기능
@@ -92,7 +107,7 @@ public class MemberController {
     	memberService.update(memberVO);
     	HttpSession session = request.getSession();
     	session.setAttribute("member", memberVO);
-    	session.setMaxInactiveInterval(10 * 60); // 세션 유지 시간 : 10분
+    	session.setMaxInactiveInterval(30 * 60); // 세션 유지 시간 : 30분
     	return "redirect:/main";
     }
     

@@ -5,7 +5,6 @@ import java.util.List;
 import com.issue.dao.IssueDAO;
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
-import com.member.vo.MemberVO;
 
 public class IssueService {
 	

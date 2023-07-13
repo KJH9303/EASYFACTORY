@@ -11,35 +11,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.issue.vo.Criteria;
 import com.issue.vo.ReplyIssueVO;
-import com.issue.vo.IssueVO;
 
 @Repository
 public class ReplyIssueDAO {
 
 	private JdbcTemplate jdbcTemplate;
-	/*
-	private String[] search = new String[] {
-		"where title like '% || %s || %",
-		
-	};
-	
-	HashMap<String, String> wheres = new HashMap<>() {
-	}
-	
-	final static String where = "title like '% || %s || %";
-
-	String makeWhere(String searchType, String keyword) {
-		String sql = null;
-		
-		switch(searchType) {
-		case "title":
-			sql = String.format(where, keyword[0]);
-		}
-		
-		return sql;
-	}*/
 	
 	@Autowired
 	public ReplyIssueDAO(DataSource dataSource) {
@@ -106,25 +83,22 @@ public class ReplyIssueDAO {
 	}
 	
 	// 댓글 수정
-	public void updateReply(ReplyIssueVO replyIssueVO) {
+	public void updateReply(int reno, String content) {
 		String SQL = "UPDATE ISSUE_RE"
 				+ "		SET"
-				+ ", 		CONTENT = ?"
-				+ ", 		AUTHOR = ?"
-				+ ", 		MODDATE = SYSDATE"
+				+ "			CONTENT = ?"
+				+ "			, MODDATE = SYSDATE"
 				+ "		WHERE"
-				+ "			NO = ? AND RENO = ?";
+				+ "			RENO = ?";
 		jdbcTemplate.update (
 				SQL
-				, replyIssueVO.getContent()
-				, replyIssueVO.getAuthor()
-				, replyIssueVO.getNo()
-				, replyIssueVO.getReno());
+				, content
+				, reno);
 	}
 	
 	// 댓글 삭제
 	public void deleteReply(int reno) {
-		String SQL = "DELETE FROM ISSUE WHERE NO = ?";
+		String SQL = "DELETE FROM ISSUE_RE WHERE RENO = ?";
 		jdbcTemplate.update(SQL, reno);
 	}
 }

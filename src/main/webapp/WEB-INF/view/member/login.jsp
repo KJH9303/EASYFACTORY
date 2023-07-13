@@ -99,6 +99,7 @@
 	<div class="formContainer">
 		<div class="signin">
 			<form id="loginForm" name="loginForm" action="/member/loginSubmit" method="post">
+				<input type="hidden" name="prevPage" value="${prevPage}" />
 				<div class="logo">
 					<img src="../../resources/img/logo.jpeg">
 				</div>

@@ -1,6 +1,5 @@
 package com.issue.controller;
 
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -112,7 +109,7 @@ public class IssueController {
     }
     
     // 댓글 작성 ajax
-    @PostMapping("/writeReply")
+    @RequestMapping(value="/writeReply", method=RequestMethod.POST)
     @ResponseBody
     public String writeReply(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
     	
@@ -127,74 +124,34 @@ public class IssueController {
 			return "InsertSuccess";
 		}
     }
-    /*
-    // 댓글 출력 ajax
-    @SuppressWarnings("unchecked")
-	@PostMapping("/viewReply")
-    public void viewReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-
-        int no = Integer.parseInt(request.getParameter("no"));
-
-        JSONObject replyList = new JSONObject();
-        JSONArray replyArray = new JSONArray();
-
-        List<ReplyIssueVO> replylist = replyIssueService.getReplyList(no);
-        
-        for(ReplyIssueVO vo : replylist) {
-            JSONObject replyInfo = new JSONObject();
-            replyInfo.put("no",  vo.getNo());
-            replyInfo.put("reno",  vo.getReno());
-            replyInfo.put("content",  vo.getContent());
-            replyInfo.put("author",  vo.getAuthor());
-            replyInfo.put("regDate",  vo.getRegDate());
-            replyInfo.put("modDate",  vo.getModDate());
-            replyArray.add(replyInfo);        			
-        }
-
-        replyList.put("replylist", replyArray);
-
-        String jsonInfo = replyList.toJSONString();
-        System.out.print(jsonInfo);
-        writer.print(jsonInfo);
-    }*/
-//    // 댓글 출력 ajax
-//    @GetMapping("/viewReply")
-//    public void replylist(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//    	request.setCharacterEncoding("utf-8");
-//		response.setContentType("text/html; charset=utf-8");
-//    	PrintWriter writer = response.getWriter();
-//    	
-//    	int no = Integer.parseInt(request.getParameter("no"));
-//    	List<ReplyIssueVO> replylist= replyIssueService.getReplyList(no);
-//    	
-//    	ObjectMapper objectMapper = new ObjectMapper();
-//    	String jsonString = objectMapper.writeValueAsString(replylist);
-//    	writer.print(jsonString);
-//    }
     
     // 댓글 출력 ajax
-    //@GetMapping("/viewReply")
     @RequestMapping(value="/viewReply", method=RequestMethod.GET)
     public String replylist(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
     	int no = Integer.parseInt(request.getParameter("no"));
-    	List<ReplyIssueVO> replyList= replyIssueService.getReplyList(no);
+    	int replyCnt = replyIssueService.issueReplyListCnt(no); // 댓글 갯수
+    	List<ReplyIssueVO> replyList= replyIssueService.getReplyList(no); // 댓글 목록
+    	
     	model.addAttribute("replyList", replyList);
+    	model.addAttribute("replyCnt", replyCnt);
         return "issue/reply";
     }
     
     // 댓글 수정 ajax
-    @PostMapping("/updateReply")
-    public void updateReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-//    	int reno = Integer.parseInt(request.getParameter("reno"));
-//        String content = request.getParameter("content");
-//        ReplyIssueVO replyVO = new ReplyIssueVO();
-//        replyVO.setReno(reno);
-//        replyVO.setContent(content);
-//        replyIssueService.updateReply(replyVO);
+    @RequestMapping(value="/updateReply", method=RequestMethod.POST)
+    public void updateReply(HttpServletRequest request) {
+    	int reno = Integer.parseInt(request.getParameter("reno"));
+    	String content = request.getParameter("content");
+    	replyIssueService.updateReply(reno, content);
+    }
+    
+    
+    // 댓글 삭제 ajax
+    @RequestMapping(value="/updateReply", method=RequestMethod.POST)
+    public void deleteReply(HttpServletRequest request) throws Exception {
+    	int reno = Integer.parseInt(request.getParameter("reno"));
+        
+    	replyIssueService.deleteReply(reno);
     }
     
     // 글 쓰기 페이지
