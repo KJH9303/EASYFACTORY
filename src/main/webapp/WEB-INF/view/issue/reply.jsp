@@ -33,10 +33,8 @@
 						<button type="button" name="reply_button_cancel" style="display: none;">수정 취소</button>
 					</c:if>
 					<br />
-					<c:if test="${replyList.modDate == null}">
 						<span>작성일 : </span>
 						<input type="text" name="regDate" value="${replyList.regDate}" readonly>
-					</c:if>
 					<c:if test="${replyList.modDate != null}">
 						<span>수정일 : </span>
 						<input type="text" name="modDate" value="${replyList.modDate}" readonly>
