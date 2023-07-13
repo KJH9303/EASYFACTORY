@@ -32,4 +32,12 @@ public class FebIndexDAO {
         
         return val;
     }
+    
+    // 생산량 뷰
+    public double selectFebIndex_production_VO(String feb) {
+        String query = "SELECT production FROM feb_index_view_production WHERE process_feb=?";
+        Double val = jdbcTemplate.queryForObject(query, new Object[] {feb},	Double.class);
+        
+        return val;
+    }
 }

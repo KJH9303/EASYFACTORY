@@ -157,8 +157,9 @@ public class FebDAO {
         LocalDateTime dateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
         for (int i = 0; i < 365; i++) {
 
-            double opratio = random.nextInt(100) + 1; // 장비가동율
+            // double opratio = random.nextInt(100) + 1; // 장비가동율
             int temp = random.nextInt(15) + 1; 		// 온도
+            temp = Math.max(0, Math.min(15, temp));
             int tr = random.nextInt(10000) + 1;		// 정품수량
             int fal = random.nextInt(100) + 1;		// 부량수량
             int stock = random.nextInt(1000) + 1;	// 재고
@@ -174,15 +175,13 @@ public class FebDAO {
             double costs = (febIndexDAO.selectFebIndex_Cost_VO(tableName) * (usingRatio)); 
             
             // 공정별 장비가동률
-            // double randomopratio = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
-            // double opratio = febIndexDAO.selectFebIndex_Elec_VO(tableName) + ((randomopratio > 10.0) ? randomopratio - 10.0 : -randomopratio);
+            double randomOpratio = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
+            double opratio = febIndexDAO.selectFebIndex_production_VO(tableName) + ((randomOpratio > 10.0) ? randomOpratio - 10.0 : -randomOpratio);
             
             System.out.printf("$$$$ FebDAO.updateTable(%s) : usingratio=(%f)(%f) \n", tableName, usingRatio, randomUsingratio);
             System.out.printf("$$$$ FebDAO.updateTable(%s) : costs=(%f)(%f) \n", tableName, costs, usingRatio);
-            //System.out.printf("$$$$ FebDAO.updateTable(%s) : opratio=(%f)(%f) \n", tableName, opratio, randomopratio);
+            System.out.printf("$$$$ FebDAO.updateTable(%s) : opratio=(%f)(%f) \n", tableName, opratio, randomOpratio);
             		
-            temp = Math.max(0, Math.min(15, temp));
-
             LocalDateTime currentDateTime = dateTime.plusDays(i);
             java.sql.Date currentDate = java.sql.Date.valueOf(currentDateTime.toLocalDate());
 
