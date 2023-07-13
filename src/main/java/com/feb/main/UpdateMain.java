@@ -16,23 +16,24 @@ public class UpdateMain {
         FebDAO febDAO = new FebDAO(dataSource);
 
         while (true) {
-        	febDAO.updateTable("feb1");
-        	febDAO.updateTable("feb2");
-        	febDAO.updateTable("feb3");
-        	febDAO.updateTable("feb4");
-        	febDAO.updateTable("feb5");
-        	febDAO.updateTable("feb6");
-        	febDAO.updateTable("feb7");
-        	febDAO.updateTable("feb8");
+            febDAO.updateTable("feb1");
+            febDAO.updateTable("feb2");
+            febDAO.updateTable("feb3");
+            febDAO.updateTable("feb4");
+            febDAO.updateTable("feb5");
+            febDAO.updateTable("feb6");
+            febDAO.updateTable("feb7");
+            febDAO.updateTable("feb8");
 
-        System.out.println("■■■■■■■■■■ 모든 공정의 데이터 UPDATE작업이 완료되었습니다. ■■■■■■■■■■");
-        
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("■■■■■■■■■■ 모든 공정의 데이터 UPDATE작업이 완료되었습니다. ■■■■■■■■■■");
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
-}
+
 
