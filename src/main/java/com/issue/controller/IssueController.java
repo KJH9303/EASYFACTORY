@@ -139,6 +139,7 @@ public class IssueController {
     
     // 댓글 수정 ajax
     @RequestMapping(value="/updateReply", method=RequestMethod.POST)
+    @ResponseBody
     public void updateReply(HttpServletRequest request) {
     	int reno = Integer.parseInt(request.getParameter("reno"));
     	String content = request.getParameter("content");
@@ -148,6 +149,7 @@ public class IssueController {
     
     // 댓글 삭제 ajax
     @RequestMapping(value="/deleteReply", method=RequestMethod.POST)
+    @ResponseBody
     public void deleteReply(HttpServletRequest request) throws Exception {
     	int reno = Integer.parseInt(request.getParameter("reno"));
         
