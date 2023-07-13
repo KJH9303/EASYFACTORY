@@ -10,14 +10,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.issue.service.IssueService;
 import com.issue.service.ReplyIssueService;
 import com.issue.vo.Criteria;
@@ -161,23 +160,42 @@ public class IssueController {
         System.out.print(jsonInfo);
         writer.print(jsonInfo);
     }*/
+//    // 댓글 출력 ajax
+//    @GetMapping("/viewReply")
+//    public void replylist(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//    	request.setCharacterEncoding("utf-8");
+//		response.setContentType("text/html; charset=utf-8");
+//    	PrintWriter writer = response.getWriter();
+//    	
+//    	int no = Integer.parseInt(request.getParameter("no"));
+//    	List<ReplyIssueVO> replylist= replyIssueService.getReplyList(no);
+//    	
+//    	ObjectMapper objectMapper = new ObjectMapper();
+//    	String jsonString = objectMapper.writeValueAsString(replylist);
+//    	writer.print(jsonString);
+//    }
+    
     // 댓글 출력 ajax
-    @PostMapping("/viewReply")
-    public void replylist(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-    	PrintWriter writer = response.getWriter();
-    	
+    //@GetMapping("/viewReply")
+    @RequestMapping(value="/viewReply", method=RequestMethod.GET)
+    public String replylist(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
     	int no = Integer.parseInt(request.getParameter("no"));
-    	System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-    	List<ReplyIssueVO> replylist= replyIssueService.getReplyList(no);
-    	
-    	ObjectMapper objectMapper = new ObjectMapper();
-    	String jsonString = objectMapper.writeValueAsString(replylist);
-    	writer.print(jsonString);
+    	List<ReplyIssueVO> replyList= replyIssueService.getReplyList(no);
+    	model.addAttribute("replyList", replyList);
+        return "issue/reply";
     }
     
-    
+    // 댓글 수정 ajax
+    @PostMapping("/updateReply")
+    public void updateReply(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+//    	int reno = Integer.parseInt(request.getParameter("reno"));
+//        String content = request.getParameter("content");
+//        ReplyIssueVO replyVO = new ReplyIssueVO();
+//        replyVO.setReno(reno);
+//        replyVO.setContent(content);
+//        replyIssueService.updateReply(replyVO);
+    }
     
     // 글 쓰기 페이지
     @RequestMapping(value="/write", method=RequestMethod.GET)
