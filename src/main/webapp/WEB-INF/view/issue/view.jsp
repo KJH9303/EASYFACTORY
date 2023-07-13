@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
-		viewReply(); // 댓글 출력 함수 실행
+		var isProcessing = false;
 		
 		var id = $("#id").val();
 		/*
@@ -38,69 +38,18 @@
 			}
 		});
 		
-		$("#toListBtn").on('click', function() {
+		$(document).on('click', "button[name='toListBtn']", function() {
 			self.location = "/issue/list/search?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}"
 		});
-		
-		// Enter키를 눌렀을 때 댓글 작성 함수 실행
-		$("#reply_content").on('keyup', function(event) {
-		    if (event.keyCode === 13) {
-		    	writeReply();
-		    }
-		});
-		
-		// 댓글등록 버튼을 눌렀을 때 댓글 작성 함수 실행
-		$('#replyForm').submit(function(e) {
-            e.preventDefault();
-            writeReply();
-        });
-		
-		// 댓글 작성
-		function writeReply() {
-   			const reply_no = ${issue.no};
-   			const reply_author = $('#reply_author').val();
-   			const reply_content = $('#reply_content').val();
-   		
-   			if(reply_author == ''){
-   				alert('로그인 후 이용해주세요');
-   				location.href="/member/login";
-   			}else if(reply_content == '') {
-   				alert('내용을 입력하세요');
-   				$('#reply_content').focus();
-   				return;
-   			}
-   			
-   			$.ajax({
-   				type:'post',
-   				url:'<c:url value="/issue/writeReply"/>',
-   				data:  {
-   						"no":reply_no,
-   						"author":reply_author,
-   						"content":reply_content
-   						},
-   						
-   				success:function(data){
-   					if(data === 'InsertSuccess') {
-   						$('#reply_author').val(reply_author);
-   	   					$('#reply_content').val('');
-   	   					viewReply();
-   	   					//location.href="/issue/view?no="+reply_no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
-   					} else {
-   						alert('로그인 이후 이용해주시기 바랍니다.');
-   						location.href="/member/login";
-   					}
-   				}
-			}); // $.ajax
-		}; // writeReply()
-		
+
 		// 댓글 출력
-		function viewReply() {
+        function viewReply() {
             var no = $("#no").val(); // 게시물 번호를 JSP 변수로 전달
             $.ajax({
                 url: '/issue/viewReply',
                 type: 'GET',
                 data: {
-                	no: no // 게시물 번호를 Ajax 요청 파라미터로 전달
+                    no: no // 게시물 번호를 Ajax 요청 파라미터로 전달
                 },
                 success: function(replyHtml) {
                     $('#replyList').html(replyHtml);
@@ -108,7 +57,167 @@
             });
         }
 		
-	}); // document
+     	// 댓글 textarea영역 줄바꿈 제한
+        $("#reply_content").keydown(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+        
+        // 댓글등록 버튼을 눌렀을 때 댓글 작성 함수 실행
+        $("#replyWriteBtn").on('click',function() {
+            writeReply();
+        });
+        
+        // 댓글 작성
+        function writeReply() {
+            const reply_no = ${issue.no};
+            const reply_author = $('#reply_author').val();
+            const reply_content = $('#reply_content').val();
+        
+            if(reply_author == ''){
+                alert('로그인 후 이용해주세요');
+                location.href="/member/login";
+            }else if(reply_content == '') {
+                alert('내용을 입력하세요');
+                $('#reply_content').focus();
+                return;
+            }
+            
+            $.ajax({
+                type:'post',
+                url:'/issue/writeReply',
+                data:  {
+                        "no":reply_no,
+                        "author":reply_author,
+                        "content":reply_content
+                        },
+                        
+                success:function(data){
+                    if(data === 'InsertSuccess') {
+                        $('#reply_author').val(reply_author);
+                        $('#reply_content').val('');
+                        viewReply();
+                        //location.href="/issue/view?no="+reply_no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
+                    } else {
+                        alert('로그인 이후 이용해주시기 바랍니다.');
+                        location.href="/member/login";
+                    }
+                }
+            }); // $.ajax
+        }; // writeReply()
+        
+        // 댓글 수정 버튼 클릭 시
+        $(document).on('click', "button[name='reply_button_edit']", function() {
+            if (isProcessing) {
+                // 중복 클릭 방지: 이미 처리 중인 경우 무시
+                return;
+            }
+
+            var replyDiv = $(this).closest("div");
+            var reContent = replyDiv.find("textarea[name='reply_content']");
+            var reno = replyDiv.find("input[name='reno']").val();
+            var prevContent = reContent.val();
+            var updateBtn = replyDiv.find("button[name='reply_button_update']");
+            var cancelBtn = replyDiv.find("button[name='reply_button_cancel']");
+
+            // 수정 버튼 클릭 시
+            replyDiv.data("prev-content", prevContent);
+            reContent.removeAttr("readonly");
+            replyDiv.find("button[name^='reply_button']").hide();
+            updateBtn.show();
+            cancelBtn.show();
+        });
+
+        // 댓글 수정 완료 버튼 클릭 시
+        $(document).on('click', "button[name='reply_button_update']", function() {
+            if (isProcessing) {
+                // 중복 클릭 방지: 이미 처리 중인 경우 무시
+                return;
+            }
+
+            var replyDiv = $(this).closest("div");
+            var reContent = replyDiv.find("textarea[name='reply_content']");
+            var reno = replyDiv.find("input[name='reno']").val();
+            var content = reContent.val();
+
+            // 중복 클릭 방지: 처리 중 상태로 설정
+            isProcessing = true;
+
+            $.ajax({
+                url : '/issue/updateReply',
+                type : 'POST',
+                data : {
+                    reno : reno,
+                    content : content
+                },
+                success : function(result) {
+                    reContent.attr("readonly", true);
+                    replyDiv.find("button[name='reply_button_edit'], button[name='reply_button_delete']").show();
+                    replyDiv.find("button[name='reply_button_update'], button[name='reply_button_cancel']").hide();
+                    replyDiv.find("span.reply_content_text").text(content);
+                    alert("등록된 댓글을 수정했습니다.");
+                    viewReply();
+                },
+                complete : function() {
+                    // 중복 클릭 방지: 처리 완료 상태로 설정
+                    isProcessing = false;
+                }
+            }); // $.ajax({
+        });
+
+        // 댓글 수정 취소 버튼 클릭 시
+        $(document).on('click', "button[name='reply_button_cancel']", function() {
+            var replyDiv = $(this).closest("div");
+            var reContent = replyDiv.find("textarea[name='reply_content']");
+            var prevContent = replyDiv.data("prev-content");
+
+            reContent.val(prevContent);
+            reContent.attr("readonly", true);
+            replyDiv.find("button[name^='reply_button']").show();
+            replyDiv.find("button[name='reply_button_update'], button[name='reply_button_cancel']").hide();
+        });
+
+        // 댓글 삭제 버튼 클릭 시
+        $(document).on('click', "button[name='reply_button_delete']", function() {
+            if (isProcessing) {
+                // 중복 클릭 방지: 이미 처리 중인 경우 무시
+                return;
+            }
+
+            var replyDiv = $(this).closest("div");
+            var reno = replyDiv.find("input[name='reno']").val();
+            var answer = confirm("등록된 댓글을 삭제합니다.");
+
+            if (answer) {
+                // 중복 클릭 방지: 처리 중 상태로 설정
+                isProcessing = true;
+
+                $.ajax({
+                    url : '/issue/deleteReply',
+                    type : 'POST',
+                    data : {
+                        reno : reno
+                    },
+                    success : function(result) {
+                        replyDiv.remove();
+                        alert("등록된 댓글을 삭제했습니다.");
+                        viewReply();
+                    },
+                    complete : function() {
+                        // 중복 클릭 방지: 처리 완료 상태로 설정
+                        isProcessing = false;
+                    }
+                });
+            } else {
+                alert("취소하였습니다.");
+            }
+        });
+
+        // 페이지 로드 시 댓글 목록 호출
+        viewReply();
+    });
 </script>
 </head>
 <body>
@@ -120,9 +229,12 @@
 	<input type="hidden" id="startDate" value="${startDate}" readonly>
 	<input type="hidden" id="endDate" value="${endDate}" readonly>
 	
+    <!-- header 영역 -->	
     <div id="headerContainer">
     	<%@ include file="../header.jsp" %>
     </div>
+    
+    <!-- 게시물 영역 -->
     <div class="container">
         <h1>글 보기</h1>
         	<input type="hidden" id="no" name="no" value="${issue.no}" readonly><br><br>
@@ -140,30 +252,21 @@
            	</c:if>
         <hr>
 	</div>
-	<!-- 게시물 끝 -->
+	<button type="button" name="toListBtn">글 목록</button>
+	
+	<!-- 댓글 목록 ajax -->
 	<div id="replyList"></div>
 	
+	<!-- 댓글 입력 영역 -->
+	<div id="replyContainer">
     <h2>댓글 입력</h2>
     <form id="replyForm">
-    	<input type="text" id="reply_author" name="author" value="${member.id}" readonly>
+        <input type="text" id="reply_author" name="author" value="${member.id}" readonly>
         <textarea class="reply-content" id="reply_content" cols="80" rows="2" name="content"></textarea>
-        <input type="submit" value="등록">
+        <button type="button" id="replyWriteBtn">댓글 작성</button>
     </form>
-<!--      
-	<div class="comment-box">
-		<div class="reply-author">
-			<span>작성자 : ${member.id}</span>
-			<input type="hidden" id="reply_author" name="author" value="${member.id}">
-		</div>
-		<div>
-			<textarea class="reply-content" id="reply_content" cols="80" rows="2" name="content"></textarea>
-		</div>
-		<div class="regBtn">
-			<button id="writeReplyBtn">댓글등록</button>
-		</div>
-	</div>
--->	
-    <button type="button" id="toListBtn">목록</button>
-
+    
+    <button type="button" name="toListBtn">글 목록</button>
+</div>
 </body>
 </html>
