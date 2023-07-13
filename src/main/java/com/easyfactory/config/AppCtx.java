@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.energy.dao.EnergyDAO;
 import com.energy.service.EnergyService;
 import com.feb.dao.FebDAO;
+import com.feb.dao.FebIndexDAO;
 import com.feb.service.FebService;
 import com.issue.dao.IssueDAO;
 import com.issue.dao.ReplyIssueDAO;
@@ -65,6 +66,11 @@ public class AppCtx {
 	public FebDAO febDAO() {
 		System.out.println("[FebDAO] febDAO()");
 		return new FebDAO(dataSource());
+	}
+	
+	@Bean 
+	FebIndexDAO febIndexDAO() {
+		return new FebIndexDAO(dataSource());
 	}
 	
 	@Bean

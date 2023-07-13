@@ -22,10 +22,13 @@ import com.feb.vo.FebVO;
 @Repository
 public class FebDAO {
 	
-    public static Object updateTable;
-	private static JdbcTemplate jdbcTemplate;
+    public Object updateTable;
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	FebIndexDAO febIndexDAO;
 
-    @Autowired
+    // @Autowired
     public FebDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
@@ -144,20 +147,40 @@ public class FebDAO {
         }
     }
  	
-    public static void updateTable(String tableName) {
+ 	/*
+ 	 * 공정테이블 : 일별처리
+ 	 *  칼럼: 장비가동율, 온도, 정품수량, 불량수량, 재고, 비용
+ 	 */
+    public void updateTable(String tableName) {
         Random random = new Random();
 
         LocalDateTime dateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
         for (int i = 0; i < 365; i++) {
 
-            double opratio = Math.round((70 + random.nextDouble() * (100 - 70)) * 100.0) / 100.0;
-            int temp = random.nextInt(15) + 1;
-            int tr = random.nextInt(10000) + 1;
-            int fal = random.nextInt(100) + 1;
-            int stock = random.nextInt(1000) + 1;
-            int costs = random.nextInt(1000) + 1;
-            double usingratio = Math.round(random.nextDouble() * 100 * 100.0) / 100.0;
-
+            double opratio = random.nextInt(100) + 1; // 장비가동율
+            int temp = random.nextInt(15) + 1; 		// 온도
+            int tr = random.nextInt(10000) + 1;		// 정품수량
+            int fal = random.nextInt(100) + 1;		// 부량수량
+            int stock = random.nextInt(1000) + 1;	// 재고
+            // int costs = random.nextInt(1000) + 1;	// 비용
+            // double usingratio = Math.round(random.nextDouble() * 100 * 100.0) / 100.0;
+            
+            // 공정별 연평균 전기 사용량
+            // double usingratio = selectFebIndexVO(tableName);
+            double randomUsingratio = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
+            double usingRatio = febIndexDAO.selectFebIndex_Elec_VO(tableName) + ((randomUsingratio > 10.0) ? randomUsingratio - 10.0 : -randomUsingratio);  
+            
+            // 공정별 연평균 전기사용 비용
+            double costs = (febIndexDAO.selectFebIndex_Cost_VO(tableName) * (usingRatio)); 
+            
+            // 공정별 장비가동률
+            // double randomopratio = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
+            // double opratio = febIndexDAO.selectFebIndex_Elec_VO(tableName) + ((randomopratio > 10.0) ? randomopratio - 10.0 : -randomopratio);
+            
+            System.out.printf("$$$$ FebDAO.updateTable(%s) : usingratio=(%f)(%f) \n", tableName, usingRatio, randomUsingratio);
+            System.out.printf("$$$$ FebDAO.updateTable(%s) : costs=(%f)(%f) \n", tableName, costs, usingRatio);
+            //System.out.printf("$$$$ FebDAO.updateTable(%s) : opratio=(%f)(%f) \n", tableName, opratio, randomopratio);
+            		
             temp = Math.max(0, Math.min(15, temp));
 
             LocalDateTime currentDateTime = dateTime.plusDays(i);
@@ -165,7 +188,7 @@ public class FebDAO {
 
             try {
                 String SQL = "UPDATE " + tableName + " SET opratio = ?, temp = ?, tr = ?, fal = ?, stock = ?, costs = ?, usingratio = ? WHERE hiredate = ?";
-                int result = jdbcTemplate.update(SQL, opratio, temp, tr, fal, stock, costs, usingratio, currentDate);
+                int result = jdbcTemplate.update(SQL, opratio, temp, tr, fal, stock, costs, usingRatio, currentDate);
 
                 System.out.println("[" + tableName.toUpperCase() + " 테이블의 업데이트 작업이 완료되었습니다.]");
 
@@ -205,4 +228,12 @@ public class FebDAO {
 		    return result;
 		}
 	}
+	
+	 public double selectFebIndexVO(String feb) {
+		String query = "SELECT elec_using FROM feb_index_view WHERE process_feb=?";
+		Double val = jdbcTemplate.queryForObject(query, new Object[] {feb},	Double.class);	
+		
+		return val;
+    }
+	
 }

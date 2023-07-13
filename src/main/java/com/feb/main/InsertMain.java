@@ -1,7 +1,5 @@
 package com.feb.main;
 
-import javax.sql.DataSource;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -11,9 +9,8 @@ import com.feb.dao.FebDAO;
 public class InsertMain {
     public static void main(String[] args) {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(AppCtx.class);
-        DataSource dataSource = ctx.getBean(DataSource.class);
     	
-        FebDAO febDAO = new FebDAO(dataSource);
+        FebDAO febDAO = ctx.getBean(FebDAO.class);
 
         // 테이블 업데이트 실행
         febDAO.insertTable("feb1");
