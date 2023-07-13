@@ -147,7 +147,7 @@ public class IssueController {
     
     
     // 댓글 삭제 ajax
-    @RequestMapping(value="/updateReply", method=RequestMethod.POST)
+    @RequestMapping(value="/deleteReply", method=RequestMethod.POST)
     public void deleteReply(HttpServletRequest request) throws Exception {
     	int reno = Integer.parseInt(request.getParameter("reno"));
         
