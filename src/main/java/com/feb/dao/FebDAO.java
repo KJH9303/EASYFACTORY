@@ -22,7 +22,8 @@ import com.feb.vo.FebVO;
 @Repository
 public class FebDAO {
 	
-    private JdbcTemplate jdbcTemplate;
+    public static Object updateTable;
+	private static JdbcTemplate jdbcTemplate;
 
     @Autowired
     public FebDAO(DataSource dataSource) {
@@ -143,7 +144,7 @@ public class FebDAO {
         }
     }
  	
-    public void updateTable(String tableName) {
+    public static void updateTable(String tableName) {
         Random random = new Random();
 
         LocalDateTime dateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
