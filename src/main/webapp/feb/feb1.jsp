@@ -102,7 +102,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">당월 장비 가동률</h4>
+            <h4 class="text-lg font-semibold text-gray-500">장비 가동률</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
       	    <div>
@@ -144,7 +144,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">당월 전기 사용량</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기 사용량</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
       	    <div>
@@ -165,7 +165,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500">당월 전기사용 비용</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기사용 비용</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
       	    <div>
@@ -370,17 +370,15 @@
 	  let currentDate = new Date();
 	  let currentMonth = currentDate.getMonth();
 	  let currentYear = currentDate.getFullYear();
-	  
+	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
 	      let dateString = data.hiredate.split('-')[2];
-	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
-	        dateList.push(dateString);
-	        displayData.push(data.opratio);
-	      }
+	      dateList.push(dateString);
+	      displayData.push(data.opratio);
 	    });
 	  } else {
 	    dateList = [];
@@ -393,9 +391,9 @@
 	        displayData.push(data.opratio);
 	      }
 	    });
-
+	
 	    window.addEventListener('resize', function () {
-	        opratioChart.resize();
+	      opratioChart.resize();
 	    });
 	  }
 	  
@@ -469,10 +467,7 @@
 	
 	    if (!gaugeChart) {
 	        gaugeChart = echarts.init(document.getElementById('gaugeChart'));
-	        
-	        window.addEventListener('resize', function () {
-	            gaugeChart.resize();
-	        });
+
 	    }
 	
 	    const option = {
@@ -539,17 +534,15 @@
 	  let currentDate = new Date();
 	  let currentMonth = currentDate.getMonth();
 	  let currentYear = currentDate.getFullYear();
-	  
+	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
 	      let dateString = data.hiredate.split('-')[2];
-	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
-	        dateList.push(dateString);
-	        displayData.push(data.usingratio);
-	      }
+	      dateList.push(dateString);
+	      displayData.push(data.usingratio);
 	    });
 	  } else {
 	    dateList = [];
@@ -562,12 +555,12 @@
 	        displayData.push(data.usingratio);
 	      }
 	    });
-	    
-		window.addEventListener('resize', function () {
-		    usingratioChart.resize();
-		});
+	
+	    window.addEventListener('resize', function () {
+	      opratioChart.resize();
+	    });
 	  }
-	  
+
 	  var option = {
 			    tooltip: {
 			        trigger: "axis",
@@ -657,17 +650,15 @@
 	  let currentDate = new Date();
 	  let currentMonth = currentDate.getMonth();
 	  let currentYear = currentDate.getFullYear();
-	  
+	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
 	      let dateString = data.hiredate.split('-')[2];
-	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
-	        dateList.push(dateString);
-	        displayData.push(data.costs);
-	      }
+	      dateList.push(dateString);
+	      displayData.push(data.costs);
 	    });
 	  } else {
 	    dateList = [];
@@ -680,10 +671,10 @@
 	        displayData.push(data.costs);
 	      }
 	    });
-	    
-		window.addEventListener('resize', function () {
-			costsChart.resize();
-		});
+	
+	    window.addEventListener('resize', function () {
+	      opratioChart.resize();
+	    });
 	  }
 	  
 	  var option = {
