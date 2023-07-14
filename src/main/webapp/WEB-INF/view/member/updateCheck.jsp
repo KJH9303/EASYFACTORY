@@ -11,10 +11,11 @@
     <script>
     $(document).ready(function() {
     	var id = $("#id").val();
+    	
+    	// 페이지 진입 시
     	if(id == null || id == "") {
     		alert("잘못된 접근입니다.");
     		location.href="/main";
-    		// window.history.back();
     	}
     	
     	// 취소

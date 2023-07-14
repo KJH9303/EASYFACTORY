@@ -17,12 +17,10 @@
     	var id = $("#id").val();
     	
     	// 페이지 진입 시
-    	/*
 		if (id == '' || id == null) {
-			alert("잘못된 접근입니다.");
 			alert("로그인 후 이용해주세요.");
 			location.href="/member/login";
-		}*/
+		}
     	
     	var searchType = $("#searchType").val();
 		var keyword = $("#keyword").val();

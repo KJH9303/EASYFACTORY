@@ -12,7 +12,6 @@
 	$(document).ready(function() {
 		var author = $("#author").val();
 		if (author == '' || author == null) {
-			alert("잘못된 접근입니다.");
 			alert("로그인 후 이용해주세요.");
 			location.href="/member/login";
 		}
