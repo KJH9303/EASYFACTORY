@@ -399,6 +399,15 @@
 	  }
 	  
 	  var option = {
+		       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 			    tooltip: {
 			        trigger: "axis",
 			        axisPointer: {
@@ -451,7 +460,7 @@
 			      ],
 	    // grid 옵션 추가
 	    grid: {
-	        top: 20, // 상단 여백
+	        top: 40, // 상단 여백
 	        bottom: 20, // 하단 여백
 	        left: 30, // 좌측 여백
 	        right: 10 // 우측 여백
@@ -472,7 +481,17 @@
 	    }
 	
 	    const option = {
+	 	       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 	            series: [{
+	                center: ['50%', '60%'], // x축 및 y축인 중심의 좌표를 설정합니다.
 	                type: 'gauge',
 	                min: 0,
 	                max: 15,
@@ -520,7 +539,7 @@
 	                    fontWeight: 'bold'
 	                },
 	                  data: [{ value: todayTemp, itemStyle: { color: "auto" } }],
-	            }]
+	            }],
 	        };
 	    // 차트 옵션 설정 및 렌더링
 	    gaugeChart.setOption(option);
@@ -563,6 +582,15 @@
 	  }
 
 	  var option = {
+		       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 			    tooltip: {
 			        trigger: "axis",
 			        axisPointer: {
@@ -616,7 +644,7 @@
 	    
 	    //grid 옵션 추가
 	    grid: {
-	        top: 20, // 상단 여백
+	        top: 40, // 상단 여백
 	        bottom: 20, // 하단 여백
 	        left: 30, // 좌측 여백
 	        right: 10 // 우측 여백
@@ -679,6 +707,15 @@
 	  }
 	  
 	  var option = {
+		       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 			    tooltip: {
 			        trigger: "axis",
 			        axisPointer: {
@@ -731,7 +768,7 @@
 			      ],
 	    // grid 옵션 추가
 	    grid: {
-	        top: 20, // 상단 여백
+	        top: 40, // 상단 여백
 	        bottom: 20, // 하단 여백
 	        left: 30, // 좌측 여백
 	        right: 10 // 우측 여백

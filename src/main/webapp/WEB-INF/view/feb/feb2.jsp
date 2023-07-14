@@ -399,6 +399,15 @@
 	  }
 	  
 	  var option = {
+		       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 			    tooltip: {
 			        trigger: "axis",
 			        axisPointer: {
@@ -451,7 +460,7 @@
 			      ],
 	    // grid 옵션 추가
 	    grid: {
-	        top: 20, // 상단 여백
+	        top: 40, // 상단 여백
 	        bottom: 20, // 하단 여백
 	        left: 30, // 좌측 여백
 	        right: 10 // 우측 여백
@@ -472,6 +481,15 @@
 	    }
 	
 	    const option = {
+	 	       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 	            series: [{
 	                type: 'gauge',
 	                min: 0,
@@ -563,6 +581,15 @@
 	  }
 
 	  var option = {
+		       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 			    tooltip: {
 			        trigger: "axis",
 			        axisPointer: {
@@ -616,7 +643,7 @@
 	    
 	    //grid 옵션 추가
 	    grid: {
-	        top: 20, // 상단 여백
+	        top: 40, // 상단 여백
 	        bottom: 20, // 하단 여백
 	        left: 30, // 좌측 여백
 	        right: 10 // 우측 여백
@@ -679,6 +706,15 @@
 	  }
 	  
 	  var option = {
+		       toolbox: {
+		           show: true,
+		           feature: {
+		               dataView: {show: true,readOnly: false},
+		               magicType: {show: true, type: ['line', 'bar']},
+		               restore: {show: true},
+		               saveAsImage: {show: true}
+		           }
+		       },
 			    tooltip: {
 			        trigger: "axis",
 			        axisPointer: {
@@ -731,7 +767,7 @@
 			      ],
 	    // grid 옵션 추가
 	    grid: {
-	        top: 20, // 상단 여백
+	        top: 40, // 상단 여백
 	        bottom: 20, // 하단 여백
 	        left: 30, // 좌측 여백
 	        right: 10 // 우측 여백
