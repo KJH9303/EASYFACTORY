@@ -8,10 +8,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View</title>
 <link rel="stylesheet" href="../../../resources/issue/css/board.css">
-<script src="https://code.jquery.cojquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
-		var isProcessing = false;
+		var isProcessing = false; 
 		
 		var id = $("#id").val();
 		
