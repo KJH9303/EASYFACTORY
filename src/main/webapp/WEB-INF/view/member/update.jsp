@@ -37,7 +37,7 @@
 		});
 		
 		// 비밀번호 & 비밀번호 확인 값 체크
-		$("#repw").on("propertychange change keyup paste input", function() {
+		$("#pw, #repw").on("propertychange change keyup paste input", function() {
 			var pw = $("#pw").val();
 			var repw = $("#repw").val();
 			
@@ -86,7 +86,11 @@
 			$('input:radio[name=code]:input[value=' + code + ']').attr("checked", true);
 			
 			if (department == '' || department == null) {
-			    alert( '부서명을 입력해주세요' );
+				if(code == 'INTERNAL') {
+					alert( '부서명을 입력해주세요' );
+				} else if(code == 'EXTERNAL') {
+					alert( '거래처명을 입력해주세요' );
+				}
 			    $("#department").focus();
 			    return false;
 			}
