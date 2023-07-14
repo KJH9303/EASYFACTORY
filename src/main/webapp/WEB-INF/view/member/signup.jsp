@@ -109,7 +109,11 @@
 			$('input:radio[name=code]:input[value=' + code + ']').attr("checked", true);
 			
 			if( department == '' || department == null ){
-			    alert( '부서명을 입력해주세요' );
+				if(code == 'INTERNAL') {
+			    	alert( '부서명을 입력해주세요' );
+			    } else if(code == 'EXTERNAL') {
+			    	alert( '거래처명을 입력해주세요' );
+			    }
 			    $("#department").focus();
 			    return false;
 			}
