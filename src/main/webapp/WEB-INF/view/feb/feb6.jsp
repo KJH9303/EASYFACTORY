@@ -7,6 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>6공정: 금속배선 공정</title>
+  <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">  
   <link rel="stylesheet" href="../../../resources/feb/css/feb.css?after">
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
@@ -415,7 +416,7 @@
 			        type: "category",
 			        data: dateList,
 			        axisLabel: {
-			          interval: 0, // 모든 레이블을 표시
+			          interval: 6, // 모든 레이블을 표시
 			          textStyle: {
 			            color: "#333", // x축 레이블 텍스트 색상
 			            fontSize: 10, // x축 레이블 텍스트 크기
@@ -579,7 +580,7 @@
 			        type: "category",
 			        data: dateList,
 			        axisLabel: {
-			          interval: 0, // 모든 레이블을 표시
+			          interval: 6, // 모든 레이블을 표시
 			          textStyle: {
 			            color: "#333", // x축 레이블 텍스트 색상
 			            fontSize: 10, // x축 레이블 텍스트 크기
@@ -695,7 +696,7 @@
 			        type: "category",
 			        data: dateList,
 			        axisLabel: {
-			          interval: 0, // 모든 레이블을 표시
+			          interval: 6, // 모든 레이블을 표시
 			          textStyle: {
 			            color: "#333", // x축 레이블 텍스트 색상
 			            fontSize: 10, // x축 레이블 텍스트 크기

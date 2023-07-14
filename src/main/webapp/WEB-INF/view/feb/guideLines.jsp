@@ -4,6 +4,8 @@
 <head>
   <link rel="stylesheet" href="../../../resources/feb/css/guideLines.css?after">
 </head>
+  <title>가이드 라인</title>
+  <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon"> 
 <body>
     <table>
         <thead>
