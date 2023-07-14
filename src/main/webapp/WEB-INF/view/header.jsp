@@ -233,7 +233,31 @@
             		location.href="/feb/feb8";
             	}
             	
-            });
+            	
+            $("#guideLines").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/feb/guideLines";
+            	}
+            	
+        });
             
             $("#energy").on('click', function() {
             	var id = $("#id").val();
@@ -372,6 +396,7 @@
         <li>
             <a id="issueList">게시판</a>
         </li>
+        <li><a id="guideLines">가이드 라인</a></li>
     </ul>
 </div>
 </body>
