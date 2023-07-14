@@ -6,6 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>1공정: 웨이퍼 제조</title>
+  <img src="../../resources/img/logoicon.jpg">
   <link rel="stylesheet" href="../../../resources/feb/css/feb.css?after">
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
@@ -17,7 +18,7 @@
 <div id="headerContainer"></div>
 <div class="flex-1 h-full">
 
-  <!-- Main content -->
+  <!-- Main content -->s
   <main>
     
     <!-- Content header -->
