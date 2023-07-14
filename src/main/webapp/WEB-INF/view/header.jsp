@@ -35,6 +35,31 @@
                 location.href="/feb/febTest2";
             });
             
+            $("#feb1").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
             $("#issueList").on('click', function() {
                 var id = $("#id").val();
                 if(id == null || id == "") {
@@ -101,11 +126,13 @@
     <div class="spinner diagonal part-2"></div>
 </label>
 <div id="sidebarMenu">
+	<input type="hidden" id="id" value="${member.id}">
+	<input type="text" id="code" value="${member.code}">
     <ul class="sidebarMenuInner">
         <li>
             <a href="#">공정</a>
             <ul class="submenu">
-                <li><a href="/resources/html/dashboard/feb.html">1공정</a></li>
+                <li><a id="feb1">1공정</a></li>
                 <li><a href="#">2공정</a></li>
                 <li><a href="#">3공정</a></li>
                 <li><a href="#">4공정</a></li>
@@ -119,7 +146,6 @@
         <li><a href="#">재고관리</a></li>
         <li>
             <a id="issueList">게시판</a>
-            <input type="hidden" id="id" value="${member.id}">
         </li>
     </ul>
 </div>
