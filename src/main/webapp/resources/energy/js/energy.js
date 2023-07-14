@@ -13,6 +13,7 @@
 	       legend: {
 	           data: ['가동률']
 	       },
+	       animation: false,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -89,6 +90,7 @@
 	       legend: {
 	           data: ['생산량']
 	       },
+	       animation: false,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -164,6 +166,7 @@
 	       legend: {
 	           data: ['에너지 사용 비용']
 	       },
+	       animation: false,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -239,6 +242,7 @@
 	       legend: {
 	           data: ['에너지 사용량']
 	       },
+	       animation: false,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -314,6 +318,7 @@
 	       legend: {
 	           data: ['비용', '생산량']
 	       },
+	       animation: false,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -404,6 +409,7 @@
 	       legend: {
 	           data: ['비용', '에너지 사용량']
 	       },
+	       animation: false,
 	       toolbox: {
 	           show: true,
 	           feature: {
