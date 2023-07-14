@@ -118,19 +118,36 @@ DROP TABLE FEB_INDEX_view;
 
 select * from feb1 order by hiredate;
 
-drop view feb_index_view;
+drop view feb_index_view_Difficulty;
 
 CREATE VIEW feb_index_view_elec as
 SELECT PROCESS_FEB, avg(elec_using) as elec_using 
     FROM feb_index
     GROUP BY process_feb
     ORDER BY process_feb;
-    
+
+-- 공정별 전기세 기준치 --    
 CREATE VIEW feb_index_view_cost as
 SELECT PROCESS_FEB, avg(InDex_Cost) as InDex_Cost 
+    FROM feb_index
+    GROUP BY process_feb
+    ORDER BY process_feb;
+
+-- 공정별 생산량 기준치 --
+CREATE VIEW feb_index_view_production as
+SELECT PROCESS_FEB, avg(InDex_Cost) as production 
+    FROM feb_index
+    GROUP BY process_feb
+    ORDER BY process_feb;
+
+-- 공정별 난이도 기준치 --    
+CREATE VIEW feb_index_view_Difficulty as
+SELECT PROCESS_FEB, avg(Difficulty) as Difficulty 
     FROM feb_index
     GROUP BY process_feb
     ORDER BY process_feb;    
 
 SELECT * FROM feb_index_view_elec;
 SELECT * FROM feb_index_view_cost;
+SELECT * FROM feb_index_view_production;
+SELECT * FROM feb_index_view_Difficulty;
