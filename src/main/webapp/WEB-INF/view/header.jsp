@@ -182,14 +182,14 @@
         <li>
             <a href="#">공정</a>
             <ul class="submenu">
-                <li><a id="feb1">1공정</a></li>
-                <li><a href="#">2공정</a></li>
-                <li><a href="#">3공정</a></li>
-                <li><a href="#">4공정</a></li>
-                <li><a href="#">5공정</a></li>
-                <li><a href="#">6공정</a></li>
-                <li><a href="#">7공정</a></li>
-                <li><a href="#">8공정</a></li>
+                <li><a id="feb1">1공정: 웨이퍼 제조</a></li>
+                <li><a href="#">2공정: 산화 공정</a></li>
+                <li><a href="#">3공정: 포토(Photo)공정</a></li>
+                <li><a href="#">4공정: 식각(Etch)공정</a></li>
+                <li><a href="#">5공정: 이온주입(Implant) 공정</a></li>
+                <li><a href="#">6공정: 금속배선 공정</a></li>
+                <li><a href="#">7공정: EDS 공정</a></li>
+                <li><a href="#">8공정: 패키징(Packaging) 공정</a></li>
             </ul>
         </li>
         <li><a id="energy">에너지</a></li>
