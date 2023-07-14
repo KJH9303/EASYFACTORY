@@ -136,10 +136,10 @@
 	                		<td>${issueList.regDate}</td>
                 		</tr>
                		</c:forEach>
-               		<input type="text" id="page" value="${cri.page}" readonly>
-               		<input type="text" id="perPageNum" value="${cri.perPageNum}" readonly>
-               		<input type="text" id="searchType" value="${searchType}" readonly>
-               		<input type="text" id="keyword" value="${keyword}" readonly>
+               		<input type="hidden" id="page" value="${cri.page}" readonly>
+               		<input type="hidden" id="perPageNum" value="${cri.perPageNum}" readonly>
+               		<input type="hidden" id="searchType" value="${searchType}" readonly>
+               		<input type="hidden" id="keyword" value="${keyword}" readonly>
                	</c:if>
                	<c:if test="${issueList == null}">
                		<tr>
