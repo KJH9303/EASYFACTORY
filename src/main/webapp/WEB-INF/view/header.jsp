@@ -232,7 +232,7 @@
             		// 수정할 부분
             		location.href="/feb/feb8";
             	}
-            	
+            });	
             	
             $("#guideLines").on('click', function() {
             	var id = $("#id").val();
