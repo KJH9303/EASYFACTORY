@@ -31,6 +31,13 @@ public class EnergyController {
 		this.energyService = energyService;
 	}
     
+    @GetMapping("/energyDashborad")
+    public String energydashborad() {
+    	System.out.println("[EnergyController] /energyDashborad");
+    	return "energy/energyDashborad";
+    	
+    }
+    
     // 에너지 사용비용 :Costs 
     @PostMapping("/chart1")
     public void doChart2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

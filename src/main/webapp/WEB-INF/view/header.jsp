@@ -60,6 +60,56 @@
             	
             });
             
+            $("#energy").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/energy/energyDashborad";
+            	}
+            	
+            });
+            
+            $("#stock").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/stock/stockDashborad";
+            	}
+            	
+            });
+            
             $("#issueList").on('click', function() {
                 var id = $("#id").val();
                 if(id == null || id == "") {
@@ -142,8 +192,8 @@
                 <li><a href="#">8공정</a></li>
             </ul>
         </li>
-        <li><a href="#">에너지</a></li>
-        <li><a href="#">재고관리</a></li>
+        <li><a id="energy">에너지</a></li>
+        <li><a id="stock">재고관리</a></li>
         <li>
             <a id="issueList">게시판</a>
         </li>
