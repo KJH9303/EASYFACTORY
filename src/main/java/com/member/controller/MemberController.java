@@ -98,7 +98,7 @@ public class MemberController {
     public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	HttpSession session = request.getSession();
     	session.invalidate();
-    	return "/main";
+    	return "redirect:/main";
     }
     
     // 회원정보 수정
