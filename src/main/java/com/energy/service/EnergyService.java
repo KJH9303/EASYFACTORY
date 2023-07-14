@@ -82,7 +82,7 @@ public class EnergyService {
 	        return jsonArray;
 	    }
 	  
-    // 공정별 가동률 각 평균
+    // 공정별 가동률  평균
     public JSONArray JsonFebOpratioChange(List<EnergyVO> energyFebopratioList) {
         JSONArray jsonArray = new JSONArray();
         for (EnergyVO energyData : energyFebopratioList) {
@@ -95,7 +95,7 @@ public class EnergyService {
         }
         return jsonArray;
     }
-    // 공정별 각 총 생산량
+    // 공정별  총 생산량
     public JSONArray JsonFebtrChange(List<EnergyVO> energyFebtrList) {
         JSONArray jsonArray = new JSONArray();
         
@@ -109,7 +109,7 @@ public class EnergyService {
         }
         return jsonArray;
     }
-    // 공정별 각 총 전기비용
+    // 공정별  총 전기비용
     public JSONArray JsonFebCostsChange(List<EnergyVO> energyFebCostsList) {
         JSONArray jsonArray = new JSONArray();
         for (EnergyVO energyData : energyFebCostsList) {
@@ -122,7 +122,7 @@ public class EnergyService {
         }
         return jsonArray;
     }
-    // 공정별 각 총생산대비 전력사용량 khw -> w로 변경 하는 쿼리
+    // 공정별  총생산대비 전력사용량 khw -> w로 변경 하는 쿼리
     public JSONArray JsonCVUsingratioChange(List<EnergyVO> energyFebCVUsingratioList) {
         JSONArray jsonArray = new JSONArray();
         for (EnergyVO energyData : energyFebCVUsingratioList) {
@@ -135,7 +135,7 @@ public class EnergyService {
         }
         return jsonArray;
     }
-    // 공절별 각 전기사용량 
+    // 공절별  전기사용량 
     public JSONArray JsonFebUsingratioChange(List<EnergyVO> energyFebUsingratioList) {
         JSONArray jsonArray = new JSONArray();
         for (EnergyVO energyData : energyFebUsingratioList) {
@@ -157,7 +157,7 @@ public class EnergyService {
         }
         return jsonArray;
     }
-    // 불량재고량
+    // 불량
     public JSONArray JsonFalChange(List<EnergyVO> FalList) {
         JSONArray jsonArray = new JSONArray();
         for (EnergyVO energyData : FalList) {

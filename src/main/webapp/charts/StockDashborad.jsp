@@ -43,7 +43,7 @@
 	   }   
    </script>
   <script type="text/javascript">
-  	// 각 공정별 불량
+  	// 각 공정별 불량 차트
     function FebFalChart(vals) {
       var dom = document.getElementById('FebFal_Chart');
       var myChart = echarts.init(dom, null, {
@@ -70,7 +70,7 @@
     }
    </script>
     <script type="text/javascript">
- 	// 각 공정별 안전재고 대비 총 재고량
+ 	// 각 공정별 안전재고 대비 총 재고량 차트
    function SFStockStockChart(chartData) {
 	   console.log("SFStock_StockChart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('SFStock_StockChart'));
@@ -134,7 +134,7 @@
 	             data: xAxisData
 	         },
 	         series: [{
-	                 name: '안전재고량',
+	                 name: '안전재고량', // 하드 코딩 안전재고는 일정하기 때문에 
 	                 data: [5000,8000,3000,7000,10000,6000,2000,8000],
 	             },
 	             {
@@ -181,6 +181,7 @@
           <div>
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon1" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+            <!-- 데이트피커 -->
             <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate"  style="display: none;" />
             <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate"   style="display: none;" />
             <button id="applyEnergyCost1" style="display: none;">제출</button>
@@ -200,6 +201,7 @@
           <div>
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon2" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+            <!-- 데이트피커 -->
             <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" style="display: none;" />
             <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" style="display: none;" />
             <button id="applyEnergyCost2" style="display: none;">제출</button>
@@ -219,6 +221,7 @@
           <div>
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon3" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+            <!-- 데이트피커 -->
             <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" style="display: none;" />
             <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" style="display: none;" />
             <button id="applyEnergyCost3" style="display: none;">제출</button>
@@ -236,6 +239,7 @@
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon4" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <!-- 데이트피커 -->
               <input type="text" id="energyCostStartDate4" class="datepicker" name="energyCostStartDate" style="display: none;" />
               <input type="text" id="energyCostEndDate4" class="datepicker" name="energyCostEndDate" style="display: none;" />
               <button id="applyEnergyCost4" style="display: none;">제출</button>
@@ -255,6 +259,7 @@
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon5" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <!-- 데이트피커 -->
               <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate" style="display: none;" />
               <input type="text" id="energyCostEndDate5" class="datepicker" name="energyCostEndDate" style="display: none;" />
                <button id="applyEnergyCost5" style="display: none;">제출</button>
@@ -277,6 +282,7 @@
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon6" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <!-- 데이트피커 -->
               <input type="text" id="energyCostStartDate6" class="datepicker" name="energyCostStartDate" style="display: none;" />
               <input type="text" id="energyCostEndDate6" class="datepicker" name="energyCostEndDate" style="display: none;" />
                <button id="applyEnergyCost6" style="display: none;">제출</button>
@@ -289,11 +295,12 @@
         </div>
         
       <script>
+      // JS 날짜 변환 쿼리 
       let today = new Date(); // 시작일자
       let year = today.getFullYear(); // 년도
       let month = today.getMonth() + 1;  // 월
       let date = today.getDate();  // 날짜
-      
+    //각 차트 날짜 지정을 위한 배열 쿼리
       var startDate = new Array(5);
       var endDate = new Array(5);
       for(var cnt=0; cnt <= 5; cnt++) {
@@ -338,7 +345,7 @@
         
           // 데이터 피커의 기본 설정을 정의합니다.
           $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
-          
+       	  // 서버연동을 위한 Ajax쿼리
           // 총 재고량 
           window.applyDateRange1 = function (event, url, targetValueId, valueKey) {
     	   		if(event !== null) {
@@ -367,7 +374,7 @@
 			  });
 			}  
           /*
-    		// 총 에너지 사용량
+    		// 안전재고 사용량 (혹시몰라서 남겨둠)
 			window.applyDateRange2 = function (event, url, targetValueId, valueKey) {
     	   		if(event !== null) {
 				  let parent = $(event.target).parent();

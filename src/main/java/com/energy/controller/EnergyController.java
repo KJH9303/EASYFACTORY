@@ -71,7 +71,7 @@ public class EnergyController {
         System.out.println(jsonObject.toJSONString());
     }
  
-    // 가동률:Opratio datepicker
+    // 가동률:Opratio 
     @PostMapping("/chart3")
     public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart3");
@@ -222,7 +222,7 @@ public class EnergyController {
         writer.print(jsonObject.toJSONString());
         System.out.println(jsonObject.toJSONString());
     }
-    // 불량재고 량
+    // 불량 
     @PostMapping("/chart11")
     public void FAL(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart11");
@@ -275,7 +275,7 @@ public class EnergyController {
          writer.print(jsonArray.toJSONString());
          System.out.println(jsonArray.toJSONString());   
     }
-    // 안전재고 대비  총 재고량차트 연결
+    // 안전재고 대비  총 재고량차트 
     @PostMapping("/chart14")
     public void doChart14(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
         System.out.println("[ChartController] /chart14");

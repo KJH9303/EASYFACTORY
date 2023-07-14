@@ -287,7 +287,7 @@ public class EnergyDAO {
         return list;
     }
     
-    // 불량재고량
+    // 불량
     public List<EnergyVO> getFal(String startDate, String endDate) {
         String sql = "SELECT ROUND(SUM(SUM_FAL), 2) AS SUM_FAL "
                 + "FROM FEB_DSUM "
