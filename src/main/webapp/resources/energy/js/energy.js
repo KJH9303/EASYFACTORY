@@ -1,129 +1,304 @@
   	// 각 공정별 가동률 평균 차트
-    function FebOpratioChart(vals) {
-      var dom = document.getElementById('FebOpratio_Chart');
-      var myChart = echarts.init(dom, null, {
-        renderer: 'canvas',
-        useDirtyRect: false
-      });
-        var option = {
-                xAxis: {
-                  type: 'category',
-                  data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
-                },
-        yAxis: {type: 'value'},
-        series: [{
-            data: vals,
-            type: 'bar',
-            showBackground: true,
-            backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
-        }],
-	    grid: {
-	        top: 20, // 상단 여백
-	        bottom: 20, // 하단 여백
-	        left: 30, // 좌측 여백
-	        right: 10 // 우측 여백
-	    }
-      };
-      if (option && typeof option === 'object') {
-        myChart.setOption(option);
-      }
-      window.addEventListener('resize', myChart.resize);
-    }
+ function FebOpratioChart(chartData) {
+	   console.log("FebOpratio_Chart([" + chartData + "])");
+	   var myChart = echarts.init(document.getElementById('FebOpratio_Chart'));
+	   var option = {
+	       title: {
+	           text: '각 공정별 가동률 평균',
+	           subtext: '단위 (%)'
+	       },
+	       tooltip: {
+	           trigger: 'axis'
+	       },
+	       legend: {
+	           data: ['가동률']
+	       },
+	       toolbox: {
+	           show: true,
+	           feature: {
+	               dataView: {show: true,readOnly: false},
+	               magicType: {show: true, type: ['line', 'bar']},
+	               restore: {show: true},
+	               saveAsImage: {show: true}
+	           }
+	       },
+	       calculable: true,
+	       xAxis: [{
+	           type: 'category',
+	           data: ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정']
+	       }],
+	       yAxis: [{
+	           type: 'value'
+	       }],
+	       series: [
+	           {
+	               name: '가동률',
+	               type: 'bar',
+	               data: [],
+	                itemStyle: {
+            		color: '#37a2da' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
+	                 
+	               markPoint: {
+	                   data: [{type: 'max',name: '최대값'},
+	                       {type: 'min',name: '최소값'}]},
+	               markLine: {
+	                   data: [{type: 'average',name: '평균값'}]
+	                   
+	               }
+	           }
+	       ]
+	   }; // option 
+	   myChart.setOption(option);
+	   window.addEventListener('resize', myChart.resize);
+	   var xAxisData = ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정'];
+	   myChart.setOption({
+	         xAxis: {
+	             data: xAxisData
+	         },
+	         series: [
+	             {
+	                 name: '가동률',
+	                 data: chartData,
+	                 
+	                 
+	             }
+	             
+	         ],
+	 	    grid: {
+		        top: 80, // 상단 여백
+		        bottom: 20, // 하단 여백
+		        left: 40, // 좌측 여백
+		        right: 40 // 우측 여백
+		    }
+	     });
+	}  // function FebOpratio_Chart
+	
 	// 각 공정별 총생산량 합계 차트
-	   function FebTrChart(vals) {
-	     var dom = document.getElementById('FebTr_Chart');
-	     var myChart = echarts.init(dom, null, {
-	       renderer: 'canvas',
-	       useDirtyRect: false
-	     });
-	       var option = {
-	               xAxis: {
-	                 type: 'category',
-	                 data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
-	               },
-	       yAxis: {type: 'value'},
-	       series: [{
-	           data: vals,
-	           type: 'bar',
-	           showBackground: true,
-	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
+	   function FebTrChart(chartData) {
+	    	   console.log("FebTr_Chart([" + chartData + "])");
+	   var myChart = echarts.init(document.getElementById('FebTr_Chart'));
+	   var option = {
+	       title: {
+	           text: '각 공정별 생산량 합계',
+	           subtext: '단위 (EA)'
+	       },
+	       tooltip: {
+	           trigger: 'axis'
+	       },
+	       legend: {
+	           data: ['생산량']
+	       },
+	       toolbox: {
+	           show: true,
+	           feature: {
+	               dataView: {show: true,readOnly: false},
+	               magicType: {show: true, type: ['line', 'bar']},
+	               restore: {show: true},
+	               saveAsImage: {show: true}
+	           }
+	       },
+	       calculable: true,
+	       xAxis: [{
+	           type: 'category',
+	           data: ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정']
 	       }],
-		    grid: {
-		        top: 20, // 상단 여백
-		        bottom: 20, // 하단 여백
-		        left: 30, // 좌측 여백
-		        right: 10 // 우측 여백
-		    }
-	     };
-	     if (option && typeof option === 'object') {
-	       myChart.setOption(option);
-	     }
-	     window.addEventListener('resize', myChart.resize);
-	   }   
-	// 각 공정별 총 전기사용 비용 합계 차트
-	   function FebCostChart(vals) {
-	     var dom = document.getElementById('FebCost_Chart');
-	     var myChart = echarts.init(dom, null, {
-	       renderer: 'canvas',
-	       useDirtyRect: false
-	     });
-	       var option = {
-	               xAxis: {
-	                 type: 'category',
-	                 data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
-	               },
-	       yAxis: {type: 'value'},
-	       series: [{
-	           data: vals,
-	           type: 'bar',
-	           showBackground: true,
-	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
+	       yAxis: [{
+	           type: 'value'
 	       }],
-		    grid: {
-		        top: 20, // 상단 여백
+	       series: [
+	           {
+	               name: '생산량',
+	               type: 'bar',
+	               data: [],
+	                 
+	               markPoint: {
+	                   data: [{type: 'max',name: '최대값'},
+	                       {type: 'min',name: '최소값'}]},
+	               markLine: {
+	                   data: [{type: 'average',name: '평균값'}]
+	                   
+	               }
+	           }
+	       ]
+	   }; // option 
+	   myChart.setOption(option);
+	   window.addEventListener('resize', myChart.resize);
+	   var xAxisData = ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정'];
+	   myChart.setOption({
+	         xAxis: {
+	             data: xAxisData
+	         },
+	         series: [
+	             {
+	                 name: '생산량',
+	                 data: chartData,
+	                  itemStyle: {
+            		color: '#ff3333' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
+	                 
+	             }
+	             
+	         ],
+	 	    grid: {
+		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
-		        left: 30, // 좌측 여백
-		        right: 10 // 우측 여백
+		        left: 70, // 좌측 여백
+		        right: 70 // 우측 여백
 		    }
-	     };
-	     if (option && typeof option === 'object') {
-	       myChart.setOption(option);
-	     }
-	     window.addEventListener('resize', myChart.resize);
-	   }   
+	     });
+	}  // function FebTr_Chart
+	
+	// 각 공정별 총 에너지사용 비용 합계 차트
+	   function FebCostChart(chartData) {
+	        	   console.log("FebCost_Chart([" + chartData + "])");
+	   var myChart = echarts.init(document.getElementById('FebCost_Chart'));
+	   var option = {
+	       title: {
+	           text: '각 공정별 에너지 사용 비용 합계',
+	           subtext: '단위 (EA)'
+	       },
+	       tooltip: {
+	           trigger: 'axis'
+	       },
+	       legend: {
+	           data: ['에너지 사용 비용']
+	       },
+	       toolbox: {
+	           show: true,
+	           feature: {
+	               dataView: {show: true,readOnly: false},
+	               magicType: {show: true, type: ['line', 'bar']},
+	               restore: {show: true},
+	               saveAsImage: {show: true}
+	           }
+	       },
+	       calculable: true,
+	       xAxis: [{
+	           type: 'category',
+	           data: ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정']
+	       }],
+	       yAxis: [{
+	           type: 'value'
+	       }],
+	       series: [
+	           {
+	               name: '에너지 사용 비용',
+	               type: 'bar',
+	               data: [],
+	                 
+	               markPoint: {
+	                   data: [{type: 'max',name: '최대값'},
+	                       {type: 'min',name: '최소값'}]},
+	               markLine: {
+	                   data: [{type: 'average',name: '평균값'}]
+	                   
+	               }
+	           }
+	       ]
+	   }; // option 
+	   myChart.setOption(option);
+	   window.addEventListener('resize', myChart.resize);
+	   var xAxisData = ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정'];
+	   myChart.setOption({
+	         xAxis: {
+	             data: xAxisData
+	         },
+	         series: [
+	             {
+	                 name: '에너지 사용 비용',
+	                 data: chartData,
+	                  itemStyle: {
+            		color: '#008120' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
+	                 
+	             }
+	             
+	         ],
+	 	    grid: {
+		        top: 80, // 상단 여백
+		        bottom: 20, // 하단 여백
+		        left: 70, // 좌측 여백
+		        right: 70 // 우측 여백
+		    }
+	     });
+	}  // function FebTr_Chart
    
-   
-	// 각 공정별 총 전기사용량 합계 차트
-	   function FebUsingratioChart(vals) {
-	     var dom = document.getElementById('FebUsingratio_Chart');
-	     var myChart = echarts.init(dom, null, {
-	       renderer: 'canvas',
-	       useDirtyRect: false
-	     });
-	  	       var option = {
-	               xAxis: {
-	                 type: 'category',
-	                 data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
-	               },
-	       yAxis: {type: 'value'},
-	       series: [{
-	           data: vals,
-	           type: 'bar',
-	           showBackground: true,
-	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
+	// 각 공정별 총 에너지사용량 합계 차트
+	   function FebUsingratioChart(chartData) {
+	    	        	   console.log("FebUsingratio_Chart([" + chartData + "])");
+	   var myChart = echarts.init(document.getElementById('FebUsingratio_Chart'));
+	   var option = {
+	       title: {
+	           text: '각 공정별 에너지 사용량 합계',
+	           subtext: '단위 (kWh)'
+	       },
+	       tooltip: {
+	           trigger: 'axis'
+	       },
+	       legend: {
+	           data: ['에너지 사용량']
+	       },
+	       toolbox: {
+	           show: true,
+	           feature: {
+	               dataView: {show: true,readOnly: false},
+	               magicType: {show: true, type: ['line', 'bar']},
+	               restore: {show: true},
+	               saveAsImage: {show: true}
+	           }
+	       },
+	       calculable: true,
+	       xAxis: [{
+	           type: 'category',
+	           data: ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정']
 	       }],
-		    grid: {
-		        top: 20, // 상단 여백
+	       yAxis: [{
+	           type: 'value'
+	       }],
+	       series: [
+	           {
+	               name: '에너지 사용량',
+	               type: 'bar',
+	               data: [],
+	                 
+	               markPoint: {
+	                   data: [{type: 'max',name: '최대값'},
+	                       {type: 'min',name: '최소값'}]},
+	               markLine: {
+	                   data: [{type: 'average',name: '평균값'}]
+	                   
+	               }
+	           }
+	       ]
+	   }; // option 
+	   myChart.setOption(option);
+	   window.addEventListener('resize', myChart.resize);
+	   var xAxisData = ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정'];
+	   myChart.setOption({
+	         xAxis: {
+	             data: xAxisData
+	         },
+	         series: [
+	             {
+	                 name: '에너지 사용량',
+	                 data: chartData,
+	                  itemStyle: {
+            		color: '#ffbf00' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
+	                 
+	             }
+	             
+	         ],
+	 	    grid: {
+		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
-		        left: 30, // 좌측 여백
-		        right: 10 // 우측 여백
+		        left: 70, // 좌측 여백
+		        right: 70 // 우측 여백
 		    }
-	     };
-	     if (option && typeof option === 'object') {
-	       myChart.setOption(option);
-	     }
-	     window.addEventListener('resize', myChart.resize);
-	   }   
+	     });
+	}  // function FebUsingratio_Chart
+	
    // 에너지 사용비용 대비 총 생산량 차트
    function CostsTrChart(febcosts, febtr) {
 	   console.log("CostsTrChart([" + febcosts + "], [" + febtr + "])");
@@ -160,6 +335,10 @@
 	               name: '비용',
 	               type: 'bar',
 	               data: [],
+	                itemStyle: {
+            		color: '#008120' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
+	               
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
@@ -171,6 +350,9 @@
 	               name: '생산량',
 	               type: 'bar',
 	               data: [],
+	                itemStyle: {
+            		color: '#ff3333' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
@@ -199,8 +381,8 @@
 	 	    grid: {
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
-		        left: 30, // 좌측 여백
-		        right: 10 // 우측 여백
+		        left: 60, // 좌측 여백
+		        right: 60 // 우측 여백
 		    }
 	     });
 	}  // function CostsTrChart
@@ -243,6 +425,9 @@
 	               name: '비용',
 	               type: 'bar',
 	               data: [],
+	                itemStyle: {
+            		color: '#008120' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
@@ -254,6 +439,9 @@
 	               name: '에너지 사용량',
 	               type: 'bar',
 	               data: [],
+	               itemStyle: {
+            		color: '#ffbf00' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
@@ -282,8 +470,8 @@
 	 	    grid: {
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
-		        left: 30, // 좌측 여백
-		        right: 10 // 우측 여백
+		        left: 50, // 좌측 여백
+		        right: 50 // 우측 여백
 		    }
 	     });
 	}  // function CostsUsingratioChart
