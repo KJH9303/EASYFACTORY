@@ -1,39 +1,193 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.feb.main.UpdateMain" %>
 
 <!DOCTYPE html>
-<html lang="ko" style="height: 100%">
+<html lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.2.1/echarts.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<style>
-	table {
-		width: 25%;
-           justify-content: center;
-		border-collapse: collapse;
-	}
-	tr:nth-child(2n) {
-		background: #f0f0f0;
-	}
-	th, 
-	td {
-		border: 1px solid black;
-		padding: 8px;
-		text-align: center;
-		border-color: #e0e0e0;
-	}
-	.totals-row {
-		font-weight: bold;
-	}
-
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../../../resources/feb/css/feb.css?after">
+  <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+  
 </head>
 <body>
+<div id="headerContainer"></div>
+<div class="flex-1 h-full">
+
+  
+  <!-- Main content -->
+  <main>
+    
+    <!-- Content header -->
+    <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
+    </div>
+    
+    <!-- Content -->
+    <div class="mt-2">
+      
+      <!-- Stock cards -->
+      <div class="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2 xl:grid-cols-4">
+        
+        <!-- Stock card -->
+        <div class="flex items-center justify-between p-4 bg-white">
+          <div>
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+              총 재고
+            </h6>
+    		<span class="text-xl font-semibold stock-total"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : EA)
+            </span>
+          </div>
+        </div>
+
+        <!-- Tr card -->
+        <div class="flex items-center justify-between p-4 bg-white">
+          <div>
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+              정상품 수
+            </h6>
+   			<span class="text-xl font-semibold tr-total"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : EA)</span>
+          </div>
+        </div>
+
+        <!-- Fal card -->
+        <div class="flex items-center justify-between p-4 bg-white">
+          <div>
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+              불량품 수
+            </h6>
+            <span class="text-xl font-semibold fal-total"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : EA)</span>            
+          </div>
+        </div>
+
+        <!-- Usingratio card -->
+        <div class="flex items-center justify-between p-4 bg-white">
+          <div>
+            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+              장비가동률
+            </h6>
+            <span class="text-xl font-semibold opratio-avg"></span>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : %)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- gauge Chart -->
+      <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
+		<!-- Doughnut chart card -->
+        <div class="bg-white rounded-md">
+          <!-- Card header -->
+          <div class="flex items-center p-4 border-b">
+            <h4 class="text-lg font-semibold text-gray-500">온도</h4>
+            <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
+              (단위 : ℃)</span>
+          </div>
+          <!-- Chart -->
+          <div class="relative p-4 h-72">
+            <div id="gaugeChart"></div>
+          </div>
+        </div>
+
+        <!-- opratioChart card -->
+        <div class="col-span-2 bg-white rounded-md">
+          <!-- Card header -->
+          <div class="flex items-center justify-between p-4 border-b">
+            <h4 class="text-lg font-semibold text-gray-500"> 장비 가동률</h4>
+            <!-- DatePicker -->
+            <div class="flex items-center space-x-2">
+      	    <div>
+		        <input type="date" id="startDate_opratio" name="startDate">
+		        <input type="date" id="endDate_opratio" name="endDate">
+		        <button onClick="fetchChartData('opratio')" style="background-color: black; color: white;">GET</button>
+		        <button onClick="clearDatePicker('opratio')" style="background-color: white;">CLEAR</button>
+	   		</div>
+            </div>
+          </div>
+          <!-- Chart -->
+          <div class="relative p-4 h-72">
+             <div id="opratioChart"></div>
+          </div>
+        </div>
+
+        <!-- Defect monitoring -->
+        <div class="bg-white rounded-md">
+          <!-- Card header -->
+          <div class="flex items-center justify-between p-4 border-b border-color ">
+            <h4 class="text-lg font-semibold-defect text-gray-500s">DEFECT MONITORING</h4>
+          </div>
+          <!-- Chart -->
+          <div class="relative p-4 h-72" style= "overflow: auto">
+            <table>
+	            <tr>
+	           	</tr>
+           		<tr>
+        			<td id="previousDefects" style="font-size: 15px;"></td>
+	        	</tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two grid columns -->
+      <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
+		<!-- Bar chart card -->
+        <div class="col-span-2 bg-white rounded-md">
+          <!-- Card header -->
+          <div class="flex items-center justify-between p-4 border-b">
+            <h4 class="text-lg font-semibold text-gray-500"> 전기 사용량</h4>
+            <!-- DatePicker -->
+            <div class="flex items-center space-x-2">
+      	    <div>
+		        <input type="date" id="startDate_usingratio" name="startDate">
+		        <input type="date" id="endDate_usingratio" name="endDate">
+		        <button onClick="fetchChartData('usingratio')" style="background-color: black; color: white;">GET</button>
+		        <button onClick="clearDatePicker('usingratio')" style="background-color: white;">CLEAR</button>
+	   		</div>
+            </div>
+          </div>
+          <!-- Chart -->
+          <div class="relative p-4 h-72">
+            <div id="usingratioChart"></div>
+          </div>
+        </div>
+		
+        <!-- Bar chart card -->
+        <div class="col-span-2 bg-white rounded-md">
+          <!-- Card header -->
+          <div class="flex items-center justify-between p-4 border-b">
+            <h4 class="text-lg font-semibold text-gray-500"> 전기사용 비용</h4>
+            <!-- DatePicker -->
+            <div class="flex items-center space-x-2">
+      	    <div>
+		        <input type="date" id="startDate_costs" name="startDate">
+		        <input type="date" id="endDate_costs" name="endDate">
+		        <button onClick="fetchChartData('costs')" style="background-color: black; color: white;">GET</button>
+		        <button onClick="clearDatePicker('costs')" style="background-color: white;">CLEAR</button>
+	   		</div>
+            </div>
+          </div>
+          <!-- Chart -->
+          <div class="relative p-4 h-72">
+            <div id="costsChart"></div>
+          </div>
+		</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
 	<script>
 	let opratioChart, gaugeChart, usingratioChart, costsChart;
 	
@@ -48,7 +202,7 @@
 	        case "opratio":
 	            startDateInputId = "startDate_opratio";
 	            endDateInputId = "endDate_opratio";
-	            uri = "/feb/select-data-feb1";
+	            uri = "/feb/select-data-feb6";
 	            updateChartFunc = updateOpratioChart;
 	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
 	            	opratio = false;
@@ -59,7 +213,7 @@
 	        case "usingratio":
 	            startDateInputId = "startDate_usingratio";
 	            endDateInputId = "endDate_usingratio";
-	            uri = "/feb/select-data-feb1";
+	            uri = "/feb/select-data-feb6";
 	            updateChartFunc = updateUsingratioChart;
 	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
 	            	usingratio = false;
@@ -70,7 +224,7 @@
 	        case "costs":
 	            startDateInputId = "startDate_costs";
 	            endDateInputId = "endDate_costs";
-	            uri = "/feb/select-data-feb1";
+	            uri = "/feb/select-data-feb6";
 	            updateChartFunc = updateCostsChart;
 	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
 	            	costs = false;
@@ -86,7 +240,7 @@
 
 	    $.ajax({
 	        type: "GET",
-	        url: "/feb/select-data-feb1",
+	        url: "/feb/select-data-feb6",
 	        data: {
 	        	startDate: startDate,
 	        	endDate: endDate
@@ -136,7 +290,7 @@
 	function fetchData() {
 		$.ajax({
 			type: "GET",
-			url: "/feb/select-data-feb1",
+			url: "/feb/select-data-feb6",
 			dataType: "json",
 			data: {
 		        	startDate: "2023-01-01",
@@ -167,42 +321,44 @@
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생:(/feb/select-data-feb1) ${errorThrown}`);
+				alert(`에러 발생:(/feb/select-data-feb6) ${errorThrown}`);
 			}
 		});
-		setTimeout(fetchData, 3000); // 10초마다 데이터 새로 고침
+		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
 	}
 	
 	function updateTableData(dataList) {
+		  const today = new Date().toISOString().split('T')[0];
 		  let total = {
 		    stock: 0,
 		    tr: 0,
 		    fal: 0,
-		  };
-		  let avg = {
 		    opratio: 0,
 		  };
 
-		  let rowCount = dataList.length;
+		  let rowCount = 0;
 
 		  dataList.forEach(function (data) {
-		    const stock = parseInt(data.stock);
-		    const tr = parseInt(data.tr);
-		    const fal = parseInt(data.fal);
-		    const opratio = parseInt(data.opratio);
+		    if (data.hiredate === today) {
+		      rowCount++;
+		      const stock = parseInt(data.stock);
+		      const tr = parseInt(data.tr);
+		      const fal = parseInt(data.fal);
+		      const opratio = parseFloat(data.opratio);
 
-		    total.stock += stock;
-		    total.tr += tr;
-		    total.fal += fal;
-		    avg.opratio += opratio;
+		      total.stock += stock;
+		      total.tr += tr;
+		      total.fal += fal;
+		      total.opratio += opratio;
+		    }
 		  });
 
-		  const avgOpRatio = avg.opratio / rowCount;
+		  const opratioDecimal = total.opratio.toFixed(1);
 
 		  document.querySelector('.stock-total').textContent = total.stock.toLocaleString();
 		  document.querySelector('.tr-total').textContent = total.tr.toLocaleString();
 		  document.querySelector('.fal-total').textContent = total.fal.toLocaleString();
-		  document.querySelector('.opratio-avg').textContent = avgOpRatio.toFixed(2);
+		  document.querySelector('.opratio-avg').textContent = opratioDecimal;
 		}
 
 	// 가동률 바차트 ===================================================================================================================
@@ -214,17 +370,15 @@
 	  let currentDate = new Date();
 	  let currentMonth = currentDate.getMonth();
 	  let currentYear = currentDate.getFullYear();
-	  
+	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
 	      let dateString = data.hiredate.split('-')[2];
-	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
-	        dateList.push(dateString);
-	        displayData.push(data.opratio);
-	      }
+	      dateList.push(dateString);
+	      displayData.push(data.opratio);
 	    });
 	  } else {
 	    dateList = [];
@@ -237,9 +391,9 @@
 	        displayData.push(data.opratio);
 	      }
 	    });
-	    /*  */
+	
 	    window.addEventListener('resize', function () {
-	        opratioChart.resize();
+	      opratioChart.resize();
 	    });
 	  }
 	  
@@ -313,10 +467,7 @@
 	
 	    if (!gaugeChart) {
 	        gaugeChart = echarts.init(document.getElementById('gaugeChart'));
-	        
-	        window.addEventListener('resize', function () {
-	            gaugeChart.resize();
-	        });
+
 	    }
 	
 	    const option = {
@@ -357,13 +508,9 @@
 	                    fontFamily: 'Arial, sans-serif'
 	                },
 	                pointer: {
-	                    width: 7, 
-	                    length: '70%', 
-	                    color: 'rgba(255, 255, 255, 0.8)'
-	                },
-	                itemStyle: {
-	                    color: 'auto'
-	                },
+	                    width: 7,
+	                    length: "70%",
+	                  },
 	                detail: {
 	                    valueAnimation: true,
 	                    color: 'auto',
@@ -371,7 +518,7 @@
 	                    fontFamily: 'Arial, sans-serif',
 	                    fontWeight: 'bold'
 	                },
-	                data: [{ value: todayTemp }]
+	                  data: [{ value: todayTemp, itemStyle: { color: "auto" } }],
 	            }]
 	        };
 	    // 차트 옵션 설정 및 렌더링
@@ -387,17 +534,15 @@
 	  let currentDate = new Date();
 	  let currentMonth = currentDate.getMonth();
 	  let currentYear = currentDate.getFullYear();
-	  
+	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
 	      let dateString = data.hiredate.split('-')[2];
-	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
-	        dateList.push(dateString);
-	        displayData.push(data.usingratio);
-	      }
+	      dateList.push(dateString);
+	      displayData.push(data.usingratio);
 	    });
 	  } else {
 	    dateList = [];
@@ -410,12 +555,12 @@
 	        displayData.push(data.usingratio);
 	      }
 	    });
-	    
-		window.addEventListener('resize', function () {
-		    usingratioChart.resize();
-		});
+	
+	    window.addEventListener('resize', function () {
+	      opratioChart.resize();
+	    });
 	  }
-	  
+
 	  var option = {
 			    tooltip: {
 			        trigger: "axis",
@@ -489,7 +634,7 @@
 	                $('#previousDefects').prepend('<li>' + result + '</li>');
 	            },
 	            complete: function() {
-	                setTimeout(updateRandomDefect, 2000);
+	                setTimeout(updateRandomDefect, 3000);
 	            }
 	        });
 	    }
@@ -505,17 +650,15 @@
 	  let currentDate = new Date();
 	  let currentMonth = currentDate.getMonth();
 	  let currentYear = currentDate.getFullYear();
-	  
+	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
 	      let dateString = data.hiredate.split('-')[2];
-	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
-	        dateList.push(dateString);
-	        displayData.push(data.costs);
-	      }
+	      dateList.push(dateString);
+	      displayData.push(data.costs);
 	    });
 	  } else {
 	    dateList = [];
@@ -528,10 +671,10 @@
 	        displayData.push(data.costs);
 	      }
 	    });
-	    
-		window.addEventListener('resize', function () {
-			costsChart.resize();
-		});
+	
+	    window.addEventListener('resize', function () {
+	      opratioChart.resize();
+	    });
 	  }
 	  
 	  var option = {
@@ -598,62 +741,12 @@
 	$(document).ready(function(){
 		fetchData();
 	});
+	window.addEventListener('resize', function () {
+	    opratioChart.resize();
+	    usingratioChart.resize();
+	    costsChart.resize();
+	    gaugeChart.resize();
+	});
 	</script>
-
-	<table>
-		<thead>
-			<tr>
-				<th>재고</th>
-				<th>정상품</th>
-				<th>불량품</th>
-				<th>장비가동률</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<tr class="totals-row">
-				<td class="stock-total"></td>
-				<td class="tr-total"></td>
-				<td class="fal-total"></td>
-				<td class="opratio-avg"></td>
-			</tr>
-		</tbody>
-		
-	</table>
-	<button onClick="fetchData()">데이터 새로 고침</button>
-		<h3>장비가동률</h3>
-	    <div>
-	        <span>시작 날짜: <input type="date" id="startDate_opratio" name="startDate"></span>
-	        <span>종료 날짜: <input type="date" id="endDate_opratio" name="endDate"></span>
-	        <button onClick="fetchChartData('opratio')">데이터 가져오기</button>
-	    </div>
-		  <div style="display: flex;">
-	      <div id="opratioChart" style="width:50%; height:300px;"></div>
-	    <h3>온도</h3>
-	    <div id="gaugeChart" style="width:50%; height:300px;"></div>
-	</div>
-
-		<h3>전기사용량</h3>
-	    <div>
-	        <span>시작 날짜: <input type="date" id="startDate_usingratio" name="startDate"></span>
-	        <span>종료 날짜: <input type="date" id="endDate_usingratio" name="endDate"></span>
-	        <button onClick="fetchChartData('usingratio')">데이터 가져오기</button>
-	    </div>
-		  	<div style="display: flex;">
-	    <div id="usingratioChart" style="width:50%; height:300px;"></div>
-	    <div class="current-defect-container" style="width:50%; height:300px;">
-	        <h2>실시간 불량 현황</h2>
-	        <ul id="previousDefects"></ul>
-    </div></div>
-
-		<h3>비용</h3>
-	    <div>
-	        <span>시작 날짜: <input type="date" id="startDate_costs" name="startDate"></span>
-	        <span>종료 날짜: <input type="date" id="endDate_costs" name="endDate"></span>
-	        <button onClick="fetchChartData('costs')">데이터 가져오기</button>
-	    </div>
-		  <div style="display: flex; justify-content: left; width: 100%; height: 300px;">
-	    <div id="costsChart" style="width:50%; height:100%;"></div>
-	</div>
 </body>
 </html>

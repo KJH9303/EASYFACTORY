@@ -1,12 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="ko" style="height: 100%">
 <head>
-<meta charset="UTF-8">
-<title>Feb1</title>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.2.1/echarts.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
 	table {
 		width: 25%;
@@ -26,15 +30,576 @@
 	.totals-row {
 		font-weight: bold;
 	}
-    .chart-container {
-        display: flex;
-        flex-flow: row wrap; 
-        justify-content: center;
-    }
+
 </style>
 </head>
 <body>
-	<h1>1공정의 모니터링</h1>
+	<script>
+	let opratioChart, gaugeChart, usingratioChart, costsChart;
+	
+	var opratio = null;
+	var usingratio = null;
+	var costs = null;
+	
+	function fetchChartData(type) {
+	    var startDateInputId, endDateInputId, uri, updateChartFunc;
+
+	    switch (type) {
+	        case "opratio":
+	            startDateInputId = "startDate_opratio";
+	            endDateInputId = "endDate_opratio";
+	            uri = "/feb/select-data-feb1";
+	            updateChartFunc = updateOpratioChart;
+	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
+	            	opratio = false;
+	            }
+	            opratio = true;
+	            break;
+
+	        case "usingratio":
+	            startDateInputId = "startDate_usingratio";
+	            endDateInputId = "endDate_usingratio";
+	            uri = "/feb/select-data-feb1";
+	            updateChartFunc = updateUsingratioChart;
+	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
+	            	usingratio = false;
+	            }
+	            usingratio = true;
+	            break;
+	            
+	        case "costs":
+	            startDateInputId = "startDate_costs";
+	            endDateInputId = "endDate_costs";
+	            uri = "/feb/select-data-feb1";
+	            updateChartFunc = updateCostsChart;
+	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
+	            	costs = false;
+	            }
+	            costs = true;
+	            break;
+	    }
+
+	    var startDate = $("#" + startDateInputId).val();
+	    var endDate = $("#" + endDateInputId).val();
+	    
+	    //alert("Data 요청 확인: [" + type + "] : " + startDateInputId + "=" + startDate + ", " + endDateInputId + "=" + endDate);
+
+	    $.ajax({
+	        type: "GET",
+	        url: "/feb/select-data-feb1",
+	        data: {
+	        	startDate: startDate,
+	        	endDate: endDate
+	        },
+	        dataType: "json",
+	        success: function(response) {
+	            if (response.Error) {
+	                alert(response.Error);
+	            } else {
+	                var dataList = response;
+	                
+	                updateChartFunc(dataList);
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            alert(`에러 발생:(/feb/feb1) ${errorThrown}`);
+	        }
+	    });
+	}
+
+	function clearDatePicker(type) {
+		var startDateInputId, endDateInputId, uri, updateChartFunc;
+
+	    switch (type) {
+	        case "opratio":
+	            startDateInputId = "startDate_opratio";
+	            endDateInputId = "endDate_opratio";
+	            opratio = false;
+	            break;
+
+	        case "usingratio":
+	            startDateInputId = "startDate_usingratio";
+	            endDateInputId = "endDate_usingratio";
+	            usingratio = false;
+	            break;
+	            
+	        case "costs":
+	            startDateInputId = "startDate_costs";
+	            endDateInputId = "endDate_costs";
+	            costs = false;
+	            break;
+	    }
+	    $("#" + startDateInputId).val("");
+	    $("#" + endDateInputId).val("");
+	}
+	// ajax
+	function fetchData() {
+		$.ajax({
+			type: "GET",
+			url: "/feb/select-data-feb1",
+			dataType: "json",
+			data: {
+		        	startDate: "2023-01-01",
+		        	endDate: "2023-12-31"
+		    },
+			success: function(response) {
+				if (response.Error) {
+					alert(response.Error);
+				} else {
+					let dataList = response;
+					let tbody = $("table tbody");
+
+					updateTableData(dataList); 			// 테이블 업데이트
+					
+					if(opratio != true) {
+						updateOpratioChart(dataList); 		// 가동률 바차트 업데이트
+					}
+					
+					updateGaugeChart(dataList); 		// 게이지 차트 업데이트
+
+					if(usingratio != true) {
+						updateUsingratioChart(dataList);	// 전기사용량 바차트 업데이트
+					}
+					
+					if(costs != true) {
+						updateCostsChart(dataList)			// 전기사용비용 바차트 업데이트
+					}
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				alert(`에러 발생:(/feb/select-data-feb1) ${errorThrown}`);
+			}
+		});
+		setTimeout(fetchData, 3000); // 10초마다 데이터 새로 고침
+	}
+	
+	function updateTableData(dataList) {
+		  let total = {
+		    stock: 0,
+		    tr: 0,
+		    fal: 0,
+		  };
+		  let avg = {
+		    opratio: 0,
+		  };
+
+		  let rowCount = dataList.length;
+
+		  dataList.forEach(function (data) {
+		    const stock = parseInt(data.stock);
+		    const tr = parseInt(data.tr);
+		    const fal = parseInt(data.fal);
+		    const opratio = parseInt(data.opratio);
+
+		    total.stock += stock;
+		    total.tr += tr;
+		    total.fal += fal;
+		    avg.opratio += opratio;
+		  });
+
+		  const avgOpRatio = avg.opratio / rowCount;
+
+		  document.querySelector('.stock-total').textContent = total.stock.toLocaleString();
+		  document.querySelector('.tr-total').textContent = total.tr.toLocaleString();
+		  document.querySelector('.fal-total').textContent = total.fal.toLocaleString();
+		  document.querySelector('.opratio-avg').textContent = avgOpRatio.toFixed(2);
+		}
+
+	// 가동률 바차트 ===================================================================================================================
+	function updateOpratioChart(dataList, dateRange = null) {
+	  if (!opratioChart) {
+	    opratioChart = echarts.init(document.getElementById("opratioChart"));
+	  }
+	  let displayData, dateList;
+	  let currentDate = new Date();
+	  let currentMonth = currentDate.getMonth();
+	  let currentYear = currentDate.getFullYear();
+	  
+	  if (!dateRange) {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
+	        dateList.push(dateString);
+	        displayData.push(data.opratio);
+	      }
+	    });
+	  } else {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
+	        dateList.push(dateString);
+	        displayData.push(data.opratio);
+	      }
+	    });
+	    /*  */
+	    window.addEventListener('resize', function () {
+	        opratioChart.resize();
+	    });
+	  }
+	  
+	  var option = {
+			    tooltip: {
+			        trigger: "axis",
+			        axisPointer: {
+			          type: "shadow",
+			        },
+			        borderWidth: 1,
+			        formatter: function (params) {
+			          if (params.length > 0) {
+			            return params[0].value.toFixed(2);
+			          }
+			          return "-";
+			        },
+			      },
+			      xAxis: {
+			        type: "category",
+			        data: dateList,
+			        axisLabel: {
+			          interval: 0, // 모든 레이블을 표시
+			          textStyle: {
+			            color: "#333", // x축 레이블 텍스트 색상
+			            fontSize: 10, // x축 레이블 텍스트 크기
+			          },
+			        },
+			      },
+			      yAxis: {
+			        type: "value",
+			        axisLine: {
+			          lineStyle: {
+			            color: "#999", // y축 선 색상
+			          },
+			        },
+			        splitLine: {
+			          lineStyle: {
+			            color: "#ccc", // y축 분할 선 색상
+			          },
+			        },
+			        axisLabel: {
+			            fontStyle: "normal", // 폰트 기울기 설정 제거
+			          },
+			      },
+			      series: [
+			        {
+			          data: displayData,
+			          type: "bar",
+			          animationDelay: (idx) => idx * 10,
+			          itemStyle: {
+			            color: "#37a2da", // 막대 색상
+			          },
+			        },
+			      ],
+	    // grid 옵션 추가
+	    grid: {
+	        top: 20, // 상단 여백
+	        bottom: 20, // 하단 여백
+	        left: 30, // 좌측 여백
+	        right: 10 // 우측 여백
+	    }
+	  };
+	  opratioChart.setOption(option);
+	}
+
+	// 게이지 차트 ===================================================================================================================
+	function updateGaugeChart(dataList) {
+	    const today = new Date().toISOString().split('T')[0]; // 오늘 날짜를 yyyy-mm-dd 형식으로 가져옴
+	    const todayData = dataList.find(data => data.hiredate === today); // 오늘의 데이터를 찾음
+	    const todayTemp = parseFloat(todayData.temp); // 오늘의 온도값을 가져옴
+	
+	    if (!gaugeChart) {
+	        gaugeChart = echarts.init(document.getElementById('gaugeChart'));
+	        
+	        window.addEventListener('resize', function () {
+	            gaugeChart.resize();
+	        });
+	    }
+	
+	    const option = {
+	            series: [{
+	                type: 'gauge',
+	                min: 0,
+	                max: 15,
+	                radius: '100%', 
+	                splitNumber: 2,
+	                startAngle: 210, 
+	                endAngle: -30,
+	                axisLine: {
+	                    lineStyle: {
+	                        width: 15, 
+	                        color: [
+	                            [0.3, '#67e0e3'],
+	                            [0.7, '#37a2da'],
+	                            [1, '#fd666d']
+	                        ]
+	                    }
+	                },
+	                axisTick: {
+	                    length: 10, 
+	                    lineStyle: {
+	                        color: 'auto'
+	                    }
+	                },
+	                splitLine: {
+	                    length: 25, 
+	                    lineStyle: {
+	                        color: 'auto'
+	                    }
+	                },
+	                axisLabel: {
+	                    distance: 20,
+	                    color: '#aaa',
+	                    fontSize: 10,
+	                    fontFamily: 'Arial, sans-serif'
+	                },
+	                pointer: {
+	                    width: 7, 
+	                    length: '70%', 
+	                    color: 'rgba(255, 255, 255, 0.8)'
+	                },
+	                itemStyle: {
+	                    color: 'auto'
+	                },
+	                detail: {
+	                    valueAnimation: true,
+	                    color: 'auto',
+	                    fontSize: 30,
+	                    fontFamily: 'Arial, sans-serif',
+	                    fontWeight: 'bold'
+	                },
+	                data: [{ value: todayTemp }]
+	            }]
+	        };
+	    // 차트 옵션 설정 및 렌더링
+	    gaugeChart.setOption(option);
+		}
+	
+	// 전기사용량 바차트 ===================================================================================================================
+	function updateUsingratioChart(dataList, dateRange = null) {
+	  if (!usingratioChart) {
+		  usingratioChart = echarts.init(document.getElementById("usingratioChart"));
+	  }
+	  let displayData, dateList;
+	  let currentDate = new Date();
+	  let currentMonth = currentDate.getMonth();
+	  let currentYear = currentDate.getFullYear();
+	  
+	  if (!dateRange) {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
+	        dateList.push(dateString);
+	        displayData.push(data.usingratio);
+	      }
+	    });
+	  } else {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
+	        dateList.push(dateString);
+	        displayData.push(data.usingratio);
+	      }
+	    });
+	    
+		window.addEventListener('resize', function () {
+		    usingratioChart.resize();
+		});
+	  }
+	  
+	  var option = {
+			    tooltip: {
+			        trigger: "axis",
+			        axisPointer: {
+			          type: "shadow",
+			        },
+			        borderWidth: 1,
+			        formatter: function (params) {
+			          if (params.length > 0) {
+			            return params[0].value.toFixed(2);
+			          }
+			          return "-";
+			        },
+			      },
+			      xAxis: {
+			        type: "category",
+			        data: dateList,
+			        axisLabel: {
+			          interval: 0, // 모든 레이블을 표시
+			          textStyle: {
+			            color: "#333", // x축 레이블 텍스트 색상
+			            fontSize: 10, // x축 레이블 텍스트 크기
+			          },
+			        },
+			      },
+			      yAxis: {
+			        type: "value",
+			        axisLine: {
+			          lineStyle: {
+			            color: "#999", // y축 선 색상
+			          },
+			        },
+			        splitLine: {
+			          lineStyle: {
+			            color: "#ccc", // y축 분할 선 색상
+			          },
+			        },
+			        axisLabel: {
+			            fontStyle: "normal", // 폰트 기울기 설정 제거
+			          },
+			      },
+			      series: [
+			        {
+			          data: displayData,
+			          type: "bar",
+			          animationDelay: (idx) => idx * 10,
+			          itemStyle: {
+			            color: "#ffbf00", // 막대 색상
+			          },
+			        },
+			      ],
+	    
+	    //grid 옵션 추가
+	    grid: {
+	        top: 20, // 상단 여백
+	        bottom: 20, // 하단 여백
+	        left: 30, // 좌측 여백
+	        right: 10 // 우측 여백
+	    }
+	  };
+	  usingratioChart.setOption(option);
+	}
+
+	// 불량현황 리스트 ===================================================================================================================	
+	$(document).ready(function() {
+	    function updateRandomDefect() {
+	        $.ajax({ 
+	            url: "/feb/Defect",
+	            type: 'GET',
+	            success: function(result) {
+	                $('#previousDefects').prepend('<li>' + result + '</li>');
+	            },
+	            complete: function() {
+	                setTimeout(updateRandomDefect, 2000);
+	            }
+	        });
+	    }
+	    updateRandomDefect();
+	});
+
+	// 전기사용비용 바차트 ===================================================================================================================
+	function updateCostsChart(dataList, dateRange = null) {
+	  if (!costsChart) {
+		  costsChart = echarts.init(document.getElementById("costsChart"));
+	  }
+	  let displayData, dateList;
+	  let currentDate = new Date();
+	  let currentMonth = currentDate.getMonth();
+	  let currentYear = currentDate.getFullYear();
+	  
+	  if (!dateRange) {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate.getMonth() === currentMonth && hireDate.getFullYear() === currentYear) {
+	        dateList.push(dateString);
+	        displayData.push(data.costs);
+	      }
+	    });
+	  } else {
+	    dateList = [];
+	    displayData = [];
+	    dataList.forEach((data) => {
+	      let hireDate = new Date(data.hiredate);
+	      let dateString = data.hiredate.split('-')[2];
+	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
+	        dateList.push(dateString);
+	        displayData.push(data.costs);
+	      }
+	    });
+	    
+		window.addEventListener('resize', function () {
+			costsChart.resize();
+		});
+	  }
+	  
+	  var option = {
+			    tooltip: {
+			        trigger: "axis",
+			        axisPointer: {
+			          type: "shadow",
+			        },
+			        borderWidth: 1,
+			        formatter: function (params) {
+			          if (params.length > 0) {
+			            return params[0].value.toFixed(2);
+			          }
+			          return "-";
+			        },
+			      },
+			      xAxis: {
+			        type: "category",
+			        data: dateList,
+			        axisLabel: {
+			          interval: 0, // 모든 레이블을 표시
+			          textStyle: {
+			            color: "#333", // x축 레이블 텍스트 색상
+			            fontSize: 10, // x축 레이블 텍스트 크기
+			          },
+			        },
+			      },
+			      yAxis: {
+			        type: "value",
+			        axisLine: {
+			          lineStyle: {
+			            color: "#999", // y축 선 색상
+			          },
+			        },
+			        splitLine: {
+			          lineStyle: {
+			            color: "#ccc", // y축 분할 선 색상
+			          },
+			        },
+			        axisLabel: {
+			            fontStyle: "normal", // 폰트 기울기 설정 제거
+			          },
+			      },
+			      series: [
+			        {
+			          data: displayData,
+			          type: "bar",
+			          animationDelay: (idx) => idx * 10,
+			          itemStyle: {
+			            color: "#008120", // 막대 색상
+			          },
+			        },
+			      ],
+	    // grid 옵션 추가
+	    grid: {
+	        top: 20, // 상단 여백
+	        bottom: 20, // 하단 여백
+	        left: 30, // 좌측 여백
+	        right: 10 // 우측 여백
+	    }
+	  };
+	  costsChart.setOption(option);
+	}
+	$(document).ready(function(){
+		fetchData();
+	});
+	</script>
+
 	<table>
 		<thead>
 			<tr>
@@ -55,312 +620,40 @@
 		</tbody>
 		
 	</table>
-	<div style="display: flex;">
-	    <div id="opratioChart" style="width:50%; height:300px;"></div>
+	<button onClick="fetchData()">데이터 새로 고침</button>
+		<h3>장비가동률</h3>
+	    <div>
+	        <span>시작 날짜: <input type="date" id="startDate_opratio" name="startDate"></span>
+	        <span>종료 날짜: <input type="date" id="endDate_opratio" name="endDate"></span>
+	        <button onClick="fetchChartData('opratio')">데이터 가져오기</button>
+	    </div>
+		  <div style="display: flex;">
+	      <div id="opratioChart" style="width:50%; height:300px;"></div>
+	    <h3>온도</h3>
 	    <div id="gaugeChart" style="width:50%; height:300px;"></div>
 	</div>
 
-	<div style="display: flex;">
+		<h3>전기사용량</h3>
+	    <div>
+	        <span>시작 날짜: <input type="date" id="startDate_usingratio" name="startDate"></span>
+	        <span>종료 날짜: <input type="date" id="endDate_usingratio" name="endDate"></span>
+	        <button onClick="fetchChartData('usingratio')">데이터 가져오기</button>
+	    </div>
+		  	<div style="display: flex;">
 	    <div id="usingratioChart" style="width:50%; height:300px;"></div>
 	    <div class="current-defect-container" style="width:50%; height:300px;">
-	        <h1>실시간 불량 현황</h1>
-	        <p id="currentDefect"></p>
-	        <h2>이전 불량 현황</h2>
+	        <h2>실시간 불량 현황</h2>
 	        <ul id="previousDefects"></ul>
     </div></div>
 
-	<div style="display: flex; justify-content: left; width: 100%; height: 300px;">
+		<h3>비용</h3>
+	    <div>
+	        <span>시작 날짜: <input type="date" id="startDate_costs" name="startDate"></span>
+	        <span>종료 날짜: <input type="date" id="endDate_costs" name="endDate"></span>
+	        <button onClick="fetchChartData('costs')">데이터 가져오기</button>
+	    </div>
+		  <div style="display: flex; justify-content: left; width: 100%; height: 300px;">
 	    <div id="costsChart" style="width:50%; height:100%;"></div>
 	</div>
-
-	<script>
-	let opratioChart, gaugeChart, usingratioChart, costsChart;
-
-	// ajax
-	function fetchData() {
-		$.ajax({
-			type: "GET",
-			url: "/feb/select-data",
-			dataType: "json",
-			success: function(response) {
-				if (response.Error) {
-					alert(response);
-					//alert(response.Error);
-				} else {
-					let dataList = response;
-					let tbody = $("table tbody");
-
-					updateTableData(dataList); 			// 테이블 업데이트
-					updateOpratioChart(dataList); 		// 가동률 바차트 업데이트
-					updateGaugeChart(dataList); 		// 게이지 차트 업데이트
-					updateUsingratioChart(dataList);	// 전기사용량 바차트 업데이트
-					updateCostsChart(dataList)			// 전기사용비용 바차트 업데이트
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				alert(response);
-				//alert(`에러 발생: ${errorThrown}`);
-			}
-		});
-		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
-		}
-	
-	function updateTableData(dataList) {
-		let total = {
-			stock: 0,
-			tr: 0,
-			fal: 0,
-		};
-		let avg = {
-			opratio: 0,
-		};
-
-		let rowCount = dataList.length;
-
-	dataList.forEach(function(data) {
-		const stock = parseInt(data.stock);
-		const tr = parseInt(data.tr);
-		const fal = parseInt(data.fal);
-		const opratio = parseInt(data.opratio);
-
-		total.stock += stock;
-		total.tr += tr;
-		total.fal += fal;
-		avg.opratio += opratio;
-	});
-
-	const avgOpRatio = avg.opratio / rowCount;
-
-	$("table .stock-total").text(total.stock);
-	$("table .tr-total").text(total.tr);
-	$("table .fal-total").text(total.fal);
-	$("table .opratio-avg").text(avgOpRatio.toFixed(2));
-	}
-	
-	// 월단위로 가동률,전기사용량,전기사용비용 데이터 평균값 가져오기
-	function calculateMonthlyData(dataList, key) {
-	    var monthlyData = {};
-	
-	    dataList.forEach(function (data) {
-	        var date = new Date(data.hiredate);
-	        var month = date.getMonth();
-	
-	        if (!monthlyData[month]) {
-	            monthlyData[month] = {
-	                count: 0,
-	                sum: 0
-	            };
-	        }
-	
-	        monthlyData[month].count += 1;
-	        monthlyData[month].sum += parseInt(data[key]);
-	    });
-	
-	    return monthlyData;
-	}
-	
-	function getMonthlyAverage(monthlyData) {
-	    var monthlyAverage = [];
-	
-	    for (var month in monthlyData) {
-	        var avg = monthlyData[month].sum / monthlyData[month].count;
-	        monthlyAverage[month] = avg;
-	    }
-	
-	    return monthlyAverage;
-	}
-
-	// 가동률 바차트 ===================================================================================================================
-	function updateOpratioChart(dataList) {
-		var monthlyOpratioData = calculateMonthlyData(dataList, 'opratio');
-		var monthlyOpratioAverage = getMonthlyAverage(monthlyOpratioData);
-
-	    // 차트가 없을 경우에만 새로운 차트 생성
-	    if (!opratioChart) {
-		    opratioChart = echarts.init(document.getElementById("opratioChart"));
-		}
-
-	    var option = {
-	        tooltip: {
-	            trigger: 'axis',
-	            axisPointer: {
-	                type: 'shadow'
-	            },
-	            borderWidth: 1,
-	            formatter: function (params) {
-	                if (params.length > 0) {
-	                    return params[0].value.toFixed(2);
-	                }
-	                return '-';
-	            }
-	        },  	
-	        xAxis: {
-	            type: "category",
-	            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-	        },
-	        yAxis: {
-	            type: "value"		
-	        },
-	        series: [
-	            {
-	                data: monthlyOpratioAverage,
-	                type: "bar",
-                	barWidth: "30%" 
-	            }
-	        ]
-	    };
-	
-		    // 차트 옵션 설정 및 렌더링
-		    opratioChart.setOption(option);
-			}
-
-	// 게이지 차트 ===================================================================================================================
-	function updateGaugeChart(dataList) {
-	    let totalTemp = 0;
-	    const rowCount = dataList.length;
-	
-	    dataList.forEach(function(data) {
-	        totalTemp += parseFloat(data.temp); // parseFloat로 변경
-	    });
-	
-	    const avgTemp = parseFloat((totalTemp / rowCount).toFixed(2)); // 계산 시 소수점 두 자리로 표시하도록 변경
-	
-		if (!gaugeChart) {
-	        gaugeChart = echarts.init(document.getElementById('gaugeChart'));
-	    }
-	
-	    const option = {
-	    	series: [{
-	    		type: 'gauge',
-	    		min: 0,
-	    		max: 15, 
-	    		axisLine: {
-	    			lineStyle: {
-	    				width: 10,
-	    				color: [
-	    					[0.3, '#67e0e3'],
-	    					[0.7, '#37a2da'],
-	    					[1, '#fd666d']
-	    				]
-	    			}
-	    		},
-	    		pointer: {
-	    			itemStyle: {
-	    				color: 'auto'
-	    			}
-	    		},
-	    		data: [{value: avgTemp, name: 'Temp'}]
-	    	}]
-	    };
-	    // 차트 옵션 설정 및 렌더링
-	    gaugeChart.setOption(option);
-		}
-
-	// 전기사용량 바차트 ===================================================================================================================
-	function updateUsingratioChart(dataList) {
-		var monthlyUsingratioData = calculateMonthlyData(dataList, 'usingratio');
-		var monthlyUsingratioAverage = getMonthlyAverage(monthlyUsingratioData);
-
-	 	// 차트가 없을 경우에만 새로운 차트 생성
-	 	if (!usingratioChart) {
-		    usingratioChart = echarts.init(document.getElementById("usingratioChart"));
-		}
-
-	    var option = {
-	        tooltip: {
-	            trigger: 'axis',
-	            axisPointer: {
-	                type: 'shadow'
-	            },
-	            borderWidth: 1,
-	            formatter: function (params) {
-	                if (params.length > 0) {
-	                    return params[0].value.toFixed(2);
-	                }
-	                return '-';
-	            }
-	        },    				
-	        xAxis: {
-	            type: "category",
-	            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-	        },
-	        yAxis: {
-	            type: "value"
-	        },
-		        series: [
-	            {
-                data: monthlyUsingratioAverage,
-                type: "bar",
-                barWidth: "33%" 
-            }]
-	    };
-	    // 차트 옵션 설정 및 렌더링
-		usingratioChart.setOption(option);
-		}
-	
-	// 불량현황 리스트 ===================================================================================================================	
-	$(document).ready(function() {
-	    function updateRandomDefect() {
-	        $.ajax({ 
-	            url: "/feb/Defect",
-	            type: 'GET',
-	            success: function(result) {
-	                $('#currentDefect').text(result);
-	                $('#previousDefects').prepend('<li>' + result + '</li>');
-	            },
-	            complete: function() {
-	                setTimeout(updateRandomDefect, 2000);
-	            }
-	        });
-	    }
-	    updateRandomDefect();
-	});
-
-	// 전기사용비용 바차트 ===================================================================================================================
-	function updateCostsChart(dataList) {
-		var monthlyCostsData = calculateMonthlyData(dataList, 'costs');
-		var monthlyCostsAverage = getMonthlyAverage(monthlyCostsData);
-
-	 	// 차트가 없을 경우에만 새로운 차트 생성
-		if (!costsChart) {
-		    costsChart = echarts.init(document.getElementById("costsChart"));
-		}
-
-	    var option = {
-	        tooltip: {
-	            trigger: 'axis',
-	            axisPointer: {
-	                type: 'shadow'
-	            },
-	            formatter: function (params) {
-	                if (params.length > 0) {
-	                    return params[0].value.toFixed(2);
-	                }
-	                return '-';
-	            }
-	        },
-	        xAxis: {
-	            type: "category",
-	            data: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
-	        },
-	        yAxis: {
-	            type: "value"
-	        },
-		        series: [
-	            {
-                data: monthlyCostsAverage,
-                type: "bar",
-                barWidth: "33%" 
-            }]
-	   	 };
-		    // 차트 옵션 설정 및 렌더링
-			costsChart.setOption(option);
-			}
-			$(document).ready(function(){
-				fetchData();
-			});
-</script>
 </body>
-</html>
-</head>
 </html>

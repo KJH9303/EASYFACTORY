@@ -60,6 +60,181 @@
             	
             });
             
+            $("#feb2").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
+            $("#feb3").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
+            $("#feb4").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
+            $("#feb5").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
+            $("#feb6").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
+            $("#feb7").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
+            $("#feb8").on('click', function() {
+            	var id = $("#id").val();
+            	var code = $("#code").val();
+            	
+            	if (id == null || id == "") {
+            		
+            		var result = confirm("로그인 하세요.");
+            		if(result){
+                        location.href="/member/login";
+                    }else{
+                        alert("취소하였습니다.");
+                        location.href="/main";
+                    }
+            		
+            	} else if (id != null && id != '' && code == 'EXTERNAL') {
+            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+            		return;
+            		
+            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
+            		// 수정할 부분
+            		location.href="/issue/list";
+            	}
+            	
+            });
+            
             $("#energy").on('click', function() {
             	var id = $("#id").val();
             	var code = $("#code").val();
@@ -183,13 +358,13 @@
             <a href="#">공정</a>
             <ul class="submenu">
                 <li><a id="feb1">1공정: 웨이퍼 제조</a></li>
-                <li><a href="#">2공정: 산화 공정</a></li>
-                <li><a href="#">3공정: 포토(Photo)공정</a></li>
-                <li><a href="#">4공정: 식각(Etch)공정</a></li>
-                <li><a href="#">5공정: 이온주입(Implant) 공정</a></li>
-                <li><a href="#">6공정: 금속배선 공정</a></li>
-                <li><a href="#">7공정: EDS 공정</a></li>
-                <li><a href="#">8공정: 패키징(Packaging) 공정</a></li>
+                <li><a id="feb2">2공정: 산화 공정</a></li>
+                <li><a id="feb3">3공정: 포토(Photo)공정</a></li>
+                <li><a id="feb4">4공정: 식각(Etch)공정</a></li>
+                <li><a id="feb5">5공정: 이온주입(Implant) 공정</a></li>
+                <li><a id="feb6">6공정: 금속배선 공정</a></li>
+                <li><a id="feb7">7공정: EDS 공정</a></li>
+                <li><a id="feb8">8공정: 패키징(Packaging) 공정</a></li>
             </ul>
         </li>
         <li><a id="energy">에너지</a></li>

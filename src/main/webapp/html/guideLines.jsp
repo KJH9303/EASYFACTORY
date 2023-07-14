@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="guideLines.css?after" />
+  <link rel="stylesheet" href="../../../resources/feb/css/guideLines.css?after">
 </head>
 <body>
     <table>

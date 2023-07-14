@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.feb.main.UpdateMain" %>
 
 <!DOCTYPE html>
 <html lang="">
@@ -7,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Dashboard</title>
-  <link rel="stylesheet" href="febTest.css?after" />
+  <link rel="stylesheet" href="../../../resources/feb/css/feb.css?after">
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -18,7 +17,6 @@
 <div id="headerContainer"></div>
 <div class="flex-1 h-full">
 
-  
   <!-- Main content -->
   <main>
     
@@ -102,7 +100,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500"> 장비 가동률</h4>
+            <h4 class="text-lg font-semibold text-gray-500">장비 가동률</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
       	    <div>
@@ -144,7 +142,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500"> 전기 사용량</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기 사용량</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
       	    <div>
@@ -165,7 +163,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500"> 전기사용 비용</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기사용 비용</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
       	    <div>
@@ -202,7 +200,7 @@
 	        case "opratio":
 	            startDateInputId = "startDate_opratio";
 	            endDateInputId = "endDate_opratio";
-	            uri = "/feb/select-data-feb3";
+	            uri = "/feb/select-data-feb1";
 	            updateChartFunc = updateOpratioChart;
 	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
 	            	opratio = false;
@@ -213,7 +211,7 @@
 	        case "usingratio":
 	            startDateInputId = "startDate_usingratio";
 	            endDateInputId = "endDate_usingratio";
-	            uri = "/feb/select-data-feb3";
+	            uri = "/feb/select-data-feb1";
 	            updateChartFunc = updateUsingratioChart;
 	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
 	            	usingratio = false;
@@ -224,7 +222,7 @@
 	        case "costs":
 	            startDateInputId = "startDate_costs";
 	            endDateInputId = "endDate_costs";
-	            uri = "/feb/select-data-feb3";
+	            uri = "/feb/select-data-feb1";
 	            updateChartFunc = updateCostsChart;
 	            if($("#" + startDateInputId).val() == null && $("#" + endDateInputId).val() == null) {
 	            	costs = false;
@@ -240,7 +238,7 @@
 
 	    $.ajax({
 	        type: "GET",
-	        url: "/feb/select-data-feb3",
+	        url: "/feb/select-data-feb1",
 	        data: {
 	        	startDate: startDate,
 	        	endDate: endDate
@@ -290,7 +288,7 @@
 	function fetchData() {
 		$.ajax({
 			type: "GET",
-			url: "/feb/select-data-feb3",
+			url: "/feb/select-data-feb1",
 			dataType: "json",
 			data: {
 		        	startDate: "2023-01-01",
@@ -321,7 +319,7 @@
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생:(/feb/select-data-feb3) ${errorThrown}`);
+				alert(`에러 발생:(/feb/select-data-feb1) ${errorThrown}`);
 			}
 		});
 		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
