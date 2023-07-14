@@ -138,7 +138,7 @@
 				<input type="hidden" id="phone" name="phone" value="${member.phone}" readonly>
 				<input type="hidden" id="email" name="email" value="${member.email}" readonly>
 				
-				<button type="button" id="updateChkBtn" style="color: white; text-decoration-line: none;">Update Info</button>
+				<button type="button" id="updateChkBtn" style="color: white; text-decoration-line: none;">Confirm</button>
 				<button type="button" id="deleteBtn" style="color: white; text-decoration-line: none;">Leave Us</button>
 				<button type="button" id="cancelBtn" style="color: white; text-decoration-line: none;">Cancel</button>
 			</form>

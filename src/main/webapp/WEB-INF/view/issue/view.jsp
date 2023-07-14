@@ -8,19 +8,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View</title>
 <link rel="stylesheet" href="../../../resources/issue/css/board.css">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.cojquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
 		var isProcessing = false;
 		
 		var id = $("#id").val();
-		/*
+		
 		// 로그인하지 않은 상태일 경우
 		if (id == '' || id == null) {
 			alert("잘못된 접근입니다.");
 			alert("로그인 후 이용해주세요.");
 			location.href="/member/login";
-		}*/
+		}
 		
 		// 글 수정 페이지
 		$("#updateBtn").on('click', function() {
