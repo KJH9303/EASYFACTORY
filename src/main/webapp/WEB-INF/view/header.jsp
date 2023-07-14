@@ -30,302 +30,68 @@
                 location.href="/member/logout";
             });
             
-            // febTest2
-            $("#febTestBtn").on('click', function() {
-                location.href="/feb/febTest2";
-            });
-            
-            $("#feb1").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
+         // 공통 함수: 로그인 여부 및 접근 권한 체크
+            function checkAccess(id, code, url) {
+                if (id == null || id === "") {
+                    var result = confirm("로그인 하세요.");
+                    if (result) {
+                        location.href = "/member/login";
+                    } else {
                         alert("취소하였습니다.");
-                        location.href="/main";
+                        location.href = "/main";
                     }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb1";
-            	}
-            	
-            });
+                } else if (id !== null && id !== "" && code === 'EXTERNAL') {
+                    alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+                    return;
+                } else if (id !== null && id !== "" && (code === 'INTERNAL' || code === 'ADMIN')) {
+                    location.href = url;
+                }
+            }
             
-            $("#feb2").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb2";
-            	}
-            	
+            // 클릭 이벤트 바인딩
+            $("a[id^='feb']").on('click', function() {
+                var id = $("#id").val();
+                var code = $("#code").val();
+                var num = $(this).attr('id').replace('feb', '');
+                var url = "/feb/feb" + num;
+                checkAccess(id, code, url);
             });
-            
-            $("#feb3").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb3";
-            	}
-            	
-            });
-            
-            $("#feb4").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb4";
-            	}
-            	
-            });
-            
-            $("#feb5").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb5";
-            	}
-            	
-            });
-            
-            $("#feb6").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb6";
-            	}
-            	
-            });
-            
-            $("#feb7").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb7";
-            	}
-            	
-            });
-            
-            $("#feb8").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/feb8";
-            	}
-            });	
-            	
+
             $("#guideLines").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/feb/guideLines";
-            	}
-            	
-        });
-            
+                var id = $("#id").val();
+                var code = $("#code").val();
+                checkAccess(id, code, "/feb/guideLines");
+            });
+
             $("#energy").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/energy/energyDashborad";
-            	}
-            	
+                var id = $("#id").val();
+                var code = $("#code").val();
+                checkAccess(id, code, "/energy/energyDashborad");
             });
-            
+
             $("#stock").on('click', function() {
-            	var id = $("#id").val();
-            	var code = $("#code").val();
-            	
-            	if (id == null || id == "") {
-            		
-            		var result = confirm("로그인 하세요.");
-            		if(result){
-                        location.href="/member/login";
-                    }else{
-                        alert("취소하였습니다.");
-                        location.href="/main";
-                    }
-            		
-            	} else if (id != null && id != '' && code == 'EXTERNAL') {
-            		alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-            		return;
-            		
-            	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
-            		// 수정할 부분
-            		location.href="/stock/stockDashborad";
-            	}
-            	
+                var id = $("#id").val();
+                var code = $("#code").val();
+                checkAccess(id, code, "/stock/stockDashborad");
             });
-            
+
             $("#issueList").on('click', function() {
                 var id = $("#id").val();
-                if(id == null || id == "") {
+                if (id == null || id === "") {
                     var result = confirm("로그인 하세요.");
-                    if(result){
-                        location.href="/member/login";
-                    }else{
+                    if (result) {
+                        location.href = "/member/login";
+                    } else {
                         alert("취소하였습니다.");
-                        location.href="/main";
+                        location.href = "/main";
                     }
-                } else if(id != null || id != "") {
-                    location.href="/issue/list";
+                } else {
+                    location.href = "/issue/list";
                 }
             });
-            
+
             $("#writeBtn").on('click', function() {
-                location.href="/issue/write";
+                location.href = "/issue/write";
             });
         });
     </script>
