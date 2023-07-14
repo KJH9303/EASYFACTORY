@@ -55,7 +55,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb1";
             	}
             	
             });
@@ -80,7 +80,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb2";
             	}
             	
             });
@@ -105,7 +105,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb3";
             	}
             	
             });
@@ -130,7 +130,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb4";
             	}
             	
             });
@@ -155,7 +155,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb5";
             	}
             	
             });
@@ -180,7 +180,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb6";
             	}
             	
             });
@@ -205,7 +205,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb7";
             	}
             	
             });
@@ -230,7 +230,7 @@
             		
             	} else if(id != null && id != '' && code == 'INTERNAL' || code == 'ADMIN') {
             		// 수정할 부분
-            		location.href="/issue/list";
+            		location.href="/feb/feb8";
             	}
             	
             });
