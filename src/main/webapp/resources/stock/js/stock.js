@@ -37,7 +37,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#37a2da' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#C71585' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	                 
 	               markPoint: {
@@ -59,7 +59,7 @@
 	         },
 	         series: [
 	             {
-	                 name: '가동률',
+	                 name: '재고량',
 	                 data: chartData,
 	                 barWidth: 80
 	                 
@@ -118,7 +118,7 @@
 	               barWidth: 80,
 	               data: [],
 	                itemStyle: {
-            		color: '#37a2da' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#00008B' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	                 
 	               markPoint: {
@@ -140,7 +140,7 @@
 	         },
 	         series: [
 	             {
-	                 name: '가동률',
+	                 name: '불량',
 	                 data: chartData,
 	                 
 	                 
@@ -192,6 +192,9 @@
 	               name: '안전재고량',
 	               type: 'bar',
 	               data: [],
+	               itemStyle: {
+            		color: '#228B22' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
@@ -203,11 +206,15 @@
 	               name: '재고량',
 	               type: 'bar',
 	               data: [],
+	                itemStyle: {
+            		color: '#C71585' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+        			},
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
 	               markLine: {
 	                   data: [{type: 'average',name: '평균값'}]
+	                   
 	               }
 	           }
 	       ]
