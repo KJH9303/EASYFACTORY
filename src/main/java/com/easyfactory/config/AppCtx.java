@@ -14,8 +14,10 @@ import com.energy.service.StockService;
 import com.feb.dao.FebDAO;
 import com.feb.dao.FebIndexDAO;
 import com.feb.service.FebService;
+import com.issue.dao.EzFileDAO;
 import com.issue.dao.IssueDAO;
 import com.issue.dao.ReplyIssueDAO;
+import com.issue.service.EzFileService;
 import com.issue.service.IssueService;
 import com.issue.service.ReplyIssueService;
 import com.member.dao.MemberDAO;
@@ -122,5 +124,15 @@ public class AppCtx {
 	@Bean
 	public ReplyIssueService replyIssueService() {
 		return new ReplyIssueService(replyIssueDAO());
+	}
+	
+	@Bean
+	public EzFileDAO ezFileDAO() {
+		return new EzFileDAO(dataSource());
+	}
+	   
+	@Bean
+	public EzFileService ezFileService() {
+		return new EzFileService(ezFileDAO());
 	}
 }

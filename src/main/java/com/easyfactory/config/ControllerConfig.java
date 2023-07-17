@@ -11,6 +11,7 @@ import com.energy.service.StockService;
 import com.feb.controller.FebController;
 import com.feb.service.FebService;
 import com.issue.controller.IssueController;
+import com.issue.service.EzFileService;
 import com.issue.service.IssueService;
 import com.issue.service.ReplyIssueService;
 import com.member.controller.MemberController;
@@ -39,6 +40,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private ReplyIssueService replyIssueService;
+	
+	@Autowired
+	private EzFileService ezFileService;
 	
 	@Bean
 	public MemberController memberController() {
@@ -72,6 +76,7 @@ public class ControllerConfig {
 		IssueController issueController = new IssueController();
 		issueController.setIssueService(issueService);
 		issueController.setReplyIssueService(replyIssueService);
+		issueController.setEzFileService(ezFileService);
 		return issueController;
 	}
 
