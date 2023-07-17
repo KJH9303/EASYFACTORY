@@ -406,29 +406,27 @@
 		               saveAsImage: {show: true}
 		           }
 		       },
-			    tooltip: {
-			        trigger: "axis",
-			        axisPointer: {
-			          type: "shadow",
-			        },
-			        borderWidth: 1,
-			        formatter: function (params) {
-			          if (params.length > 0) {
-			            return params[0].value.toFixed(2);
-			          }
-			          return "-";
-			        },
-			      },
-			      xAxis: {
-			        type: "category",
-			        data: dateList,
-			        axisLabel: {
-			          interval: 6, // 모든 레이블을 표시
-			          textStyle: {
-			            color: "#333", // x축 레이블 텍스트 색상
-			            fontSize: 10, // x축 레이블 텍스트 크기
-			          },
-			        },
+		       tooltip: {
+		    	    trigger: "axis",
+		    	    axisPointer: {
+		    	      type: "shadow"
+		    	    },
+		    	    borderWidth: 1,
+		    	    formatter: function(params) {
+		    	      if (params.length > 0) {
+		    	        var value = params[0].value.toFixed(2) + "%";
+		    	        var xLabel = params[0].axisValue; // x축 레이블 값
+		    	        return xLabel + "일<br/>" + value;
+		    	      }
+		    	      return "-";
+		    	    }
+		    	  },
+		    	  xAxis: {
+		    		    type: "category",
+		    		    data: dateList,
+		    		    axisLabel: {
+		    		      show: false // x축 레이블 숨김
+		    		    }
 			      },
 			      yAxis: {
 			        type: "value",
@@ -483,7 +481,6 @@
 		           show: true,
 		           feature: {
 		               dataView: {show: true,readOnly: false},
-		               magicType: {show: true, type: ['line', 'bar']},
 		               restore: {show: true},
 		               saveAsImage: {show: true}
 		           }
@@ -537,13 +534,7 @@
 	                },
 	                  data: [{ value: todayTemp, itemStyle: { color: "auto" } }],
 	            }],
-			    // grid 옵션 추가
-			    grid: {
-			        top: 0, // 상단 여백
-			        bottom: 10, // 하단 여백
-			        left: 30, // 좌측 여백
-			        right: 30 // 우측 여백
-			    }
+	
 	    	};
 	    	gaugeChart.setOption(option);
 		}
@@ -594,29 +585,27 @@
 		               saveAsImage: {show: true}
 		           }
 		       },
-			    tooltip: {
-			        trigger: "axis",
-			        axisPointer: {
-			          type: "shadow",
-			        },
-			        borderWidth: 1,
-			        formatter: function (params) {
-			          if (params.length > 0) {
-			            return params[0].value.toFixed(2);
-			          }
-			          return "-";
-			        },
-			      },
-			      xAxis: {
-			        type: "category",
-			        data: dateList,
-			        axisLabel: {
-			          interval: 6, // 모든 레이블을 표시
-			          textStyle: {
-			            color: "#333", // x축 레이블 텍스트 색상
-			            fontSize: 10, // x축 레이블 텍스트 크기
-			          },
-			        },
+		       tooltip: {
+		    	    trigger: "axis",
+		    	    axisPointer: {
+		    	      type: "shadow"
+		    	    },
+		    	    borderWidth: 1,
+		    	    formatter: function(params) {
+		    	      if (params.length > 0) {
+		    	        var value = params[0].value.toFixed(2) + "(kWh)";
+		    	        var xLabel = params[0].axisValue; // x축 레이블 값
+		    	        return xLabel + "일<br/>" + value;
+		    	      }
+		    	      return "-";
+		    	    }
+		    	  },
+		    	  xAxis: {
+		    		    type: "category",
+		    		    data: dateList,
+		    		    axisLabel: {
+		    		      show: false // x축 레이블 숨김
+		    		    }
 			      },
 			      yAxis: {
 			        type: "value",
@@ -719,29 +708,27 @@
 		               saveAsImage: {show: true}
 		           }
 		       },
-			    tooltip: {
-			        trigger: "axis",
-			        axisPointer: {
-			          type: "shadow",
-			        },
-			        borderWidth: 1,
-			        formatter: function (params) {
-			          if (params.length > 0) {
-			            return params[0].value.toFixed(2);
-			          }
-			          return "-";
-			        },
-			      },
-			      xAxis: {
-			        type: "category",
-			        data: dateList,
-			        axisLabel: {
-			          interval: 6, // 모든 레이블을 표시
-			          textStyle: {
-			            color: "#333", // x축 레이블 텍스트 색상
-			            fontSize: 10, // x축 레이블 텍스트 크기
-			          },
-			        },
+		       tooltip: {
+		    	    trigger: "axis",
+		    	    axisPointer: {
+		    	      type: "shadow"
+		    	    },
+		    	    borderWidth: 1,
+		    	    formatter: function(params) {
+		    	      if (params.length > 0) {
+		    	        var value = params[0].value.toFixed();
+		    	        var xLabel = params[0].axisValue; // x축 레이블 값
+		    	        return xLabel + "일<br/>" + value;
+		    	      }
+		    	      return "-";
+		    	    }
+		    	  },
+		    	  xAxis: {
+		    		    type: "category",
+		    		    data: dateList,
+		    		    axisLabel: {
+		    		      show: false // x축 레이블 숨김
+		    		    }
 			      },
 			      yAxis: {
 			        type: "value",
