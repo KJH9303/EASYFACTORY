@@ -36,11 +36,6 @@ public class EnergyController {
     	return "energy/energyDashboard";
     	
     }
-    @GetMapping("/stockDashboard")
-    public String stockDashboard() {
-    	return "/stock/stockDashboard";
-    	
-    }
     
     // 에너지 사용비용 :Costs 
     @PostMapping("/chart1")
@@ -212,98 +207,6 @@ public class EnergyController {
         String responseJson = String.format("{\"febcosts\": %s, \"febcvusingratio\": %s}", jsonArray2.toJSONString(), jsonArray.toJSONString());
         System.out.println("[ChartController] responseJson: " + responseJson); // 추가되어야 하는 코드
         writer.print(responseJson);
-    }
- //-----------------------------------------------------------------------------------------------------------
-    // 재고량
-    @PostMapping("/chart10")
-    public void Stock(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart10");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
-        
-        List<EnergyVO> StockList = energyService.getStock(startDate, endDate);
-        JSONArray jsonArray = energyService.JsonStockChange(StockList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SUM_STOCK", jsonArray);
-        writer.print(jsonObject.toJSONString());
-        System.out.println(jsonObject.toJSONString());
-    }
-    // 불량 
-    @PostMapping("/chart11")
-    public void FAL(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart11");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
-        
-        List<EnergyVO> FalList = energyService.getFal(startDate, endDate);
-        JSONArray jsonArray = energyService.JsonFalChange(FalList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SUM_FAL", jsonArray);
-        writer.print(jsonObject.toJSONString());
-        System.out.println(jsonObject.toJSONString());
-    }
-    // 각 공정 별 재고량
-    @PostMapping("/chart12")
-    public void doChart12(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart12");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
-        List<EnergyVO> energyFebstockList = energyService.getFebStock(startDate, endDate);
-        
-        JSONArray jsonArray = energyService.JsonFebStockChange(energyFebstockList);
-         writer.print(jsonArray.toJSONString());
-         System.out.println(jsonArray.toJSONString());   
-    }
-    // 각 공정 별 불량
-    @PostMapping("/chart13")
-    public void doChart13(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart12");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        System.out.printf("Parameter: startDate(%s), endDate(%s)\n", startDate, endDate);
-        List<EnergyVO> energyFebfalList = energyService.getFebFal(startDate, endDate);
-        
-        JSONArray jsonArray = energyService.JsonFebFalChange(energyFebfalList);
-         writer.print(jsonArray.toJSONString());
-         System.out.println(jsonArray.toJSONString());   
-    }
-    // 안전재고 대비  총 재고량차트 
-    @PostMapping("/chart14")
-    public void doChart14(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
-        System.out.println("[ChartController] /chart14");
-
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        System.out.printf("Parameters: startDate(%s), endDate(%s)", startDate, endDate);
-        
-        List<EnergyVO> energyFebStockList = energyService.getFebStock(startDate, endDate);
-
-        JSONArray jsonArray = energyService.JsonFebStockChange(energyFebStockList);
-
-        writer.print(jsonArray.toJSONString());
-        System.out.println(jsonArray.toJSONString());   
     }
 }
    

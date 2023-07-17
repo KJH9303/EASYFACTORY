@@ -14,12 +14,10 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  
   <!-- css, js -->
   <link rel="stylesheet" href="../../../resources/energy/css/energy.css" />
   <script src="../../../resources/energy/js/energy.js" ></script>
   <!-- css, js -->
-  
 </head>
 <body>
 <div id="headerContainer">
@@ -231,27 +229,24 @@
       	startDate[cnt] = year + '-' + month + '-' + date;
       	endDate[cnt] = year + '-' + month + '-' + date;
       }
-      
-        $(document).ready(function () {
-          // 달력 아이콘 클릭 시 데이터 피커를 토글합니다.
-          $("#energyCostIcon1").click(function () {
-            $("#energyCostStartDate1").toggle();
-            $("#energyCostEndDate1").toggle();
-            $("#applyEnergyCost1").toggle();
-          });
-
+     
+      $(document).ready(function () {
+        // 달력 아이콘 클릭 시 데이터 피커를 토글합니다.
+      $("#energyCostIcon1").click(function () {
+        $("#energyCostStartDate1").toggle();
+        $("#energyCostEndDate1").toggle();
+        $("#applyEnergyCost1").toggle();
+      });
       $("#energyCostIcon2").click(function () {
         $("#energyCostStartDate2").toggle();
         $("#energyCostEndDate2").toggle();
         $("#applyEnergyCost2").toggle();
       });
-
       $("#energyCostIcon3").click(function () {
         $("#energyCostStartDate3").toggle();
         $("#energyCostEndDate3").toggle();
         $("#applyEnergyCost3").toggle();
       });
-
       $("#energyCostIcon4").click(function () {
         $("#energyCostStartDate4").toggle();
         $("#energyCostEndDate4").toggle();
@@ -563,18 +558,25 @@
 		$("#applyEnergyCost9").click(function (event) {
 		  applyDateRange9(event, "/energy/char9", "Costs_Usingratio_Chart");
 		});
+		
+		drawCharts();
+
+		  // 그리고 설정한 시간 간격으로 차트를 업데이트 합니다.
+		setInterval(drawCharts, 5000); // 5초 간격
     });  
+      
+     
       // 페이지 delfault값 (Sysdate기준) setinterval
-    setInterval(() => {
-        applyDateRange1(null,"/energy/chart1", "#value1", "SUM_COSTS");
-        applyDateRange2(null,"/energy/chart2", "#value2", "SUM_USINGRATIO");
-        applyDateRange3(null,"/energy/chart3", "#value3", "AVERAGE_OPRATIO");
-        applyDateRange4(null,"/energy/chart4", "#value4", "FebOpratio_Chart");
-        applyDateRange5(null,"/energy/chart5", "#value5", "FebTr_Chart");
-        applyDateRange6(null,"/energy/chart6", "#value6", "FebCost_Chart");
-        applyDateRange7(null,"/energy/chart7", "#value7", "FebUsingratio_Chart");
-        applyDateRange8(null,"/energy/chart8", "#value8", "Costs_Tr_Chart");
-        applyDateRange9(null,"/energy/chart9", "#value9", "Costs_Usingratio_Chart");
-    }, 5000);
+	   function drawCharts() {
+	  applyDateRange1(null, "/energy/chart1", "#value1", "SUM_COSTS");
+	  applyDateRange2(null, "/energy/chart2", "#value2", "SUM_USINGRATIO");
+	  applyDateRange3(null, "/energy/chart3", "#value3", "AVERAGE_OPRATIO");
+	  applyDateRange4(null, "/energy/chart4", "#value4", "FebOpratio_Chart");
+	  applyDateRange5(null, "/energy/chart5", "#value5", "FebTr_Chart");
+	  applyDateRange6(null, "/energy/chart6", "#value6", "FebCost_Chart");
+	  applyDateRange7(null, "/energy/chart7", "#value7", "FebUsingratio_Chart");
+	  applyDateRange8(null, "/energy/chart8", "#value8", "Costs_Tr_Chart");
+	  applyDateRange9(null, "/energy/chart9", "#value9", "Costs_Usingratio_Chart");
+	}
   </script>
 </div>

@@ -10,21 +10,14 @@ public class EnergyVO {
     private double opratio;
     private int temp;
     private int tr;
-    private int fal;
-    private int stock;
     private int costs;
     private double usingratio;
     private Date hiredate;
     private double[] febopratio;
     private int[] febtr;
-    private int[] febstock;
-    private int[] febfal;
     private int[] febcosts;
     private int[] febusingratio;
     private double[] febcvusingratio;
-    private int year;
-    private int month;
-    private int monthCosts;
 	public Date getDate() {
 		return date;
 	}
@@ -61,18 +54,6 @@ public class EnergyVO {
 	public void setTr(int tr) {
 		this.tr = tr;
 	}
-	public int getFal() {
-		return fal;
-	}
-	public void setFal(int fal) {
-		this.fal = fal;
-	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
 	public int getCosts() {
 		return costs;
 	}
@@ -90,24 +71,6 @@ public class EnergyVO {
 	}
 	public void setHiredate(Date hiredate) {
 		this.hiredate = hiredate;
-	}
-	public int[] getFebfal() {
-		return febfal;
-	}
-	public void setFebfal(int[] febfal) {
-		this.febfal = febfal;
-	}
-	public int[] getFebstock() {
-		return febstock;
-	}
-	public void setFebstock(int[] febstock) {
-		this.febstock = febstock;
-	}
-	public double[] getFebcvusingratio() {
-		return febcvusingratio;
-	}
-	public void setFebcvusingratio(double[] febcvusingratio) {
-		this.febcvusingratio = febcvusingratio;
 	}
 	public double[] getFebopratio() {
 		return febopratio;
@@ -133,46 +96,27 @@ public class EnergyVO {
 	public void setFebusingratio(int[] febusingratio) {
 		this.febusingratio = febusingratio;
 	}
-	public int getYear() {
-		return year;
+	public double[] getFebcvusingratio() {
+		return febcvusingratio;
 	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public int getMonth() {
-		return month;
-	}
-	public void setMonth(int month) {
-		this.month = month;
-	}
-	public int getMonthCosts() {
-		return monthCosts;
-	}
-	public void setMonthCosts(int monthCosts) {
-		this.monthCosts = monthCosts;
+	public void setFebcvusingratio(double[] febcvusingratio) {
+		this.febcvusingratio = febcvusingratio;
 	}
 	@Override
 	public String toString() {
 		return "EnergyVO [date=" + date + ", startDate=" + startDate + ", endDate=" + endDate + ", opratio=" + opratio
-				+ ", temp=" + temp + ", tr=" + tr + ", fal=" + fal + ", stock=" + stock + ", costs=" + costs
-				+ ", usingratio=" + usingratio + ", hiredate=" + hiredate + ", febopratio="
-				+ Arrays.toString(febopratio) + ", febtr=" + Arrays.toString(febtr) + ", febstock="
-				+ Arrays.toString(febstock) + ", febfal=" + Arrays.toString(febfal) + ", febcosts="
-				+ Arrays.toString(febcosts) + ", febusingratio=" + Arrays.toString(febusingratio) + ", febcvusingratio="
-				+ Arrays.toString(febcvusingratio) + ", year=" + year + ", month=" + month + ", monthCosts="
-				+ monthCosts + ", getDate()=" + getDate() + ", getStartDate()=" + getStartDate() + ", getEndDate()="
-				+ getEndDate() + ", getOpratio()=" + getOpratio() + ", getTemp()=" + getTemp() + ", getTr()=" + getTr()
-				+ ", getFal()=" + getFal() + ", getStock()=" + getStock() + ", getCosts()=" + getCosts()
-				+ ", getUsingratio()=" + getUsingratio() + ", getHiredate()=" + getHiredate() + ", getFebfal()="
-				+ Arrays.toString(getFebfal()) + ", getFebstock()=" + Arrays.toString(getFebstock())
-				+ ", getFebcvusingratio()=" + Arrays.toString(getFebcvusingratio()) + ", getFebopratio()="
+				+ ", temp=" + temp + ", tr=" + tr + ", costs=" + costs + ", usingratio=" + usingratio + ", hiredate="
+				+ hiredate + ", febopratio=" + Arrays.toString(febopratio) + ", febtr=" + Arrays.toString(febtr)
+				+ ", febcosts=" + Arrays.toString(febcosts) + ", febusingratio=" + Arrays.toString(febusingratio)
+				+ ", febcvusingratio=" + Arrays.toString(febcvusingratio) + ", getDate()=" + getDate()
+				+ ", getStartDate()=" + getStartDate() + ", getEndDate()=" + getEndDate() + ", getOpratio()="
+				+ getOpratio() + ", getTemp()=" + getTemp() + ", getTr()=" + getTr() + ", getCosts()=" + getCosts()
+				+ ", getUsingratio()=" + getUsingratio() + ", getHiredate()=" + getHiredate() + ", getFebopratio()="
 				+ Arrays.toString(getFebopratio()) + ", getFebtr()=" + Arrays.toString(getFebtr()) + ", getFebcosts()="
 				+ Arrays.toString(getFebcosts()) + ", getFebusingratio()=" + Arrays.toString(getFebusingratio())
-				+ ", getYear()=" + getYear() + ", getMonth()=" + getMonth() + ", getMonthCosts()=" + getMonthCosts()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+				+ ", getFebcvusingratio()=" + Arrays.toString(getFebcvusingratio()) + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
  }
 	
 	

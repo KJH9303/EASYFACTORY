@@ -8,7 +8,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.energy.dao.EnergyDAO;
+import com.energy.dao.StockDAO;
 import com.energy.service.EnergyService;
+import com.energy.service.StockService;
 import com.feb.dao.FebDAO;
 import com.feb.dao.FebIndexDAO;
 import com.feb.service.FebService;
@@ -88,6 +90,17 @@ public class AppCtx {
 	@Bean
 	public EnergyService energyService() {
 		return new EnergyService(energyDAO());
+	}
+	// com.stock.*
+	@Bean
+	public StockDAO stockDAO() {
+		System.out.println("[StockDAO] stockDAO()");
+		return new StockDAO(dataSource());
+	}
+	
+	@Bean
+	public StockService stockService() {
+		return new StockService(stockDAO());
 	}
 	
 	// com.issue.*

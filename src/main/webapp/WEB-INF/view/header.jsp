@@ -30,23 +30,6 @@
                 location.href="/member/logout";
             });
             
-         // 공통 함수: 로그인 여부 및 접근 권한 체크
-            function checkAccess(id, code, url) {
-                if (id == null || id === "") {
-                    var result = confirm("로그인 하세요.");
-                    if (result) {
-                        location.href = "/member/login";
-                    } else {
-                        alert("취소하였습니다.");
-                        location.href = "/main";
-                    }
-                } else if (id !== null && id !== "" && code === 'EXTERNAL') {
-                    alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
-                    return;
-                } else if (id !== null && id !== "" && (code === 'INTERNAL' || code === 'ADMIN')) {
-                    location.href = url;
-                }
-            }
             
             // 클릭 이벤트 바인딩
             $("a[id^='feb']").on('click', function() {
@@ -66,13 +49,13 @@
             $("#energy").on('click', function() {
                 var id = $("#id").val();
                 var code = $("#code").val();
-                checkAccess(id, code, "/energy/energyDashborad");
+                checkAccess(id, code, "/energy/energyDashboard");
             });
 
             $("#stock").on('click', function() {
                 var id = $("#id").val();
                 var code = $("#code").val();
-                checkAccess(id, code, "/stock/stockDashborad");
+                checkAccess(id, code, "/stock/stockDashboard");
             });
 
             $("#issueList").on('click', function() {
@@ -90,6 +73,24 @@
                 }
             });
 
+         // 공통 함수: 로그인 여부 및 접근 권한 체크
+            function checkAccess(id, code, url) {
+                if (id == null || id === "") {
+                    var result = confirm("로그인 하세요.");
+                    if (result) {
+                        location.href = "/member/login";
+                    } else {
+                        alert("취소하였습니다.");
+                        location.href = "/main";
+                    }
+                } else if (id !== null && id !== "" && code === 'EXTERNAL') {
+                    alert("외부인 회원은 해당 페이지에 접근할 수 없습니다.");
+                    return;
+                } else if (id !== null && id !== "" && (code === 'INTERNAL' || code === 'ADMIN')) {
+                    location.href = url;
+                }
+            }
+            
             $("#writeBtn").on('click', function() {
                 location.href = "/issue/write";
             });

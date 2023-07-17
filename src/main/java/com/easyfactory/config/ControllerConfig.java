@@ -5,7 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.energy.controller.EnergyController;
+import com.energy.controller.StockController;
 import com.energy.service.EnergyService;
+import com.energy.service.StockService;
 import com.feb.controller.FebController;
 import com.feb.service.FebService;
 import com.issue.controller.IssueController;
@@ -28,6 +30,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private EnergyService energyService;
+	
+	@Autowired
+	private StockService stockService;
 	
 	@Autowired
 	private IssueService issueService;
@@ -54,6 +59,12 @@ public class ControllerConfig {
 		EnergyController energyController = new EnergyController();
 		energyController.setEnergyService(energyService);
 		return energyController;
+	}
+	@Bean
+	public StockController stockController() {
+		StockController stockController = new StockController();
+		stockController.setStockService(stockService);
+		return stockController;
 	}
 	
 	@Bean

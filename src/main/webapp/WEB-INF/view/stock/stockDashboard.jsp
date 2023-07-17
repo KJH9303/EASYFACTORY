@@ -16,147 +16,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="../../../resources/stock/css/stock.css" />
   <script src="../../../resources/energy/js/energy.js" ></script>
-  
-  
-   <script type="text/javascript">
-	// 각 공정별 재고량 차트
-	   function FebStockChart(vals) {
-	     var dom = document.getElementById('Feb_StockChart');
-	     var myChart = echarts.init(dom, null, {
-	       renderer: 'canvas',
-	       useDirtyRect: false
-	     });
-	       var option = {
-	               xAxis: {
-	                 type: 'category',
-	                 data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
-	               },
-	       yAxis: {type: 'value'},
-	       series: [{
-	           data: vals,
-	           type: 'bar',
-	           showBackground: true,
-	           backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
-	       }]
-	     };
-	     if (option && typeof option === 'object') {
-	       myChart.setOption(option);
-	     }
-	     window.addEventListener('resize', myChart.resize);
-	   }   
-   </script>
-  <script type="text/javascript">
-  	// 각 공정별 불량 차트
-    function FebFalChart(vals) {
-      var dom = document.getElementById('FebFal_Chart');
-      var myChart = echarts.init(dom, null, {
-        renderer: 'canvas',
-        useDirtyRect: false
-      });
-        var option = {
-                xAxis: {
-                  type: 'category',
-                  data: ['1공정','2공정','3공정','4공정','5공정','6공정','7공정','8공정']
-                },
-        yAxis: {type: 'value'},
-        series: [{
-            data: vals,
-            type: 'bar',
-            showBackground: true,
-            backgroundStyle: {color: 'rgba(180, 180, 180, 0.2)'}
-        }]
-      };
-      if (option && typeof option === 'object') {
-        myChart.setOption(option);
-      }
-      window.addEventListener('resize', myChart.resize);
-    }
-   </script>
-    <script type="text/javascript">
- 	// 각 공정별 안전재고 대비 총 재고량 차트
-   function SFStockStockChart(chartData) {
-	   console.log("SFStock_StockChart([" + chartData + "])");
-	   var myChart = echarts.init(document.getElementById('SFStock_StockChart'));
-	   var option = {
-	       title: {
-	           text: '총 비용 대비 총 생산량',
-	           subtext: '총비용 단위 (천원)'
-	       },
-	       tooltip: {
-	           trigger: 'axis'
-	       },
-	       legend: {
-	           data: ['안전재고량', '재고량']
-	       },
-	       toolbox: {
-	           show: true,
-	           feature: {
-	               dataView: {show: true,readOnly: false},
-	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
-	               saveAsImage: {show: true}
-	           }
-	       },
-	       calculable: true,
-	       xAxis: [{
-	           type: 'category',
-	           data: ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정']
-	       }],
-	       yAxis: [{
-	           type: 'value'
-	       }],
-	       series: [{
-	               name: '안전재고량',
-	               type: 'bar',
-	               data: [],
-	               markPoint: {
-	                   data: [{ type: 'max',name: '최대값'},
-	                       {type: 'min',name: '최소값'}]},
-	               markLine: {
-	                   data: [{type: 'average',name: '평균값'}]
-	               }
-	           },
-	           {
-	               name: '재고량',
-	               type: 'bar',
-	               data: [],
-	               markPoint: {
-	                   data: [{type: 'max',name: '최대값'},
-	                       {type: 'min',name: '최소값'}]},
-	               markLine: {
-	                   data: [{type: 'average',name: '평균값'}]
-	               }
-	           }
-	       ]
-	   }; // option
-	   myChart.setOption(option);
-	   window.addEventListener('resize', myChart.resize);
-	   var xAxisData = ['1공정', '2공정', '3공정', '4공정', '5공정', '6공정', '7공정', '8공정'];
-	   myChart.setOption({
-	         xAxis: {
-	             data: xAxisData
-	         },
-	         series: [{
-	                 name: '안전재고량', // 하드 코딩 안전재고는 일정하기 때문에 
-	                 data: [5000,8000,3000,7000,10000,6000,2000,8000],
-	             },
-	             {
-	                 name: '재고량',
-	                 data: chartData,
-	             }
-	         ],
-	 	    grid: {
-		        top: 80, // 상단 여백
-		        bottom: 20, // 하단 여백
-		        left: 30, // 좌측 여백
-		        right: 10 // 우측 여백
-		    }
-	     });
-	}  // function CostsTrChart
-   </script> 
-   
-  
-  
+  <script src="../../../resources/stock/js/stock.js" ></script>
 </head>
 <body>
 <div id="headerContainer"></div>
@@ -359,7 +219,7 @@
 					  endDate[0] = parent.find("input[name='energyCostEndDate']").val();
        			}
        			  $.ajax({
-			    url: "/energy/chart10",
+			    url: "/stock/chart10",
 			    method: "POST",
 			    data: {
 			      startDate: startDate[0],
@@ -415,7 +275,7 @@
 					  endDate[2] = parent.find("input[name='energyCostEndDate']").val();
 				  }
 				  $.ajax({
-				    url: "/energy/chart11",
+				    url: "/stock/chart11",
 				    method: "POST",
 				    data: {
 				      startDate: startDate[2],
@@ -442,7 +302,7 @@
 					  endDate[3] = parent.find("input[name='energyCostEndDate']").val();
 	        	  }
 					  $.ajax({
-				          url: "/energy/chart12",
+				          url: "/stock/chart12",
 				          type: "POST",
 				          data: { 
 			        	  startDate: startDate[3], 
@@ -469,7 +329,7 @@
 					  endDate[4] = parent.find("input[name='energyCostEndDate']").val();
 	        	  }
 					  $.ajax({
-				          url: "/energy/chart13",
+				          url: "/stock/chart13",
 				          type: "POST",
 				          data: { 
 			        	  startDate: startDate[4], 
@@ -496,7 +356,7 @@
 					  endDate[5] = parent.find("input[name='energyCostEndDate']").val();
 	        	  }
 					  $.ajax({
-				          url: "/energy/chart14",
+				          url: "/stock/chart14",
 				          type: "POST",
 				          data: { 
 			        	  startDate: startDate[5], 
@@ -516,35 +376,36 @@
 	        
 			// 각 "제출" 버튼에 클릭 이벤트를 설정합니다.
 			$("#applyEnergyCost1").click(function (event) {
-			  applyDateRange1(event, "/energy/chart10", "#value1", "SUM_STOCK");
+			  applyDateRange1(event, "/stock/chart10", "#value1", "SUM_STOCK");
 			});	
 			//$("#applyEnergyCost2").click(function (event) {
 			//  applyDateRange2(event, "/energy/chart2", "#value2", "SUM_USINGRATIO");
 			//});
 			$("#applyEnergyCost3").click(function (event) {
-			  applyDateRange3(event, "/energy/chart11", "#value3", "SUM_FAL");
+			  applyDateRange3(event, "/stock/chart11", "#value3", "SUM_FAL");
 			});
 			$("#applyEnergyCost4").click(function (event) {
-			  applyDateRange4(event, "/energy/chart12", "Feb_StockChart");
+			  applyDateRange4(event, "/stock/chart12", "Feb_StockChart");
 			});
 			$("#applyEnergyCost5").click(function (event) {
-			  applyDateRange5(event, "/energy/char13", "FebFal_Chart");
+			  applyDateRange5(event, "/stock/char13", "FebFal_Chart");
 			});
 			$("#applyEnergyCost6").click(function (event) {
-			  applyDateRange6(event, "/energy/char14", "SFStock_StockChart");
+			  applyDateRange6(event, "/stock/char14", "SFStock_StockChart");
 			});
-			
+			drawCharts();
+			  // 그리고 설정한 시간 간격으로 차트를 업데이트 합니다.
+			setInterval(drawCharts, 5000); // 5초 간격
         });  
           // 새로운 interval 실행
-        setInterval(() => {
+         function drawCharts() {
             applyDateRange1(null,"/energy/chart10", "#value1", "SUM_STOCK");
            // applyDateRange2(null,"/energy/chart2", "#value2", "SUM_USINGRATIO");
             applyDateRange3(null,"/energy/chart11", "#value3", "SUM_FAL");
             applyDateRange4(null,"/energy/chart12", "#value4", "Feb_StockChart");
             applyDateRange5(null,"/energy/chart13", "#value5", "FebFal_Chart");
             applyDateRange6(null,"/energy/chart14", "#value6", "SFStock_StockChart");
-           
-        }, 3000);
+        }
       </script>
     </div>
   </main>
