@@ -69,8 +69,8 @@
 	 	    grid: {
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
-		        left: 40, // 좌측 여백
-		        right: 40 // 우측 여백
+		        left: 70, // 좌측 여백
+		        right: 70 // 우측 여백
 		    }
 	     });
 	}  // function FebOpratio_Chart
@@ -476,8 +476,8 @@
 	 	    grid: {
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
-		        left: 50, // 좌측 여백
-		        right: 50 // 우측 여백
+		        left: 60, // 좌측 여백
+		        right: 60 // 우측 여백
 		    }
 	     });
 	}  // function CostsUsingratioChart
