@@ -366,16 +366,15 @@
 	    opratioChart = echarts.init(document.getElementById("opratioChart"));
 	  }
 	  let displayData, dateList;
-	  let currentDate = new Date();
-	  let currentMonth = currentDate.getMonth();
-	  let currentYear = currentDate.getFullYear();
 	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      dateList.push(dateString);
 	      displayData.push(data.opratio);
 	    });
@@ -384,7 +383,9 @@
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
 	        dateList.push(dateString);
 	        displayData.push(data.opratio);
@@ -407,27 +408,34 @@
 		           }
 		       },
 		       tooltip: {
-		    	    trigger: "axis",
-		    	    axisPointer: {
-		    	      type: "shadow"
-		    	    },
-		    	    borderWidth: 1,
-		    	    formatter: function(params) {
-		    	      if (params.length > 0) {
-		    	        var value = params[0].value.toFixed(2) + "%";
-		    	        var xLabel = params[0].axisValue; // x축 레이블 값
-		    	        return xLabel + "일<br/>" + value;
-		    	      }
-		    	      return "-";
-		    	    }
-		    	  },
-		    	  xAxis: {
-		    		    type: "category",
-		    		    data: dateList,
-		    		    axisLabel: {
-		    		      show: false // x축 레이블 숨김
-		    		    }
-			      },
+		    	   trigger: "axis",
+		    	   axisPointer: {
+		    	     type: "shadow"
+		    	   },
+		    	   borderWidth: 1,
+		    	   formatter: function(params) {
+		    	     if (params.length > 0) {
+		    	       var value = params[0].value.toFixed(2) + "(%)";
+		    	       var xLabel = params[0].axisValue; // x축 레이블 값
+		    	       var day = xLabel.slice(xLabel.indexOf(" ") + 1, xLabel.indexOf("일")); // 일 값 추출
+		    	       var month = xLabel.slice(0, xLabel.indexOf("월")); // 월 값 추출
+		    	       return month + "월 " + day + "일<br/>" + value;
+		    	     }
+		    	     return "-";
+		    	   }
+		    	 },
+		    	 xAxis: {
+		    		  type: "category",
+		    		  data: dateList,
+		    		  axisLabel: {
+		    		    formatter: function(value) {
+		    		      var day = value.slice(value.indexOf(" ") + 1, value.indexOf("일")); // 일 값 추출
+		    		      var month = value.slice(0, value.indexOf("월")); // 월 값 추출
+		    		      return month + "월 " + day + "일";
+		    		    },
+		    		    show: false // 레이블 숨김 처리
+		    		  }
+		    		},
 			      yAxis: {
 			        type: "value",
 			        axisLine: {
@@ -545,16 +553,15 @@
 		  usingratioChart = echarts.init(document.getElementById("usingratioChart"));
 	  }
 	  let displayData, dateList;
-	  let currentDate = new Date();
-	  let currentMonth = currentDate.getMonth();
-	  let currentYear = currentDate.getFullYear();
 	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      dateList.push(dateString);
 	      displayData.push(data.usingratio);
 	    });
@@ -563,7 +570,9 @@
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
 	        dateList.push(dateString);
 	        displayData.push(data.usingratio);
@@ -574,7 +583,7 @@
 	      opratioChart.resize();
 	    });
 	  }
-
+	  
 	  var option = {
 		       toolbox: {
 		           show: true,
@@ -586,27 +595,34 @@
 		           }
 		       },
 		       tooltip: {
-		    	    trigger: "axis",
-		    	    axisPointer: {
-		    	      type: "shadow"
-		    	    },
-		    	    borderWidth: 1,
-		    	    formatter: function(params) {
-		    	      if (params.length > 0) {
-		    	        var value = params[0].value.toFixed(2) + "(kWh)";
-		    	        var xLabel = params[0].axisValue; // x축 레이블 값
-		    	        return xLabel + "일<br/>" + value;
-		    	      }
-		    	      return "-";
-		    	    }
-		    	  },
-		    	  xAxis: {
-		    		    type: "category",
-		    		    data: dateList,
-		    		    axisLabel: {
-		    		      show: false // x축 레이블 숨김
-		    		    }
-			      },
+		    	   trigger: "axis",
+		    	   axisPointer: {
+		    	     type: "shadow"
+		    	   },
+		    	   borderWidth: 1,
+		    	   formatter: function(params) {
+		    	     if (params.length > 0) {
+		    	       var value = params[0].value.toFixed(2) + "(kWh)";
+		    	       var xLabel = params[0].axisValue; // x축 레이블 값
+		    	       var day = xLabel.slice(xLabel.indexOf(" ") + 1, xLabel.indexOf("일")); // 일 값 추출
+		    	       var month = xLabel.slice(0, xLabel.indexOf("월")); // 월 값 추출
+		    	       return month + "월 " + day + "일<br/>" + value;
+		    	     }
+		    	     return "-";
+		    	   }
+		    	 },
+		    	 xAxis: {
+		    		  type: "category",
+		    		  data: dateList,
+		    		  axisLabel: {
+		    		    formatter: function(value) {
+		    		      var day = value.slice(value.indexOf(" ") + 1, value.indexOf("일")); // 일 값 추출
+		    		      var month = value.slice(0, value.indexOf("월")); // 월 값 추출
+		    		      return month + "월 " + day + "일";
+		    		    },
+		    		    show: false // 레이블 숨김 처리
+		    		  }
+		    		},
 			      yAxis: {
 			        type: "value",
 			        axisLine: {
@@ -668,16 +684,15 @@
 		  costsChart = echarts.init(document.getElementById("costsChart"));
 	  }
 	  let displayData, dateList;
-	  let currentDate = new Date();
-	  let currentMonth = currentDate.getMonth();
-	  let currentYear = currentDate.getFullYear();
 	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      dateList.push(dateString);
 	      displayData.push(data.costs);
 	    });
@@ -686,7 +701,9 @@
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
 	        dateList.push(dateString);
 	        displayData.push(data.costs);
@@ -709,27 +726,34 @@
 		           }
 		       },
 		       tooltip: {
-		    	    trigger: "axis",
-		    	    axisPointer: {
-		    	      type: "shadow"
-		    	    },
-		    	    borderWidth: 1,
-		    	    formatter: function(params) {
-		    	      if (params.length > 0) {
-		    	        var value = params[0].value.toFixed();
-		    	        var xLabel = params[0].axisValue; // x축 레이블 값
-		    	        return xLabel + "일<br/>" + value;
-		    	      }
-		    	      return "-";
-		    	    }
-		    	  },
-		    	  xAxis: {
-		    		    type: "category",
-		    		    data: dateList,
-		    		    axisLabel: {
-		    		      show: false // x축 레이블 숨김
-		    		    }
-			      },
+		    	   trigger: "axis",
+		    	   axisPointer: {
+		    	     type: "shadow"
+		    	   },
+		    	   borderWidth: 1,
+		    	   formatter: function(params) {
+		    	     if (params.length > 0) {
+		    	       var value = params[0].value.toFixed(0) + "(천원)";
+		    	       var xLabel = params[0].axisValue; // x축 레이블 값
+		    	       var day = xLabel.slice(xLabel.indexOf(" ") + 1, xLabel.indexOf("일")); // 일 값 추출
+		    	       var month = xLabel.slice(0, xLabel.indexOf("월")); // 월 값 추출
+		    	       return month + "월 " + day + "일<br/>" + value;
+		    	     }
+		    	     return "-";
+		    	   }
+		    	 },
+		    	 xAxis: {
+		    		  type: "category",
+		    		  data: dateList,
+		    		  axisLabel: {
+		    		    formatter: function(value) {
+		    		      var day = value.slice(value.indexOf(" ") + 1, value.indexOf("일")); // 일 값 추출
+		    		      var month = value.slice(0, value.indexOf("월")); // 월 값 추출
+		    		      return month + "월 " + day + "일";
+		    		    },
+		    		    show: false // 레이블 숨김 처리
+		    		  }
+		    		},
 			      yAxis: {
 			        type: "value",
 			        axisLine: {
