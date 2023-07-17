@@ -61,11 +61,19 @@
 	             {
 	                 name: '가동률',
 	                 data: chartData,
+	                 barWidth: 80
 	                 
 	                 
 	             }
 	             
 	         ],
+	         
+	      	grid: {
+		        top: 80, // 상단 여백
+		        bottom: 120, // 하단 여백
+		        left: 40, // 좌측 여백
+		        right: 40 // 우측 여백
+		    }
 	
 	     });
 	}  // function FebOpratio_Chart
@@ -107,6 +115,7 @@
 	           {
 	               name: '불량',
 	               type: 'bar',
+	               barWidth: 80,
 	               data: [],
 	                itemStyle: {
             		color: '#37a2da' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
@@ -138,9 +147,9 @@
 	             }
 	             
 	         ],
-	 	    grid: {
+	      	grid: {
 		        top: 80, // 상단 여백
-		        bottom: 20, // 하단 여백
+		        bottom: 120, // 하단 여백
 		        left: 40, // 좌측 여백
 		        right: 40 // 우측 여백
 		    }
@@ -219,11 +228,11 @@
 	                 data: chartData,
 	             }
 	         ],
-	 	    grid: {
+	      	grid: {
 		        top: 80, // 상단 여백
-		        bottom: 20, // 하단 여백
-		        left: 30, // 좌측 여백
-		        right: 0 // 우측 여백
+		        bottom: 120, // 하단 여백
+		        left: 40, // 좌측 여백
+		        right: 40 // 우측 여백
 		    }
 	     });
 	}  // function CostsTrChart
