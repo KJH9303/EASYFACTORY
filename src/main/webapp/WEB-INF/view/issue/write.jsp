@@ -10,12 +10,70 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
+		viewFileList();
+		
 		var author = $("#author").val();
 		if (author == '' || author == null) {
 			alert("로그인 후 이용해주세요.");
 			location.href="/member/login";
 		}
 		
+		// 파일 선택 시 파일 목록에 추가
+        $("#fileInput").on('change', function() {
+            var files = $('#fileInput')[0].files;
+            var fileList = $('#fileList');
+            
+            fileList.empty();
+            
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+                var listItem = $('<li>' + fileName + '</li>');
+                fileList.append(listItem);
+            }
+        });
+        
+        // 파일 업로드
+        function uploadFiles() {
+            var formData = new FormData();
+            var files = $('#fileInput')[0].files;
+            
+            for (var i = 0; i < files.length; i++) {
+                formData.append('files', files[i]);
+            }
+        
+            $.ajax({
+                type: 'POST',
+                url: '/issue/uploadFiles',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(data){
+                    if(data === 'UploadSuccess') {
+                        viewFileList();
+                    } else {
+                        alert('로그인 이후 이용해주시기 바랍니다.');
+                        location.href="/member/login";
+                    }
+                }
+            });
+        }
+        
+        // 파일 목록 출력
+        function viewFileList() {
+            var no = $("#no").val();
+            $.ajax({
+                url: '/issue/viewFileList',
+                type: 'GET',
+                data: {
+                    no: no
+                },
+                success: function(fileHtml) {
+                    $('#viewFileList').html(fileHtml);
+                }
+            });
+        }
+        
+		// 글 작성
 		$("#submitBtn").on('click', function() {
 			var title = $("#title").val();
 			var content = $("#content").val();
@@ -31,8 +89,9 @@
 			    $("#content").focus();
 			    return false;
 			}
+			uploadFiles();
 			alert("글 작성 완료.");
-			$("#writeForm").submit();
+			//$("#writeForm").submit();
 		});
 	});
 </script>
@@ -49,10 +108,17 @@
             <label for="author">작성자:</label><br>
             <input type="text" id="author" name="author" value="${member.id}" readonly><br><br>
             
+            <div id="fileContainer">
+		        <input type="file" id="fileInput" name="files" multiple>
+		    </div>
+        
+        	<!-- 파일 목록 출력 영역 -->
+            <div id="viewFileList"></div><br><br>
+            
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
             
-            <input type="button" id=submitBtn value="글 쓰기">
+            <input type="button" id="submitBtn" value="글 쓰기">
         </form>
 
         <hr>

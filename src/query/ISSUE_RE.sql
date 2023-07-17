@@ -55,7 +55,7 @@ drop sequence ISSUE_RE_SEQ;
 
 select * from issue_re order by reno desc;
 
-delete from issue_re where reno > 1;
+delete from issue_re where reno < 8;
        
 commit;      
        

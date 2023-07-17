@@ -26,6 +26,21 @@
 			location.href="/issue/update?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
 		});
 		
+		// 파일 목록 출력
+        function viewFileList() {
+            var no = $("#no").val(); // 게시물 번호를 JSP 변수로 전달
+            $.ajax({
+                url: '/issue/viewFileList',
+                type: 'GET',
+                data: {
+                    no: no // 게시물 번호를 Ajax 요청 파라미터로 전달
+                },
+                success: function(fileHtml) {
+                    $('#viewFileList').html(fileHtml);
+                }
+            });
+        }
+		
 		// 글 삭제
 		$("#deleteBtn").on('click', function() {
 			var result = confirm("삭제하시겠습니까?");
@@ -216,6 +231,8 @@
 
         // 페이지 로드 시 댓글 목록 호출
         viewReply();
+     	// 페이지 로드 시 파일 목록 호출
+        viewFileList();
     });
 </script>
 </head>
@@ -243,6 +260,9 @@
             <label for="author">작성자:</label><br>
             <input type="text" id="author" name="author" value="${issue.author}" readonly><br><br>
             
+		    <!-- 파일 목록 ajax -->
+			<div id="viewFileList"></div>
+			
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50" readonly>${issue.content}</textarea><br><br>
             <c:if test="${member.id == issue.author}">

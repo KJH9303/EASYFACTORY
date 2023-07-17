@@ -14,10 +14,10 @@
 </script>
 </head>
 <body>
-		<c:if test="${replyList == null}">
+		<c:if test="${empty  replyList}">
 			<div>등록된 댓글이 없습니다.</div>
 		</c:if>
-		<c:if test="${replyList != null}">
+		<c:if test="${not empty replyList}">
 			<div>등록된 댓글 : ${replyCnt}</div>
 			<br />
 			<c:forEach items="${replyList}" var="replyList">

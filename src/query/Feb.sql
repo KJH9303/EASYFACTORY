@@ -1,88 +1,88 @@
 
 CREATE TABLE FEB1 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
 
 CREATE TABLE FEB2 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
 
 CREATE TABLE FEB3 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
 
 CREATE TABLE FEB4 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
 
 CREATE TABLE FEB5 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
 
 CREATE TABLE FEB6 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
 
 CREATE TABLE FEB7 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
 
 CREATE TABLE FEB8 (
     opratio      NUMBER(4,2),
-    temp         NUMBER(3),   
-    tr           NUMBER(6),
-    fal          NUMBER(4),
-    stock        NUMBER(6),
-    costs        NUMBER(30),
+    temp         NUMBER(3,0),   
+    tr           NUMBER(6,0),
+    fal          NUMBER(4,0),
+    stock        NUMBER(6,0),
+    costs        NUMBER(30,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );

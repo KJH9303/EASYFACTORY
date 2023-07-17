@@ -125,7 +125,7 @@
                 <th>작성일자</th>
             </tr>
             <tbody id="posts">
-           		<c:if test="${issueList != null}">
+           		<c:if test="${not empty issueList}">
            			<c:forEach items="${issueList}" var="issueList">
            				<tr>
 	                		<td>${issueList.no}</td>
@@ -141,7 +141,7 @@
                		<input type="hidden" id="searchType" value="${searchType}" readonly>
                		<input type="hidden" id="keyword" value="${keyword}" readonly>
                	</c:if>
-               	<c:if test="${issueList == null}">
+               	<c:if test="${empty issueList}">
                		<tr>
                			<td> 작성된 게시물이 없습니다. </td>
                		</tr>

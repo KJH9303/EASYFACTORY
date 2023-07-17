@@ -187,9 +187,11 @@ public class FebDAO {
             		
             LocalDateTime currentDateTime = dateTime.plusDays(i);
             java.sql.Date currentDate = java.sql.Date.valueOf(currentDateTime.toLocalDate());
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+currentDate);
 
             try {
                 String SQL = "UPDATE " + tableName + " SET opratio = ?, temp = ?, tr = ?, fal = ?, stock = ?, costs = ?, usingratio = ? WHERE hiredate = ?";
+                System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhh"+ opratio +"dd"+temp +"dd"+ tr +"dd"+fal +"dd"+stock +"dd"+costs +"dd"+usingRatio +"dd"+currentDate);
                 int result = jdbcTemplate.update(SQL, opratio, temp, tr, fal, stock, costs, usingRatio, currentDate);
 
                 System.out.println("[" + tableName.toUpperCase() + " 테이블의 업데이트 작업이 완료되었습니다.]");

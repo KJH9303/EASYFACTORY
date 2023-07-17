@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.issue.service.EzFileService;
 import com.issue.service.IssueService;
 import com.issue.service.ReplyIssueService;
 import com.issue.vo.Criteria;
+import com.issue.vo.EzFileVO;
 import com.issue.vo.IssueVO;
 import com.issue.vo.PageMaker;
 import com.issue.vo.ReplyIssueVO;
@@ -32,11 +34,20 @@ public class IssueController {
 		this.issueService = issueService;
 	}
     
+    // 댓글 Service
     @Autowired
     private ReplyIssueService replyIssueService;
     
     public void setReplyIssueService(ReplyIssueService replyIssueService) {
 		this.replyIssueService = replyIssueService;
+	}
+    
+    // 파일 Service
+    @Autowired
+    private EzFileService ezFileService;
+    
+    public void setEzFileService(EzFileService ezFileService) {
+		this.ezFileService = ezFileService;
 	}
     
     // 글 목록
@@ -106,6 +117,20 @@ public class IssueController {
    	 	
     	model.addAttribute("issue", issueVO);
     	model.addAttribute("cri", cri);
+    }
+    
+    // 파일 목록 출력 ajax
+    @RequestMapping(value="/viewFileList", method=RequestMethod.GET)
+    public String viewFileList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    	int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));
+    	
+    	System.out.println("nononononononononnononnonononononnoon" + no);
+    	int fileCnt = ezFileService.issueFileListCnt(no); // 파일 갯수
+    	List<EzFileVO> fileList= ezFileService.getFileList(no); // 파일 목록
+    	
+    	model.addAttribute("fileList", fileList);
+    	model.addAttribute("fileCnt", fileCnt);
+        return "issue/fileList";
     }
     
     // 댓글 작성 ajax
