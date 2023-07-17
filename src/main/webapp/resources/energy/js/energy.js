@@ -13,7 +13,7 @@
 	       legend: {
 	           data: ['가동률']
 	       },
-	       animationDelay: (idx) => idx * 10,
+	       animationDelay: (idx) => idx * 150,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -90,7 +90,7 @@
 	       legend: {
 	           data: ['생산량']
 	       },
-	       animationDelay: (idx) => idx * 10,
+	       animationDelay: (idx) => idx * 150,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -166,7 +166,7 @@
 	       legend: {
 	           data: ['에너지 사용 비용']
 	       },
-	       animationDelay: (idx) => idx * 10,
+	       animationDelay: (idx) => idx * 150,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -242,7 +242,7 @@
 	       legend: {
 	           data: ['에너지 사용량']
 	       },
-	       animationDelay: (idx) => idx * 10,
+	       animationDelay: (idx) => idx * 150,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -318,7 +318,7 @@
 	       legend: {
 	           data: ['비용', '생산량']
 	       },
-	       animationDelay: (idx) => idx * 10,
+	       animationDelay: (idx) => idx * 150,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -409,7 +409,7 @@
 	       legend: {
 	           data: ['비용', '에너지 사용량']
 	       },
-	       animationDelay: (idx) => idx * 10,
+	       animationDelay: (idx) => idx * 150,
 	       toolbox: {
 	           show: true,
 	           feature: {
@@ -432,7 +432,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#008120' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#008120' 
         			},
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
@@ -446,7 +446,7 @@
 	               type: 'bar',
 	               data: [],
 	               itemStyle: {
-            		color: '#ffbf00' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#ffbf00' 
         			},
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},

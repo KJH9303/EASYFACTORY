@@ -31,10 +31,14 @@ public class EnergyController {
 		this.energyService = energyService;
 	}
     
-    @GetMapping("/energyDashborad")
-    public String energydashborad() {
-    	System.out.println("[EnergyController] /energyDashborad");
-    	return "energy/energyDashborad";
+    @GetMapping("/energyDashboard")
+    public String energyDashboard() {
+    	return "energy/energyDashboard";
+    	
+    }
+    @GetMapping("/stockDashboard")
+    public String stockDashboard() {
+    	return "/stock/stockDashboard";
     	
     }
     
