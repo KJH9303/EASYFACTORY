@@ -223,7 +223,7 @@
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
 		        left: 30, // 좌측 여백
-		        right: 10 // 우측 여백
+		        right: 0 // 우측 여백
 		    }
 	     });
 	}  // function CostsTrChart
