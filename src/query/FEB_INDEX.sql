@@ -135,7 +135,7 @@ SELECT PROCESS_FEB, avg(InDex_Cost) as InDex_Cost
 
 -- 공정별 생산량 기준치 --
 CREATE VIEW feb_index_view_production as
-SELECT PROCESS_FEB, avg(InDex_Cost) as production 
+SELECT PROCESS_FEB, avg(production) as production 
     FROM feb_index
     GROUP BY process_feb
     ORDER BY process_feb;
