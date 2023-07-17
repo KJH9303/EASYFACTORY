@@ -7,6 +7,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Write</title>
 <link rel="stylesheet" href="../../../resources/issue/css/board.css">
+
+<link type="text/css" rel="Stylesheet" href="../../jq
+widgets/styles/jqx.base.css" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />		
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -93,6 +98,8 @@
 			alert("글 작성 완료.");
 			//$("#writeForm").submit();
 		});
+		
+		$('#jqxFileUpload').jqxFileUpload({ width: 300, uploadUrl: 'imageUpload.php', fileInputName: 'fileToUpload' });
 	});
 </script>
 </head>
@@ -108,9 +115,7 @@
             <label for="author">작성자:</label><br>
             <input type="text" id="author" name="author" value="${member.id}" readonly><br><br>
             
-            <div id="fileContainer">
-		        <input type="file" id="fileInput" name="files" multiple>
-		    </div>
+            <div id="jqxFileUpload"></div>
         
         	<!-- 파일 목록 출력 영역 -->
             <div id="viewFileList"></div><br><br>
