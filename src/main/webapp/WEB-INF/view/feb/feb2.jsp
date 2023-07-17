@@ -368,16 +368,15 @@
 	    opratioChart = echarts.init(document.getElementById("opratioChart"));
 	  }
 	  let displayData, dateList;
-	  let currentDate = new Date();
-	  let currentMonth = currentDate.getMonth();
-	  let currentYear = currentDate.getFullYear();
 	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      dateList.push(dateString);
 	      displayData.push(data.opratio);
 	    });
@@ -386,7 +385,9 @@
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
 	        dateList.push(dateString);
 	        displayData.push(data.opratio);
@@ -408,30 +409,35 @@
 		               saveAsImage: {show: true}
 		           }
 		       },
-			    tooltip: {
-			        trigger: "axis",
-			        axisPointer: {
-			          type: "shadow",
-			        },
-			        borderWidth: 1,
-			        formatter: function (params) {
-			          if (params.length > 0) {
-			            return params[0].value.toFixed(2);
-			          }
-			          return "-";
-			        },
-			      },
-			      xAxis: {
-			        type: "category",
-			        data: dateList,
-			        axisLabel: {
-			          interval: 6, // 모든 레이블을 표시
-			          textStyle: {
-			            color: "#333", // x축 레이블 텍스트 색상
-			            fontSize: 10, // x축 레이블 텍스트 크기
-			          },
-			        },
-			      },
+		       tooltip: {
+		    	   trigger: "axis",
+		    	   axisPointer: {
+		    	     type: "shadow"
+		    	   },
+		    	   borderWidth: 1,
+		    	   formatter: function(params) {
+		    	     if (params.length > 0) {
+		    	       var value = params[0].value.toFixed(2) + "(%)";
+		    	       var xLabel = params[0].axisValue; // x축 레이블 값
+		    	       var day = xLabel.slice(xLabel.indexOf(" ") + 1, xLabel.indexOf("일")); // 일 값 추출
+		    	       var month = xLabel.slice(0, xLabel.indexOf("월")); // 월 값 추출
+		    	       return month + "월 " + day + "일<br/>" + value;
+		    	     }
+		    	     return "-";
+		    	   }
+		    	 },
+		    	 xAxis: {
+		    		  type: "category",
+		    		  data: dateList,
+		    		  axisLabel: {
+		    		    formatter: function(value) {
+		    		      var day = value.slice(value.indexOf(" ") + 1, value.indexOf("일")); // 일 값 추출
+		    		      var month = value.slice(0, value.indexOf("월")); // 월 값 추출
+		    		      return month + "월 " + day + "일";
+		    		    },
+		    		    show: false // 레이블 숨김 처리
+		    		  }
+		    		},
 			      yAxis: {
 			        type: "value",
 			        axisLine: {
@@ -481,68 +487,67 @@
 	    }
 	
 	    const option = {
-	 	       toolbox: {
-		           show: true,
-		           feature: {
-		               dataView: {show: true,readOnly: false},
-		               magicType: {show: true, type: ['line', 'bar']},
-		               restore: {show: true},
-		               saveAsImage: {show: true}
-		           }
-		       },
-	            series: [{
-	                type: 'gauge',
-	                min: 0,
-	                max: 15,
-	                radius: '100%', 
-	                splitNumber: 2,
-	                startAngle: 210, 
-	                endAngle: -30,
-	                axisLine: {
-	                    lineStyle: {
-	                        width: 15, 
-	                        color: [
-	                            [0.3, '#67e0e3'],
-	                            [0.7, '#37a2da'],
-	                            [1, '#fd666d']
-	                        ]
-	                    }
-	                },
-	                axisTick: {
-	                    length: 10, 
-	                    lineStyle: {
-	                        color: 'auto'
-	                    }
-	                },
-	                splitLine: {
-	                    length: 25, 
-	                    lineStyle: {
-	                        color: 'auto'
-	                    }
-	                },
-	                axisLabel: {
-	                    distance: 20,
-	                    color: '#aaa',
-	                    fontSize: 10,
-	                    fontFamily: 'Arial, sans-serif'
-	                },
-	                pointer: {
-	                    width: 7,
-	                    length: "70%",
-	                  },
-	                detail: {
-	                    valueAnimation: true,
-	                    color: 'auto',
-	                    fontSize: 30,
-	                    fontFamily: 'Arial, sans-serif',
-	                    fontWeight: 'bold'
-	                },
-	                  data: [{ value: todayTemp, itemStyle: { color: "auto" } }],
-	            }]
-	        };
-	    // 차트 옵션 설정 및 렌더링
-	    gaugeChart.setOption(option);
-		}
+		 	       toolbox: {
+			           show: true,
+			           feature: {
+			               dataView: {show: true,readOnly: false},
+			               restore: {show: true},
+			               saveAsImage: {show: true}
+			           }
+			       },
+		            series: [{
+		                type: 'gauge',
+		                min: 0,
+		                max: 15,
+		                radius: '100%', 
+		                splitNumber: 2,
+		                startAngle: 210, 
+		                endAngle: -30,
+		                axisLine: {
+		                    lineStyle: {
+		                        width: 15, 
+		                        color: [
+		                            [0.3, '#67e0e3'],
+		                            [0.7, '#37a2da'],
+		                            [1, '#fd666d']
+		                        ]
+		                    }
+		                },
+		                axisTick: {
+		                    length: 10, 
+		                    lineStyle: {
+		                        color: 'auto'
+		                    }
+		                },
+		                splitLine: {
+		                    length: 25, 
+		                    lineStyle: {
+		                        color: 'auto'
+		                    }
+		                },
+		                axisLabel: {
+		                    distance: 20,
+		                    color: '#aaa',
+		                    fontSize: 10,
+		                    fontFamily: 'Arial, sans-serif'
+		                },
+		                pointer: {
+		                    width: 7,
+		                    length: "70%",
+		                  },
+		                detail: {
+		                    valueAnimation: true,
+		                    color: 'auto',
+		                    fontSize: 30,
+		                    fontFamily: 'Arial, sans-serif',
+		                    fontWeight: 'bold'
+		                },
+		                  data: [{ value: todayTemp, itemStyle: { color: "auto" } }],
+		            }],
+		
+		    	};
+		    	gaugeChart.setOption(option);
+			}
 	
 	// 전기사용량 바차트 ===================================================================================================================
 	function updateUsingratioChart(dataList, dateRange = null) {
@@ -550,16 +555,15 @@
 		  usingratioChart = echarts.init(document.getElementById("usingratioChart"));
 	  }
 	  let displayData, dateList;
-	  let currentDate = new Date();
-	  let currentMonth = currentDate.getMonth();
-	  let currentYear = currentDate.getFullYear();
 	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      dateList.push(dateString);
 	      displayData.push(data.usingratio);
 	    });
@@ -568,7 +572,9 @@
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
 	        dateList.push(dateString);
 	        displayData.push(data.usingratio);
@@ -579,7 +585,7 @@
 	      opratioChart.resize();
 	    });
 	  }
-
+	  
 	  var option = {
 		       toolbox: {
 		           show: true,
@@ -590,30 +596,35 @@
 		               saveAsImage: {show: true}
 		           }
 		       },
-			    tooltip: {
-			        trigger: "axis",
-			        axisPointer: {
-			          type: "shadow",
-			        },
-			        borderWidth: 1,
-			        formatter: function (params) {
-			          if (params.length > 0) {
-			            return params[0].value.toFixed(2);
-			          }
-			          return "-";
-			        },
-			      },
-			      xAxis: {
-			        type: "category",
-			        data: dateList,
-			        axisLabel: {
-			          interval: 6, // 모든 레이블을 표시
-			          textStyle: {
-			            color: "#333", // x축 레이블 텍스트 색상
-			            fontSize: 10, // x축 레이블 텍스트 크기
-			          },
-			        },
-			      },
+		       tooltip: {
+		    	   trigger: "axis",
+		    	   axisPointer: {
+		    	     type: "shadow"
+		    	   },
+		    	   borderWidth: 1,
+		    	   formatter: function(params) {
+		    	     if (params.length > 0) {
+		    	       var value = params[0].value.toFixed(2) + "(kWh)";
+		    	       var xLabel = params[0].axisValue; // x축 레이블 값
+		    	       var day = xLabel.slice(xLabel.indexOf(" ") + 1, xLabel.indexOf("일")); // 일 값 추출
+		    	       var month = xLabel.slice(0, xLabel.indexOf("월")); // 월 값 추출
+		    	       return month + "월 " + day + "일<br/>" + value;
+		    	     }
+		    	     return "-";
+		    	   }
+		    	 },
+		    	 xAxis: {
+		    		  type: "category",
+		    		  data: dateList,
+		    		  axisLabel: {
+		    		    formatter: function(value) {
+		    		      var day = value.slice(value.indexOf(" ") + 1, value.indexOf("일")); // 일 값 추출
+		    		      var month = value.slice(0, value.indexOf("월")); // 월 값 추출
+		    		      return month + "월 " + day + "일";
+		    		    },
+		    		    show: false // 레이블 숨김 처리
+		    		  }
+		    		},
 			      yAxis: {
 			        type: "value",
 			        axisLine: {
@@ -651,7 +662,6 @@
 	  };
 	  usingratioChart.setOption(option);
 	}
-
 	// 불량현황 리스트 ===================================================================================================================	
 	$(document).ready(function() {
 	    function updateRandomDefect() {
@@ -675,16 +685,15 @@
 		  costsChart = echarts.init(document.getElementById("costsChart"));
 	  }
 	  let displayData, dateList;
-	  let currentDate = new Date();
-	  let currentMonth = currentDate.getMonth();
-	  let currentYear = currentDate.getFullYear();
 	
 	  if (!dateRange) {
 	    dateList = [];
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      dateList.push(dateString);
 	      displayData.push(data.costs);
 	    });
@@ -693,7 +702,9 @@
 	    displayData = [];
 	    dataList.forEach((data) => {
 	      let hireDate = new Date(data.hiredate);
-	      let dateString = data.hiredate.split('-')[2];
+	      let month = hireDate.getMonth() + 1;
+	      let day = hireDate.getDate();
+	      let dateString = month + "월 " + day + "일";
 	      if (hireDate >= dateRange[0] && hireDate <= dateRange[1]) {
 	        dateList.push(dateString);
 	        displayData.push(data.costs);
@@ -715,30 +726,35 @@
 		               saveAsImage: {show: true}
 		           }
 		       },
-			    tooltip: {
-			        trigger: "axis",
-			        axisPointer: {
-			          type: "shadow",
-			        },
-			        borderWidth: 1,
-			        formatter: function (params) {
-			          if (params.length > 0) {
-			            return params[0].value.toFixed(2);
-			          }
-			          return "-";
-			        },
-			      },
-			      xAxis: {
-			        type: "category",
-			        data: dateList,
-			        axisLabel: {
-			          interval: 6, // 모든 레이블을 표시
-			          textStyle: {
-			            color: "#333", // x축 레이블 텍스트 색상
-			            fontSize: 10, // x축 레이블 텍스트 크기
-			          },
-			        },
-			      },
+		       tooltip: {
+		    	   trigger: "axis",
+		    	   axisPointer: {
+		    	     type: "shadow"
+		    	   },
+		    	   borderWidth: 1,
+		    	   formatter: function(params) {
+		    	     if (params.length > 0) {
+		    	       var value = params[0].value.toFixed(0) + "(천원)";
+		    	       var xLabel = params[0].axisValue; // x축 레이블 값
+		    	       var day = xLabel.slice(xLabel.indexOf(" ") + 1, xLabel.indexOf("일")); // 일 값 추출
+		    	       var month = xLabel.slice(0, xLabel.indexOf("월")); // 월 값 추출
+		    	       return month + "월 " + day + "일<br/>" + value;
+		    	     }
+		    	     return "-";
+		    	   }
+		    	 },
+		    	 xAxis: {
+		    		  type: "category",
+		    		  data: dateList,
+		    		  axisLabel: {
+		    		    formatter: function(value) {
+		    		      var day = value.slice(value.indexOf(" ") + 1, value.indexOf("일")); // 일 값 추출
+		    		      var month = value.slice(0, value.indexOf("월")); // 월 값 추출
+		    		      return month + "월 " + day + "일";
+		    		    },
+		    		    show: false // 레이블 숨김 처리
+		    		  }
+		    		},
 			      yAxis: {
 			        type: "value",
 			        axisLine: {
