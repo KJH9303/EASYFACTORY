@@ -7,6 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+	
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script> 
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 </head> 

@@ -19,7 +19,6 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -45,7 +44,6 @@
 	                       {type: 'min',name: '최소값'}]},
 	               markLine: {
 	                   data: [{type: 'average',name: '평균값'}]
-	                   
 	               }
 	           }
 	       ]
@@ -62,8 +60,6 @@
 	                 name: '재고량',
 	                 data: chartData,
 	                 barWidth: 80
-	                 
-	                 
 	             }
 	             
 	         ],
@@ -99,7 +95,7 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
+	               
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -120,13 +116,12 @@
 	                itemStyle: {
             		color: '#00008B' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
-	                 
+        			
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
 	               markLine: {
 	                   data: [{type: 'average',name: '평균값'}]
-	                   
 	               }
 	           }
 	       ]
@@ -142,8 +137,6 @@
 	             {
 	                 name: '불량',
 	                 data: chartData,
-	                 
-	                 
 	             }
 	             
 	         ],
@@ -176,7 +169,6 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -214,7 +206,6 @@
 	                       {type: 'min',name: '최소값'}]},
 	               markLine: {
 	                   data: [{type: 'average',name: '평균값'}]
-	                   
 	               }
 	           }
 	       ]
