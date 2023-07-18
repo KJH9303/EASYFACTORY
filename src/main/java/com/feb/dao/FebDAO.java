@@ -1,7 +1,5 @@
 package com.feb.dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,10 +12,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-
-import com.feb.vo.FebVO;
 
 @Repository
 public class FebDAO {
@@ -30,23 +25,6 @@ public class FebDAO {
 
     public FebDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-    // Feb mapper
- 	private static class FebMapper implements RowMapper<FebVO> {
-         @Override
-         public FebVO mapRow(ResultSet rs, int rowNum) throws SQLException {
-        	 FebVO febVO = new FebVO();
-        	 febVO.setOpratio(rs.getDouble("opratio"));
-        	 febVO.setTemp(rs.getInt("temp"));
-        	 febVO.setTr(rs.getInt("tr"));
-        	 febVO.setFal(rs.getInt("fal"));
-        	 febVO.setStock(rs.getInt("stock"));
-        	 febVO.setCosts(rs.getInt("costs"));
-        	 febVO.setUsingratio(rs.getDouble("usingratio"));
-        	 febVO.setHiredate(rs.getDate("hiredate"));
-             return febVO;
-         }
     }
 
  	// Select    
@@ -92,89 +70,7 @@ public class FebDAO {
         });
     }
 
-    // insertDAO
- 	public void insertTable(String tableName) {
-        Random random = new Random();
-
-        LocalDateTime dateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
-        for (int i = 0; i < 365; i++) {
-            double opratio = Math.round((70 + random.nextDouble() * (100 - 70)) * 100.0) / 100.0;
-            int temp = random.nextInt(15) + 1;
-            int tr = random.nextInt(10000) + 1;
-            int fal = random.nextInt(100) + 1;
-            int stock = random.nextInt(1000) + 1;
-            int costs = random.nextInt(1000) + 1;
-            double usingratio = Math.round(random.nextDouble() * 100 * 100.0) / 100.0;
-
-            temp = Math.max(0, Math.min(15, temp));
-
-            LocalDateTime currentDateTime = dateTime.plusDays(i);
-            java.sql.Date currentDate = java.sql.Date.valueOf(currentDateTime.toLocalDate());
-
-            try {
-                String SQL = "INSERT INTO " + tableName + " (opratio, temp, tr, fal, stock, costs, usingratio, hiredate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                int result = jdbcTemplate.update(SQL, opratio, temp, tr, fal, stock, costs, usingratio, currentDate);
-                
-                System.out.println("[" + tableName.toUpperCase() + " 테이블의 INSERT 작업이 완료되었습니다.]");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(">>> 날짜 " + currentDate + " INSERT 작업 중 예외가 발생하였습니다: " + e.getMessage());
-            }
-        }
-    }
- 	
- 	/*
- 	 * 공정테이블 : 일별처리
- 	 *  칼럼: 장비가동율, 온도, 정품수량, 불량수량, 재고, 비용
- 	 */
-    public void updateTable(String tableName) {
-        Random random = new Random();
-
-        LocalDateTime dateTime = LocalDateTime.of(2023, 1, 1, 0, 0, 0);
-        for (int i = 0; i < 365; i++) {
-
-            int temp = random.nextInt(15) + 1; 			// 온도
-            temp = Math.max(0, Math.min(15, temp));
-            double stock;
-            
-            // 공정별 전기사용량 기준치  + 전기사용량
-            double randomUsingratio = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
-            double usingRatio = febIndexDAO.selectFebIndex_Elec_VO(tableName) + ((randomUsingratio > 10.0) ? randomUsingratio - 10.0 : -randomUsingratio);  
-            
-            // 공정별 연평균 전기비용 기준치 + 전기사용량
-            double costs = (febIndexDAO.selectFebIndex_Cost_VO(tableName) * (usingRatio)); 
-            
-            // 공정별 생산량 대비 장비가동률(0부터 20까지의 수 중에 랜덤값 생성)
-            double randomOpratio = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
-            double opratio = febIndexDAO.selectFebIndex_production_VO(tableName) + ((randomOpratio > 10.0) ? randomOpratio - 10.0 : -randomOpratio);
-            
-            // 공정별 난이도대비 불량품 (0부터 20까지의 수 중에 랜덤값 생성)
-            double randomFal = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
-            double fal = febIndexDAO.selectFebindex_view_Difficulty(tableName) + ((randomFal > 10.0) ? randomFal - 10.0 : -randomFal);
-            
-            // 공정별 전기사용량 기준치 + 생산량
-            double randomTr = Math.round(random.nextDouble() * 20 * 20.0) / 20.0;
-            double tr = febIndexDAO.selectFebIndex_Elec_VO(tableName) * (1000) + ((randomTr > 10.0) ? randomTr - 1000.0 : -randomTr);
-
-            stock = (double)tr - (double)fal;	// 재고
-            
-            LocalDateTime currentDateTime = dateTime.plusDays(i);
-            java.sql.Date currentDate = java.sql.Date.valueOf(currentDateTime.toLocalDate());
-
-            try {
-                String SQL = "UPDATE " + tableName + " SET opratio = ?, temp = ?, tr = ?, fal = ?, stock = ?, costs = ?, usingratio = ? WHERE hiredate = ?";
-                int result = jdbcTemplate.update(SQL, opratio, temp, tr, fal, stock, costs, usingRatio, currentDate);
-
-                System.out.println("[" + tableName.toUpperCase() + " 테이블의 업데이트 작업이 완료되었습니다.]");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println(">>> 날짜 " + currentDate + " 업데이트 작업 중 예외가 발생하였습니다: " + e.getMessage());
-            }
-        }
-    }
-
+    // 랜덤불량생성
 	public static String getRandomDefect() {
 		while (true) {
 		    LocalDate nowdate = LocalDate.now();
@@ -204,12 +100,4 @@ public class FebDAO {
 		    return result;
 		}
 	}
-	
-	 public double selectFebIndexVO(String feb) {
-		String query = "SELECT elec_using FROM feb_index_view WHERE process_feb=?";
-		Double val = jdbcTemplate.queryForObject(query, new Object[] {feb},	Double.class);	
-		
-		return val;
-    }
-	
 }
