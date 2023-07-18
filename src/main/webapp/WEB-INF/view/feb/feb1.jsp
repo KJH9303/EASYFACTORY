@@ -125,7 +125,7 @@
             <h4 class="text-lg font-semibold-defect text-gray-500s">DEFECT MONITORING</h4>
           </div>
           <!-- Chart -->
-          <div class="relative p-4 h-72" style= "overflow: auto">
+          <div class="relative p-4 h-72 table-container-scroll" style= "overflow: auto">
             <table>
 	            <tr>
 	           	</tr>
@@ -137,6 +137,8 @@
         </div>
       </div>
 
+    <!-- Chart -->
+    <div class="relative p-4 h-72 table-container">
       <!-- Two grid columns -->
       <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
 		<!-- Bar chart card -->
@@ -671,7 +673,7 @@
 	                $('#previousDefects').prepend('<li>' + result + '</li>');
 	            },
 	            complete: function() {
-	                setTimeout(updateRandomDefect, 3000);
+	                setTimeout(updateRandomDefect, 1000);
 	            }
 	        });
 	    }

@@ -424,3 +424,59 @@ tr > td {
     display: false;
   }
   
+/* 스크롤 바 스타일 */
+.table-container-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container-scroll::-webkit-scrollbar-thumb {
+  background-color: #d4aa70;
+  border-radius: 100px;
+}
+
+.table-container-scroll {
+    scrollbar-color: #D4AA70 #e4e4e4;
+}
+
+.table-container-scroll::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(180deg, #D0368A 0%, #708AD4 99%);
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    border-radius: 100px;
+}
+
+.table-container-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: red;
+}
+
+.table-container-scroll::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+/* 테이블 스크롤 스타일 */
+.table-container-scroll {
+  overflow-x: auto;
+  max-height: 300px; 
+}
+
+.table-container-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container-scroll th,
+.table-container-scroll td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container-scroll th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  text-align: left;
+}
+
+.table-container-scroll tr:hover {
+  background-color: #f9f9f9;
+}
+  
