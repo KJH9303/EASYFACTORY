@@ -73,7 +73,7 @@
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
             <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              장비가동률
+              장비가동율
             </h6>
             <span class="text-xl font-semibold opratio-avg"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
@@ -102,7 +102,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500"> 장비 가동률</h4>
+            <h4 class="text-lg font-semibold text-gray-500"> 장비 가동율</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
       	    <div>
@@ -454,6 +454,7 @@
 			      },
 			      series: [
 			        {
+				      name: '가동율',	
 			          data: displayData,
 			          type: "bar",
 			          animationDelay: (idx) => idx * 10,
@@ -638,6 +639,7 @@
 			      },
 			      series: [
 			        {
+				      name: '전기사용량',	
 			          data: displayData,
 			          type: "bar",
 			          animationDelay: (idx) => idx * 10,
@@ -767,6 +769,7 @@
 			      },
 			      series: [
 			        {
+				          name: '비용',	
 			          data: displayData,
 			          type: "bar",
 			          animationDelay: (idx) => idx * 10,
