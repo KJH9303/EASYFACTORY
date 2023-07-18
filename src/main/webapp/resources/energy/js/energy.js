@@ -19,7 +19,6 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -61,8 +60,6 @@
 	             {
 	                 name: '가동률',
 	                 data: chartData,
-	                 
-	                 
 	             }
 	             
 	         ],
@@ -96,7 +93,7 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
+	               
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -172,7 +169,6 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -195,7 +191,6 @@
 	                       {type: 'min',name: '최소값'}]},
 	               markLine: {
 	                   data: [{type: 'average',name: '평균값'}]
-	                   
 	               }
 	           }
 	       ]
@@ -248,7 +243,7 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
+	               
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -265,13 +260,11 @@
 	               name: '에너지 사용량',
 	               type: 'bar',
 	               data: [],
-	                 
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
 	               markLine: {
 	                   data: [{type: 'average',name: '평균값'}]
-	                   
 	               }
 	           }
 	       ]
@@ -290,9 +283,7 @@
 	                  itemStyle: {
             		color: '#ffbf00' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
-	                 
 	             }
-	             
 	         ],
 	 	    grid: {
 		        top: 80, // 상단 여백
@@ -324,7 +315,6 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
 	               saveAsImage: {show: true}
 	           }
 	       },
@@ -343,7 +333,6 @@
 	                itemStyle: {
             		color: '#008120' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
-	               
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
 	                       {type: 'min',name: '최소값'}]},
@@ -415,7 +404,6 @@
 	           feature: {
 	               dataView: {show: true,readOnly: false},
 	               magicType: {show: true, type: ['line', 'bar']},
-	               restore: {show: true},
 	               saveAsImage: {show: true}
 	           }
 	       },

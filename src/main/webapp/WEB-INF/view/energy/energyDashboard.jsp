@@ -15,7 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- css, js -->
-  <link rel="stylesheet" href="../../../resources/energy/css/energy.css" />
+  <link rel="stylesheet" href="../../../resources/energy/css/energy.css?after" />
   <script src="../../../resources/energy/js/energy.js" ></script>
   <!-- css, js -->
 </head>
@@ -109,13 +109,16 @@
               <button id="applyEnergyCost4" style="display: none;">제출</button>
             </div>
           </div>
+          </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
             <div id=FebOpratio_Chart style="height: 100%"></div>
           </div>
         </div>
+        
+        <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
         <!-- Bar chart card -->
-        <div class="col-span-2 bg-white rounded-md">
+        <!-- <div class="col-span-2 bg-white rounded-md"> -->
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
            <h4 class="text-lg font-semibold text-gray-500">공정별 총 생산량</h4>
@@ -132,7 +135,7 @@
           <div class="relative p-4 h-72">
       		<div id="FebTr_Chart" style="height: 100%"></div>
           </div>
-        </div>
+        <!-- </div> -->
       </div>
         <!-- Charts -->
       <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">

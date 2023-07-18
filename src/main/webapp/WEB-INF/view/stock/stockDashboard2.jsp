@@ -6,15 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Dashboard</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/echarts.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script> 
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-  <!-- css,js -->
   <link rel="stylesheet" href="../../../resources/stock/css/stock.css" />
   <script src="../../../resources/stock/js/stock.js" ></script>
-  <!-- css,js -->
 </head>
 <body>
 <div id="headerContainer"></div>
@@ -61,13 +62,11 @@
           </div>
           <div>
             <!-- 달력 아이콘 추가 -->
-           <!-- <i id="energyCostIcon2" class="fas fa-calendar-alt" style="cursor: pointer;"></i>-->
+            <i id="energyCostIcon2" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
             <!-- 데이트피커 -->
-            <!--
             <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" style="display: none;" />
             <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" style="display: none;" />
             <button id="applyEnergyCost2" style="display: none;">제출</button>
-            -->
           </div>
         </div>
         <!-- Orders card -->
@@ -123,9 +122,9 @@
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon5" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
               <!-- 데이트피커 -->
-              <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate" style="display: none;" />
+              <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate"  />
               <input type="text" id="energyCostEndDate5" class="datepicker" name="energyCostEndDate" style="display: none;" />
-              <button id="applyEnergyCost5" style="display: none;">제출</button>
+               <button id="applyEnergyCost5" style="display: none;">제출</button>
             </div>
           </div>
           <!-- Chart -->
@@ -388,13 +387,14 @@
 			  applyDateRange4(event, "/stock/chart12", "Feb_StockChart");
 			});
 			$("#applyEnergyCost5").click(function (event) {
+				alart("에러");
 			  applyDateRange5(event, "/stock/char13", "FebFal_Chart");
 			});
 			$("#applyEnergyCost6").click(function (event) {
 			  applyDateRange6(event, "/stock/char14", "SFStock_StockChart");
 			});
+			
 			drawCharts();
-			  // 그리고 설정한 시간 간격으로 차트를 업데이트 합니다.
 			setInterval(drawCharts, 5000); // 5초 간격
         });  
           // 새로운 interval 실행
