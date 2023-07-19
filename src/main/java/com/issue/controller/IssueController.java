@@ -1,5 +1,7 @@
 package com.issue.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +11,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.issue.service.EzFileService;
 import com.issue.service.IssueService;
@@ -119,68 +126,6 @@ public class IssueController {
     	model.addAttribute("cri", cri);
     }
     
-    // 파일 목록 출력 ajax
-    @RequestMapping(value="/viewFileList", method=RequestMethod.GET)
-    public String viewFileList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-    	int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));
-    	
-    	System.out.println("nononononononononnononnonononononnoon" + no);
-    	int fileCnt = ezFileService.issueFileListCnt(no); // 파일 갯수
-    	List<EzFileVO> fileList= ezFileService.getFileList(no); // 파일 목록
-    	
-    	model.addAttribute("fileList", fileList);
-    	model.addAttribute("fileCnt", fileCnt);
-        return "issue/fileList";
-    }
-    
-    // 댓글 작성 ajax
-    @RequestMapping(value="/writeReply", method=RequestMethod.POST)
-    @ResponseBody
-    public String writeReply(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
-    	
-    	int no = Integer.parseInt(request.getParameter("no"));
-    	String content = request.getParameter("content");
-    	String author = request.getParameter("author");
-    	
-    	if(session.getAttribute("member") == null) {
-			return "fail";
-		} else {
-			replyIssueService.writeReply(no, content, author);
-			return "InsertSuccess";
-		}
-    }
-    
-    // 댓글 출력 ajax
-    @RequestMapping(value="/viewReply", method=RequestMethod.GET)
-    public String replylist(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-    	int no = Integer.parseInt(request.getParameter("no"));
-    	int replyCnt = replyIssueService.issueReplyListCnt(no); // 댓글 갯수
-    	List<ReplyIssueVO> replyList= replyIssueService.getReplyList(no); // 댓글 목록
-    	
-    	model.addAttribute("replyList", replyList);
-    	model.addAttribute("replyCnt", replyCnt);
-        return "issue/reply";
-    }
-    
-    // 댓글 수정 ajax
-    @RequestMapping(value="/updateReply", method=RequestMethod.POST)
-    @ResponseBody
-    public void updateReply(HttpServletRequest request) {
-    	int reno = Integer.parseInt(request.getParameter("reno"));
-    	String content = request.getParameter("content");
-    	replyIssueService.updateReply(reno, content);
-    }
-    
-    
-    // 댓글 삭제 ajax
-    @RequestMapping(value="/deleteReply", method=RequestMethod.POST)
-    @ResponseBody
-    public void deleteReply(HttpServletRequest request) throws Exception {
-    	int reno = Integer.parseInt(request.getParameter("reno"));
-        
-    	replyIssueService.deleteReply(reno);
-    }
-    
     // 글 쓰기 페이지
     @RequestMapping(value="/write", method=RequestMethod.GET)
     public String writeView(HttpServletRequest request, Model model) throws Exception {
@@ -243,5 +188,118 @@ public class IssueController {
     	int perPageNum = cri.getPerPageNum();
     	
     	return "redirect:/issue/list?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
+    }
+    
+    // 댓글 작성 ajax
+    @RequestMapping(value="/writeReply", method=RequestMethod.POST)
+    @ResponseBody
+    public String writeReply(HttpSession session, HttpServletRequest request, HttpServletResponse response) {
+    	
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	String content = request.getParameter("content");
+    	String author = request.getParameter("author");
+    	
+    	if(session.getAttribute("member") == null) {
+			return "fail";
+		} else {
+			replyIssueService.writeReply(no, content, author);
+			return "InsertSuccess";
+		}
+    }
+    
+    // 댓글 출력 ajax
+    @RequestMapping(value="/viewReply", method=RequestMethod.GET)
+    public String replylist(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    	int no = Integer.parseInt(request.getParameter("no"));
+    	int replyCnt = replyIssueService.issueReplyListCnt(no); // 댓글 갯수
+    	List<ReplyIssueVO> replyList= replyIssueService.getReplyList(no); // 댓글 목록
+    	
+    	model.addAttribute("replyList", replyList);
+    	model.addAttribute("replyCnt", replyCnt);
+        return "issue/reply";
+    }
+    
+    // 댓글 수정 ajax
+    @RequestMapping(value="/updateReply", method=RequestMethod.POST)
+    @ResponseBody
+    public void updateReply(HttpServletRequest request) {
+    	int reno = Integer.parseInt(request.getParameter("reno"));
+    	String content = request.getParameter("content");
+    	replyIssueService.updateReply(reno, content);
+    }
+    
+    
+    // 댓글 삭제 ajax
+    @RequestMapping(value="/deleteReply", method=RequestMethod.POST)
+    @ResponseBody
+    public void deleteReply(HttpServletRequest request) throws Exception {
+    	int reno = Integer.parseInt(request.getParameter("reno"));
+        
+    	replyIssueService.deleteReply(reno);
+    }
+    
+    @PostMapping("/uploadFile")
+    @ResponseBody
+    public void uploadFile(@RequestParam("originalname") MultipartFile[] files, RedirectAttributes redirectAttributes) throws Exception {
+        System.out.println("----------------------------------------------------------------------------");
+        try {
+            for (int i = 0; i < files.length; i++) {
+                MultipartFile file = files[i];
+
+                System.out.println("파일명: " + file.getOriginalFilename());
+
+                // 파일 저장
+                String originalFilename = file.getOriginalFilename();
+                String savename = originalFilename;
+                String filePath = "C:\\easyfactory_file\\" + savename;
+                File destFile = new File(filePath);
+                file.transferTo(destFile);
+
+                // DB에 파일 정보 저장
+                EzFileVO ezFileVO = new EzFileVO();
+                ezFileVO.setOriginalname(originalFilename);
+                ezFileVO.setSavename(savename);
+                ezFileVO.setFilesize((int) file.getSize());
+                ezFileService.uploadFile(ezFileVO);
+            }
+
+            redirectAttributes.addFlashAttribute("UploadSuccess", "파일 업로드가 완료되었습니다.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드에 실패했습니다.");
+        }
+    }
+    
+    // 파일 목록 출력 ajax
+    @RequestMapping(value="/viewFileList", method=RequestMethod.GET)
+    public String viewFileList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    	int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));
+    	
+    	System.out.println("nononononononononnononnonononononnoon" + no);
+    	int fileCnt = ezFileService.issueFileListCnt(no); // 파일 갯수
+    	List<EzFileVO> fileList= ezFileService.getFileList(no); // 파일 목록
+    	
+    	for (EzFileVO file : fileList) {
+    		int fileSize = file.getFilesize();
+            String formattedSize = formatFileSize(fileSize);
+            file.setFilesizeFormatted(formattedSize);
+        }
+    	
+    	model.addAttribute("fileList", fileList);
+    	model.addAttribute("fileCnt", fileCnt);
+        return "issue/fileList";
+    }
+    
+    // 파일 사이즈 포맷 변환
+    private String formatFileSize(long fileSize) {
+        String[] units = {"B", "KB", "MB", "GB", "TB"};
+        int digitGroups = (int) (Math.log10(fileSize) / Math.log10(1024));
+
+        if (digitGroups >= units.length) {
+            digitGroups = units.length - 1;
+        }
+
+        double size = fileSize / Math.pow(1024, digitGroups);
+        return String.format("%.2f %s", size, units[digitGroups]);
     }
 }

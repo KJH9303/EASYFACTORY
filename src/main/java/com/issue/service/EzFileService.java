@@ -14,6 +14,11 @@ public class EzFileService {
 		this.ezFileDAO = ezFileDAO;
 	}
 	
+	// 파일 업로드
+	public void uploadFile(EzFileVO ezFileVO) {
+        ezFileDAO.uploadFile(ezFileVO);
+    }
+	
 	// 파일 갯수
 	public int issueFileListCnt(int no) {
 		int cnt = ezFileDAO.issueFileListCnt(no);

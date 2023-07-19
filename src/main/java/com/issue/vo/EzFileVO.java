@@ -9,6 +9,7 @@ public class EzFileVO {
 	private int filesize;
 	private String regDate;
 	private String modDate;
+	private String filesizeFormatted;
 	
 	public EzFileVO() {}
 
@@ -83,5 +84,12 @@ public class EzFileVO {
 		return "EzFileVO [fileno=" + fileno + ", no=" + no + ", originalname=" + originalname + ", savename=" + savename
 				+ ", filesize=" + filesize + ", regDate=" + regDate + ", modDate=" + modDate + "]";
 	}
-	
+
+	public String getFilesizeFormatted() {
+		return filesizeFormatted;
+	}
+
+	public void setFilesizeFormatted(String formattedSize) {
+		this.filesizeFormatted = formattedSize;
+	}
 }

@@ -10,7 +10,7 @@ CREATE TABLE ISSUE (
       , MODDATE DATE DEFAULT NULL
       , PRIMARY KEY(NO)
 );
-
+drop table issue;
 ----------------------------------------
 ---- 이슈 게시글 번호 SEQUENCE ---------
 ----------------------------------------

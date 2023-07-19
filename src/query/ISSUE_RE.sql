@@ -1,4 +1,4 @@
-----------------------------------------
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ----------------------------------------
 ---- 이슈 게시판 테이블 ----------------
 ----------------------------------------
 CREATE TABLE ISSUE_RE (
@@ -17,6 +17,12 @@ CREATE TABLE ISSUE_RE (
 ALTER TABLE ISSUE_RE
     ADD CONSTRAINT ISSUE_RE_NO foreign key(NO)
     REFERENCES ISSUE(NO);
+
+----------------------------------------
+---- FOREIGN KEY 연결 해제--------------
+----------------------------------------
+ALTER TABLE ISSUE_RE
+DROP CONSTRAINT ISSUE_RE_NO;
 
 ----------------------------------------
 ---- 이슈 게시글 댓글 번호 SEQUENCE ----

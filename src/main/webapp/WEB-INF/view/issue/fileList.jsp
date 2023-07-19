@@ -19,12 +19,11 @@
 	</c:if>
 	<c:if test="${not empty fileList}">
 		<div>등록된 파일 : ${replyCnt}</div>
-		<br />
 		<c:forEach items="${fileList}" var="fileList">
 			<div>
 				<input type="text" name="savename" value="${fileList.savename}" readonly> 
 				<input type="hidden" name="fileno" value="${fileList.fileno}" readonly>
-				<textarea name="filesize" rows="1" cols="50" readonly>${fileList.filesize}</textarea>
+				<input type="text" name="filesize" value="${fileList.filesizeFormatted}" readonly>
 				<c:if test="${member.id == replyList.author}">
 					<button type="button" name="file_button_edit">수정</button>
 					<button type="button" name="file_button_delete">삭제</button>
@@ -32,7 +31,7 @@
 					<button type="button" name="file_button_cancel" style="display: none;">수정 취소</button>
 				</c:if>
 				<br />
-					<span>작성일 : </span>
+					<span>업로드 날짜 : </span>
 					<input type="text" name="regDate" value="${fileList.regDate}" readonly>
 				<c:if test="${fileList.modDate != null}">
 					<span>수정일 : </span>
