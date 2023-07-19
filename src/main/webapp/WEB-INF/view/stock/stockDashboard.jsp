@@ -306,10 +306,8 @@
 			        	  endDate: endDate[3]
 					  },
 				          success: function(data) {
-				            console.log('Raw Data:', data);
 				            var chartData = JSON.parse(data);
 				            FebStockChart(chartData);
-				            console.log('chartData:', chartData);
 				          },
 				          error: function(err) {
 				            console.log(err);
@@ -333,10 +331,8 @@
 			        	  endDate: endDate[4]
 					  },
 				          success: function(data) {
-				            console.log('Raw Data:', data);
 				            var chartData = JSON.parse(data);
 				            FebFalChart(chartData);
-				            console.log('chartData:', chartData);
 				          },
 				          error: function(err) {
 				            console.log(err);
@@ -360,7 +356,6 @@
 			        	  endDate: endDate[5]
 					  },
 				           success: function(data) {
-				               console.log("Raw Data:", data);
 				               var chartData = JSON.parse(data);
 				               SFStockStockChart(chartData);
 				          },

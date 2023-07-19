@@ -1,6 +1,5 @@
   	// 각 공정별 가동률 평균 차트
  function FebOpratioChart(chartData) {
-	   console.log("FebOpratio_Chart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('FebOpratio_Chart'));
 	   var option = {
 	       title: {
@@ -74,7 +73,6 @@
 	
 	// 각 공정별 총생산량 합계 차트
 	   function FebTrChart(chartData) {
-	    	   console.log("FebTr_Chart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('FebTr_Chart'));
 	   var option = {
 	       title: {
@@ -150,7 +148,6 @@
 	
 	// 각 공정별 총 에너지사용 비용 합계 차트
 	   function FebCostChart(chartData) {
-	        	   console.log("FebCost_Chart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('FebCost_Chart'));
 	   var option = {
 	       title: {
@@ -224,7 +221,6 @@
    
 	// 각 공정별 총 에너지사용량 합계 차트
 	   function FebUsingratioChart(chartData) {
-	    	        	   console.log("FebUsingratio_Chart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('FebUsingratio_Chart'));
 	   var option = {
 	       title: {
@@ -296,7 +292,6 @@
 	
    // 에너지 사용비용 대비 총 생산량 차트
    function CostsTrChart(febcosts, febtr) {
-	   console.log("CostsTrChart([" + febcosts + "], [" + febtr + "])");
 	   var myChart = echarts.init(document.getElementById('Costs_Tr_Chart'));
 	   var option = {
 	       title: {
@@ -384,7 +379,6 @@
    
    // 에너지 사용비용 대비 총 에너지 사용량
    function CostsUsingratioChart(febcosts, febcvusingratio) {
-	   console.log("CostsUsingratioChart([" + febcosts + "], [" + febcvusingratio + "])");
 	   var myChart = echarts.init(document.getElementById('Costs_Usingratio_Chart'));
 	
 	   var option = {

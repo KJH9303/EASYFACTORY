@@ -303,7 +303,7 @@
 		        const value = data["SUM_COSTS"];
 		        $("#value1").text((value).toLocaleString());
 		      } else {
-		        console.error("'SUM_COSTS' not found in received data.", response);
+		        console.error(err);
 		      }
 		    }
 		  });
@@ -330,7 +330,7 @@
 		        const value = data["SUM_USINGRATIO"];
 		        $("#value2").text((value).toLocaleString());
 		      } else {
-		        console.error("'SUM_USINGRATIO' not found in received data.", response);
+		        console.error(err);
 		      }
 		    }
 		  });
@@ -357,7 +357,7 @@
 			        const value = data["AVERAGE_OPRATIO"];
 			        $("#value3").text((value).toLocaleString());
 			      } else {
-			        console.error("'AVERAGE_OPRATIO' not found in received data.", response);
+			        console.error(err);
 			      }
 			    }
 			  });
@@ -379,13 +379,13 @@
 		        	  endDate: endDate[3]
 				  },
 			          success: function(data) {
-			            console.log('Raw Data:', data);
+			            
 			            var chartData = JSON.parse(data);
 			            FebOpratioChart(chartData);
-			            console.log('chartData:', chartData);
+			            
 			          },
 			          error: function(err) {
-			            console.log(err);
+			            
 			          }
 			        });
 			      }
@@ -406,13 +406,13 @@
 		        	  endDate: endDate[4]
 				  },
 			          success: function(data) {
-			            console.log('Raw Data:', data);
+			            
 			            var chartData = JSON.parse(data);
 			            FebTrChart(chartData);
-			            console.log('chartData:', chartData);
+			            
 			          },
 			          error: function(err) {
-			            console.log(err);
+			            
 			          }
 			        });
 			      }
@@ -434,13 +434,13 @@
 		        	  endDate: endDate[5]
 				  },
 			          success: function(data) {
-			            console.log('Raw Data:', data);
+			            
 			            var chartData = JSON.parse(data);
 			            FebCostChart(chartData);
-			            console.log('chartData:', chartData);
+			            
 			          },
 			          error: function(err) {
-			            console.log(err);
+			            
 			          }
 			        });
 			      }
@@ -462,13 +462,13 @@
 		        	  endDate: endDate[6]
 				  },
 			          success: function(data) {
-			            console.log('Raw Data:', data);
+			            
 			            var chartData = JSON.parse(data);
 			            FebUsingratioChart(chartData);
-			            console.log('chartData:', chartData);
+			            
 			          },
 			          error: function(err) {
-			            console.log(err);
+			            
 			          }
 			        });
 			      }
@@ -490,14 +490,13 @@
 		        	  endDate: endDate[7]
 				  },
 			           success: function(data) {
-			               console.log("Raw Data:", data);
 			               var chartData = JSON.parse(data);
 			               var febcosts = chartData.febcosts;
 			               var febtr = chartData.febtr;
 			               CostsTrChart(febcosts, febtr);
 			          },
 			          error: function(err) {
-			            console.log(err);
+			            
 			          }
 			        });
 			      }
@@ -518,14 +517,14 @@
 		        	  endDate: endDate[8]
 				  },
 			           success: function(data) {
-			               console.log("Raw Data:", data);
+			               
 			               var chartData = JSON.parse(data);
 			               var febcosts = chartData.febcosts;
 			               var febcvusingratio = chartData.febcvusingratio;
 			               CostsUsingratioChart(febcosts, febcvusingratio);
 			          },
 			          error: function(err) {
-			            console.log(err);
+			            
 			          }
 			        });
 			      }

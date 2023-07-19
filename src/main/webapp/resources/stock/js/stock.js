@@ -1,6 +1,5 @@
 	// 각 공정별 재고량 차트
 	   function FebStockChart(chartData) {
-	      console.log("Feb_StockChart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('Feb_StockChart'));
 	   var option = {
 	       title: {
@@ -76,7 +75,6 @@
 	
   	// 각 공정별 불량 차트
     function FebFalChart(chartData) {
-         console.log("FebFal_Chart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('FebFal_Chart'));
 	   var option = {
 	       title: {
@@ -151,7 +149,6 @@
 	
  	// 각 공정별 안전재고 대비 총 재고량 차트
    function SFStockStockChart(chartData) {
-	   console.log("SFStock_StockChart([" + chartData + "])");
 	   var myChart = echarts.init(document.getElementById('SFStock_StockChart'));
 	   var option = {
 	       title: {
