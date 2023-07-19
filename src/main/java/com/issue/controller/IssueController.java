@@ -136,8 +136,33 @@ public class IssueController {
     
     // 글 쓰기 기능
     @RequestMapping(value="/writeSubmit", method=RequestMethod.POST)
-    public String write(@ModelAttribute IssueVO issueVO, Model model) throws Exception {
-    	issueService.write(issueVO);
+    public String write(@ModelAttribute IssueVO issueVO, Model model, @RequestParam("files") MultipartFile[] files, RedirectAttributes redirectAttributes) throws Exception {
+    	System.out.println("----------------------------------------------------------------------------");
+        issueService.write(issueVO);
+        int no = ezFileService.getDynamicIssueNo();
+        System.out.println("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" + no);
+        try {
+            for (int i = 0; i < files.length; i++) {
+                MultipartFile file = files[i];
+                System.out.println("파일명: " + file.getOriginalFilename());
+
+                // 파일 저장
+                String originalFilename = file.getOriginalFilename();
+                String savename = originalFilename;
+                String filePath = "C:\\easyfactory_file\\" + savename;
+                File destFile = new File(filePath);
+                file.transferTo(destFile);
+
+                // DB에 파일 정보 저장
+                EzFileVO ezFileVO = new EzFileVO();
+                ezFileVO.setOriginalname(originalFilename);
+                ezFileVO.setSavename(savename);
+                ezFileVO.setFilesize((int) file.getSize());
+                ezFileService.uploadFile(ezFileVO, no);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		return "redirect:/issue/list";
     }
     
@@ -237,43 +262,11 @@ public class IssueController {
         
     	replyIssueService.deleteReply(reno);
     }
-    
-    @PostMapping("/uploadFile")
-    @ResponseBody
-    public void uploadFile(@RequestParam("originalname") MultipartFile[] files, RedirectAttributes redirectAttributes) throws Exception {
-        System.out.println("----------------------------------------------------------------------------");
-        try {
-            for (int i = 0; i < files.length; i++) {
-                MultipartFile file = files[i];
-
-                System.out.println("파일명: " + file.getOriginalFilename());
-
-                // 파일 저장
-                String originalFilename = file.getOriginalFilename();
-                String savename = originalFilename;
-                String filePath = "C:\\easyfactory_file\\" + savename;
-                File destFile = new File(filePath);
-                file.transferTo(destFile);
-
-                // DB에 파일 정보 저장
-                EzFileVO ezFileVO = new EzFileVO();
-                ezFileVO.setOriginalname(originalFilename);
-                ezFileVO.setSavename(savename);
-                ezFileVO.setFilesize((int) file.getSize());
-                ezFileService.uploadFile(ezFileVO);
-            }
-
-            redirectAttributes.addFlashAttribute("UploadSuccess", "파일 업로드가 완료되었습니다.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("errorMessage", "파일 업로드에 실패했습니다.");
-        }
-    }
-    
     // 파일 목록 출력 ajax
     @RequestMapping(value="/viewFileList", method=RequestMethod.GET)
     public String viewFileList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-    	int no = request.getParameter("no") == null ? 0 : Integer.parseInt(request.getParameter("no"));
+    	String strNo = request.getParameter("no");
+    	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
     	
     	System.out.println("nononononononononnononnonononononnoon" + no);
     	int fileCnt = ezFileService.issueFileListCnt(no); // 파일 갯수

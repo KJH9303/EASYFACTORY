@@ -42,12 +42,21 @@ public class EzFileDAO {
             return ezFileVO;
         }
     }
+	
+	// 다음 게시물 번호 조회
+	public int getDynamicIssueNo() {
+		String nextvalSql = "SELECT ISSUE_SEQ.NEXTVAL-1 FROM dual";
+	    Integer issueNo = jdbcTemplate.queryForObject(nextvalSql, Integer.class); // NEXTVAL 호출
+	    System.out.println("getDynamicIssueNo : " + issueNo);
+	    return issueNo;
+	}
+		
 	// 파일 업로드
-	public void uploadFile(EzFileVO ezFileVO) {
-        String sql = "INSERT INTO ez_file (fileno, no, originalname, savename, filesize, regDate) " +
-                     "VALUES (EZ_FILE_NO_SEQ.NEXTVAL, ISSUE_SEQ.NEXTVAL+1, ?, ?, ?, SYSDATE)";
-        System.out.println(sql);
-        jdbcTemplate.update(sql, ezFileVO.getOriginalname(), ezFileVO.getSavename(), ezFileVO.getFilesize());
+	public void uploadFile(EzFileVO ezFileVO, int no) {
+        String SQL = "INSERT INTO ez_file (fileno, no, originalname, savename, filesize, regDate) " +
+                     "VALUES (EZ_FILE_NO_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE)";
+        System.out.println(SQL);
+        jdbcTemplate.update(SQL, no, ezFileVO.getOriginalname(), ezFileVO.getSavename(), ezFileVO.getFilesize());
     }
 	
 	// 파일 갯수

@@ -13,10 +13,14 @@ public class EzFileService {
 	public EzFileService(EzFileDAO ezFileDAO) {
 		this.ezFileDAO = ezFileDAO;
 	}
-	
+	// 다음 게시물 번호 조회
+	public int getDynamicIssueNo() {
+		return ezFileDAO.getDynamicIssueNo();
+	}
+		
 	// 파일 업로드
-	public void uploadFile(EzFileVO ezFileVO) {
-        ezFileDAO.uploadFile(ezFileVO);
+	public void uploadFile(EzFileVO ezFileVO, int no) {
+        ezFileDAO.uploadFile(ezFileVO, no);
     }
 	
 	// 파일 갯수

@@ -39,14 +39,13 @@
 		            $("#fileList").append('<li id="' + fileId + '">' + file.name + '</li>');
 		        }
 		    });
-
-         	// 파일 업로드
+/*
             function uploadFiles() {
                 var formData = new FormData();
                 var files = $('#files')[0].files;
 
                 for (var i = 0; i < files.length; i++) {
-                    formData.append('originalname', files[i]);
+                    formData.append('files', files[i]);
                 }
 
                 $.ajax({
@@ -65,13 +64,10 @@
                     }
                 });
             }
-
+*/
             // 파일 목록 출력
             function viewFileList() {
                 var no = $("#no").val();
-                if(no == null){
-                	no = 0;
-                }
                 console.log("no : " + no);
                 $.ajax({
                     url: '/issue/viewFileList',
@@ -104,8 +100,8 @@
                 
                 console.log(title);
                 console.log(content);
-                uploadFiles();
                 alert("글 작성 완료.");
+                // uploadFiles();
                 $("#writeForm").submit();
             });
         });
@@ -115,22 +111,22 @@
     <div id="headerContainer"></div>
     <div class="container">
         <h1>새 글 작성</h1>
-        
         <div id="jqxFileUpload"></div>
+<!--
         <form method="post" action="/issue/uploadFile" enctype="multipart/form-data">
-			<input type="file" id="files" name="originalname"/>
-			<ul id="fileList"></ul>
+			<input type="file" id="files" name="files" multiple/>
 		</form>
-		
-            <!-- 파일 목록 출력 영역 -->
-            <ul id="fileList"></ul>
-            
-        <form id="writeForm" action="/issue/writeSubmit" method="post">
+-->            
+        <form id="writeForm" action="/issue/writeSubmit" method="post" enctype="multipart/form-data">
             <label for="title">제목:</label><br>
             <input type="text" id="title" name="title"><br><br>
             
             <label for="author">작성자:</label><br>
             <input type="text" id="author" name="author" value="${member.id}" readonly><br><br>
+            
+            <input type="file" id="files" name="files" multiple/>
+            <ul id="fileList"></ul>
+            <!-- 파일 목록 출력 영역 -->
             
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
