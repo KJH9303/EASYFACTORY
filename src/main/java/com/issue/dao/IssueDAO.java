@@ -148,7 +148,7 @@ public class IssueDAO {
 	}
 	
 	// 글 작성
-	public void write(IssueVO issueVO) {
+	public void write(String title, String content, String author) {
 		String SQL = "INSERT INTO ISSUE ("
 				+ "				NO"
 				+ "				, TITLE"
@@ -163,9 +163,9 @@ public class IssueDAO {
 				+ "				, sysdate)";
 		jdbcTemplate.update(
 				SQL
-				, issueVO.getTitle()
-				, issueVO.getContent()
-				, issueVO.getAuthor());
+				, title
+				, content
+				, author);
 	}
 	
 	// 글 수정

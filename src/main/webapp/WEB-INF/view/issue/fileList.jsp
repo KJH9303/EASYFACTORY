@@ -22,7 +22,7 @@
 		<c:forEach items="${fileList}" var="fileList">
 			<div>
 				<input type="text" name="savename" value="${fileList.savename}" readonly> 
-				<input type="hidden" name="fileno" value="${fileList.fileno}" readonly>
+				<input type="text" name="fileno" value="${fileList.fileno}" readonly>
 				<input type="text" name="filesize" value="${fileList.filesizeFormatted}" readonly>
 				<c:if test="${member.id == replyList.author}">
 					<button type="button" name="file_button_edit">수정</button>
@@ -30,16 +30,6 @@
 					<button type="button" name="file_button_update" style="display: none;">수정 완료</button>
 					<button type="button" name="file_button_cancel" style="display: none;">수정 취소</button>
 				</c:if>
-				<br />
-					<span>업로드 날짜 : </span>
-					<input type="text" name="regDate" value="${fileList.regDate}" readonly>
-				<c:if test="${fileList.modDate != null}">
-					<span>수정일 : </span>
-					<input type="text" name="modDate" value="${fileList.modDate}" readonly>
-				</c:if>
-				<br />
-				<br />
-				<br />
 			</div>
 		</c:forEach>
 	</c:if>

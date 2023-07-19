@@ -45,8 +45,8 @@ public class IssueService {
 	}
 	
 	// 글 작성
-	public void write(IssueVO issueVO) {
-		issueDAO.write(issueVO);
+	public void write(String title, String content, String author) {
+		issueDAO.write(title, content, author);
 	}
 	
 	// 글 수정

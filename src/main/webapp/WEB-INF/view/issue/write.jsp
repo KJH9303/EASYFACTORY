@@ -12,19 +12,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            viewFileList();
+            //viewFileList();
             
             var author = $("#author").val();
             if (author == '' || author == null) {
                 alert("로그인 후 이용해주세요.");
                 location.href="/member/login";
             }
-            
-         	// 파일 선택 시 파일 목록에 추가
-//            $("#fileUploadBtn").on('click', function() {
-//            	$("input[name='originalname']").attr("style", "display:inline");
-//            });
-         	
+            /*
             $("input[name='originalname']").on('change', function() {
 		        var fileList = this.files;
 		        var fileCount = fileList.length;
@@ -39,48 +34,7 @@
 		            $("#fileList").append('<li id="' + fileId + '">' + file.name + '</li>');
 		        }
 		    });
-/*
-            function uploadFiles() {
-                var formData = new FormData();
-                var files = $('#files')[0].files;
-
-                for (var i = 0; i < files.length; i++) {
-                    formData.append('files', files[i]);
-                }
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/issue/uploadFile',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        console.log(data);
-                        if (data === 'UploadSuccess') {
-                            viewFileList();
-                        } else {
-                            // 실패 처리
-                        }
-                    }
-                });
-            }
-*/
-            // 파일 목록 출력
-            function viewFileList() {
-                var no = $("#no").val();
-                console.log("no : " + no);
-                $.ajax({
-                    url: '/issue/viewFileList',
-                    type: 'GET',
-                    data: {
-                        no: no
-                    },
-                    success: function(fileHtml) {
-                        $('#viewFileList').html(fileHtml);
-                    }
-                });
-            }
-            
+            */
             // 글 작성
             $("#submitBtn").on('click', function() {
                 var title = $("#title").val();
@@ -112,11 +66,7 @@
     <div class="container">
         <h1>새 글 작성</h1>
         <div id="jqxFileUpload"></div>
-<!--
-        <form method="post" action="/issue/uploadFile" enctype="multipart/form-data">
-			<input type="file" id="files" name="files" multiple/>
-		</form>
--->            
+        
         <form id="writeForm" action="/issue/writeSubmit" method="post" enctype="multipart/form-data">
             <label for="title">제목:</label><br>
             <input type="text" id="title" name="title"><br><br>
@@ -124,10 +74,21 @@
             <label for="author">작성자:</label><br>
             <input type="text" id="author" name="author" value="${member.id}" readonly><br><br>
             
+            <input type="file" id="file-input" name="originalname" multiple />
+			<h3>업로드된 파일</h3>
+			
+			<div id="preview">
+			    <c:forEach items="${fileList}" var="fileList">
+			        <p id="${fileList.fileno}">
+			            ${fileList.savename}
+			            <button data-index="${fileList.fileno}" class="file-remove">${fileList.fileno}</button>
+			        </p>
+			    </c:forEach>
+			</div>
+<!--        
             <input type="file" id="files" name="files" multiple/>
             <ul id="fileList"></ul>
-            <!-- 파일 목록 출력 영역 -->
-            
+-->            
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
             
@@ -138,5 +99,7 @@
 
         <button onclick="location.href='/issue/list'">돌아가기</button>
     </div>
+    
+<script src="../../../resources/writeForm.js"></script>
 </body>
 </html>

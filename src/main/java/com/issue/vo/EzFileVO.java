@@ -7,20 +7,16 @@ public class EzFileVO {
 	private String originalname;
 	private String savename;
 	private int filesize;
-	private String regDate;
-	private String modDate;
 	private String filesizeFormatted;
 	
 	public EzFileVO() {}
 
-	public EzFileVO(int fileno, int no, String originalname, String savename, int filesize, String regDate, String modDate) {
+	public EzFileVO(int fileno, int no, String originalname, String savename, int filesize) {
 		this.fileno = fileno;
 		this.no = no;
 		this.originalname = originalname;
 		this.savename = savename;
 		this.filesize = filesize;
-		this.regDate = regDate;
-		this.modDate = modDate;
 	}
 
 	public int getFileno() {
@@ -62,27 +58,11 @@ public class EzFileVO {
 	public void setFilesize(int filesize) {
 		this.filesize = filesize;
 	}
-
-	public String getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
-
-	public String getModDate() {
-		return modDate;
-	}
-
-	public void setModDate(String modDate) {
-		this.modDate = modDate;
-	}
-
+	
 	@Override
 	public String toString() {
 		return "EzFileVO [fileno=" + fileno + ", no=" + no + ", originalname=" + originalname + ", savename=" + savename
-				+ ", filesize=" + filesize + ", regDate=" + regDate + ", modDate=" + modDate + "]";
+				+ ", filesize=" + filesize + ", filesizeFormatted=" + filesizeFormatted + "]";
 	}
 
 	public String getFilesizeFormatted() {

@@ -24,6 +24,7 @@
 		// 글 수정 페이지
 		$("#updateBtn").on('click', function() {
 			location.href="/issue/update?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
+			//"&author=${issue.author}&id=${member.id}";
 		});
 		
 		// 파일 목록 출력
@@ -36,7 +37,7 @@
                     no: no // 게시물 번호를 Ajax 요청 파라미터로 전달
                 },
                 success: function(fileHtml) {
-                    $('#viewFileList').html(fileHtml);
+                    $('#fileList').html(fileHtml);
                 }
             });
         }
@@ -261,10 +262,11 @@
             <input type="text" id="author" name="author" value="${issue.author}" readonly><br><br>
             
 		    <!-- 파일 목록 ajax -->
-			<div id="viewFileList"></div>
+			<div id="fileList"></div>
 			
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50" readonly>${issue.content}</textarea><br><br>
+            
             <c:if test="${member.id == issue.author}">
             	<input type="button" id=updateBtn value="수정">
             	<input type="button" id=deleteBtn value="삭제">

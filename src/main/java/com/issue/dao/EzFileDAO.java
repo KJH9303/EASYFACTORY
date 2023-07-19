@@ -15,7 +15,7 @@ import com.issue.vo.EzFileVO;
 
 @Repository
 public class EzFileDAO {
-	private static final String SAVEFOLDER = "D:\\Temp\\boards\\fileuploads";
+	private static final String SAVEFOLDER = "C:\\easyfactory_file";
 	private static final String ENCTYPE = "UTF-8";
 	private static int MAXSIZE = 10 * 1024 * 1024; // 10MB
 	private static final int DOWNLOAD_BUFF_SIZE = 1024 * 8; // 8KB 
@@ -37,8 +37,6 @@ public class EzFileDAO {
         	ezFileVO.setOriginalname(rs.getString("originalname"));
         	ezFileVO.setSavename(rs.getString("savename"));
         	ezFileVO.setFilesize(rs.getInt("fileSize"));
-        	ezFileVO.setRegDate(rs.getString("regDate"));
-        	ezFileVO.setModDate(rs.getString("modDate"));
             return ezFileVO;
         }
     }
@@ -53,8 +51,8 @@ public class EzFileDAO {
 		
 	// 파일 업로드
 	public void uploadFile(EzFileVO ezFileVO, int no) {
-        String SQL = "INSERT INTO ez_file (fileno, no, originalname, savename, filesize, regDate) " +
-                     "VALUES (EZ_FILE_NO_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE)";
+        String SQL = "INSERT INTO ez_file (fileno, no, originalname, savename, filesize) " +
+                     "VALUES (EZ_FILE_NO_SEQ.NEXTVAL, ?, ?, ?, ?)";
         System.out.println(SQL);
         jdbcTemplate.update(SQL, no, ezFileVO.getOriginalname(), ezFileVO.getSavename(), ezFileVO.getFilesize());
     }
@@ -75,8 +73,6 @@ public class EzFileDAO {
 				+ "			, ORIGINALNAME"
 				+ "			, SAVENAME"
 				+ "			, FILESIZE"
-				+ "			, TO_DATE(TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as REGDATE"
-				+ "			, TO_DATE(TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as MODDATE"
 				+ "	  FROM"
 				+ "			EZ_FILE"
 				+ "	  WHERE"
