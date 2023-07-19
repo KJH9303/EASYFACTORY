@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Dashboard</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="js/echarts.min.js"></script>
+  <link rel="shortcut icon" href="#">
   <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script> 
   <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
@@ -47,8 +47,8 @@
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon1" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
              <!-- 데이터 피커 -->
-            <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate"  style="display: none;" />
-            <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate"   style="display: none;" />
+            <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+            <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate" value="종료날짜"  style="display: none;" />
             <button id="applyEnergyCost1" style="display: none;">제출</button>
           </div>
         </div>
@@ -67,8 +67,8 @@
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon2" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
             <!-- 데이터 피커 -->
-            <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" style="display: none;" />
-            <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" style="display: none;" />
+            <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" value="시작날짜"style="display: none;" />
+            <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" value="종료날짜"style="display: none;" />
             <button id="applyEnergyCost2" style="display: none;">제출</button>
           </div>
         </div>
@@ -87,8 +87,8 @@
             <!-- 달력 아이콘 추가 -->
             <i id="energyCostIcon3" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
              <!-- 데이터 피커 -->
-            <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" style="display: none;" />
-            <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" style="display: none;" />
+            <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+            <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
             <button id="applyEnergyCost3" style="display: none;">제출</button>
           </div>
         </div>
@@ -104,8 +104,8 @@
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon4" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
                <!-- 데이터 피커 -->
-              <input type="text" id="energyCostStartDate4" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate4" class="datepicker" name="energyCostEndDate" style="display: none;" />
+              <input type="text" id="energyCostStartDate4" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+              <input type="text" id="energyCostEndDate4" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
               <button id="applyEnergyCost4" style="display: none;">제출</button>
             </div>
           </div>
@@ -123,8 +123,8 @@
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon5" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
                <!-- 데이터 피커 -->
-              <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate5" class="datepicker" name="energyCostEndDate" style="display: none;" />
+              <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+              <input type="text" id="energyCostEndDate5" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
                <button id="applyEnergyCost5" style="display: none;">제출</button>
             </div>
           </div>
@@ -145,8 +145,8 @@
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon6" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
                <!-- 데이터 피커 -->
-              <input type="text" id="energyCostStartDate6" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate6" class="datepicker" name="energyCostEndDate" style="display: none;" />
+              <input type="text" id="energyCostStartDate6" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+              <input type="text" id="energyCostEndDate6" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
                <button id="applyEnergyCost6" style="display: none;">제출</button>
             </div>
           </div>
@@ -164,8 +164,8 @@
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon7" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
                <!-- 데이터 피커 -->
-             <input type="text" id="energyCostStartDate7" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate7" class="datepicker" name="energyCostEndDate" style="display: none;" />
+             <input type="text" id="energyCostStartDate7" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+              <input type="text" id="energyCostEndDate7" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
                <button id="applyEnergyCost7" style="display: none;">제출</button>
             </div>
           </div>
@@ -186,8 +186,8 @@
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon8" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
                <!-- 데이터 피커 -->
-              <input type="text" id="energyCostStartDate8" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate8" class="datepicker" name="energyCostEndDate" style="display: none;" />
+              <input type="text" id="energyCostStartDate8" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+              <input type="text" id="energyCostEndDate8" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
                <button id="applyEnergyCost8" style="display: none;">제출</button>
             </div>
           </div>
@@ -205,8 +205,8 @@
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon9" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
                <!-- 데이터 피커 -->
-             <input type="text" id="energyCostStartDate9" class="datepicker" name="energyCostStartDate" style="display: none;" />
-              <input type="text" id="energyCostEndDate9" class="datepicker" name="energyCostEndDate" style="display: none;" />
+             <input type="text" id="energyCostStartDate9" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
+              <input type="text" id="energyCostEndDate9" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
                <button id="applyEnergyCost9" style="display: none;">제출</button>
             </div>
           </div>
