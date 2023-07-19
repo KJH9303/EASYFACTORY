@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <!-- css,js -->
- <link rel="stylesheet" href="../../../resources/stock/css/feb3.css" />
+  <link rel="stylesheet" href="../../../resources/stock/css/stock.css" />
   <script src="../../../resources/stock/js/stock.js" ></script>
   <!-- css,js -->
 </head>
@@ -114,7 +114,6 @@
           </div>
         </div>
         
-        
         <!-- Bar chart card -->
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
@@ -137,7 +136,6 @@
       </div>
       
         <!-- Charts -->
-     
         <!-- Bar chart card -->
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->

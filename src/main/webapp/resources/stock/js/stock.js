@@ -68,7 +68,7 @@
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
 		        left: 40, // 좌측 여백
-		        right: 40 // 우측 여백
+		        right: 80 // 우측 여백
 		    }
 	
 	     });
@@ -144,7 +144,7 @@
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
 		        left: 40, // 좌측 여백
-		        right: 40 // 우측 여백
+		        right: 80 // 우측 여백
 		    }
 	     });
 	}  // function FebFal_Chart
@@ -230,7 +230,7 @@
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
 		        left: 40, // 좌측 여백
-		        right: 40 // 우측 여백
+		        right: 80 // 우측 여백
 		    }
 	     });
 	}  // function CostsTrChart

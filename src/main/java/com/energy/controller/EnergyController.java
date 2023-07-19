@@ -39,7 +39,7 @@ public class EnergyController {
     
     // 에너지 사용비용 :Costs 
     @PostMapping("/chart1")
-    public void doChart2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart1");
 
         request.setCharacterEncoding("utf-8");
@@ -59,7 +59,7 @@ public class EnergyController {
     
   // 총 에너지 사용량 Usingratio
     @PostMapping("/chart2")
-    public void doChart10(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart2");
 
         request.setCharacterEncoding("utf-8");
@@ -79,7 +79,7 @@ public class EnergyController {
  
     // 가동률:Opratio 
     @PostMapping("/chart3")
-    public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart3");
 
         request.setCharacterEncoding("utf-8");
@@ -99,7 +99,7 @@ public class EnergyController {
    
     // 각 공정 가동률
     @PostMapping("/chart4")
-    public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart4");
 
         request.setCharacterEncoding("utf-8");
@@ -116,7 +116,7 @@ public class EnergyController {
     }
     // 각 공정 총 생산량
     @PostMapping("/chart5")
-    public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart5(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart5");
 
         request.setCharacterEncoding("utf-8");
@@ -132,7 +132,7 @@ public class EnergyController {
     }
     // 각 공정 총 비용
     @PostMapping("/chart6")
-    public void doChart5(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart6(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart6");
 
         request.setCharacterEncoding("utf-8");
@@ -148,7 +148,7 @@ public class EnergyController {
     }
     // 각 공정 총 전기사용량
     @PostMapping("/chart7")
-    public void doChart6(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart7(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart7");
 
         request.setCharacterEncoding("utf-8");

@@ -376,7 +376,7 @@
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
 		        left: 60, // 좌측 여백
-		        right: 60 // 우측 여백
+		        right: 80 // 우측 여백
 		    }
 	     });
 	}  // function CostsTrChart
@@ -465,7 +465,7 @@
 		        top: 80, // 상단 여백
 		        bottom: 20, // 하단 여백
 		        left: 60, // 좌측 여백
-		        right: 60 // 우측 여백
+		        right: 80 // 우측 여백
 		    }
 	     });
 	}  // function CostsUsingratioChart

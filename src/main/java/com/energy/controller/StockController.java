@@ -38,7 +38,7 @@ public class StockController {
     }
     // 재고량
     @PostMapping("/chart10")
-    public void Stock(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart10(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart10");
 
         request.setCharacterEncoding("utf-8");
@@ -57,7 +57,7 @@ public class StockController {
     }
     // 불량 
     @PostMapping("/chart11")
-    public void FAL(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doChart11(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[ChartController] /chart11");
 
         request.setCharacterEncoding("utf-8");
