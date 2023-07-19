@@ -117,7 +117,7 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-           <h4 class="text-lg font-semibold text-gray-500">공정별 총 불량</h4>
+           <h4 class="text-lg font-semibold text-gray-500">공정 별 총 불량 현황</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
               <i id="energyCostIcon5" class="fas fa-calendar-alt" style="cursor: pointer;"></i>

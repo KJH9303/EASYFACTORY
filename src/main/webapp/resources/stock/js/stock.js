@@ -1,9 +1,9 @@
-	// 각 공정별 재고량 차트
+ㄴ	// 각 공정별 재고량 차트
 	   function FebStockChart(chartData) {
 	   var myChart = echarts.init(document.getElementById('Feb_StockChart'));
 	   var option = {
 	       title: {
-	           text: '각 공정별 재고량 ',
+	           text: '공정 별 재고량 ',
 	           subtext: '단위 (EA)'
 	       },
 	       tooltip: {
@@ -78,7 +78,7 @@
 	   var myChart = echarts.init(document.getElementById('FebFal_Chart'));
 	   var option = {
 	       title: {
-	           text: '각 공정별 불량',
+	           text: '공정 별 불량',
 	           subtext: '단위 (EA)'
 	       },
 	       tooltip: {
@@ -152,8 +152,8 @@
 	   var myChart = echarts.init(document.getElementById('SFStock_StockChart'));
 	   var option = {
 	       title: {
-	           text: '총 비용 대비 총 생산량',
-	           subtext: '총비용 단위 (천원)'
+	           text: '공정 별 안전재고 대비 총 재고량',
+	           subtext: '단위 (천원)\n 단위 (EA)'
 	       },
 	       tooltip: {
 	           trigger: 'axis'
