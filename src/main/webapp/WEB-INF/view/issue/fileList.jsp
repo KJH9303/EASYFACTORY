@@ -18,7 +18,7 @@
 		<div>등록된 파일이 없습니다.</div>
 	</c:if>
 	<c:if test="${not empty fileList}">
-		<div>등록된 파일 : ${replyCnt}</div>
+		<div>등록된 파일 : ${fileCnt}</div>
 		<c:forEach items="${fileList}" var="fileList">
 			<div>
 				<input type="text" name="savename" value="${fileList.savename}" readonly> 
