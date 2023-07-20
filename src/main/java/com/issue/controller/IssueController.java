@@ -1,6 +1,7 @@
 package com.issue.controller;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -11,10 +12,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.issue.service.EzFileService;
@@ -107,7 +112,9 @@ public class IssueController {
     // 글 보기
     @RequestMapping(value="/view", method=RequestMethod.GET)
     public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
-    	int no = request.getParameter("no").toString() == null ? 0 : Integer.parseInt(request.getParameter("no"));
+    	String strNo = request.getParameter("no");
+    	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
+    	
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
@@ -134,46 +141,42 @@ public class IssueController {
     
     // 글 쓰기 기능
     @RequestMapping(value="/writeSubmit", method=RequestMethod.POST)
+    // public String write(@ModelAttribute IssueVO issueVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
     public String write(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-        String SAVEFOLDER = "C:\\easyfactory_file";
-        String ENCTYPE = "UTF-8";
-        int MAXSIZE = 50 * 1024 * 1024; // 5MB
-        int DOWNLOAD_BUFF_SIZE = 1024 * 8; // 8KB 
-
-        System.out.println("----------------------------------------------------------------------------");
+    	String SAVEFOLDER = "C:\\easyfactory_file";
+    	String ENCTYPE = "UTF-8";
+    	int MAXSIZE = 50 * 1024 * 1024; // 50MB
+    	int DOWNLOAD_BUFF_SIZE = 1024 * 8; // 8KB 
+    	
+    	System.out.println("----------------------------------------------------------------------------");
+        
         MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
-
         String title = multi.getParameter("title");
         String content = multi.getParameter("content");
         String author = multi.getParameter("author");
-        System.out.println("title :" + title + ", content : " + content + ", author : " + author);
+        System.out.println("title ::::: " + title + ", content ::::: " + content + ", author ::::: " + author);
         issueService.write(title, content, author);
-
+        
         int no = ezFileService.getDynamicIssueNo();
-
-        List<EzFileVO> fileList = new ArrayList<>(); // 파일 정보를 저장할 리스트 생성
+        System.out.println("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" + no);
+        
         Enumeration filenames = multi.getFileNames();
         while(filenames.hasMoreElements()) {
-            String file = (String) filenames.nextElement();
-            String savename = multi.getFilesystemName(file);
-            String originalname = multi.getOriginalFileName(file);
-            int filesize = (int) multi.getFile(file).length();
-
-            System.out.println("file :" + file + ", savename : " + savename + ", originalname : " + originalname + ", filesize : " + filesize);
-
-            EzFileVO ezFileVO = new EzFileVO();
+        	String file = (String)filenames.nextElement();
+        	String savename = multi.getFilesystemName(file);
+        	String originalname = multi.getOriginalFileName(file);
+        	int filesize = (int) multi.getFile(file).length();
+        	
+        	System.out.println("file ::::: " + file + ", savename ::::: " + savename + "originalname ::::: " + originalname + "filesize ::::: " + filesize);
+        	
+        	EzFileVO ezFileVO = new EzFileVO();
             ezFileVO.setOriginalname(originalname);
             ezFileVO.setSavename(savename);
             ezFileVO.setFilesize(filesize);
-            fileList.add(ezFileVO); // 파일 정보를 fileList에 추가
+            ezFileService.uploadFile(ezFileVO, no);
         }
-
-        for (EzFileVO fileVO : fileList) {
-            ezFileService.uploadFile(fileVO, no);
-        }
-
-        System.out.println("ttttttttttttttttttttttttttttttttt" + fileList.size());
-        return "redirect:/issue/list";
+        System.out.println("ttttttttttttttttttttttttttttttttt");
+		return "redirect:/issue/list";
     }
     
     // 글 수정 페이지
@@ -279,7 +282,6 @@ public class IssueController {
         
     	replyIssueService.deleteReply(reno);
     }
-    
     // 파일 목록 출력 ajax
     @RequestMapping(value="/viewFileList", method=RequestMethod.GET)
     public String viewFileList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {

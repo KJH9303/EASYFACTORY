@@ -43,10 +43,10 @@ public class EzFileDAO {
 	
 	// 다음 게시물 번호 조회
 	public int getDynamicIssueNo() {
-		String nextvalSql = "SELECT ISSUE_SEQ.NEXTVAL-1 FROM dual";
-	    Integer issueNo = jdbcTemplate.queryForObject(nextvalSql, Integer.class); // NEXTVAL 호출
-	    System.out.println("getDynamicIssueNo : " + issueNo);
-	    return issueNo;
+//		String nextvalSql = "SELECT ISSUE_SEQ.NEXTVAL FROM dual";
+//	    jdbcTemplate.queryForObject(nextvalSql, Integer.class); // NEXTVAL 호출
+	    String selectSql = "SELECT ISSUE_SEQ.CURRVAL FROM dual";
+	    return jdbcTemplate.queryForObject(selectSql, Integer.class);
 	}
 		
 	// 파일 업로드

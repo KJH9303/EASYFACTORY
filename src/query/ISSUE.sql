@@ -1,3 +1,5 @@
+DROP TABLE ISSUE;
+DROP SEQUENCE ISSUE_SEQ;
 ----------------------------------------
 ---- 이슈 게시판 테이블 ----------------
 ----------------------------------------
@@ -14,6 +16,7 @@ drop table issue;
 ----------------------------------------
 ---- 이슈 게시글 번호 SEQUENCE ---------
 ----------------------------------------
+DROP SEQUENCE ISSUE_SEQ;
 CREATE SEQUENCE ISSUE_SEQ
        INCREMENT BY 1
        START WITH 1
@@ -94,8 +97,8 @@ ORDER BY NO DESC;
 COMMIT;
 
 ------------------------------------------------------------------
-
-
+SELECT ISSUE_SEQ.NEXTVAL-1 FROM dual;
+SELECT ISSUE_SEQ.CURRVAL-1 FROM dual;
 
 
 SELECT * FROM nls_session_parameters WHERE PARAMETER LIKE '%DATE%' OR PARAMETER LIKE '%LANG%'; 

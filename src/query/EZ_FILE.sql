@@ -1,4 +1,5 @@
-
+drop table ez_file;
+DROP SEQUENCE EZ_FILE_NO_SEQ;
 CREATE TABLE EZ_FILE (
         fileno NUMBER NOT NULL
         , no NUMBER NOT NULL
@@ -58,4 +59,5 @@ select * from ez_file;
 SELECT COUNT(NO) FROM EZ_FILE WHERE NO = 40 AND FILENO > 0;
 delete from ez_file where fileno > 0;
 drop table ez_file;
+commit;
        
