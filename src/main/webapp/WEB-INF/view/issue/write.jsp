@@ -108,7 +108,7 @@
 			    <c:forEach items="${fileList}" var="fileList">
 			        <p id="${fileList.fileno}">
 			            ${fileList.savename}
-			            <button data-index="${fileList.fileno}" class="file-remove">${fileList.fileno}</button>
+			            <button data-index="${fileList.fileno}" class="file-remove">X</button>
 			        </p>
 			    </c:forEach>
 			</div>
