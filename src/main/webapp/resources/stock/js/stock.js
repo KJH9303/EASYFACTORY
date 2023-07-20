@@ -35,7 +35,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#C71585' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#516b91' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	                 
 	               markPoint: {
@@ -58,7 +58,7 @@
 	             {
 	                 name: '재고량',
 	                 data: chartData,
-	                 barWidth: 80
+	                 barWidth: 60
 	             }
 	             
 	         ],
@@ -109,10 +109,10 @@
 	           {
 	               name: '불량',
 	               type: 'bar',
-	               barWidth: 80,
+	               barWidth: 60,
 	               data: [],
 	                itemStyle: {
-            		color: '#00008B' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#93b7e3' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
         			
 	               markPoint: {
@@ -182,7 +182,7 @@
 	               type: 'bar',
 	               data: [],
 	               itemStyle: {
-            		color: '#228B22' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#59c4e6' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
@@ -196,7 +196,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#C71585' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#516b91' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},
