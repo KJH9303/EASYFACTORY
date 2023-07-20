@@ -187,9 +187,6 @@
 		  <!-- Card header -->
 		  <div class="flex items-center justify-between p-4 border-b">
 		    <h4 class="text-lg font-semibold text-gray-500">Test Line Chart</h4>
-		    <!-- DatePicker -->
-		    <div class="flex items-center space-x-2">
-		    </div>
 		  </div>
 		  <!-- Chart -->
 		  <div class="relative p-4 h-72">
@@ -314,7 +311,6 @@
 		        	startDate: "2023-01-01",
 		        	endDate: "2023-12-31"
 		    },
-
 			success: function(response) {
 				if (response.Error) {
 					alert(response.Error);
@@ -322,8 +318,6 @@
 					let dataList = response;
 					let tbody = $("table tbody");
 					
-					console.log(dataList);
-
 					updateTableData(dataList); 			// 테이블 업데이트
 					
 					if(opratio != true) {
@@ -349,9 +343,9 @@
 		});
 		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
 	}
-	$(document).ready(function () {
-		  fetchData();
-		});
+	$(document).ready(function(){
+		fetchData();
+	});
 	function updateTableData(dataList) {
 		  const today = new Date().toISOString().split('T')[0];
 		  let total = {
@@ -537,8 +531,19 @@
 	  option.xAxis.data = dateList;
 	  option.series[0].data = displayData;
 
-	// lineChart 설정
-	let lineChart;
+	  costsChart.setOption(option);
+	}
+	$(document).ready(function(){
+		fetchData();
+	});
+	window.addEventListener('resize', function () {
+	    opratioChart.resize();
+	    usingratioChart.resize();
+	    costsChart.resize();
+	    gaugeChart.resize();
+	});
+	
+	// lineChart 설정=============================================================================================
 	function updateLineChart(dataList) {
 	  if (!lineChart) {
 	    lineChart = echarts.init(document.getElementById("lineChart"));
@@ -552,205 +557,25 @@
 	  let tempData = [];
 	
 	  dataList.forEach((data) => {
-		usingRatioData.push(data.usingratio);  
+	    usingRatioData.push(data.usingratio);
 	    trData.push(data.tr);
 	    falData.push(data.fal);
 	    opratioData.push(data.opratio);
 	    costsData.push(data.costs);
-		tempData.push(data.temp);
+	    tempData.push(data.temp);
 	  });
 	
-	  // ECharts 옵션 설정
-		var chartDom = document.getElementById('lineChart');
-		var myChart = echarts.init(chartDom);
-		var option;
-		
-		const colors = [
-		  '#FFA000',
-		  '#EE6666',
-		  '#001853',
-		  '#5470C6',
-		  '#66CC66',
-		  '#ff9999'
-		];
-		option = {
-		  color: colors,
-		  tooltip: {
-		    trigger: 'axis',
-		    axisPointer: {
-		      type: 'cross'
-		    }
-		  },
-		  grid: {
-		    right: '20%'
-		  },
-		  toolbox: {
-		    feature: {
-		      dataView: { show: true, readOnly: false },
-		      restore: { show: true },
-		      saveAsImage: { show: true }
-		    }
-		  },
-		  legend: {
-		    data: ['전기사용량', '생산량', '불량', '장비가동율', '비용', '온도']
-		  },
-		  xAxis: [
-		    {
-		      type: 'category',
-		      axisTick: {
-		        alignWithLabel: true
-		      },
-		      data: []
-		    }
-		  ],
-		  yAxis: [
-		    {
-		      type: 'value',
-		      name: '전기사용량',
-		      position: 'right',
-		      alignTicks: true,
-		      axisLine: {
-		        show: true,
-		        lineStyle: {
-		          color: colors[0]
-		        }
-		      },
-		      axisLabel: {
-		        formatter: '{value} kWh'
-		      }
-		    },
-		    {
-		      type: 'value',
-		      name: '생산량',
-		      position: 'right',
-		      alignTicks: true,
-		      offset: 80,
-		      axisLine: {
-		        show: true,
-		        lineStyle: {
-		          color: colors[1]
-		        }
-		      },
-		      axisLabel: {
-		        formatter: '{value} EA'
-		      }
-		    },
-		    {
-		      type: 'value',
-		      name: '불량',
-		      position: 'left',
-		      alignTicks: true,
-		      offset: 160,
-		      axisLine: {
-		        show: true,
-		        lineStyle: {
-		          color: colors[2]
-		        }
-		      },
-		      axisLabel: {
-		        formatter: '{value} %'
-		      }
-		    },
-		    {
-		      type: 'value',
-		      name: '장비가동율',
-		      position: 'left',
-		      alignTicks: true,
-		      axisLine: {
-		        show: true,
-		        lineStyle: {
-		          color: colors[3]
-		        }
-		      },
-		      axisLabel: {
-		        formatter: '{value} %'
-		      }
-		    },
-		    {
-		      type: 'value',
-		      name: '비용',
-		      position: 'left',
-		      alignTicks: true,
-		      offset: 80,
-		      axisLine: {
-		        show: true,
-		        lineStyle: {
-		          color: colors[4]
-		        }
-		      },
-		      axisLabel: {
-		        formatter: '{value} 천원'
-		      }
-		    },
-		    {
-		      type: 'value',
-		      name: '온도',
-		      position: 'right',
-		      alignTicks: true,
-		      offset: 160,
-		      axisLine: {
-		        show: true,
-		        lineStyle: {
-		          color: colors[5]
-		        }
-		      },
-		      axisLabel: {
-		        formatter: '{value} ℃'
-		      }
-		    }
-		  ],
-		  series: [
-		    {
-		      name: '전기사용량',
-		      type: 'line',
-		      yAxisIndex: 0,
-		      data: []
-		    },
-		    {
-		      name: '생산량',
-		      type: 'line',
-		      yAxisIndex: 1,
-		      data: []
-		    },
-		    {
-		      name: '불량',
-		      type: 'line',
-		      yAxisIndex: 1,
-		      data: []
-		    },
-		    {
-		      name: '장비가동율',
-		      type: 'line',
-		      yAxisIndex: 2,
-		      data: []
-		    },
-		    {
-		      name: '비용',
-		      type: 'line',
-		      yAxisIndex: 3,
-		      data: []
-		    },
-		    {
-		      name: '온도',
-		      type: 'line',
-		      yAxisIndex: 4,
-		      data: []
-		    }
-		  ]
-		};
-		  lineChart.setOption(option);
-		}
-		$(document).ready(function(){
-		  fetchData();
-		});
-
-		window.addEventListener('resize', function () {
-		  opratioChart.resize();
-		  usingratioChart.resize();
-		  costsChart.resize();
-		  gaugeChart.resize();
-		});
+	  const option = getChartOption(); // 차트 옵션 가져오기
+	  option.xAxis[0].data = usingRatioData; // x축 데이터 설정
+	  option.series[0].data = trData; // 전기사용량 데이터 설정
+	  option.series[1].data = falData; // 생산량 데이터 설정
+	  option.series[2].data = opratioData; // 불량 데이터 설정
+	  option.series[3].data = costsData; // 장비가동율 데이터 설정
+	  option.series[4].data = tempData; // 비용 데이터 설정
 	}
-		</script>
+	  if (lineChart) {
+		    lineChart.setOption(option); 
+		  }
+	</script>
 </body>
 </html>
