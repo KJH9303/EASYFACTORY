@@ -56,7 +56,6 @@ public class AppCtx {
 	// com.member.*
 	@Bean
 	public MemberDAO memberDAO() {
-		System.out.println("[MemberDAO] memberDAO()");
 		return new MemberDAO(dataSource());
 	}
 
@@ -68,7 +67,6 @@ public class AppCtx {
 	// com.feb.*
 	@Bean
 	public FebDAO febDAO() {
-		System.out.println("[FebDAO] febDAO()");
 		return new FebDAO(dataSource());
 	}
 	
@@ -85,7 +83,6 @@ public class AppCtx {
 	// com.energy.*
 	@Bean
 	public EnergyDAO energyDAO() {
-		System.out.println("[EnergyDAO] energyDAO()");
 		return new EnergyDAO(dataSource());
 	}
 	
@@ -96,7 +93,6 @@ public class AppCtx {
 	// com.stock.*
 	@Bean
 	public StockDAO stockDAO() {
-		System.out.println("[StockDAO] stockDAO()");
 		return new StockDAO(dataSource());
 	}
 	

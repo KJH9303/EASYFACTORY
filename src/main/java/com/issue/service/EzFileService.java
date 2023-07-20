@@ -19,8 +19,10 @@ public class EzFileService {
 	}
 		
 	// 파일 업로드
-	public void uploadFile(EzFileVO ezFileVO, int no) {
-	     ezFileDAO.uploadFile(ezFileVO, no);
+	public void uploadFile(List<EzFileVO> fileList, int no) {
+		for (EzFileVO ezFileVO : fileList) {
+	        ezFileDAO.uploadFile(ezFileVO, no);
+	    }
     }
 	
 	// 파일 갯수

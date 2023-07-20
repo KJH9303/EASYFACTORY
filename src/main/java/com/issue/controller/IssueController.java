@@ -1,25 +1,24 @@
 package com.issue.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Enumeration;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.issue.service.EzFileService;
@@ -30,8 +29,6 @@ import com.issue.vo.EzFileVO;
 import com.issue.vo.IssueVO;
 import com.issue.vo.PageMaker;
 import com.issue.vo.ReplyIssueVO;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @Controller
 @RequestMapping("/issue")
@@ -115,6 +112,7 @@ public class IssueController {
     	String strNo = request.getParameter("no");
     	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
     	
+    	//int no = request.getParameter("no").toString() == null ? 0 : Integer.parseInt(request.getParameter("no"));
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
@@ -141,42 +139,76 @@ public class IssueController {
     
     // 글 쓰기 기능
     @RequestMapping(value="/writeSubmit", method=RequestMethod.POST)
-    // public String write(@ModelAttribute IssueVO issueVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
     public String write(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-    	String SAVEFOLDER = "C:\\easyfactory_file";
-    	String ENCTYPE = "UTF-8";
-    	int MAXSIZE = 50 * 1024 * 1024; // 50MB
-    	int DOWNLOAD_BUFF_SIZE = 1024 * 8; // 8KB 
-    	
-    	System.out.println("----------------------------------------------------------------------------");
-        
-        MultipartRequest multi = new MultipartRequest(request, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
-        String title = multi.getParameter("title");
-        String content = multi.getParameter("content");
-        String author = multi.getParameter("author");
-        System.out.println("title ::::: " + title + ", content ::::: " + content + ", author ::::: " + author);
-        issueService.write(title, content, author);
-        
-        int no = ezFileService.getDynamicIssueNo();
-        System.out.println("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn" + no);
-        
-        Enumeration filenames = multi.getFileNames();
-        while(filenames.hasMoreElements()) {
-        	String file = (String)filenames.nextElement();
-        	String savename = multi.getFilesystemName(file);
-        	String originalname = multi.getOriginalFileName(file);
-        	int filesize = (int) multi.getFile(file).length();
-        	
-        	System.out.println("file ::::: " + file + ", savename ::::: " + savename + "originalname ::::: " + originalname + "filesize ::::: " + filesize);
-        	
-        	EzFileVO ezFileVO = new EzFileVO();
-            ezFileVO.setOriginalname(originalname);
-            ezFileVO.setSavename(savename);
-            ezFileVO.setFilesize(filesize);
-            ezFileService.uploadFile(ezFileVO, no);
+        String SAVEFOLDER = "C:\\easyfactory_file";
+        int MAXSIZE = 50 * 1024 * 1024; // 50MB
+
+        // 파일 아이템을 저장할 리스트 생성
+        List<FileItem> fileItems = new ArrayList<>();
+
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        if (isMultipart) {
+            FileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            upload.setSizeMax(MAXSIZE);
+
+            List<FileItem> items = upload.parseRequest(request);
+            for (FileItem item : items) {
+                if (!item.isFormField()) {
+                    // 파일 아이템이면 리스트에 추가
+                    fileItems.add(item);
+                }
+            }
+
+            // 다른 필드 값들은 여기서 처리
+            String title = "";
+            String content = "";
+            String author = "";
+
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    if ("title".equals(item.getFieldName())) {
+                        title = item.getString("UTF-8");
+                    } else if ("content".equals(item.getFieldName())) {
+                        content = item.getString("UTF-8");
+                    } else if ("author".equals(item.getFieldName())) {
+                        author = item.getString("UTF-8");
+                    }
+                }
+            }
+
+            System.out.println("title ::::: " + title + ", content ::::: " + content + ", author ::::: " + author);
+            issueService.write(title, content, author);
+
+            List<EzFileVO> fileList = new ArrayList<>();
+
+            for (FileItem fileItem : fileItems) {
+                String originalname = fileItem.getName();
+                String savename = System.currentTimeMillis() + "_" + originalname;
+                int filesize = (int) fileItem.getSize();
+
+                File uploadedFile = new File(SAVEFOLDER, savename);
+                fileItem.write(uploadedFile);
+
+                System.out.println("originalname ::::: " + originalname + ", savename ::::: " + savename + ", filesize ::::: " + filesize);
+
+                EzFileVO ezFileVO = new EzFileVO();
+                ezFileVO.setOriginalname(originalname);
+                ezFileVO.setSavename(savename);
+                ezFileVO.setFilesize(filesize);
+                fileList.add(ezFileVO);
+            }
+
+            int no = ezFileService.getDynamicIssueNo();
+            ezFileService.uploadFile(fileList, no);
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("fileList", fileList);
+
+            System.out.println("fileList.size() :::: " + fileList.size());
         }
-        System.out.println("ttttttttttttttttttttttttttttttttt");
-		return "redirect:/issue/list";
+
+        return "redirect:/issue/list";
     }
     
     // 글 수정 페이지
@@ -186,11 +218,6 @@ public class IssueController {
     	int no = Integer.parseInt(request.getParameter("no"));
     	IssueVO issueVO = issueService.viewContent(no);
     	
-//    	String author = request.getParameter("author") == null ? "" : request.getParameter("author");
-//    	String id = request.getParameter("id") == null ? "" : request.getParameter("id");
-//    	
-//    	model.addAttribute("author", author);
-//        model.addAttribute("id", id);
     	session.getAttribute("member");
         
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
@@ -282,6 +309,7 @@ public class IssueController {
         
     	replyIssueService.deleteReply(reno);
     }
+    
     // 파일 목록 출력 ajax
     @RequestMapping(value="/viewFileList", method=RequestMethod.GET)
     public String viewFileList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {

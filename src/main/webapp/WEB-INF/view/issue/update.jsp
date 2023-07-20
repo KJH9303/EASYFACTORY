@@ -72,7 +72,7 @@
     <div class="container">
         <h1>글 수정</h1>
         
-        <form id="updateForm" action="/issue/updateSubmit" method="post">
+        <form id="updateForm" action="/issue/updateSubmit" method="post" enctype="multipart/form-data">
         	<input type="hidden" id="no" name="no" value="${issue.no}" readonly>
             <label for="title">제목:</label><br>
             <input type="text" id="title" name="title" value="${issue.title}"><br><br>
@@ -81,9 +81,17 @@
             <input type="text" id="author" name="author" value="${issue.author}" readonly><br><br>
             <input type="hidden" id="id" name="id" value="${member.id}" readonly>
             
-            <!-- 파일 목록 ajax -->
-			<div id="viewFileList"></div>
+            <input type="file" id="file-input" name="originalname" multiple />
+			<h3>업로드된 파일</h3>
 			
+			<div id="preview">
+			    <c:forEach items="${fileList}" var="fileList">
+			        <p id="${fileList.fileno}">
+			            ${fileList.savename}
+			            <button data-index="${fileList.fileno}" class="file-remove">${fileList.fileno}</button>
+			        </p>
+			    </c:forEach>
+			</div>
 			
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50">${issue.content}</textarea><br><br>
@@ -103,23 +111,5 @@
 
         <button type="button" id="toListBtn">목록</button>
     </div>
-    
-    
-    
-    
-<input type="file" id="file-input" multiple />
-<h3>업로드된 파일</h3>
-<div id="preview">
-    <c:forEach items="${fileList}" var="fileList">
-        <p id="${fileList.fileno}">
-            ${fileList.savename}
-            <button data-index="${fileList.fileno}" class="file-remove">${fileList.fileno}</button>
-        </p>
-    </c:forEach>
-</div>
-<script src="../../../resources/write.js"></script>
-
-
-
 </body>
 </html>

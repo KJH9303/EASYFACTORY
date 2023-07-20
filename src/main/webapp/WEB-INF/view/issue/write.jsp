@@ -19,22 +19,47 @@
                 alert("로그인 후 이용해주세요.");
                 location.href="/member/login";
             }
-            /*
-            $("input[name='originalname']").on('change', function() {
-		        var fileList = this.files;
-		        var fileCount = fileList.length;
-		
-		        $("#fileList").empty(); // 파일 목록 초기화
-		
-		        for (var i = 0; i < fileCount; i++) {
-		            var file = fileList[i];
-		            var fileId = 'file-' + i; // 파일에 부여할 고유한 ID 생성
-		
-		            // 파일 목록에 추가
-		            $("#fileList").append('<li id="' + fileId + '">' + file.name + '</li>');
-		        }
-		    });
-            */
+            
+         	// 파일 입력 변경 핸들러
+            $('#file-input').on('change', function() {
+                const preview = $('#preview');
+                const files = Array.from($('#file-input')[0].files);
+                const maxSizeInBytes = 50 * 1024 * 1024; // 50MB
+
+                // 파일 크기 체크
+                for (let i = 0; i < files.length; i++) {
+                    if (files[i].size > maxSizeInBytes) {
+                    	alert(files[i].name + ' : 크기는 50MB 이하여야 합니다.');
+                        // 파일 선택을 막음
+                        $(this).val('');
+                        return;
+                    }
+                }
+                
+                files.forEach(function(file) {
+                    const fileId = 'file-' + file.lastModified; // 파일에 부여할 고유한 ID 생성
+                    preview.append('<p id="' + fileId + '">' + file.name + '<button data-index="' + fileId + '" class="file-remove">X</button></p>');
+                });
+            });
+
+            // 파일 제거 핸들러
+            $(document).on('click', '.file-remove', function() {
+                const removeTargetId = $(this).data('index');
+                const removeTarget = $('#' + removeTargetId)[0];
+                const fileInput = $('#file-input')[0];
+                const dataTransfer = new DataTransfer();
+
+                for (let i = 0; i < fileInput.files.length; i++) {
+                    const file = fileInput.files[i];
+                    if ('file-' + file.lastModified != removeTargetId) {
+                        dataTransfer.items.add(file);
+                    }
+                }
+
+                fileInput.files = dataTransfer.files;
+                removeTarget.remove();
+            });
+            
             // 글 작성
             $("#submitBtn").on('click', function() {
                 var title = $("#title").val();
@@ -59,6 +84,8 @@
                 $("#writeForm").submit();
             });
         });
+        
+        sessionStorage.setItem('fileList', '${fileList}');
     </script>
 </head>
 <body>
@@ -85,10 +112,6 @@
 			        </p>
 			    </c:forEach>
 			</div>
-<!--        
-            <input type="file" id="files" name="files" multiple/>
-            <ul id="fileList"></ul>
--->            
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
             
@@ -100,6 +123,5 @@
         <button onclick="location.href='/issue/list'">돌아가기</button>
     </div>
     
-<script src="../../../resources/writeForm.js"></script>
 </body>
 </html>
