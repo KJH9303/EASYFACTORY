@@ -35,7 +35,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#37a2da' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#516b91' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	                 
 	               markPoint: {
@@ -131,7 +131,7 @@
 	                 name: '생산량',
 	                 data: chartData,
 	                  itemStyle: {
-            		color: '#ff3333' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#93b7e3' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	                 
 	             }
@@ -204,7 +204,7 @@
 	                 name: '에너지 사용 비용',
 	                 data: chartData,
 	                  itemStyle: {
-            		color: '#008120' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#59c4e6' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	                 
 	             }
@@ -277,7 +277,7 @@
 	                 name: '에너지 사용량',
 	                 data: chartData,
 	                  itemStyle: {
-            		color: '#ffbf00' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#edafda' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	             }
 	         ],
@@ -326,7 +326,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#008120' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#59c4e6' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
@@ -340,7 +340,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#ff3333' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
+            		color: '#93b7e3' // 바(bar) 색상 변경, 예를 들어, #ff3333(빨간색)
         			},
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},
@@ -414,7 +414,7 @@
 	               type: 'bar',
 	               data: [],
 	                itemStyle: {
-            		color: '#008120' 
+            		color: '#59c4e6' 
         			},
 	               markPoint: {
 	                   data: [{ type: 'max',name: '최대값'},
@@ -428,7 +428,7 @@
 	               type: 'bar',
 	               data: [],
 	               itemStyle: {
-            		color: '#ffbf00' 
+            		color: '#edafda' 
         			},
 	               markPoint: {
 	                   data: [{type: 'max',name: '최대값'},

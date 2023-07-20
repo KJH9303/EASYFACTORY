@@ -62,14 +62,18 @@
   --color-violet-darker: #5b21b6;
 }
 
-html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
-}
-
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: #272e38;
+}
+
+main {
+  margin-top: 70px;
+  margin-left: 220px;
+  margin-right: 10px;
+  background-color: white;
+  border-radius: 7px;
 }
 
 b {
@@ -120,8 +124,8 @@ canvas {
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(0.4rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.4rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-y-8 > :not([hidden]) ~ :not([hidden]) {
@@ -137,7 +141,7 @@ canvas {
 
 .bg-green-100 {
   --tw-bg-opacity: 1;
-  background-color: rgba(209, 250, 229, var(--tw-bg-opacity));
+  background-color: #0022ff20;
 }
 
 .rounded-md {
@@ -235,8 +239,8 @@ canvas {
 }
 
 .py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .px-4 {
@@ -273,7 +277,7 @@ canvas {
 
 .text-green-500 {
   --tw-text-opacity: 1;
-  color: rgba(16, 185, 129, var(--tw-text-opacity));
+  color: #6278FF;
 }
 
 .uppercase {
@@ -386,4 +390,50 @@ canvas {
 #Costs_Usingratio_Chart {
     width: 100%;
     height: 100%;
+}
+
+.datepicker {
+	display: none;
+	border: 1px solid #4B60EB;
+	border-radius: 3px;
+	width: 80px;
+	text-align: center;
+	color: #93b7e3;
+	height: 30px;
+}
+
+.custom-btn {
+  width: 55px;
+  height: 30px;
+  color: #fff;
+  border-radius: 5px;
+  /* padding: 10px 25px; */
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: none;
+  box-shadow: 2px 2px 2px 0px rgba(255,255,255,.5),
+  7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+/* 1 */
+.btn-1 {
+  background: #4B60EB;
+  border: none;
+}
+.btn-1:hover {
+  background: #6278FF;
+}
+
+img {
+	height:30px;
+	width:30px;
+}
+
+.date {
+	display: flex;
+	gap: 5px;
 }
