@@ -284,4 +284,176 @@
 	  }
 	};
 	
-	// test
+	// test======================================================================
+	function getChartOption() {
+	  const colors = [
+	    '#FFA000', '#EE6666', '#001853', '#5470C6', '#66CC66', '#ff9999'
+	  ];
+	
+	  const option = {
+	    color: colors,
+	    tooltip: {
+	      trigger: 'axis',
+	      axisPointer: {
+	        type: 'cross'
+	      }
+	    },
+	    grid: {
+	      right: '20%'
+	    },
+	    toolbox: {
+	      feature: {
+	        dataView: { show: true, readOnly: false },
+	        restore: { show: true },
+	        saveAsImage: { show: true }
+	      }
+	    },
+	    legend: {
+	      data: ['전기사용량', '생산량', '불량', '장비가동율', '비용', '온도']
+	    },
+	    xAxis: [
+	      {
+	        type: 'category',
+	        axisTick: {
+	          alignWithLabel: true
+	        },
+	        data: [1] // x축 데이터를 설정할 빈 배열
+	      }
+	    ],
+	    yAxis: [
+	      {
+	        type: 'value',
+	        name: '전기사용량',
+	        position: 'right',
+	        alignTicks: true,
+	        axisLine: {
+	          show: true,
+	          lineStyle: {
+	            color: colors[0]
+	          }
+	        },
+	        axisLabel: {
+	          formatter: '{value} kWh'
+	        }
+	      },
+	      {
+	        type: 'value',
+	        name: '생산량',
+	        position: 'right',
+	        alignTicks: true,
+	        offset: 80,
+	        axisLine: {
+	          show: true,
+	          lineStyle: {
+	            color: colors[1]
+	          }
+	        },
+	        axisLabel: {
+	          formatter: '{value} EA'
+	        }
+	      },
+	      {
+	        type: 'value',
+	        name: '불량',
+	        position: 'left',
+	        alignTicks: true,
+	        offset: 160,
+	        axisLine: {
+	          show: true,
+	          lineStyle: {
+	            color: colors[2]
+	          }
+	        },
+	        axisLabel: {
+	          formatter: '{value} EA'
+	        }
+	      },
+	      {
+	        type: 'value',
+	        name: '장비가동율',
+	        position: 'left',
+	        alignTicks: true,
+	        axisLine: {
+	          show: true,
+	          lineStyle: {
+	            color: colors[3]
+	          }
+	        },
+	        axisLabel: {
+	          formatter: '{value} %'
+	        }
+	      }, 
+	      {
+	        type: 'value',
+	        name: '온도',
+	        position: 'left',
+	        alignTicks: true,
+	        offset: 80,
+	        axisLine: {
+	          show: true,
+	          lineStyle: {
+	            color: colors[4]
+	          }
+	        },
+	        axisLabel: {
+	          formatter: '{value} ℃'
+	        }
+	      },
+	      {
+	        type: 'value',
+	        name: '온도',
+	        position: 'right',
+	        alignTicks: true,
+	        offset: 160,
+	        axisLine: {
+	          show: true,
+	          lineStyle: {
+	            color: colors[5]
+	          }
+	        },
+	        axisLabel: {
+	          formatter: '{value} ℃'
+	        }
+	      }
+	    ],
+	    series: [
+	      {
+	        name: '전기사용량',
+	        type: 'line',
+	        yAxisIndex: 0,
+	        data: []
+	      },
+	      {
+	        name: '생산량',
+	        type: 'line',
+	        yAxisIndex: 1,
+	        data: []
+	      },
+	      {
+	        name: '불량',
+	        type: 'line',
+	        yAxisIndex: 2,
+	        data: []
+	      },
+	      {
+	        name: '장비가동율',
+	        type: 'line',
+	        yAxisIndex: 3,
+	        data: []
+	      },
+	      {
+	        name: '비용',
+	        type: 'line',
+	        yAxisIndex: 4,
+	        data: []
+	      },
+	      {
+	        name: '온도',
+	        type: 'line',
+	        yAxisIndex: 5,
+	        data: []
+	      }
+	    ]
+	  };
+	  return option;
+	}

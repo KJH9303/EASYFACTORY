@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="header.jsp" %>
 <!DOCTYPE html>
 <html lang="kor">
 <head>
@@ -46,18 +47,19 @@
         xhttp.open("GET", url, true);
         xhttp.send();
     }
-        
-    document.addEventListener('DOMContentLoaded', function () {
-        const frontSlideItems = document.querySelectorAll('.front-slide-item');
-        let delay = 0;
     
-        frontSlideItems.forEach((item) => {
-            setTimeout(() => {
-                item.classList.add('active');
-            }, delay);
-            delay += 500;
-        });
-    });
+        // 메인콘텐츠
+	    document.addEventListener('DOMContentLoaded', function () {
+	        const frontSlideItems = document.querySelectorAll('.front-slide-item');
+	        let delay = 0;
+	    
+	        frontSlideItems.forEach((item) => {
+	            setTimeout(() => {
+	                item.classList.add('active');
+	            }, delay);
+	            delay += 500;
+	        });
+	    });
     
     /*
     function loadHeaderAndSidebar() {
@@ -71,9 +73,6 @@
     </script>
 </head>
 <body>
-    <div id="headerContainer">
-    	<%@ include file="header.jsp" %>
-    </div>
 <!-- 메인 이너 -->
     <div class="main">
         <section class="cover cover_fullpage">

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,18 +16,59 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- css, js -->
-  <link rel="stylesheet" href="../../../resources/energy/css/energy.css" />
-  <script src="../../../resources/energy/js/energy.js" ></script>
+  <link rel="stylesheet" href="../../../resources/energy/css/energy.css?after" />
+  <script src="../../../resources/energy/js/energy.js?after" ></script>
   <!-- css, js -->
+   <script>
+	  // 현재 날짜, 현재 시간 
+	  // yyyy/mm/dd 
+	  // hh/mm/ss
+	  function updateTime() {
+	      var currentTime = new Date();
+	      var hours = currentTime.getHours();
+	      var minutes = currentTime.getMinutes();
+	      var seconds = currentTime.getSeconds();
+	      var year = currentTime.getFullYear();
+	      var month = ("0" + (currentTime.getMonth() + 1)).slice(-2);
+	      var day = ("0" + currentTime.getDate()).slice(-2);
+	
+	      hours = ("0" + hours).slice(-2);
+	      minutes = ("0" + minutes).slice(-2);
+	      seconds = ("0" + seconds).slice(-2);
+	
+	      var timeString = hours + ":" + minutes + ":" + seconds;
+	      var dateString = year + "/" + month + "/" + day;
+	
+	      document.getElementById("time").innerHTML = timeString;
+	      document.getElementById("date").innerHTML = dateString;
+	  }
+	
+	  setInterval(updateTime, 1000)
+	
+	function loadHTMLFile(targetSelector, url, callback) {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	      if (this.readyState == 4 && this.status == 200) {
+	          document.querySelector(targetSelector).innerHTML = this.responseText;
+	          if (typeof callback === 'function') {
+	              callback();
+	          }
+	      }
+	  };
+	  xhttp.open("GET", url, true);
+	  xhttp.send();
+	}
+	  
+	  window.addEventListener('load', updateTime);
+  </script>
 </head>
 <body>
-<div id="headerContainer">
-</div>
 <div class="flex-1 h-full">
   <!-- Main content -->
   <main>
     <!-- Content header -->
     <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
+    	<h1>Energy</h1>
     </div>
     <!-- Content -->
     <div class="mt-2">
@@ -43,13 +85,13 @@
               (단위 : 천원)
             </span>
           </div>
-          <div>
+          <div class="date">
             <!-- 달력 아이콘 추가 -->
-            <i id="energyCostIcon1" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+            <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon1">
              <!-- 데이터 피커 -->
-            <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
-            <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate" value="종료날짜"  style="display: none;" />
-            <button id="applyEnergyCost1" style="display: none;">제출</button>
+            <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate" value="StartDate"/>
+            <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate" value="EndDate"/>
+            <button id="applyEnergyCost1" class="custom-btn btn-1">Submit</button>
           </div>
         </div>
         <!-- Users card -->
@@ -63,13 +105,13 @@
               (단위 : Kwh)
             </span>
           </div>
-          <div>
+          <div class="date">
             <!-- 달력 아이콘 추가 -->
-            <i id="energyCostIcon2" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+            <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon2">
             <!-- 데이터 피커 -->
             <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" value="시작날짜"style="display: none;" />
             <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" value="종료날짜"style="display: none;" />
-            <button id="applyEnergyCost2" style="display: none;">제출</button>
+             <button id="applyEnergyCost2" class="custom-btn btn-1">Submit</button>
           </div>
         </div>
         <!-- Orders card -->
@@ -83,13 +125,13 @@
               (단위 : %)
             </span>
           </div>
-          <div>
+          <div class="date">
             <!-- 달력 아이콘 추가 -->
-            <i id="energyCostIcon3" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+            <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon3">
              <!-- 데이터 피커 -->
             <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
             <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-            <button id="applyEnergyCost3" style="display: none;">제출</button>
+             <button id="applyEnergyCost3" class="custom-btn btn-1">Submit</button>
           </div>
         </div>
       </div>
@@ -102,11 +144,11 @@
             <h4 class="text-lg font-semibold text-gray-500">공정별 가동률 평균</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
-              <i id="energyCostIcon4" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon4">
                <!-- 데이터 피커 -->
               <input type="text" id="energyCostStartDate4" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
               <input type="text" id="energyCostEndDate4" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-              <button id="applyEnergyCost4" style="display: none;">제출</button>
+               <button id="applyEnergyCost4" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
           <!-- Chart -->
@@ -121,11 +163,11 @@
            <h4 class="text-lg font-semibold text-gray-500">공정별 총 생산량</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
-              <i id="energyCostIcon5" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon5">
                <!-- 데이터 피커 -->
               <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
               <input type="text" id="energyCostEndDate5" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-               <button id="applyEnergyCost5" style="display: none;">제출</button>
+                <button id="applyEnergyCost5" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
           <!-- Chart -->
@@ -143,11 +185,11 @@
             <h4 class="text-lg font-semibold text-gray-500">공정별 총 에너지사용비용</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
-              <i id="energyCostIcon6" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon6">
                <!-- 데이터 피커 -->
               <input type="text" id="energyCostStartDate6" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
               <input type="text" id="energyCostEndDate6" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-               <button id="applyEnergyCost6" style="display: none;">제출</button>
+                <button id="applyEnergyCost6" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
           <!-- Chart -->
@@ -162,11 +204,11 @@
             <h4 class="text-lg font-semibold text-gray-500">공정별 총 에너지 사용량</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
-              <i id="energyCostIcon7" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon7">
                <!-- 데이터 피커 -->
              <input type="text" id="energyCostStartDate7" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
               <input type="text" id="energyCostEndDate7" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-               <button id="applyEnergyCost7" style="display: none;">제출</button>
+                <button id="applyEnergyCost7" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
           <!-- Chart -->
@@ -184,11 +226,11 @@
             <h4 class="text-lg font-semibold text-gray-500">공정별 총 에너지사용 비용 대비 총 생산량</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
-              <i id="energyCostIcon8" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon8">
                <!-- 데이터 피커 -->
               <input type="text" id="energyCostStartDate8" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
               <input type="text" id="energyCostEndDate8" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-               <button id="applyEnergyCost8" style="display: none;">제출</button>
+                <button id="applyEnergyCost8" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
           <!-- Chart -->
@@ -203,11 +245,11 @@
             <h4 class="text-lg font-semibold text-gray-500">공정별 총 에너지사용 비용 대비 총 에너지 사용량</h4>
             <!-- 달력 아이콘 추가 -->
             <div class="flex items-center space-x-2">
-              <i id="energyCostIcon9" class="fas fa-calendar-alt" style="cursor: pointer;"></i>
+              <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon9">
                <!-- 데이터 피커 -->
              <input type="text" id="energyCostStartDate9" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
               <input type="text" id="energyCostEndDate9" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-               <button id="applyEnergyCost9" style="display: none;">제출</button>
+                <button id="applyEnergyCost9" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
           <!-- Chart -->
