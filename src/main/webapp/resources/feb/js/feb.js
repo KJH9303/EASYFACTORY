@@ -287,12 +287,7 @@
 	// test======================================================================
 	function getChartOption() {
 	  const colors = [
-	    '#FFA000',
-	    '#EE6666',
-	    '#001853',
-	    '#5470C6',
-	    '#66CC66',
-	    '#ff9999'
+	    '#FFA000', '#EE6666', '#001853', '#5470C6', '#66CC66', '#ff9999'
 	  ];
 	
 	  const option = {
@@ -322,7 +317,7 @@
 	        axisTick: {
 	          alignWithLabel: true
 	        },
-	        data: []
+	        data: [1] // x축 데이터를 설정할 빈 배열
 	      }
 	    ],
 	    yAxis: [
@@ -370,7 +365,7 @@
 	          }
 	        },
 	        axisLabel: {
-	          formatter: '{value} %'
+	          formatter: '{value} EA'
 	        }
 	      },
 	      {
@@ -390,7 +385,7 @@
 	      },
 	      {
 	        type: 'value',
-	        name: '비용',
+	        name: '온도',
 	        position: 'left',
 	        alignTicks: true,
 	        offset: 80,
@@ -401,7 +396,7 @@
 	          }
 	        },
 	        axisLabel: {
-	          formatter: '{value} 천원'
+	          formatter: '{value} ℃'
 	        }
 	      },
 	      {
@@ -437,30 +432,28 @@
 	      {
 	        name: '불량',
 	        type: 'line',
-	        yAxisIndex: 1,
+	        yAxisIndex: 2,
 	        data: []
 	      },
 	      {
 	        name: '장비가동율',
 	        type: 'line',
-	        yAxisIndex: 2,
+	        yAxisIndex: 3,
 	        data: []
 	      },
 	      {
 	        name: '비용',
 	        type: 'line',
-	        yAxisIndex: 3,
+	        yAxisIndex: 4,
 	        data: []
 	      },
 	      {
 	        name: '온도',
 	        type: 'line',
-	        yAxisIndex: 4,
+	        yAxisIndex: 5,
 	        data: []
 	      }
 	    ]
 	  };
-	
-
 	  return option;
 	}

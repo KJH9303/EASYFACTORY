@@ -182,15 +182,10 @@
           <div class="relative p-4 h-72">
             <div id="costsChart"></div>
            
-           <!-- line chart card -->
-		<div class="col-span-2 bg-white rounded-md">
-		  <!-- Card header -->
-		  <div class="flex items-center justify-between p-4 border-b">
-		    <h4 class="text-lg font-semibold text-gray-500">Test Line Chart</h4>
-		  </div>
 		  <!-- Chart -->
 		  <div class="relative p-4 h-72">
-		    <div id="lineChart"></div>
+			<div id="lineChart" style="height: 500px; width: 3000px;"></div>
+
 		  </div>
 		</div> 
 
@@ -346,6 +341,7 @@
 	$(document).ready(function(){
 		fetchData();
 	});
+	
 	function updateTableData(dataList) {
 		  const today = new Date().toISOString().split('T')[0];
 		  let total = {
@@ -355,6 +351,7 @@
 		    opratio: 0,
 		    usingratio: 0,
 		    temp: 0,
+		    hiredate: 0,
 		  };
 
 		  let rowCount = 0;
@@ -367,7 +364,8 @@
 		      const fal = parseInt(data.fal);
 		      const opratio = parseFloat(data.opratio);
 		      const usingratio = parseFloat(data.usingratio);
-		      const temp = parseFloat(data.temp)
+		      const temp = parseFloat(data.temp);
+		      const hiredate = parseFloat(data.hiredate);
 
 		      total.stock += stock;
 		      total.tr += tr;
@@ -541,6 +539,7 @@
 	    usingratioChart.resize();
 	    costsChart.resize();
 	    gaugeChart.resize();
+	    lineChart.resize();
 	});
 	
 	// lineChart 설정=============================================================================================
@@ -555,8 +554,10 @@
 	  let opratioData = [];
 	  let costsData = [];
 	  let tempData = [];
-	
+	  let xAxisData = [];
+	  
 	  dataList.forEach((data) => {
+   		xAxisData.push(data.hiredate);  
 	    usingRatioData.push(data.usingratio);
 	    trData.push(data.tr);
 	    falData.push(data.fal);
@@ -564,19 +565,21 @@
 	    costsData.push(data.costs);
 	    tempData.push(data.temp);
 	  });
-	
+
 	  const option = getChartOption(); // 차트 옵션 가져오기
-	  option.xAxis[0].data = usingRatioData; // x축 데이터 설정
-	  option.series[0].data = trData; // 전기사용량 데이터 설정
-	  option.series[1].data = falData; // 생산량 데이터 설정
-	  option.series[2].data = opratioData; // 불량 데이터 설정
-	  option.series[3].data = costsData; // 장비가동율 데이터 설정
-	  option.series[4].data = tempData; // 비용 데이터 설정
-	}
-	  if (lineChart) {
-		    lineChart.setOption(option); 
-		  }
 	  
+	  option.xAxis[0].data = xAxisData;
+	  option.series[0].data = usingRatioData; // 전기사용량 데이터 설정
+	  option.series[1].data = trData; // 생산량 데이터 설정
+	  option.series[2].data = falData; // 불량 데이터 설정
+	  option.series[3].data = opratioData; // 장비가동율 데이터 설정
+	  option.series[4].data = costsData; // 비용 데이터 설정
+	  option.series[5].data = tempData; // 온도 데이터 설정
+	  
+	  if (lineChart) {
+	    lineChart.setOption(option);
+	  }
+	}
 	</script>
 </body>
 </html>
