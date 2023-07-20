@@ -576,6 +576,7 @@
 	  if (lineChart) {
 		    lineChart.setOption(option); 
 		  }
+	  
 	</script>
 </body>
 </html>
