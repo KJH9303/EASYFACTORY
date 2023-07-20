@@ -23,7 +23,8 @@
 		
 		// 글 수정 페이지
 		$("#updateBtn").on('click', function() {
-			location.href="/issue/update?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
+			var no = $("#no").val();
+			location.href="/issue/update?no="+no+"&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
 			//"&author=${issue.author}&id=${member.id}";
 		});
 		

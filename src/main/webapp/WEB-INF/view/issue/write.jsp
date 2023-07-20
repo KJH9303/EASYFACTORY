@@ -80,12 +80,9 @@
                 console.log(title);
                 console.log(content);
                 alert("글 작성 완료.");
-                // uploadFiles();
                 $("#writeForm").submit();
             });
         });
-        
-        sessionStorage.setItem('fileList', '${fileList}');
     </script>
 </head>
 <body>

@@ -21,11 +21,6 @@
 			location.href="/main";
 		}
 		
-		$("#cancelBtn").on('click', function() {
-			location.href="/issue/view?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
-		});
-		
-		
 		// 파일 입력 변경 핸들러
         $('#file-input').on('change', function() {
             const preview = $('#preview');
@@ -85,6 +80,10 @@
 			$("#updateForm").submit();
 		});
 		
+		$("#cancelBtn").on('click', function() {
+			location.href="/issue/view?no=${issue.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
+		});
+		
 		$("#toListBtn").on('click', function() {
 			self.location = "/issue/list/search?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}"
 		});
@@ -121,8 +120,8 @@
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50">${issue.content}</textarea><br><br>
             
-            <input type="button" id=cancelBtn value="취소">
-            <input type="button" id=submitBtn value="수정 완료">
+            <input type="button" id="cancelBtn" value="취소">
+            <input type="button" id="submitBtn" value="수정 완료">
             
             <input type="hidden" id="page" value="${cri.page}" readonly>
         	<input type="hidden" id="perPageNum" value="${cri.perPageNum}" readonly>

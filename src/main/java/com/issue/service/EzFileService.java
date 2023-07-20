@@ -36,4 +36,9 @@ public class EzFileService {
 		List<EzFileVO> fileList = ezFileDAO.getFileList(no);
 		return fileList;
 	}
+	
+	// 파일 삭제
+	public void deleteFile(int no) {
+		ezFileDAO.deleteFile(no);
+	}
 }

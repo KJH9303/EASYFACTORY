@@ -50,8 +50,8 @@ public class IssueService {
 	}
 	
 	// 글 수정
-	public void update(IssueVO issueVO) {
-		issueDAO.update(issueVO);
+	public void update(String title, String content, String author, int no) {
+		issueDAO.update(title, content, author, no);
 	}
 	
 	// 글 삭제

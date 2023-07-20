@@ -80,4 +80,10 @@ public class EzFileDAO {
 		List<EzFileVO> fileList = jdbcTemplate.query(SQL, new Object[]{no}, new ezFileMapper());
 		return fileList;
 	}
+	
+	// 파일 삭제
+	public void deleteFile(int no) {
+		String SQL = "DELETE FROM EZ_FILE WHERE NO = ?";
+		jdbcTemplate.update(SQL, no);
+	}
 }

@@ -220,10 +220,21 @@ public class IssueController {
     @RequestMapping(value="/update", method=RequestMethod.GET)
     public void updateView(@ModelAttribute Criteria cri, HttpSession session, HttpServletRequest request, Model model) throws Exception {
     	
-    	int no = Integer.parseInt(request.getParameter("no"));
+    	String strNo = request.getParameter("no");
+    	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
+    	String strPage = request.getParameter("page");
+    	int page = (strPage != null && strPage.isEmpty() != true) ? Integer.parseInt(strPage) : 0;
+    	String strPerPageNum = request.getParameter("perPageNum");
+    	int perPageNum = (strPerPageNum != null && strPerPageNum.isEmpty() != true) ? Integer.parseInt(strPerPageNum) : 0;
+    	System.out.println("글 수정 페이지 번호 : " + no);
+    	
+    	//int no = Integer.parseInt(request.getParameter("no"));
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	session.getAttribute("member");
+    	List<EzFileVO> fileList = ezFileService.getFileList(no);
+    	model.addAttribute("fileList", fileList);
+    	
         
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
@@ -237,8 +248,121 @@ public class IssueController {
    	 	
     	model.addAttribute("issue", issueVO);
     	model.addAttribute("cri", cri);
+    	
+    	// return "issue/update?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
     }
     
+    // 글 수정
+    @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
+    public String update(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+        String SAVEFOLDER = "C:\\easyfactory_file";
+        int MAXSIZE = 50 * 1024 * 1024; // 50MB
+
+        
+//      String strNo = request.getParameter("no");
+//    	int issueNo = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
+//    	
+//    	System.out.println("저장된 파일들 우선 삭제, 게시물 번호 : " + issueNo);
+//    	ezFileService.deleteFile(issueNo);
+        
+        // 파일 아이템을 저장할 리스트 생성
+        List<FileItem> fileItems = new ArrayList<>();
+
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        if (isMultipart) {
+            FileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            upload.setSizeMax(MAXSIZE);
+
+            List<FileItem> items = upload.parseRequest(request);
+            System.out.println("length : " + items.size());
+            for (FileItem item : items) {
+                if (!item.isFormField()) {
+                    // 파일 아이템이면 리스트에 추가
+                    fileItems.add(item);
+                }
+            }
+
+            // 다른 필드 값들은 여기서 처리
+            String title = "";
+            String content = "";
+            String author = "";
+            int no = 0;
+            int page = 0;
+            int perPageNum = 0;
+            String searchType = "";
+            String keyword = "";
+            String startDate = "";
+            String endDate = "";
+
+            for (FileItem item : items) {
+                if (item.isFormField()) {
+                    if ("title".equals(item.getFieldName())) {
+                        title = item.getString("UTF-8");
+                    } else if ("content".equals(item.getFieldName())) {
+                        content = item.getString("UTF-8");
+                    } else if ("author".equals(item.getFieldName())) {
+                        author = item.getString("UTF-8");
+                    } else if ("no".equals(item.getFieldName())) {
+                    	no = Integer.parseInt(item.getString("UTF-8"));
+                    } else if ("page".equals(item.getFieldName())) {
+                    	page = Integer.parseInt(item.getString("UTF-8"));
+                    } else if ("perPageNum".equals(item.getFieldName())) {
+                    	perPageNum = Integer.parseInt(item.getString("UTF-8"));
+                    } else if ("searchType".equals(item.getFieldName())) {
+                    	searchType = item.getString("UTF-8");
+                    } else if ("keyword".equals(item.getFieldName())) {
+                    	keyword = item.getString("UTF-8");
+                    } else if ("startDate".equals(item.getFieldName())) {
+                    	startDate = item.getString("UTF-8");
+                    } else if ("endDate".equals(item.getFieldName())) {
+                    	endDate = item.getString("UTF-8");
+                    }
+                }
+            }
+            System.out.println("저장된 파일들 우선 삭제, 게시물 번호 : " + no);
+        	ezFileService.deleteFile(no);
+            
+            System.out.println("title ::::: " + title + ", content ::::: " + content + ", author ::::: " + author);
+            issueService.update(title, content, author, no);
+
+            List<EzFileVO> fileList = new ArrayList<>();
+            int totfilesize = 0;
+            for (FileItem fileItem : fileItems) {
+                String originalname = fileItem.getName();
+                String savename = System.currentTimeMillis() + "_" + originalname;
+                int filesize = (int) fileItem.getSize();
+                if(filesize > 0) {
+                    totfilesize += filesize;
+	                File uploadedFile = new File(SAVEFOLDER, savename);
+	                fileItem.write(uploadedFile);
+	
+	                System.out.println("originalname ::::: " + originalname + ", savename ::::: " + savename + ", filesize ::::: " + filesize);
+	
+	                EzFileVO ezFileVO = new EzFileVO();
+	                ezFileVO.setOriginalname(originalname);
+	                ezFileVO.setSavename(savename);
+	                ezFileVO.setFilesize(filesize);
+	                fileList.add(ezFileVO);
+                }
+            }
+
+            if(totfilesize > 0) {
+            	ezFileService.uploadFile(fileList, no);
+            	System.out.println("새로운 파일 업로드, 업로드할 게시물 번호 :" + no);
+            	HttpSession session = request.getSession();
+            	session.setAttribute("fileList", fileList);
+            }
+            
+            System.out.println("fileList.size() :::: " + fileList.size());
+            System.out.println("totfilesize :::: " + totfilesize);
+            return "redirect:/issue/view?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
+        }
+
+        return "redirect:/issue/view";
+    }
+    
+    /*
     // 글 수정 기능
     @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
     public String update(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request) {
@@ -249,7 +373,7 @@ public class IssueController {
     	issueService.update(issueVO);
     	return "redirect:/issue/view?no="+no+"&page="+page+"&perPageNum="+perPageNum;
     }
-    
+    */
     // 글 삭제
     @RequestMapping(value="/delete", method=RequestMethod.GET)
     public String delete(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
@@ -321,7 +445,7 @@ public class IssueController {
     	String strNo = request.getParameter("no");
     	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
     	
-    	System.out.println("nononononononononnononnonononononnoon" + no);
+    	System.out.println("파일 목록 출력, 게시물 번호 :" + no);
     	int fileCnt = ezFileService.issueFileListCnt(no); // 파일 갯수
     	List<EzFileVO> fileList= ezFileService.getFileList(no); // 파일 목록
     	

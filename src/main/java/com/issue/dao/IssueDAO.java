@@ -169,7 +169,7 @@ public class IssueDAO {
 	}
 	
 	// 글 수정
-	public void update(IssueVO issueVO) {
+	public void update(String title, String content, String author, int no) {
 		String SQL = "UPDATE ISSUE"
 				+ "		SET"
 				+ "			TITLE = ?"
@@ -180,10 +180,7 @@ public class IssueDAO {
 				+ "			NO = ?";
 		jdbcTemplate.update (
 				SQL
-				, issueVO.getTitle()
-				, issueVO.getContent()
-				, issueVO.getAuthor()
-				, issueVO.getNo());
+				, title, content, author, no);
 	}
 	
 	// 글 삭제
