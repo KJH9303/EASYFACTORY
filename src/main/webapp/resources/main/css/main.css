@@ -7,10 +7,7 @@ html, body {
 }
 
 body {
-    background: #fff;
-    background-color: transparent;
-    padding: 0;
-    margin: 0;
+    background-color: #272e38;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -19,7 +16,8 @@ body {
     margin: 0 auto;
     display: block;
     height: 100%;
-    margin-top: 0px;
+    margin-left: 220px;
+    margin-right: 10px;
 }
 
 .mainInner {
@@ -27,6 +25,7 @@ body {
     height: 100%;
     width: 100%;
     text-align: center;
+    overflow-y: hidden;
 }
 
 .mainInner div {
@@ -40,7 +39,7 @@ body {
 /* 배경 */
 .cover {
     color: white;
-    background-color: #ddd;
+    background-color: #272e38;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -56,7 +55,7 @@ body {
     background-position: center;
     background-size: cover;
     z-index: 0;
-    filter: brightness(0.6);
+    filter: brightness(0.5);
 }
 
 .cover_fullpage {
@@ -69,13 +68,13 @@ body {
     top: 50%;
     transform: translate(-50%, 0%);
     min-width: 100%;
-    min-height: 101%;
+    min-height: 100%;
 }
 
 .cover-inside {
     position: relative;
     z-index: 10;
-    margin-top: 0px;
+    margin-top: 10px;
 }
 
 .lazy {
@@ -98,7 +97,7 @@ body {
 .front { 
     text-align: center; 
     padding: 60px 0; 
-    margin-top: 150px;
+    margin-top: 220px;
 } 
 
 .front-contents { 
@@ -118,10 +117,18 @@ body {
     box-sizing: border-box; 
     width: calc(50% -15px);
     margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(10%);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 } 
 
+/* 트랜지션 */
+.front-slide-item.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .front-box { 
-    /* border: 1px solid #ddd;  */
     border-radius: 4px; 
     box-sizing: border-box; 
     padding: 30px; 
@@ -153,6 +160,6 @@ body {
 @media (max-width: 768px) {
     .front-slide-item {
         width: 100%;
-        margin-bottom: 40px;
+        margin-bottom: 70px;
     }
 }

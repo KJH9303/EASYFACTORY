@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>MainPage</title>
-    <link rel="stylesheet" href="../../resources/main/css/main.css">
+    <link rel="stylesheet" href="../../resources/main/css/main.css?after">
     <script>
         // 현재 날짜, 현재 시간 
         // yyyy/mm/dd 
@@ -46,6 +46,18 @@
         xhttp.open("GET", url, true);
         xhttp.send();
     }
+        
+    document.addEventListener('DOMContentLoaded', function () {
+        const frontSlideItems = document.querySelectorAll('.front-slide-item');
+        let delay = 0;
+    
+        frontSlideItems.forEach((item) => {
+            setTimeout(() => {
+                item.classList.add('active');
+            }, delay);
+            delay += 500;
+        });
+    });
     
     /*
     function loadHeaderAndSidebar() {
@@ -78,6 +90,7 @@
                                     <div class="front-box">
                                     <img class="front-box-cover" src="http://wizcore.co.kr/wp-content/themes/wizcore/statics/home/images/front-icon-03.png">
                                         <h2>Innovative</h2>
+                                        <hr>
                                         <p>데이터 기반의 혁신적인 경험을 바탕으로 비즈니스 성장을 견인합니다.</p>
                                     </div>
                                 </div>
@@ -85,6 +98,7 @@
                                     <div class="front-box">
                                         <img class="front-box-cover" src="http://wizcore.co.kr/wp-content/themes/wizcore/statics/home/images/front-icon-02.png">
                                         <h2>Intelligent</h2>
+                                        <hr>
                                         <p>스마트한 데이터 분석으로 예측 가능한 결과를 제공합니다.</p>
                                     </div>
                                 </div>
@@ -92,6 +106,7 @@
                                     <div class="front-box">
                                         <img class="front-box-cover" src="http://wizcore.co.kr/wp-content/themes/wizcore/statics/home/images/front-icon-01.png">
                                         <h2>Insightful</h2>
+                                        <hr>
                                         <p>데이터로부터 얻은 의미있는 통찰력을 차별화 된 가치로 전환합니다.</p>
                                     </div>
                                 </div>
