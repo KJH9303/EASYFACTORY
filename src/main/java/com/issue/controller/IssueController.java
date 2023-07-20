@@ -153,6 +153,7 @@ public class IssueController {
             upload.setSizeMax(MAXSIZE);
 
             List<FileItem> items = upload.parseRequest(request);
+            System.out.println("length : " + items.size());
             for (FileItem item : items) {
                 if (!item.isFormField()) {
                     // 파일 아이템이면 리스트에 추가
@@ -181,31 +182,35 @@ public class IssueController {
             issueService.write(title, content, author);
 
             List<EzFileVO> fileList = new ArrayList<>();
-
+            int totfilesize = 0;
             for (FileItem fileItem : fileItems) {
                 String originalname = fileItem.getName();
                 String savename = System.currentTimeMillis() + "_" + originalname;
                 int filesize = (int) fileItem.getSize();
-
-                File uploadedFile = new File(SAVEFOLDER, savename);
-                fileItem.write(uploadedFile);
-
-                System.out.println("originalname ::::: " + originalname + ", savename ::::: " + savename + ", filesize ::::: " + filesize);
-
-                EzFileVO ezFileVO = new EzFileVO();
-                ezFileVO.setOriginalname(originalname);
-                ezFileVO.setSavename(savename);
-                ezFileVO.setFilesize(filesize);
-                fileList.add(ezFileVO);
+                if(filesize > 0) {
+                    totfilesize += filesize;
+	                File uploadedFile = new File(SAVEFOLDER, savename);
+	                fileItem.write(uploadedFile);
+	
+	                System.out.println("originalname ::::: " + originalname + ", savename ::::: " + savename + ", filesize ::::: " + filesize);
+	
+	                EzFileVO ezFileVO = new EzFileVO();
+	                ezFileVO.setOriginalname(originalname);
+	                ezFileVO.setSavename(savename);
+	                ezFileVO.setFilesize(filesize);
+	                fileList.add(ezFileVO);
+                }
             }
 
-            int no = ezFileService.getDynamicIssueNo();
-            ezFileService.uploadFile(fileList, no);
+            if(totfilesize > 0) {
+            	int no = ezFileService.getDynamicIssueNo();
+            	ezFileService.uploadFile(fileList, no);
+            	HttpSession session = request.getSession();
+            	session.setAttribute("fileList", fileList);
+            }
             
-            HttpSession session = request.getSession();
-            session.setAttribute("fileList", fileList);
-
             System.out.println("fileList.size() :::: " + fileList.size());
+            System.out.println("totfilesize :::: " + totfilesize);
         }
 
         return "redirect:/issue/list";
