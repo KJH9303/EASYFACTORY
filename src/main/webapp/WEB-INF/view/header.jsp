@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>header</title>
-    <link href="../../../resources/main/css/header.css" rel="stylesheet">
+    <link href="../../../resources/main/css/header.css?after" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -100,9 +100,6 @@
 <body>
 <!-- 헤더 -->
 <div class="header">
-    <div class="logo">
-        <h2><a id="main" style="text-decoration-line: none; color: black; text-align:center;">Easy Factory</a></h2>
-    </div>
     <table class="current-time">
         <tr>
             <c:if test="${member.id != null}">
@@ -112,20 +109,20 @@
                 </td>
                 <td rowspan="2">
                     <button type="button" id="memUpdateBtn">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1242/1242392.png?w=996&t=st=1688973131~exp=1688973731~hmac=1699a76ec2a49a747c93c92692569095bdb6c7f1b869ed5f73c996d0008ef727">
+                        <img src="/resources/img/gear-100s-200px.png">
                     </button>
                     <button type="button" id="logoutBtn">
-                        <img src="https://cdn-icons-png.flaticon.com/512/660/660350.png?w=996&t=st=1688973566~exp=1688974166~hmac=043164bc2d7a5e8ba1baefe683fef552a2dca43f61d9e7a0cf273eb1e80ba70a" >
+                        <img src="/resources/img/login-100s-200px.png">
                     </button>
                 </td>
             </c:if>
             <c:if test="${member.id == null}">
-               <td rowspan="2">
-               		<a href="/member/login" style="text-decoration-line: none; color: black; text-align:center;"><b>로그인</b></a>
-               </td>
-               <td rowspan="2">
-               		<a href="/member/signup" style="text-decoration-line: none; color: black; text-align:center;"><b>회원가입</b></a>
-               </td>
+                <td rowspan="2">
+                    <a href="/member/login" style="text-decoration-line: none; color: white; text-align:center;"><b>Login</b></a>
+                </td>
+                <td rowspan="2">
+                    <a href="/member/signup" style="text-decoration-line: none; color: white; text-align:center;"><b>SignUp</b></a>
+                </td>
             </c:if>
             <td id="date"></td>
         </tr>
@@ -135,35 +132,47 @@
     </table>
 </div>
 <!-- 사이드바 메뉴 -->
-<input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
-<label for="openSidebarMenu" class="sidebarIconToggle">
-    <div class="spinner diagonal part-1"></div>
-    <div class="spinner horizontal"></div>
-    <div class="spinner diagonal part-2"></div>
-</label>
 <div id="sidebarMenu">
+    <div class="logo">
+        <img src="/resources/img/logo2.jpeg">
+        <h2><a id="main" style="text-decoration-line: none; color: black; text-align:center;">Easy Factory</a></h2>
+    </div>
 	<input type="hidden" id="id" value="${member.id}">
-	<input type="text" id="code" value="${member.code}">
+	<input type="hidden" id="code" value="${member.code}">
     <ul class="sidebarMenuInner">
         <li>
-            <a href="#">공정</a>
+            <a href="#" class="ha">process<span>dashboard</span></a>
             <ul class="submenu">
-                <li><a id="feb1">1공정: 웨이퍼 제조</a></li>
-                <li><a id="feb2">2공정: 산화 공정</a></li>
-                <li><a id="feb3">3공정: 포토(Photo)공정</a></li>
-                <li><a id="feb4">4공정: 식각(Etch)공정</a></li>
-                <li><a id="feb5">5공정: 이온주입(Implant) 공정</a></li>
-                <li><a id="feb6">6공정: 금속배선 공정</a></li>
-                <li><a id="feb7">7공정: EDS 공정</a></li>
-                <li><a id="feb8">8공정: 패키징(Packaging) 공정</a></li>
+                <!-- <li><a id="feb1">1공정: 웨이퍼 제조</a></li> -->
+                <li><a id="feb1">Wafer<br>Fabrication</a></li>
+                <!-- <li><a id="feb2">2공정: 산화 공정</a></li> -->
+                <li><a id="feb2">Oxidation</a></li>
+                <!-- <li><a id="feb3">3공정: 포토(Photo)공정</a></li> -->
+                <li><a id="feb3">Photo<br>Lithography</a></li>
+                <!-- <li><a id="feb4">4공정: 식각(Etch)공정</a></li> -->
+                <li><a id="feb4">Etching</a></li>
+                <!-- <li><a id="feb5">5공정: 이온주입(Implant) 공정</a></li> -->
+                <li><a id="feb5">Deposition</a></li>
+                <!-- <li><a id="feb6">6공정: 금속배선 공정</a></li> -->
+                <li><a id="feb6">Metallization</a></li>
+                <!-- <li><a id="feb7">7공정: EDS 공정</a></li> -->
+                <li><a id="feb7">EDS</a></li>
+                <!-- <li><a id="feb8">8공정: 패키징(Packaging) 공정</a></li> -->
+                <li><a id="feb8">Packaging</a></li>
             </ul>
         </li>
-        <li><a id="energy">에너지</a></li>
-        <li><a id="stock">재고관리</a></li>
         <li>
-            <a id="issueList">게시판</a>
+            <a id="energy" class="ha">energy<span>dashboard</span></a>
         </li>
-        <li><a id="guideLines">가이드 라인</a></li>
+        <li>
+            <a id="stock" class="ha">inventory<span>management</span></a>
+        </li>
+        <li>
+            <a id="issueList" class="ha">issue<span>board</span></a>
+        </li>
+        <li>
+            <a id="guideLines" class="ha">guide<span>line</span></a>
+        </li>
     </ul>
 </div>
 </body>

@@ -3,6 +3,7 @@
 html, body {
     overflow-x: hidden;
     height: 100%;
+    line-height: 1.15;
 }
 
 body {
@@ -17,7 +18,7 @@ div {
 
 /* 헤더 */
 .header {
-    position: fixed;
+    position:fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -25,17 +26,19 @@ div {
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    background-color: white;
-    color: black;
+    color: white;
     padding: 0 20px;
-    opacity: 0.9;
     z-index: 2;
+    background-color: #272e38;
 }
 
 .logo {
-    display: inline-block;
-    color: #333;
-    margin-left: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 15px;
+    padding-top: 5px;
+    height: 70px;
 }
 
 .current-time {
@@ -43,7 +46,6 @@ div {
     top: 50%;
     transform: translateY(-50%);
     right: 20px;
-    /* border: solid 1px black; */
     width: 350px;
 }
 /* 사이드바 메뉴 */
@@ -52,18 +54,14 @@ div {
     position: fixed;
     left: 0;
     width: 210px;
-    margin-top: 70px;
-    transform: translateX(-250px);
-    transition: transform 250ms ease-in-out;
-    background: linear-gradient(180deg, white 0%, white 100%);
-    opacity: 0.9;
+    background-color: white;
     z-index: 100;
 }
 
 .sidebarMenuInner {
     margin: -1px;
     padding: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    border-top: 1px solid rgba(255, 255, 255, 0);
 }
 
 .sidebarMenuInner li {
@@ -71,15 +69,18 @@ div {
     color: black;
     text-transform: uppercase;
     font-weight: bold;
-    padding: 20px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    height: 60px;
+    display: flex;
 }
 
 .sidebarMenuInner li span {
     display: block;
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.50);
+    color: rgb(156, 156, 156);
 }
 
 .sidebarMenuInner li a {
@@ -90,85 +91,22 @@ div {
     text-decoration: none;
 }
 
-input[type="checkbox"]:checked ~ #sidebarMenu {
-    transform: translateX(0);
-}
-
-input[type=checkbox] {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    display: none;
-}
-
 .sidebarMenuInner li:hover {
-    background-color: lightgray;
+    background-color: #272e38;
+    border-left: 3px solid red;
 }
 
-.sidebarIconToggle {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    cursor: pointer;
-    position: absolute;
-    z-index: 99;
-    height: 100%;
-    width: 100%;
-    top: 28px;
-    left: 15px;
-    height: 22px;
-    width: 22px;
-    z-index: 100;
+.sidebarMenuInner li:hover .ha {
+    color: white;
 }
 
-.spinner {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: absolute;
-    height: 3px;
-    width: 100%;
-    background-color: black;
+.submenu li:hover {
+    background-color: #272e38;
+    border-left: 2px solid red;
 }
 
-.horizontal {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: relative;
-    float: left;
-    margin-top: 3px;
-}
-
-.diagonal.part-1 {
-    position: relative;
-    transition: all 0.3s;
-    box-sizing: border-box;
-    float: left;
-}
-
-.diagonal.part-2 {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    position: relative;
-    float: left;
-    margin-top: 3px;
-}
-
-input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    opacity: 0;
-}
-
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    transform: rotate(135deg);
-    margin-top: 8px;
-}
-
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
-    transition: all 0.3s;
-    box-sizing: border-box;
-    transform: rotate(-135deg);
-    margin-top: -9px;
+.submenu li:hover a {
+    color: white;
 }
 
 /* submenu */
@@ -181,10 +119,14 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
     white-space: nowrap;
     min-width: 200px;
     background-color: white;
+    color: black;
     height: 100%;
     transform: translateX(-10%);
     transition: all 250ms ease-in-out;
     padding: 0;
+    margin-top:70px;
+    margin-left: 2px;
+    box-sizing: border-box;
 }
 
 .sidebarMenuInner li:hover > .submenu {
@@ -193,21 +135,25 @@ input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
     transform: translateX(0%);
 }
 
-button {
-    background-color: white;
+.header button {
+    background-color: #272e3800;
     border: none;
 }
 
-img {
-    width: 25px;
-    height: 25px;
+.header img {
+    width: 30px;
+    height: 30px;
 }
 
-td {
-    /* border: solid black; */
+.logo img {
+    width: 30px;
+    height: 30px;
+}
+
+.header td {
     text-align: center;
 }
 
-tr {
+.header tr {
     border: none;
 }
