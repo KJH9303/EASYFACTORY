@@ -182,6 +182,7 @@
             <div id="costsChart"></div>
           </div>
 		</div>
+		
       </div>
     </div>
   </main>

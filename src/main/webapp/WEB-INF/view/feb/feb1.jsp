@@ -15,7 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
 
 </head>
-<body>
+<body class="table-container-scroll">
 <div id="headerContainer"></div>
 <div class="flex-1 h-full">
 
@@ -181,8 +181,22 @@
           <!-- Chart -->
           <div class="relative p-4 h-72">
             <div id="costsChart"></div>
-          </div>
-		</div>
+           
+           <!-- line chart card -->
+		<div class="col-span-2 bg-white rounded-md">
+		  <!-- Card header -->
+		  <div class="flex items-center justify-between p-4 border-b">
+		    <h4 class="text-lg font-semibold text-gray-500">Test Line Chart</h4>
+		    <!-- DatePicker -->
+		    <div class="flex items-center space-x-2">
+		    </div>
+		  </div>
+		  <!-- Chart -->
+		  <div class="relative p-4 h-72">
+		    <div id="lineChart"></div>
+		  </div>
+		</div> 
+
       </div>
     </div>
   </main>
@@ -191,7 +205,7 @@
 <!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
 	<script>
-	let opratioChart, gaugeChart, usingratioChart, costsChart;
+	let opratioChart, gaugeChart, usingratioChart, costsChart, lineChart;
 	
 	var opratio = null;
 	var usingratio = null;
@@ -233,6 +247,8 @@
 	            }
 	            costs = true;
 	            break;
+	            
+	            
 	    }
 
 	    var startDate = $("#" + startDateInputId).val();
@@ -298,12 +314,15 @@
 		        	startDate: "2023-01-01",
 		        	endDate: "2023-12-31"
 		    },
+
 			success: function(response) {
 				if (response.Error) {
 					alert(response.Error);
 				} else {
 					let dataList = response;
 					let tbody = $("table tbody");
+					
+					console.log(dataList);
 
 					updateTableData(dataList); 			// 테이블 업데이트
 					
@@ -318,8 +337,10 @@
 					}
 					
 					if(costs != true) {
-						updateCostsChart(dataList)			// 전기사용비용 바차트 업데이트
+						updateCostsChart(dataList);			// 전기사용비용 바차트 업데이트
 					}
+					
+					updateLineChart(dataList);
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -328,7 +349,9 @@
 		});
 		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
 	}
-	
+	$(document).ready(function () {
+		  fetchData();
+		});
 	function updateTableData(dataList) {
 		  const today = new Date().toISOString().split('T')[0];
 		  let total = {
@@ -336,6 +359,8 @@
 		    tr: 0,
 		    fal: 0,
 		    opratio: 0,
+		    usingratio: 0,
+		    temp: 0,
 		  };
 
 		  let rowCount = 0;
@@ -347,6 +372,8 @@
 		      const tr = parseInt(data.tr);
 		      const fal = parseInt(data.fal);
 		      const opratio = parseFloat(data.opratio);
+		      const usingratio = parseFloat(data.usingratio);
+		      const temp = parseFloat(data.temp)
 
 		      total.stock += stock;
 		      total.tr += tr;
@@ -510,17 +537,220 @@
 	  option.xAxis.data = dateList;
 	  option.series[0].data = displayData;
 
-	  costsChart.setOption(option);
+	// lineChart 설정
+	let lineChart;
+	function updateLineChart(dataList) {
+	  if (!lineChart) {
+	    lineChart = echarts.init(document.getElementById("lineChart"));
+	  }
+	
+	  let usingRatioData = [];
+	  let trData = [];
+	  let falData = [];
+	  let opratioData = [];
+	  let costsData = [];
+	  let tempData = [];
+	
+	  dataList.forEach((data) => {
+		usingRatioData.push(data.usingratio);  
+	    trData.push(data.tr);
+	    falData.push(data.fal);
+	    opratioData.push(data.opratio);
+	    costsData.push(data.costs);
+		tempData.push(data.temp);
+	  });
+	
+	  // ECharts 옵션 설정
+		var chartDom = document.getElementById('lineChart');
+		var myChart = echarts.init(chartDom);
+		var option;
+		
+		const colors = [
+		  '#FFA000',
+		  '#EE6666',
+		  '#001853',
+		  '#5470C6',
+		  '#66CC66',
+		  '#ff9999'
+		];
+		option = {
+		  color: colors,
+		  tooltip: {
+		    trigger: 'axis',
+		    axisPointer: {
+		      type: 'cross'
+		    }
+		  },
+		  grid: {
+		    right: '20%'
+		  },
+		  toolbox: {
+		    feature: {
+		      dataView: { show: true, readOnly: false },
+		      restore: { show: true },
+		      saveAsImage: { show: true }
+		    }
+		  },
+		  legend: {
+		    data: ['전기사용량', '생산량', '불량', '장비가동율', '비용', '온도']
+		  },
+		  xAxis: [
+		    {
+		      type: 'category',
+		      axisTick: {
+		        alignWithLabel: true
+		      },
+		      data: []
+		    }
+		  ],
+		  yAxis: [
+		    {
+		      type: 'value',
+		      name: '전기사용량',
+		      position: 'right',
+		      alignTicks: true,
+		      axisLine: {
+		        show: true,
+		        lineStyle: {
+		          color: colors[0]
+		        }
+		      },
+		      axisLabel: {
+		        formatter: '{value} kWh'
+		      }
+		    },
+		    {
+		      type: 'value',
+		      name: '생산량',
+		      position: 'right',
+		      alignTicks: true,
+		      offset: 80,
+		      axisLine: {
+		        show: true,
+		        lineStyle: {
+		          color: colors[1]
+		        }
+		      },
+		      axisLabel: {
+		        formatter: '{value} EA'
+		      }
+		    },
+		    {
+		      type: 'value',
+		      name: '불량',
+		      position: 'left',
+		      alignTicks: true,
+		      offset: 160,
+		      axisLine: {
+		        show: true,
+		        lineStyle: {
+		          color: colors[2]
+		        }
+		      },
+		      axisLabel: {
+		        formatter: '{value} %'
+		      }
+		    },
+		    {
+		      type: 'value',
+		      name: '장비가동율',
+		      position: 'left',
+		      alignTicks: true,
+		      axisLine: {
+		        show: true,
+		        lineStyle: {
+		          color: colors[3]
+		        }
+		      },
+		      axisLabel: {
+		        formatter: '{value} %'
+		      }
+		    },
+		    {
+		      type: 'value',
+		      name: '비용',
+		      position: 'left',
+		      alignTicks: true,
+		      offset: 80,
+		      axisLine: {
+		        show: true,
+		        lineStyle: {
+		          color: colors[4]
+		        }
+		      },
+		      axisLabel: {
+		        formatter: '{value} 천원'
+		      }
+		    },
+		    {
+		      type: 'value',
+		      name: '온도',
+		      position: 'right',
+		      alignTicks: true,
+		      offset: 160,
+		      axisLine: {
+		        show: true,
+		        lineStyle: {
+		          color: colors[5]
+		        }
+		      },
+		      axisLabel: {
+		        formatter: '{value} ℃'
+		      }
+		    }
+		  ],
+		  series: [
+		    {
+		      name: '전기사용량',
+		      type: 'line',
+		      yAxisIndex: 0,
+		      data: []
+		    },
+		    {
+		      name: '생산량',
+		      type: 'line',
+		      yAxisIndex: 1,
+		      data: []
+		    },
+		    {
+		      name: '불량',
+		      type: 'line',
+		      yAxisIndex: 1,
+		      data: []
+		    },
+		    {
+		      name: '장비가동율',
+		      type: 'line',
+		      yAxisIndex: 2,
+		      data: []
+		    },
+		    {
+		      name: '비용',
+		      type: 'line',
+		      yAxisIndex: 3,
+		      data: []
+		    },
+		    {
+		      name: '온도',
+		      type: 'line',
+		      yAxisIndex: 4,
+		      data: []
+		    }
+		  ]
+		};
+		  lineChart.setOption(option);
+		}
+		$(document).ready(function(){
+		  fetchData();
+		});
+
+		window.addEventListener('resize', function () {
+		  opratioChart.resize();
+		  usingratioChart.resize();
+		  costsChart.resize();
+		  gaugeChart.resize();
+		});
 	}
-	$(document).ready(function(){
-		fetchData();
-	});
-	window.addEventListener('resize', function () {
-	    opratioChart.resize();
-	    usingratioChart.resize();
-	    costsChart.resize();
-	    gaugeChart.resize();
-	});
-	</script>
+		</script>
 </body>
 </html>
