@@ -185,7 +185,7 @@
 		  <!-- Chart -->
 		  <div class="relative p-4 h-72">
 			<div id="lineChart" style="height: 500px; width: 3000px;"></div>
-
+ 
 		  </div>
 		</div> 
 

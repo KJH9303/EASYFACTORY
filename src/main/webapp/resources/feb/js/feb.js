@@ -382,7 +382,7 @@
 	        axisLabel: {
 	          formatter: '{value} %'
 	        }
-	      },
+	      }, 
 	      {
 	        type: 'value',
 	        name: '온도',
