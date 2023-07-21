@@ -58,7 +58,7 @@
 	      name: '가동율',
 	      data: [],
 	      type: "bar",
-	      animationDelay: (idx) => idx * 10,
+
 	      itemStyle: {
 	        color: "#37a2da", // 막대 색상
 	      },
@@ -193,7 +193,7 @@
 	      name: '전기사용량',
 	      data: [],
 	      type: "bar",
-	      animationDelay: (idx) => idx * 10,
+
 	      itemStyle: {
 	        color: "#ffbf00", // 막대 색상
 	      },
@@ -269,7 +269,7 @@
 	      name: '비용',
 	      data: [],
 	      type: "bar",
-	      animationDelay: (idx) => idx * 10,
+
 	      itemStyle: {
 	        color: "#008120", // 막대 색상
 	      },
@@ -324,8 +324,9 @@
 	      {
 	        type: 'value',
 	        name: '전기사용량',
-	        position: 'right',
+	        position: 'left',
 	        alignTicks: true,
+	        offset: 80,
 	        axisLine: {
 	          show: true,
 	          lineStyle: {
@@ -341,7 +342,6 @@
 	        name: '생산량',
 	        position: 'right',
 	        alignTicks: true,
-	        offset: 80,
 	        axisLine: {
 	          show: true,
 	          lineStyle: {
@@ -355,7 +355,7 @@
 	      {
 	        type: 'value',
 	        name: '불량',
-	        position: 'left',
+	        position: 'right',
 	        alignTicks: true,
 	        offset: 80,
 	        axisLine: {

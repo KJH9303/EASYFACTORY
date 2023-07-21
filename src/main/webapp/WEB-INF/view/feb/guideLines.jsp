@@ -24,56 +24,56 @@
 	                <td>20</td>
 	                <td>40</td>
 	                <td>90</td>
-	                <td>2000</td>
+	                <td>200</td>
 	            </tr>
 	            <tr>
 	                <td>2공정: 산화 공정</td>
 	                <td>30</td>
 	                <td>50</td>
 	                <td>90</td>
-	                <td>3000</td>
+	                <td>300</td>
 	            </tr>
 	            <tr>
 	                <td>3공정: 포토(Photo)공정</td>
 	                <td>40</td>
 	                <td>80</td>
 	                <td>80</td>
-	                <td>4000</td>
+	                <td>400</td>
 	            </tr>
 	            <tr>
 	                <td>4공정: 식각(Etch)공정</td>
 	                <td>70</td>
 	                <td>80</td>
 	                <td>80</td>
-	                <td>7000</td>
+	                <td>700</td>
 	            </tr>
 	            <tr>
 	                <td>5공정: 이온주입(Implant) 공정</td>
 	                <td>60</td>
 	                <td>80</td>
 	                <td>80</td>
-	                <td>6000</td>
+	                <td>600</td>
 	            </tr>
 	            <tr>
 	                <td>6공정: 금속배선 공정</td>
 	                <td>100</td>
 	                <td>60</td>
 	                <td>70</td>
-	                <td>10000</td>
+	                <td>1000</td>
 	            </tr>
 	            <tr>
 	                <td>7공정: EDS 공정</td>
 	                <td>80</td>
 	                <td>50</td>
 	                <td>80</td>
-	                <td>8000</td>
+	                <td>800</td>
 	            </tr>
 	            <tr>
 	                <td>8공정: 패키징(Packaging) 공정</td>
 	                <td>50</td>
 	                <td>70</td>
 	                <td>90</td>
-	                <td>5000</td>
+	                <td>500</td>
 	            </tr>
 	        </tbody>
 	    </table>
