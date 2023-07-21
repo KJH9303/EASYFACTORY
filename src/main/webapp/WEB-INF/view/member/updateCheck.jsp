@@ -101,7 +101,7 @@
 			    			    location.href="/member/delete";
 			    			}else{
 			    			    alert("취소하였습니다.");
-			    			    history.back();
+			    			    return;
 			    			}
 			            } else {
 			                $("#message").text("비밀번호가 틀립니다.");

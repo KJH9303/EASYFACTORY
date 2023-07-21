@@ -111,8 +111,6 @@ public class IssueController {
     public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
     	String strNo = request.getParameter("no");
     	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
-    	
-    	//int no = request.getParameter("no").toString() == null ? 0 : Integer.parseInt(request.getParameter("no"));
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
@@ -222,13 +220,6 @@ public class IssueController {
     	
     	String strNo = request.getParameter("no");
     	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
-    	String strPage = request.getParameter("page");
-    	int page = (strPage != null && strPage.isEmpty() != true) ? Integer.parseInt(strPage) : 0;
-    	String strPerPageNum = request.getParameter("perPageNum");
-    	int perPageNum = (strPerPageNum != null && strPerPageNum.isEmpty() != true) ? Integer.parseInt(strPerPageNum) : 0;
-    	System.out.println("글 수정 페이지 번호 : " + no);
-    	
-    	//int no = Integer.parseInt(request.getParameter("no"));
     	IssueVO issueVO = issueService.viewContent(no);
     	
     	session.getAttribute("member");
@@ -258,13 +249,6 @@ public class IssueController {
         String SAVEFOLDER = "C:\\easyfactory_file";
         int MAXSIZE = 50 * 1024 * 1024; // 50MB
 
-        
-//      String strNo = request.getParameter("no");
-//    	int issueNo = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
-//    	
-//    	System.out.println("저장된 파일들 우선 삭제, 게시물 번호 : " + issueNo);
-//    	ezFileService.deleteFile(issueNo);
-        
         // 파일 아이템을 저장할 리스트 생성
         List<FileItem> fileItems = new ArrayList<>();
 
@@ -362,18 +346,6 @@ public class IssueController {
         return "redirect:/issue/view";
     }
     
-    /*
-    // 글 수정 기능
-    @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
-    public String update(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request) {
-    	int no = Integer.parseInt(request.getParameter("no"));
-    	int page = cri.getPage();
-    	int perPageNum = cri.getPerPageNum();
-    	
-    	issueService.update(issueVO);
-    	return "redirect:/issue/view?no="+no+"&page="+page+"&perPageNum="+perPageNum;
-    }
-    */
     // 글 삭제
     @RequestMapping(value="/delete", method=RequestMethod.GET)
     public String delete(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {

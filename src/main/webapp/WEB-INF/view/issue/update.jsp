@@ -109,12 +109,6 @@
 			<h3>업로드된 파일</h3>
 			
 			<div id="preview">
-			    <c:forEach items="${fileList}" var="fileList">
-			        <p id="${fileList.fileno}">
-			            ${fileList.savename}
-			            <button data-index="${fileList.fileno}" class="file-remove">X</button>
-			        </p>
-			    </c:forEach>
 			</div>
 			
             <label for="content">내용:</label><br>

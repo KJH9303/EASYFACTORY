@@ -21,7 +21,7 @@
 		<div>등록된 파일 : ${fileCnt}</div>
 		<c:forEach items="${fileList}" var="fileList">
 			<div>
-				<input type="text" name="savename" value="${fileList.savename}" readonly> 
+				<input type="text" name="savename" value="${fileList.originalname}" readonly> 
 				<input type="text" name="fileno" value="${fileList.fileno}" readonly>
 				<input type="text" name="filesize" value="${fileList.filesizeFormatted}" readonly>
 				<c:if test="${member.id == replyList.author}">

@@ -24,8 +24,16 @@
 		// 글 수정 페이지
 		$("#updateBtn").on('click', function() {
 			var no = $("#no").val();
-			location.href="/issue/update?no="+no+"&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
-			//"&author=${issue.author}&id=${member.id}";
+			
+			var result = confirm("글 수정페이지로 이동하면 기존에 업로드된 파일은 모두 삭제됩니다.");
+			if(result){
+			    location.href="/issue/update?no=${no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
+			}else{
+			    alert("취소하였습니다.");
+			    return;
+			}
+			
+			location.href="/issue/update?no=${no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}";
 		});
 		
 		// 파일 목록 출력
