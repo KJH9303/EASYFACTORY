@@ -60,7 +60,7 @@
 	      type: "bar",
 
 	      itemStyle: {
-	        color: "#37a2da", // 막대 색상
+	        color: "#93b7e3", // 막대 색상
 	      },
 	    },
 	  ],
@@ -94,9 +94,9 @@
 	      lineStyle: {
 	        width: 15,
 	        color: [
-	          [0.3, '#67e0e3'],
-	          [0.7, '#37a2da'],
-	          [1, '#fd666d']
+	          [0.3, '#a5e7f0'],
+	          [0.7, '#59c4e6'],
+	          [1, '#516b91']
 	        ]
 	      }
 	    },
@@ -195,7 +195,7 @@
 	      type: "bar",
 
 	      itemStyle: {
-	        color: "#ffbf00", // 막대 색상
+	        color: "#edafda", // 막대 색상
 	      },
 	    },
 	  ],
@@ -271,7 +271,7 @@
 	      type: "bar",
 
 	      itemStyle: {
-	        color: "#008120", // 막대 색상
+	        color: "#cbb0e3", // 막대 색상
 	      },
 	    },
 	  ],
@@ -287,7 +287,7 @@
 	// test======================================================================
 	function getChartOption() {
 	  const colors = [
-	    '#FFA000', '#EE6666', '#001853', '#5470C6', '#66CC66', '#ff9999'
+	    '#edafda', '#59c4e6', '#516b91', '#93b7e3', '#66CC66', '#ff9999'
 	  ];
 	
 	  const option = {
@@ -298,9 +298,12 @@
 	        type: 'cross'
 	      }
 	    },
-	    grid: {
-	      right: '20%'
-	    },
+		  grid: {
+		    top: 70, // 상단 여백
+		    bottom: 20, // 하단 여백
+		    left: 140, // 좌측 여백
+		    right: 140 // 우측 여백
+		  },
 	    toolbox: {
 	      feature: {
 	        dataView: { show: true, readOnly: false },

@@ -1,30 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html lang="">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>6공정: 금속배선 공정</title>
-  <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">  
-  <link rel="stylesheet" href="../../../resources/feb/css/feb.css?after">
+  <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">
+  <link rel="stylesheet" href="../../../resources/feb/css/feb.css">
   <script src="../../../resources/feb/js/feb.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
-  
+  <script>
+	  // 현재 날짜, 현재 시간 
+	  // yyyy/mm/dd 
+	  // hh/mm/ss
+	  function updateTime() {
+	      var currentTime = new Date();
+	      var hours = currentTime.getHours();
+	      var minutes = currentTime.getMinutes();
+	      var seconds = currentTime.getSeconds();
+	      var year = currentTime.getFullYear();
+	      var month = ("0" + (currentTime.getMonth() + 1)).slice(-2);
+	      var day = ("0" + currentTime.getDate()).slice(-2);
+	
+	      hours = ("0" + hours).slice(-2);
+	      minutes = ("0" + minutes).slice(-2);
+	      seconds = ("0" + seconds).slice(-2);
+	
+	      var timeString = hours + ":" + minutes + ":" + seconds;
+	      var dateString = year + "/" + month + "/" + day;
+	
+	      document.getElementById("time").innerHTML = timeString;
+	      document.getElementById("date").innerHTML = dateString;
+	  }
+	
+	  setInterval(updateTime, 1000)
+	
+	function loadHTMLFile(targetSelector, url, callback) {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	      if (this.readyState == 4 && this.status == 200) {
+	          document.querySelector(targetSelector).innerHTML = this.responseText;
+	          if (typeof callback === 'function') {
+	              callback();
+	          }
+	      }
+	  };
+	  xhttp.open("GET", url, true);
+	  xhttp.send();
+	}
+	  
+	  window.addEventListener('load', updateTime);
+  </script>
 </head>
 <body>
 <div id="headerContainer"></div>
 <div class="flex-1 h-full">
-
   
   <!-- Main content -->
   <main>
     
     <!-- Content header -->
     <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
+      <h1>Metallization</h1>
     </div>
     
     <!-- Content -->
@@ -36,10 +77,11 @@
         <!-- Stock card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              총 재고
+            <h6
+              class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+              총재고
             </h6>
-    		<span class="text-xl font-semibold stock-total"></span>
+            <span class="text-xl font-semibold stock-total"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
               (단위 : EA)
             </span>
@@ -49,43 +91,50 @@
         <!-- Tr card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 
+            class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               정상품 수
             </h6>
-   			<span class="text-xl font-semibold tr-total"></span>
+            <span class="text-xl font-semibold tr-total"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              (단위 : EA)</span>
+              (단위 : EA)
+            </span>
           </div>
         </div>
 
         <!-- Fal card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 
+            class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               불량품 수
             </h6>
             <span class="text-xl font-semibold fal-total"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              (단위 : EA)</span>            
+              (단위 : EA)
+            </span>            
           </div>
         </div>
 
         <!-- Usingratio card -->
         <div class="flex items-center justify-between p-4 bg-white">
           <div>
-            <h6 class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
+            <h6 
+            class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
               장비가동율
             </h6>
             <span class="text-xl font-semibold opratio-avg"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
-              (단위 : %)</span>
+              (단위 : %)
+            </span>
           </div>
         </div>
       </div>
 
+      <!--------------------------------------------------------- -->
       <!-- gauge Chart -->
       <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
-		<!-- Doughnut chart card -->
+        <!-- Doughnut chart card -->
         <div class="bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center p-4 border-b">
@@ -103,20 +152,20 @@
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500"> 장비 가동율</h4>
+            <h4 class="text-lg font-semibold text-gray-500">장비 가동율</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
-      	    <div>
-		        <input type="date" id="startDate_opratio" name="startDate">
-		        <input type="date" id="endDate_opratio" name="endDate">
-		        <button onClick="fetchChartData('opratio')" style="background-color: black; color: white;">GET</button>
-		        <button onClick="clearDatePicker('opratio')" style="background-color: white;">CLEAR</button>
-	   		</div>
+              <div>
+                <input type="date" id="startDate_opratio" name="startDate" class="datepicker">
+                <input type="date" id="endDate_opratio" name="endDate" class="datepicker">
+                <button onClick="fetchChartData('opratio')" class="custom-btn btn-1">GET</button>
+                <button onClick="clearDatePicker('opratio')" class="custom-btn btn-1">CLEAR</button>
+              </div>
             </div>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
-             <div id="opratioChart"></div>
+            <div id="opratioChart"></div>
           </div>
         </div>
 
@@ -126,14 +175,12 @@
           <div class="flex items-center justify-between p-4 border-b border-color ">
             <h4 class="text-lg font-semibold-defect text-gray-500s">DEFECT MONITORING</h4>
           </div>
-          <!-- Chart -->
-          <div class="relative p-4 h-72" style= "overflow: auto">
-            <table>
-	            <tr>
-	           	</tr>
-           		<tr>
-        			<td id="previousDefects" style="font-size: 15px;"></td>
-	        	</tr>
+          <!-- Card -->
+          <div class="relative p-4 h-72 table-container-scroll overflow-auto">
+            <table class="dashboard-table">
+              <tr class="dashboard-tr">
+                <td id="previousDefects" class="dashboard-td"></td>
+              </tr>
             </table>
           </div>
         </div>
@@ -141,19 +188,19 @@
 
       <!-- Two grid columns -->
       <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
-		<!-- Bar chart card -->
+        <!-- Bar chart card -->
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500"> 전기 사용량</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기 사용량</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
-      	    <div>
-		        <input type="date" id="startDate_usingratio" name="startDate">
-		        <input type="date" id="endDate_usingratio" name="endDate">
-		        <button onClick="fetchChartData('usingratio')" style="background-color: black; color: white;">GET</button>
-		        <button onClick="clearDatePicker('usingratio')" style="background-color: white;">CLEAR</button>
-	   		</div>
+              <div>
+                <input type="date" id="startDate_usingratio" name="startDate" class="datepicker">
+                <input type="date" id="endDate_usingratio" name="endDate" class="datepicker">
+                <button onClick="fetchChartData('usingratio')" class="custom-btn btn-1">GET</button>
+                <button onClick="clearDatePicker('usingratio')" class="custom-btn btn-1">CLEAR</button>
+              </div>
             </div>
           </div>
           <!-- Chart -->
@@ -161,31 +208,42 @@
             <div id="usingratioChart"></div>
           </div>
         </div>
-		
+
         <!-- Bar chart card -->
         <div class="col-span-2 bg-white rounded-md">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b">
-            <h4 class="text-lg font-semibold text-gray-500"> 전기사용 비용</h4>
+            <h4 class="text-lg font-semibold text-gray-500">전기사용 비용</h4>
             <!-- DatePicker -->
             <div class="flex items-center space-x-2">
-      	    <div>
-		        <input type="date" id="startDate_costs" name="startDate">
-		        <input type="date" id="endDate_costs" name="endDate">
-		        <button onClick="fetchChartData('costs')" style="background-color: black; color: white;">GET</button>
-		        <button onClick="clearDatePicker('costs')" style="background-color: white;">CLEAR</button>
-	   		</div>
+              <div>
+                <input type="date" id="startDate_costs" name="startDate" class="datepicker">
+                <input type="date" id="endDate_costs" name="endDate" class="datepicker">
+                <button onClick="fetchChartData('costs')" class="custom-btn btn-1">GET</button>
+                <button onClick="clearDatePicker('costs')" class="custom-btn btn-1">CLEAR</button>
+              </div>
             </div>
           </div>
           <!-- Chart -->
           <div class="relative p-4 h-72">
             <div id="costsChart"></div>
-            
-            <!-- Chart -->
-		  <div class="relative p-4 h-72">
-			<div id="lineChart" style="height: 500px; width: 2000px;"></div>
           </div>
-		</div>
+        </div> 
+      </div>
+
+      <!-- Two grid columns -->
+      <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
+        <!-- Line chart card -->
+        <div class="col-span-4 bg-white rounded-md">
+          <!-- Card header -->
+          <div class="flex items-center justify-between p-4 border-b">
+            <h4 class="text-lg font-semibold text-gray-500">생산지표</h4>
+          </div>
+          <!-- Chart -->
+          <div class="relative p-4 h-72">
+            <div id="lineChart"  style="height: 100%; width: 100%;"></div>
+          </div>
+        </div>
       </div>
     </div>
   </main>

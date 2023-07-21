@@ -70,6 +70,15 @@ html {
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  background-color: #272e38;
+}
+
+main {
+  margin-top: 70px;
+  margin-left: 220px;
+  margin-right: 10px;
+  background-color: white;
+  border-radius: 7px;
 }
 
 b {
@@ -93,12 +102,11 @@ p {
 
 html {
   font-family: 'Roboto', sans-serif;
-  /* line-height: 1.5; */
 }
 
 body {
   font-family: 'Roboto', sans-serif;
-  /* line-height: inherit; */
+  line-height: inherit;
 }
 
 * {
@@ -120,8 +128,8 @@ canvas {
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-y-8 > :not([hidden]) ~ :not([hidden]) {
@@ -137,7 +145,7 @@ canvas {
 
 .bg-green-100 {
   --tw-bg-opacity: 1;
-  background-color: rgba(209, 250, 229, var(--tw-bg-opacity));
+  background-color: #0022ff20;
 }
 
 .rounded-md {
@@ -146,10 +154,6 @@ canvas {
 
 .border-b {
   border-bottom-width: 1px;
-}
-
-.border-color {
-  background-color: red;		
 }
 
 .inline-block {
@@ -184,11 +188,6 @@ canvas {
   font-weight: 600;
 }
 
-.font-semibold-defect {
-  font-weight: 600;
-  color: white;
-}
-
 .h-72 {
   height: 18rem;
 }
@@ -198,7 +197,7 @@ canvas {
 }
 
 .text-xs {
-  font-size: 1rem;
+  font-size: 0.75rem;
   line-height: 1rem;
 }
 
@@ -235,7 +234,7 @@ canvas {
 }
 
 .p-4 {
-  padding: 0.7rem;
+  padding: 1rem;
 }
 
 .px-2 {
@@ -280,13 +279,9 @@ canvas {
   color: rgba(107, 114, 128, var(--tw-text-opacity));
 }
 
-.text-gray-500s {
-  color: white;
-}
-
 .text-green-500 {
   --tw-text-opacity: 1;
-  color: rgba(16, 185, 129, var(--tw-text-opacity));
+  color: #6278FF;
 }
 
 .uppercase {
@@ -311,6 +306,14 @@ canvas {
 
 .col-span-2 {
   grid-column: span 2 / span 2;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
+.col-span-4 {
+  grid-column: span 4 / span 4;
 }
 
 @media (min-width: 1024px) {
@@ -371,61 +374,49 @@ canvas {
   }
 }
 
+  /* ------------------------------ */
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-  border: 1px solid white;
-  /* font-size: 18px; */
-}
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border: 1px solid white;
+    font-size: 18px;
+  }
+  
+.dashboard-td {
+    color: lightslategray;
+    padding: 5px;
+    text-align: left;
+    font-size: 15px
+  } 
 
-tr > th {
-  text-align: left;
-  background-color: red;
-  color: lightslategray;
-  padding: 15px 5px;
-  text-align: center;
-  border: none;
-  color: white;
-  margin: 5px
-}
-
-tr > td {
-  color: lightslategray;
-  border-bottom: 1px solid lightslategray;
-  padding: 5px;
-  text-align: left;
-  font-size: 15px
-}
-
-  #opratioChart {
+#opratioChart {
     width: 100%;
     height: 100%;
-    display: false;
   }
   
   #usingratioChart {
     width: 100%;
     height: 100%;
-    display: false;
   }
   
   #gaugeChart {
     width: 100%;
     height: 100%;
-    display: false;
-    margin-top: 20px;
   }
   
   #costsChart {
     width: 100%;
     height: 100%;
-    display: false;
   }
-  
-/* 스크롤 바 스타일 */
-.table-container-scroll::-webkit-scrollbar {
+
+  #lineChart {
+    width: 100%;
+    height: 100%;
+  }
+  /* 스크롤 바 스타일 */
+/* .table-container-scroll::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -453,7 +444,7 @@ tr > td {
   border-radius: 100px;
 }
 
-/* 테이블 스크롤 스타일 */
+테이블 스크롤 스타일
 .table-container-scroll {
   overflow-x: auto;
   max-height: 300px; 
@@ -478,5 +469,42 @@ tr > td {
 
 .table-container-scroll tr:hover {
   background-color: #f9f9f9;
+}  */
+
+.overflow-auto {
+  overflow: auto;
 }
-  
+
+.datepicker {
+	border: 1px solid #4B60EB;
+	border-radius: 3px;
+	width: 130px;
+	text-align: center;
+	color: #93b7e3;
+	height: 30px;
+}
+
+.custom-btn {
+  width: 55px;
+  height: 30px;
+  color: #fff;
+  border-radius: 5px;
+  /* padding: 10px 25px; */
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 2px 0px rgba(255,255,255,.5),
+  7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+/* 1 */
+.btn-1 {
+  background: #4B60EB;
+  border: none;
+}
+.btn-1:hover {
+  background: #6278FF;
+}
