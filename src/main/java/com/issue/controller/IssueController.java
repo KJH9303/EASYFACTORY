@@ -23,7 +23,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -144,8 +143,9 @@ public class IssueController {
     // 글 쓰기 기능
     @RequestMapping(value="/writeSubmit", method=RequestMethod.POST)
     public String write(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-    	System.out.println("path : "+ request.getRealPath("uploadPath"));
-        String SAVEFOLDER = request.getRealPath("uploadPath");
+    	System.out.println("path : "+ request.getSession().getServletContext().getRealPath("uploadPath"));
+    	// D:\Workspace_KJ9303\Spring_Workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\EASYFACTORY/ 경로의 uploadPath 폴더
+        String SAVEFOLDER = request.getSession().getServletContext().getRealPath("uploadPath");
         int MAXSIZE = 50 * 1024 * 1024; // 50MB
 
         // 파일 아이템을 저장할 리스트 생성
@@ -189,6 +189,8 @@ public class IssueController {
             List<EzFileVO> fileList = new ArrayList<>();
             int totfilesize = 0;
             
+            // String SAVEFOLDER = request.getRealPath("uploadPath");
+            // uploadPath 폴더가 없으면 새로 생성
             File file = new File(SAVEFOLDER);
 			if (!file.exists()) {
 				file.mkdirs();
@@ -259,8 +261,9 @@ public class IssueController {
     // 글 수정
     @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
     public String update(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-    	System.out.println("path : "+ request.getRealPath("uploadPath"));
-        String SAVEFOLDER = request.getRealPath("uploadPath");
+    	System.out.println("path : "+ request.getSession().getServletContext().getRealPath("uploadPath"));
+    	// D:\Workspace_KJ9303\Spring_Workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\EASYFACTORY/ 경로의 uploadPath 폴더
+        String SAVEFOLDER = request.getSession().getServletContext().getRealPath("uploadPath");
         int MAXSIZE = 50 * 1024 * 1024; // 50MB
 
         // 파일 아이템을 저장할 리스트 생성
@@ -463,8 +466,8 @@ public class IssueController {
     @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
     public ResponseEntity<Resource> downloadFile(HttpServletRequest request) throws Exception {
     	String savename = request.getParameter("savename");
-    	String SAVEFOLDER = request.getRealPath("uploadPath");
-    	System.out.println("path : "+ request.getRealPath("uploadPath"));
+    	String SAVEFOLDER = request.getSession().getServletContext().getRealPath("uploadPath");
+    	System.out.println("path : "+ request.getSession().getServletContext().getRealPath("uploadPath"));
         File file = new File(SAVEFOLDER, savename);
         System.out.println("파일 다운로드 : " + savename);
 
