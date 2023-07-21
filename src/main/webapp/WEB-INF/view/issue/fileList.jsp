@@ -19,18 +19,14 @@
 	</c:if>
 	<c:if test="${not empty fileList}">
 		<div>등록된 파일 : ${fileCnt}</div>
-		<c:forEach items="${fileList}" var="fileList">
-			<div>
-				<input type="text" name="savename" value="${fileList.originalname}" readonly> 
-				<input type="text" name="fileno" value="${fileList.fileno}" readonly>
-				<input type="text" name="filesize" value="${fileList.filesizeFormatted}" readonly>
-				<c:if test="${member.id == replyList.author}">
-					<button type="button" name="file_button_edit">수정</button>
-					<button type="button" name="file_button_delete">삭제</button>
-					<button type="button" name="file_button_update" style="display: none;">수정 완료</button>
-					<button type="button" name="file_button_cancel" style="display: none;">수정 취소</button>
-				</c:if>
-			</div>
+		<c:forEach items="${fileList}" var="file">
+		    <div>
+		        <input type="text" name="originalname" value="${file.originalname}" readonly> 
+		        <input type="hidden" name="savename" value="${file.savename}" readonly> 
+		        <input type="text" name="fileno" value="${file.fileno}" readonly>
+		        <input type="text" name="filesize" value="${file.filesizeFormatted}" readonly>
+		        <a href="/issue/downloadFile?savename=${file.savename}"><img src="" alt="다운로드"></a>
+		    </div>
 		</c:forEach>
 	</c:if>
 </body>
