@@ -259,7 +259,8 @@ public class IssueController {
     // 글 수정
     @RequestMapping(value="/updateSubmit", method=RequestMethod.POST)
     public String update(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-        String SAVEFOLDER = "C:\\easyfactory_file";
+    	System.out.println("path : "+ request.getRealPath("uploadPath"));
+        String SAVEFOLDER = request.getRealPath("uploadPath");
         int MAXSIZE = 50 * 1024 * 1024; // 50MB
 
         // 파일 아이템을 저장할 리스트 생성
