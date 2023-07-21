@@ -3,9 +3,9 @@ CREATE TABLE FEB1 (
     opratio      NUMBER(4,2),
     temp         NUMBER(3,0),   
     tr           NUMBER(6,0),
-    fal          NUMBER(4,0),
+    fal          NUMBER(5,0),
     stock        NUMBER(6,0),
-    costs        NUMBER(30,0),
+    costs        NUMBER(10,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
@@ -14,9 +14,9 @@ CREATE TABLE FEB2 (
     opratio      NUMBER(4,2),
     temp         NUMBER(3,0),   
     tr           NUMBER(6,0),
-    fal          NUMBER(4,0),
+    fal          NUMBER(5,0),
     stock        NUMBER(6,0),
-    costs        NUMBER(30,0),
+    costs        NUMBER(10,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
@@ -25,9 +25,9 @@ CREATE TABLE FEB3 (
     opratio      NUMBER(4,2),
     temp         NUMBER(3,0),   
     tr           NUMBER(6,0),
-    fal          NUMBER(4,0),
+    fal          NUMBER(5,0),
     stock        NUMBER(6,0),
-    costs        NUMBER(30,0),
+    costs        NUMBER(10,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
@@ -47,9 +47,9 @@ CREATE TABLE FEB5 (
     opratio      NUMBER(4,2),
     temp         NUMBER(3,0),   
     tr           NUMBER(6,0),
-    fal          NUMBER(4,0),
+    fal          NUMBER(5,0),
     stock        NUMBER(6,0),
-    costs        NUMBER(30,0),
+    costs        NUMBER(10,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
@@ -58,9 +58,9 @@ CREATE TABLE FEB6 (
     opratio      NUMBER(4,2),
     temp         NUMBER(3,0),   
     tr           NUMBER(6,0),
-    fal          NUMBER(4,0),
+    fal          NUMBER(5,0),
     stock        NUMBER(6,0),
-    costs        NUMBER(30,0),
+    costs        NUMBER(10,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
@@ -69,9 +69,9 @@ CREATE TABLE FEB7 (
     opratio      NUMBER(4,2),
     temp         NUMBER(3,0),   
     tr           NUMBER(6,0),
-    fal          NUMBER(4,0),
+    fal          NUMBER(5,0),
     stock        NUMBER(6,0),
-    costs        NUMBER(30,0),
+    costs        NUMBER(10,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
@@ -80,9 +80,9 @@ CREATE TABLE FEB8 (
     opratio      NUMBER(4,2),
     temp         NUMBER(3,0),   
     tr           NUMBER(6,0),
-    fal          NUMBER(4,0),
+    fal          NUMBER(5,0),
     stock        NUMBER(6,0),
-    costs        NUMBER(30,0),
+    costs        NUMBER(10,0),
     usingratio   NUMBER(4,2),
     hiredate     DATE
 );
