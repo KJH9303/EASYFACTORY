@@ -134,8 +134,8 @@
 <!-- 사이드바 메뉴 -->
 <div id="sidebarMenu">
     <div class="logo">
-        <img src="/resources/img/logo2.jpeg">
-        <h2><a id="main" style="text-decoration-line: none; color: black; text-align:center;">Easy Factory</a></h2>
+        <a href="/main"><img src="/resources/img/logo2.jpeg"></a>
+        <h2><a id="main" style="text-decoration-line: none; color: black; text-align:center;" href="/main">Easy Factory</a></h2>
     </div>
 	<input type="hidden" id="id" value="${member.id}">
 	<input type="hidden" id="code" value="${member.code}">
