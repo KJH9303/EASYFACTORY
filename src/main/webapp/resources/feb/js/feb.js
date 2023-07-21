@@ -309,7 +309,7 @@
 	      }
 	    },
 	    legend: {
-	      data: ['전기사용량', '생산량', '불량', '장비가동율', '비용', '온도']
+	      data: ['전기사용량', '생산량', '불량', '장비가동율']
 	    },
 	    xAxis: [
 	      {
@@ -317,7 +317,7 @@
 	        axisTick: {
 	          alignWithLabel: true
 	        },
-	        data: [1] // x축 데이터를 설정할 빈 배열
+	        data: []
 	      }
 	    ],
 	    yAxis: [
@@ -357,7 +357,7 @@
 	        name: '불량',
 	        position: 'left',
 	        alignTicks: true,
-	        offset: 160,
+	        offset: 80,
 	        axisLine: {
 	          show: true,
 	          lineStyle: {
@@ -381,38 +381,6 @@
 	        },
 	        axisLabel: {
 	          formatter: '{value} %'
-	        }
-	      }, 
-	      {
-	        type: 'value',
-	        name: '온도',
-	        position: 'left',
-	        alignTicks: true,
-	        offset: 80,
-	        axisLine: {
-	          show: true,
-	          lineStyle: {
-	            color: colors[4]
-	          }
-	        },
-	        axisLabel: {
-	          formatter: '{value} ℃'
-	        }
-	      },
-	      {
-	        type: 'value',
-	        name: '온도',
-	        position: 'right',
-	        alignTicks: true,
-	        offset: 160,
-	        axisLine: {
-	          show: true,
-	          lineStyle: {
-	            color: colors[5]
-	          }
-	        },
-	        axisLabel: {
-	          formatter: '{value} ℃'
 	        }
 	      }
 	    ],
@@ -441,18 +409,6 @@
 	        yAxisIndex: 3,
 	        data: []
 	      },
-	      {
-	        name: '비용',
-	        type: 'line',
-	        yAxisIndex: 4,
-	        data: []
-	      },
-	      {
-	        name: '온도',
-	        type: 'line',
-	        yAxisIndex: 5,
-	        data: []
-	      }
 	    ]
 	  };
 	  return option;

@@ -180,6 +180,11 @@
           <!-- Chart -->
           <div class="relative p-4 h-72">
             <div id="costsChart"></div>
+            
+           <!-- Chart -->
+		  <div class="relative p-4 h-72">
+			<div id="lineChart" style="height: 500px; width: 2000px;"></div>
+			
           </div>
 		</div>
       </div>
@@ -190,7 +195,7 @@
 <!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
 	<script>
-	let opratioChart, gaugeChart, usingratioChart, costsChart;
+	let opratioChart, gaugeChart, usingratioChart, costsChart, lineChart;
 	
 	var opratio = null;
 	var usingratio = null;
@@ -319,6 +324,8 @@
 					if(costs != true) {
 						updateCostsChart(dataList)			// 전기사용비용 바차트 업데이트
 					}
+					
+					updateLineChart(dataList);
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -335,6 +342,9 @@
 		    tr: 0,
 		    fal: 0,
 		    opratio: 0,
+		    usingratio: 0,
+		    temp: 0,
+		    hiredate: 0,
 		  };
 
 		  let rowCount = 0;
@@ -346,11 +356,14 @@
 		      const tr = parseInt(data.tr);
 		      const fal = parseInt(data.fal);
 		      const opratio = parseFloat(data.opratio);
+		      const usingratio = parseFloat(data.usingratio);
+		      const temp = parseFloat(data.temp);
+		      const hiredate = parseFloat(data.hiredate);
 
-		      total.stock += stock;
-		      total.tr += tr;
-		      total.fal += fal;
-		      total.opratio += opratio;
+		      total.stock = stock;
+		      total.tr = tr;
+		      total.fal = fal;
+		      total.opratio = opratio;
 		    }
 		  });
 
@@ -519,7 +532,41 @@
 	    usingratioChart.resize();
 	    costsChart.resize();
 	    gaugeChart.resize();
+	    lineChart.resize();
 	});
+	
+	// lineChart 설정=============================================================================================
+	function updateLineChart(dataList) {
+	  if (!lineChart) {
+	    lineChart = echarts.init(document.getElementById("lineChart"));
+	  }
+	
+	  let usingRatioData = [];
+	  let trData = [];
+	  let falData = [];
+	  let opratioData = [];
+	  let xAxisData = [];
+	  
+	  dataList.forEach((data) => {
+   		xAxisData.push(data.hiredate);  
+	    usingRatioData.push(data.usingratio);
+	    trData.push(data.tr);
+	    falData.push(data.fal);
+	    opratioData.push(data.opratio);
+	  });
+
+	  const option = getChartOption(); // 차트 옵션 가져오기
+	  
+	  option.xAxis[0].data = xAxisData;
+	  option.series[0].data = usingRatioData; // 전기사용량 데이터 설정
+	  option.series[1].data = trData; // 생산량 데이터 설정
+	  option.series[2].data = falData; // 불량 데이터 설정
+	  option.series[3].data = opratioData; // 장비가동율 데이터 설정
+	  
+	  if (lineChart) {
+	    lineChart.setOption(option);
+	  }
+	}
 	</script>
 </body>
 </html>
