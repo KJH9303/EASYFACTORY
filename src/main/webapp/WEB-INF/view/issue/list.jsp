@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,10 +93,6 @@
     </script>
 </head>
 <body>
-
-    <div id="headerContainer">
-    	<%@ include file="../header.jsp" %>
-    </div>
     <div class="container">
         <h1>Table</h1>      
         <form id="searchForm" action="/issue/list/search" method="get">

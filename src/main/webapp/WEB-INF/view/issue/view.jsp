@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -255,11 +256,6 @@
 	<input type="hidden" id="startDate" value="${startDate}" readonly>
 	<input type="hidden" id="endDate" value="${endDate}" readonly>
 	
-    <!-- header 영역 -->	
-    <div id="headerContainer">
-    	<%@ include file="../header.jsp" %>
-    </div>
-    
     <!-- 게시물 영역 -->
     <div class="container">
         <h1>글 보기</h1>

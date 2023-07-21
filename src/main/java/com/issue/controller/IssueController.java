@@ -1,6 +1,7 @@
 package com.issue.controller;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,16 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -138,7 +144,8 @@ public class IssueController {
     // 글 쓰기 기능
     @RequestMapping(value="/writeSubmit", method=RequestMethod.POST)
     public String write(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-        String SAVEFOLDER = "C:\\easyfactory_file";
+    	System.out.println("path : "+ request.getRealPath("uploadPath"));
+        String SAVEFOLDER = request.getRealPath("uploadPath");
         int MAXSIZE = 50 * 1024 * 1024; // 50MB
 
         // 파일 아이템을 저장할 리스트 생성
@@ -181,6 +188,12 @@ public class IssueController {
 
             List<EzFileVO> fileList = new ArrayList<>();
             int totfilesize = 0;
+            
+            File file = new File(SAVEFOLDER);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			
             for (FileItem fileItem : fileItems) {
                 String originalname = fileItem.getName();
                 String savename = System.currentTimeMillis() + "_" + originalname;
@@ -444,4 +457,53 @@ public class IssueController {
         double size = fileSize / Math.pow(1024, digitGroups);
         return String.format("%.2f %s", size, units[digitGroups]);
     }
+    
+    // 파일 다운로드
+    @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
+    public ResponseEntity<Resource> downloadFile(@RequestParam("savename") String savename) throws Exception {
+        String SAVEFOLDER = "C:\\easyfactory_file";
+        File file = new File(SAVEFOLDER, savename);
+        System.out.println("파일 다운로드 : " + savename);
+
+        if (file.exists() && file.canRead()) {
+            Path filePath = file.toPath();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + savename + "\"")
+                    .body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    /*
+    @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
+    public void downloadFile(@RequestParam("savename") String savename, HttpServletResponse response) throws Exception {
+        String SAVEFOLDER = "C:\\easyfactory_file";
+        File file = new File(SAVEFOLDER, savename);
+        String DOWNLOAD_FOLDER = "C:\\Users\\9303k\\Downloads"; // 다운로드할 폴더 경로
+        System.out.println("파일 다운로드 : " + savename);
+
+        if (file.exists() && file.canRead()) {
+            try (FileInputStream fis = new FileInputStream(file); OutputStream out = response.getOutputStream()) {
+
+                response.setContentType("application/octet-stream");
+                response.setContentLength((int) file.length());
+                response.setHeader("Content-Disposition", "attachment; filename=\"" + savename + "\"");
+
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+                File downloadFile = new File(DOWNLOAD_FOLDER, savename);
+                Files.copy(file.toPath(), downloadFile.toPath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+    */
 }
