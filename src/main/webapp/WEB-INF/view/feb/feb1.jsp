@@ -93,7 +93,7 @@
           <div>
             <h6 
             class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              정상품 수
+              생산량
             </h6>
             <span class="text-xl font-semibold tr-total"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
@@ -107,7 +107,7 @@
           <div>
             <h6 
             class="text-xs font-medium leading-none tracking-wider text-gray-500 uppercase">
-              불량품 수
+              불량
             </h6>
             <span class="text-xl font-semibold fal-total"></span>
             <span class="inline-block px-2 py-px ml-2 text-xs text-green-500 bg-green-100 rounded-md">
@@ -170,10 +170,10 @@
         </div>
 
         <!-- Defect monitoring -->
-        <div class="bg-white rounded-md">
+        <div class="bg-white rounded-md border">
           <!-- Card header -->
-          <div class="flex items-center justify-between p-4 border-b border-color ">
-            <h4 class="text-lg font-semibold-defect text-gray-500s">DEFECT MONITORING</h4>
+          <div class="flex items-center justify-between p-4 border-b border-color red">
+            <h4 class="text-lg font-semibold-defect text-gray-500s white">DEFECT MONITORING</h4>
           </div>
           <!-- Card -->
           <div class="relative p-4 h-72 table-container-scroll overflow-auto">

@@ -152,7 +152,7 @@
                 <!-- <li><a id="feb4">4공정: 식각(Etch)공정</a></li> -->
                 <li><a id="feb4">Etching</a></li>
                 <!-- <li><a id="feb5">5공정: 이온주입(Implant) 공정</a></li> -->
-                <li><a id="feb5">Deposition</a></li>
+                <li><a id="feb5">Implant</a></li>
                 <!-- <li><a id="feb6">6공정: 금속배선 공정</a></li> -->
                 <li><a id="feb6">Metallization</a></li>
                 <!-- <li><a id="feb7">7공정: EDS 공정</a></li> -->
