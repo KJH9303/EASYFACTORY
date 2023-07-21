@@ -463,6 +463,7 @@ public class IssueController {
     public ResponseEntity<Resource> downloadFile(HttpServletRequest request) throws Exception {
     	String savename = request.getParameter("savename");
     	String SAVEFOLDER = request.getRealPath("uploadPath");
+    	System.out.println("path : "+ request.getRealPath("uploadPath"));
         File file = new File(SAVEFOLDER, savename);
         System.out.println("파일 다운로드 : " + savename);
 
