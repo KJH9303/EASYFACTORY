@@ -460,8 +460,9 @@ public class IssueController {
     
     // 파일 다운로드
     @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
-    public ResponseEntity<Resource> downloadFile(@RequestParam("savename") String savename) throws Exception {
-        String SAVEFOLDER = "C:\\easyfactory_file";
+    public ResponseEntity<Resource> downloadFile(HttpServletRequest request) throws Exception {
+    	String savename = request.getParameter("savename");
+    	String SAVEFOLDER = request.getRealPath("uploadPath");
         File file = new File(SAVEFOLDER, savename);
         System.out.println("파일 다운로드 : " + savename);
 
