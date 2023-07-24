@@ -303,7 +303,7 @@
 	        return;
 	    }
 
-	    $.ajax({
+ 	    $.ajax({
 	        type: "GET",
 	        url: "/feb/select-data-feb8",
 	        data: {

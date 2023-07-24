@@ -27,7 +27,7 @@
 	      var day = ("0" + currentTime.getDate()).slice(-2);
 	
 	      hours = ("0" + hours).slice(-2);
-	      minutes = ("0" + minutes).slice(-2);
+	      minutes = ("0" + minutes).slice(-2); 
 	      seconds = ("0" + seconds).slice(-2);
 	
 	      var timeString = hours + ":" + minutes + ":" + seconds;

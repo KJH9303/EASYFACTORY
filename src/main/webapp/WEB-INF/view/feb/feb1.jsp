@@ -283,7 +283,7 @@
 	            }
 	            usingratio = true;
 	            break;
-	            
+	             
 	        case "costs":
 	            startDateInputId = "startDate_costs";
 	            endDateInputId = "endDate_costs";

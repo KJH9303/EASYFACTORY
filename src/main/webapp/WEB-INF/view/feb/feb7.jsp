@@ -303,7 +303,7 @@
 	        alert("시작일이 종료일보다 큽니다. 날짜를 다시 지정하세요.");
 	        return;
 	    }
-
+ 
 	    $.ajax({
 	        type: "GET",
 	        url: "/feb/select-data-feb7",
