@@ -80,17 +80,17 @@ public class FebDAO {
             String result = "";
 
             if (num == 1) {
-                result = "Wafer 결함 발생.   " + nowdate + " " + nowtime;
+                result = "Wafer 결함.   " + nowdate + " " + nowtime;
             } else if (num == 2) {
                 result = "Pattern  손상.     " + nowdate + " " + nowtime;
             } else if (num == 3) {
                 result = "공정 무너짐.       " + nowdate + " " + nowtime;
             } else if (num == 4) {
-                result = "particle 불량.   " + nowdate + " " + nowtime;
+                result = "Particle 불량.   " + nowdate + " " + nowtime;
             } else if (num == 5) {
                 result = "Crack  발생.       " + nowdate + " " + nowtime;
             } else if (num == 6) {
-                result = "Parameter뒤틀림. " + nowdate + " " + nowtime;
+                result = "Param 불량. " + nowdate + " " + nowtime;
             } else {
                 result = "공정불량.          " + nowdate + " " + nowtime;
             }
