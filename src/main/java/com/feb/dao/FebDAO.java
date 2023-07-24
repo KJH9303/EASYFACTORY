@@ -71,33 +71,34 @@ public class FebDAO {
     }
 
     // 랜덤불량생성
-	public static String getRandomDefect() {
-		while (true) {
-		    LocalDate nowdate = LocalDate.now();
-		    LocalTime nowtime = LocalTime.now();
-	
-		    int num = (int)(Math.random()*8) +1;
-		    String result = "";
-		    
-		    if (num == 1) {
-		        result = "Wafer 결함 발생.　　" + " " + nowdate + " " + nowtime;
-		    } else if (num == 2) {
-		        result = "Pattern  손상.　　　" + " " + nowdate + " " + nowtime;
-		    } else if (num == 3) {
-		        result = "공정 무너짐.　　　　" + " " + nowdate + " " + nowtime;
-		    } else if (num == 4) {
-		        result = "particle 불량.　　　" + " " + nowdate + " " + nowtime;
-		    } else if (num == 5) {
-		        result = "Crack  발생.　　　　" + " " + nowdate + " " + nowtime;
-		    } else if (num == 6) {
-		        result = "Parameter  뒤틀림.　" + " " + nowdate + " " + nowtime;    
-		    } else {
-		        result = "공정불량.　　　　　" + " "  + nowdate + " " + nowtime;
-		    }
-		    System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● Defect 작동 ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●");
-		    System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●Random defect: " + result); 
-		    
-		    return result;
-		}
-	}
+    public static String getRandomDefect() {
+        while (true) {
+            LocalDate nowdate = LocalDate.now();
+            LocalTime nowtime = LocalTime.now();
+
+            int num = (int) (Math.random() * 8) + 1;
+            String result = "";
+
+            if (num == 1) {
+                result = "Wafer 결함 발생.   " + nowdate + " " + nowtime;
+            } else if (num == 2) {
+                result = "Pattern  손상.     " + nowdate + " " + nowtime;
+            } else if (num == 3) {
+                result = "공정 무너짐.       " + nowdate + " " + nowtime;
+            } else if (num == 4) {
+                result = "particle 불량.   " + nowdate + " " + nowtime;
+            } else if (num == 5) {
+                result = "Crack  발생.       " + nowdate + " " + nowtime;
+            } else if (num == 6) {
+                result = "Parameter뒤틀림. " + nowdate + " " + nowtime;
+            } else {
+                result = "공정불량.          " + nowdate + " " + nowtime;
+            }
+
+            System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● Defect 작동 ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●");
+            System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●Random defect: " + result);
+
+            return result;
+        }
+    }
 }

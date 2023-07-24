@@ -65,7 +65,7 @@
     
     <!-- Content header -->
     <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
-      <h1>Deposition</h1>
+      <h1>Implant</h1>
     </div>
     
     <!-- Content -->
