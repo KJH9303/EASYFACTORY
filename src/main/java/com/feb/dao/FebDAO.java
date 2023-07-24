@@ -1,8 +1,11 @@
 package com.feb.dao;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -73,26 +76,27 @@ public class FebDAO {
     // 랜덤불량생성
     public static String getRandomDefect() {
         while (true) {
-            LocalDate nowdate = LocalDate.now();
-            LocalTime nowtime = LocalTime.now();
+            Date now = new Date();
+            
+            SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd hh시 mm분 ss초");
 
             int num = (int) (Math.random() * 8) + 1;
             String result = "";
 
             if (num == 1) {
-                result = "Wafer 결함.   " + nowdate + " " + nowtime;
+                result = "Wafer결함: " + format.format(now);
             } else if (num == 2) {
-                result = "Pattern  손상.     " + nowdate + " " + nowtime;
+                result = "Pattern손상: " + format.format(now);
             } else if (num == 3) {
-                result = "공정 무너짐.       " + nowdate + " " + nowtime;
+                result = "공정 무너짐: " + format.format(now);
             } else if (num == 4) {
-                result = "Particle 불량.   " + nowdate + " " + nowtime;
+                result = "Particle불량: " + format.format(now);
             } else if (num == 5) {
-                result = "Crack  발생.       " + nowdate + " " + nowtime;
+                result = "Crack발생: " + format.format(now);
             } else if (num == 6) {
-                result = "Param 불량. " + nowdate + " " + nowtime;
+                result = "Param불량: " + format.format(now);
             } else {
-                result = "공정불량.          " + nowdate + " " + nowtime;
+                result = "공정불량: " + format.format(now);
             }
 
             System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● Defect 작동 ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●");

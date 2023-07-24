@@ -388,8 +388,11 @@ canvas {
     color: lightslategray;
     padding: 5px;
     text-align: left;
-    font-size: 15px
   } 
+
+.defect-font-size {
+    font-size: 13px;
+}  
 
 #opratioChart {
     width: 100%;
