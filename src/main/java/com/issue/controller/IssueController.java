@@ -449,7 +449,7 @@ public class IssueController {
         return "issue/fileList";
     }
     
-    // 파일 사이즈 포맷 변환
+    // 파일 사이즈 포맷
     private String formatFileSize(long fileSize) {
         String[] units = {"B", "KB", "MB", "GB", "TB"};
         int digitGroups = (int) (Math.log10(fileSize) / Math.log10(1024));
@@ -482,34 +482,4 @@ public class IssueController {
             return ResponseEntity.notFound().build();
         }
     }
-    /*
-    @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
-    public void downloadFile(@RequestParam("savename") String savename, HttpServletResponse response) throws Exception {
-        String SAVEFOLDER = "C:\\easyfactory_file";
-        File file = new File(SAVEFOLDER, savename);
-        String DOWNLOAD_FOLDER = "C:\\Users\\9303k\\Downloads"; // 다운로드할 폴더 경로
-        System.out.println("파일 다운로드 : " + savename);
-
-        if (file.exists() && file.canRead()) {
-            try (FileInputStream fis = new FileInputStream(file); OutputStream out = response.getOutputStream()) {
-
-                response.setContentType("application/octet-stream");
-                response.setContentLength((int) file.length());
-                response.setHeader("Content-Disposition", "attachment; filename=\"" + savename + "\"");
-
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = fis.read(buffer)) != -1) {
-                    out.write(buffer, 0, bytesRead);
-                }
-                File downloadFile = new File(DOWNLOAD_FOLDER, savename);
-                Files.copy(file.toPath(), downloadFile.toPath());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
-    }
-    */
 }
