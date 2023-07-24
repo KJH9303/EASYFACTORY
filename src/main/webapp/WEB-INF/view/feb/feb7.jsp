@@ -299,8 +299,13 @@
 	    var startDate = $("#" + startDateInputId).val();
 	    var endDate = $("#" + endDateInputId).val();
 	    
+	    if (!startDate || !endDate) {
+	        alert("날짜가 지정되지 않았습니다.");
+	        return;
+	    }
+
 	    if (startDate > endDate) {
-	        alert("시작일이 종료일보다 큽니다. 날짜를 다시 지정하세요.");
+	        alert("시작일이 종료일보다 큽니다.");
 	        return;
 	    }
  
