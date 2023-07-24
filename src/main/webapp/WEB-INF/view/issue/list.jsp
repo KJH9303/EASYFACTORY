@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="../../../resources/issue/css/board.css">
+    <link rel="stylesheet" href="../../../resources/issue/css/list.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -111,7 +111,7 @@
 				<input type="text" id="startDate" name="startDate" value="${startDate}" placeholder="검색 시작 날짜"/> ~ 
 				<input type="text" id="endDate" name="endDate" value="${endDate}" placeholder="검색 종료 날짜"/>
             </div>
-            <button type="button" id="searchBtn">검색</button>
+            <button type="button" id="searchBtn" class="custom-btn btn-1">검색</button>
         </form>
         <input type="hidden" id="id" value="${member.id}">
 		<c:if test="${totCnt != null}">
@@ -152,7 +152,7 @@
         <!-- <div id="paginationInfo"> -->
         	<%@ include file="paginationInfo.jsp" %>
        	<!-- <div id="paginationInfo"> -->
-       	<button type="button" id="writeBtn">새 글 작성</button>  
+       	<button type="button" id="writeBtn" class="custom-btn btn-1">새 글 작성</button>  
         <hr>
     </div>
 </body>

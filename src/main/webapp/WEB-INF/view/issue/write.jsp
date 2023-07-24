@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write</title>
-    <link rel="stylesheet" href="../../../resources/issue/css/board.css">
+    <link rel="stylesheet" href="../../../resources/issue/css/view.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />        
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

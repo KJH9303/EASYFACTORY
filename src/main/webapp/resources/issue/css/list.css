@@ -118,7 +118,7 @@ h1 {
   background-color: white;
 }
 .container tr:nth-child(odd) {
-  background-color: #272e3808;
+  background-color: rgba(93, 0, 255, 0.031);
 }
 
 /* 
@@ -152,8 +152,4 @@ cell spacing
 }
 .btn-1:hover {
   background: #6278FF;
-}
-
-.dada {
-  background-color: #0022ff20;
 }

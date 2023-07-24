@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View</title>
-<link rel="stylesheet" href="../../../resources/issue/css/board.css">
+<link rel="stylesheet" href="../../../resources/issue/css.view.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -18,7 +18,7 @@
 		
 		// 로그인하지 않은 상태일 경우
 		if (id == '' || id == null) {
-			alert("로그인 후 이용해 주세요.");
+			alert("로그인 후 이용해주세요.");
 			location.href="/member/login";
 		}
 		
@@ -102,7 +102,7 @@
             const reply_content = $('#reply_content').val();
         
             if(reply_author == ''){
-                alert('로그인 후 이용해 주세요');
+                alert('로그인 후 이용해주세요');
                 location.href="/member/login";
             }else if(reply_content == '') {
                 alert('내용을 입력하세요');
@@ -150,7 +150,7 @@
             replyDiv.data("prev-content", prevContent);
             
             reContent.removeAttr("readonly");
-            reContent.attr("style", "border:1px solid black; resize:none;");
+            reContent.attr("style", "border: solid 1px rgba(0, 0, 0, 0.300); border-radius: 5px; width: 98%; font-size: 20px; box-shadow: 1px 1px 1px 0px rgba(255, 255, 255, 0.317), 5px 5px 15px 0px rgba(0, 0, 0, 0.080) 2px 2px 5px 0px rgba(0, 0, 0, 0.080); resize: none;");
             
             replyDiv.find("button[name^='reply_button']").hide();
             updateBtn.show();
@@ -201,6 +201,7 @@
             var prevContent = replyDiv.data("prev-content");
 
             reContent.val(prevContent);
+            reContent.attr("style", " border: none; width: 98%; font-size: 20px; resize: none; text-align: left;");
             reContent.attr("readonly", true);
             replyDiv.find("button[name^='reply_button']").show();
             replyDiv.find("button[name='reply_button_update'], button[name='reply_button_cancel']").hide();
@@ -260,41 +261,42 @@
 	
     <!-- 게시물 영역 -->
     <div class="container">
-        <h1>글 보기</h1>
-        	<input type="hidden" id="no" name="no" value="${issue.no}" readonly><br><br>
-        	<input type="hidden" id="id" name="id" value="${member.id}" readonly><br><br>
-            <label for="title">제목:</label><br>
-            <input type="text" id="title" name="title" value="${issue.title}" readonly><br><br>
-            <label for="author">작성자:</label><br>
-            <input type="text" id="author" name="author" value="${issue.author}" readonly><br><br>
+        <!-- <h1>글 보기</h1> -->
+        	<input type="hidden" id="no" name="no" value="${issue.no}" readonly><br>
+        	<input type="hidden" id="id" name="id" value="${member.id}" readonly><br>
+            <!-- <label for="title">제목:</label> -->
+            <hr>
+            <input type="text" id="title" name="title" class="border-none f-40" value="${issue.title}" readonly><br><br>
+            <label for="author">작성자 </label>
+            <input type="text" id="author" name="author" class="border-none" value="${issue.author}" readonly>
+            <hr>
             
 		    <!-- 파일 목록 ajax -->
 			<div id="fileList"></div>
-			
-            <label for="content">내용:</label><br>
-            <textarea id="content" name="content" rows="10" cols="50" readonly>${issue.content}</textarea><br><br>
+			<!-- Z글내용 -->
+            <textarea id="content" name="conxtent" class="ta2" readonly>${issue.content}</textarea><br><br>
             
             <c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
-            	<input type="button" id=updateBtn value="수정">
-            	<input type="button" id=deleteBtn value="삭제">
+            	<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
+            	<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
+            	<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
            	</c:if>
         <hr>
-	</div>
-	<button type="button" name="toListBtn">글 목록</button>
 	
 	<!-- 댓글 목록 ajax -->
-	<div id="replyList"></div>
-	
-	<!-- 댓글 입력 영역 -->
-	<div id="replyContainer">
-    <h2>댓글 입력</h2>
-    <form id="replyForm">
-        <input type="text" id="reply_author" name="author" value="${member.id}" readonly>
-        <textarea class="reply-content" id="reply_content" cols="80" rows="2" name="content"></textarea>
-        <button type="button" id="replyWriteBtn">댓글 작성</button>
-    </form>
-    
-    <button type="button" name="toListBtn">글 목록</button>
-</div>
+		<div id="replyList"></div>
+		
+		<!-- 댓글 입력 영역 -->
+		<div id="replyContainer">
+	    <h2>댓글 입력</h2>
+	    <form id="replyForm">
+	        <input type="text" id="reply_author" name="author" class="border-none" value="${member.id}" readonly>
+	        <textarea class="reply-content ta" id="reply_content" name="content"></textarea>
+	        <button type="button" id="replyWriteBtn" class="custom-btn1 btn-1">댓글 작성</button>
+	    </form>
+	    <hr>
+	    <button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
+		</div>
+	</div>
 </body>
 </html>
