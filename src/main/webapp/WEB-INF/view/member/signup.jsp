@@ -66,7 +66,7 @@ $(document).ready(function() {
         }
     });
 
-    $("#repw").on("propertychange change keyup paste input", function() {
+    $("#repw, #pw").on("propertychange change keyup paste input", function() {
         var pw = $("#pw").val();
         var repw = $("#repw").val();
 
