@@ -12,9 +12,6 @@ $(document).ready(function() {
     $("#mainBtn").on('click', function() {
         location.href="/main";
     });
-    $("#signupBtn").on('click', function() {
-        location.href="/member/signup";
-    });
 
     $("#btnDuplicate").on('click', function() {
         var id = $("#id").val();
@@ -23,15 +20,15 @@ $(document).ready(function() {
         if (id == '') {
             $("#idCheckMsg").text("ID를 입력하세요.");
             $('#id').focus();
-            return;
+            return false;
         }
         if (id.search(/\s/) != -1) {
             $("#idCheckMsg").text("아이디에는 공백이 삽입될 수 없습니다.");
-            return;
+            return false;
         }
         if (idRegExp.test(id)) {
             $("#idCheckMsg").text("아이디에는 한글 또는 특수문자가 삽입될 수 없습니다.");
-            return;
+            return false;
         }
         if (id.trim().length != 0) {
             $.ajax({
@@ -93,7 +90,7 @@ $(document).ready(function() {
 
         if (idDupChk === 'unChecked') {
             alert('중복확인을 해주세요.');
-            return false();
+            return false;
         } else {
             signup();
         }
