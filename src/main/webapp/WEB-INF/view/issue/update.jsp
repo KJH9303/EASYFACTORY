@@ -14,7 +14,7 @@
 		var author = $("#author").val();
 		var id = $("#id").val();
 		if (id == '' || id == null) {
-			alert("로그인 후 이용해주세요.");
+			alert("로그인 후 이용해 주세요.");
 			location.href="/member/login";
 		// 글 작성자가 아닌 사용자가 url로 접근했을 경우
 		} else if (id != author) {
@@ -67,13 +67,13 @@
 			var content = $("#content").val();
 			
 			if( title == '' || title == null) {
-			    alert( '제목를 입력해주세요' );
+			    alert( '제목를 입력해 주세요' );
 			    $("#title").focus();
 			    return false;
 			}
 			
 			if( content == '' || content == null) {
-			    alert( '내용을 입력해주세요' );
+			    alert( '내용을 입력해 주세요' );
 			    $("#content").focus();
 			    return false;
 			}
