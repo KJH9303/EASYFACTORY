@@ -298,7 +298,10 @@
 	    var startDate = $("#" + startDateInputId).val();
 	    var endDate = $("#" + endDateInputId).val();
 	    
-	    //alert("Data 요청 확인: [" + type + "] : " + startDateInputId + "=" + startDate + ", " + endDateInputId + "=" + endDate);
+	    if (startDate > endDate) {
+	        alert("시작일이 종료일보다 큽니다. 날짜를 다시 지정하세요.");
+	        return;
+	    }
 
 	    $.ajax({
 	        type: "GET",
