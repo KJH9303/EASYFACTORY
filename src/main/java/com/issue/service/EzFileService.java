@@ -2,10 +2,12 @@ package com.issue.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.issue.dao.EzFileDAO;
 import com.issue.vo.EzFileVO;
-import com.issue.vo.ReplyIssueVO;
 
+@Service
 public class EzFileService {
 
 	private EzFileDAO ezFileDAO;

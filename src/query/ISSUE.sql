@@ -64,81 +64,36 @@ WHERE
     ROWNUM BETWEEN 1 AND 10;
     
 ----------------------------------------
----- 날짜 포멧 변경 --------------------
+---- 작성일 범위로 게시물 COUNT --------
 ----------------------------------------
-SELECT * 
+SELECT 
+    COUNT(*)
+FROM ISSUE
+WHERE
+    NO > 0
+and regDate BETWEEN TO_DATE('2023-07-10 00:00:00','YYYY-MM-DD HH24:MI:SS') AND TO_DATE('2023-07-11 23:59:59', 'YYYY-MM-DD HH24:MI:SS');
 
-FROM NLS_SESSION_PARAMETERS
 
-WHERE PARAMETER IN ('NLS_LANGUAGE', 'NLS_DATE_FORMAT', 'NLS_DATE_LANGUAGE' ,'NLS_TIME_FORMAT', 'NLS_TIMESTAMP_FORMAT');
-
-ALTER SESSION SET NLS_DATE_FORMAT='YYYY/MM/DD HH24:MI:SS';
-ALTER SESSION SET NLS_TIME_FORMAT='HH24:MI:SSXFF';
-ALTER SESSION SET NLS_TIMESTAMP_FORMAT='YYYY/MM/DD HH24:MI:SSXFF';
-
-ALTER SESSION SET NLS_DATE_FORMAT='RR/MM/DD';
-ALTER SESSION SET NLS_TIME_FORMAT='HH24:MI:SSXFF';
-ALTER SESSION SET NLS_TIMESTAMP_FORMAT='RR/MM/DD HH24:MI:SSXFF';
+------------------------------------------------------------------
 
 
 SELECT
-    count(*)
-    --, NO
-	--, TITLE
-	--, CONTENT
-	--, AUTHOR
-	--, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE
-	--, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE
-FROM ISSUE
-WHERE
-    --REGDATE BETWEEN '2023-07-11' || ' 00:00:00' AND '2023-07-11' || ' 23:59:59'
-    REGDATE BETWEEN '2023-07-11' AND '2023-07-11'
-ORDER BY NO DESC;
-COMMIT;
-
-------------------------------------------------------------------
-SELECT ISSUE_SEQ.NEXTVAL-1 FROM dual;
-SELECT ISSUE_SEQ.CURRVAL-1 FROM dual;
+    a.fileno,
+    a.no,
+    a.originalname,
+    a.savename,
+    a.filesize,
+    b.TITLE,
+    b.CONTENT,
+    b.AUTHOR,
+    b.REGDATE
+FROM
+    ez_file a
+INNER JOIN
+    issue b ON a.no = b.no
+ORDER BY
+    b.no DESC;
 
 
-SELECT * FROM nls_session_parameters WHERE PARAMETER LIKE '%DATE%' OR PARAMETER LIKE '%LANG%'; 
-
-
-SELECT 
-    COUNT(*)
-FROM ISSUE
-WHERE
-    NO > 0
-and regDate BETWEEN '2023-07-10' || '00:00:00' AND '2023-07-11' || '23:59:59';
---and regDate BETWEEN '2023-07-11 00:00:00' AND '2023-07-11 23:59:59' ;
-
-SELECT 
-    COUNT(*)
-FROM ISSUE
-WHERE
-    NO > 0
-and regDate BETWEEN TO_DATE('2023-07-10 00:00:00','YYYY-MM-DD HH24:MI:SS') AND TO_DATE('2023-07-11 23:59:59', 'YYYY-MM-DD HH24:MI:SS');
-
-SELECT 
-    COUNT(*)
-FROM ISSUE
-WHERE
-    NO > 0
-and regDate BETWEEN TO_DATE('2023-07-10 00:00:00','YYYY-MM-DD HH24:MI:SS') AND TO_DATE('2023-07-11 23:59:59', 'YYYY-MM-DD HH24:MI:SS');
-
-
-SELECT COUNT(NO) FROM ISSUE WHERE
-    NO > 0 and regDate between TO_CHAR(regDate,'2023-07-11 HH24:MI:SS') and TO_CHAR(regDate,'2023-07-11 HH24:MI:SS');
-------------------------------------------------------------------
-
-
-SELECT ROWNUM , a.* FROM ( SELECT ROWNUM rnum , b.* FROM ( SELECT * FROM ISSUE ORDER BY NO DESC) b) a WHERE rnum BETWEEN 1 AND 10 AND UPPER(title) LIKE UPPER('%tt%');
-
-SELECT COUNT(NO) FROM ISSUE WHERE NO > 0 AND REGDATE BETWEEN TO_DATE('2023-07-10', 'YYYY/MM/DD') AND TO_DATE('2023-07-10', 'YYYY/MM/DD');
-
-SELECT * FROM ISSUE WHERE NO > 0 AND REGDATE BETWEEN TO_DATE('2023-07-06', 'YYYY/MM/DD') AND TO_DATE('2023-07-06', 'YYYY/MM/DD');
-
-
-SELECT * FROM ISSUE order by no desc;
 COMMIT;
 

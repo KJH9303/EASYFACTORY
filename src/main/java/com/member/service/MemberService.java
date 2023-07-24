@@ -1,8 +1,11 @@
 package com.member.service;
 
+import org.springframework.stereotype.Service;
+
 import com.member.dao.MemberDAO;
 import com.member.vo.MemberVO;
 
+@Service
 public class MemberService {
 	
 	private MemberDAO memberDAO;

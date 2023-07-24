@@ -2,9 +2,12 @@ package com.issue.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.issue.dao.ReplyIssueDAO;
 import com.issue.vo.ReplyIssueVO;
 
+@Service
 public class ReplyIssueService {
 	
 	private ReplyIssueDAO replyIssueDAO;

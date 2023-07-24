@@ -2,10 +2,13 @@ package com.issue.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.issue.dao.IssueDAO;
 import com.issue.vo.Criteria;
 import com.issue.vo.IssueVO;
 
+@Service
 public class IssueService {
 	
 	private IssueDAO issueDAO;

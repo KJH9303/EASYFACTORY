@@ -272,7 +272,7 @@
             <label for="content">내용:</label><br>
             <textarea id="content" name="content" rows="10" cols="50" readonly>${issue.content}</textarea><br><br>
             
-            <c:if test="${member.id == issue.author}">
+            <c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
             	<input type="button" id=updateBtn value="수정">
             	<input type="button" id=deleteBtn value="삭제">
            	</c:if>
