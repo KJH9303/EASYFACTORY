@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write</title>
-    <link rel="stylesheet" href="../../../resources/issue/css/view.css">
+    <link rel="stylesheet" href="../../../resources/issue/css/write.css">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />        
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -94,25 +94,25 @@
         
         <form id="writeForm" action="/issue/writeSubmit" method="post" enctype="multipart/form-data">
             <label for="title">제목:</label><br>
-            <input type="text" id="title" name="title"><br><br>
+            <input type="text" id="title" name="title" class="ta2"><br>
             
-            <label for="author">작성자:</label><br>
-            <input type="text" id="author" name="author" value="${member.id}" readonly><br><br>
+            <label for="author">작성자</label>
+            <input type="text" id="author" class="border-none" name="author" value="${member.id}" readonly><br><br>
             
             <input type="file" id="file-input" name="originalname" multiple />
 			<h3>업로드된 파일</h3>
 			
 			<div id="preview">
 			</div>
-            <label for="content">내용:</label><br>
-            <textarea id="content" name="content" rows="10" cols="50"></textarea><br><br>
+            <label for="content">내용</label><br>
+            <textarea id="content" name="content" class="ta"></textarea><br><br>
             
-            <input type="button" id="submitBtn" value="글 쓰기">
+            <input type="button" id="submitBtn" value="글 쓰기" class="custom-btn btn-1 m-b20">
         </form>
 
         <hr>
 
-        <button onclick="location.href='/issue/list'">돌아가기</button>
+        <button onclick="location.href='/issue/list'" class="custom-btn btn-1 m-b40">돌아가기</button>
     </div>
     
 </body>

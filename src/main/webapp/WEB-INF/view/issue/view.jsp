@@ -295,7 +295,7 @@
 	        <button type="button" id="replyWriteBtn" class="custom-btn1 btn-1">댓글 작성</button>
 	    </form>
 	    <hr>
-	    <button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
+	    <button type="button" name="toListBtn" class="custom-btn btn-1 m-b40">글 목록</button>
 		</div>
 	</div>
 </body>
