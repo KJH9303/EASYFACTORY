@@ -38,7 +38,32 @@ VALUES (
 );
 
 ----------------------------------------
----- 외부인 테스트 회원 데이터 삽입 ----
+---- 내부인 테스트 회원 데이터 삽입 ----
+----------------------------------------
+INSERT INTO MEMBER (
+    CODE
+    , DEPARTMENT
+    , ID
+    , NAME
+    , PHONE
+    , EMAIL
+    , PW
+    , REPW 
+)
+VALUES (
+    'EXTERNAL'
+    ,'외부거래처'
+    ,'EXTERNALTEST'
+    ,'외부거래처계정'
+    ,'01051889303'
+    ,'test1@naver.com'
+    ,'1234'
+    ,'1234'
+);
+
+
+----------------------------------------
+---- 관리자 계정 데이터 삽입 -----------
 ----------------------------------------
 
 INSERT INTO MEMBER (
@@ -52,14 +77,14 @@ INSERT INTO MEMBER (
     , REPW 
 )
 VALUES (
-    'EXTERNAL'
-    ,'위즈코어'
-    ,'externalTest'
-    ,'외부인테스트회원1'
-    ,'01022224444'
-    ,'externaltest1@naver.com'
-    ,'testpw2'
-    ,'testpw2'
+    'ADMIN'
+    ,'관리자'
+    ,'ADMIN'
+    ,'관리자'
+    ,'01012345678'
+    ,'9303kj@gmail.com'
+    ,'admin'
+    ,'admin'
 );
 
 
