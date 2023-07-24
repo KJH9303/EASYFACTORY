@@ -147,9 +147,11 @@
             var updateBtn = replyDiv.find("button[name='reply_button_update']");
             var cancelBtn = replyDiv.find("button[name='reply_button_cancel']");
 
-            // 수정 버튼 클릭 시
             replyDiv.data("prev-content", prevContent);
+            
             reContent.removeAttr("readonly");
+            reContent.attr("style", "border:1px solid black; resize:none;");
+            
             replyDiv.find("button[name^='reply_button']").hide();
             updateBtn.show();
             cancelBtn.show();

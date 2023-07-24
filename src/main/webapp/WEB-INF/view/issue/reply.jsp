@@ -25,7 +25,7 @@
 					<input type="text" name="reply_author" value="${replyList.author}"
 						readonly> <input type="hidden" name="reno"
 						value="${replyList.reno}" readonly>
-					<textarea name="reply_content" rows="1" cols="50" readonly>${replyList.content}</textarea>
+					<textarea name="reply_content" style="border:none; resize:none;" rows="1" cols="50" readonly>${replyList.content}</textarea>
 					<c:if test="${member.id == replyList.author || member.id eq 'ADMIN'}">
 						<button type="button" name="reply_button_edit">수정</button>
 						<button type="button" name="reply_button_delete">삭제</button>

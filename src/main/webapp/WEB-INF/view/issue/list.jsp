@@ -72,9 +72,10 @@
 				$("#startDate").val("");
 				$("#endDate").val("");
 			}
-			if(startDate > endDate) {
-				alert("검색 날짜를 확인해 주세요.")
-			}
+			if (startDate > endDate) {
+	        	alert("시작일이 종료일보다 큽니다. 날짜를 다시 지정하세요.");
+	        	return false;
+	        }
 			$("#searchForm").submit();
 		});
 		
