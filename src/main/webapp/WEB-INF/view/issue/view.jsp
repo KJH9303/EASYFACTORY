@@ -18,7 +18,7 @@
 		
 		// 로그인하지 않은 상태일 경우
 		if (id == '' || id == null) {
-			alert("로그인 후 이용해주세요.");
+			alert("로그인 후 이용해 주세요.");
 			location.href="/member/login";
 		}
 		
@@ -102,7 +102,7 @@
             const reply_content = $('#reply_content').val();
         
             if(reply_author == ''){
-                alert('로그인 후 이용해주세요');
+                alert('로그인 후 이용해 주세요');
                 location.href="/member/login";
             }else if(reply_content == '') {
                 alert('내용을 입력하세요');

@@ -18,7 +18,7 @@
     	
     	// 페이지 진입 시
 		if (id == '' || id == null) {
-			alert("로그인 후 이용해주세요.");
+			alert("로그인 후 이용해 주세요.");
 			location.href="/member/login";
 		}
     	
@@ -72,13 +72,16 @@
 				$("#startDate").val("");
 				$("#endDate").val("");
 			}
+			if(startDate > endDate) {
+				alert("검색 날짜를 확인해 주세요.")
+			}
 			$("#searchForm").submit();
 		});
 		
     	// 글 작성 버튼 클릭 시
     	$("#writeBtn").on('click', function() {
        		if(id == null || id == "") {
-       			var result = confirm("로그인 후 이용해주세요.");
+       			var result = confirm("로그인 후 이용해 주세요.");
        			if(result){
        			    location.href="/member/login";
        			}else{

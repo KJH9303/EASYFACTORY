@@ -17,7 +17,7 @@
             
             var author = $("#author").val();
             if (author == '' || author == null) {
-                alert("로그인 후 이용해주세요.");
+                alert("로그인 후 이용해 주세요.");
                 location.href="/member/login";
             }
             
@@ -67,13 +67,13 @@
                 var content = $("#content").val();
                 
                 if (title.trim() === '') {
-                    alert('제목을 입력해주세요.');
+                    alert('제목을 입력해 주세요.');
                     $("#title").focus();
                     return false;
                 }
                 
                 if (content.trim() === '') {
-                    alert('내용을 입력해주세요.');
+                    alert('내용을 입력해 주세요.');
                     $("#content").focus();
                     return false;
                 }

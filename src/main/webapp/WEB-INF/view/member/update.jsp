@@ -86,52 +86,52 @@
 			
 			if (department == '' || department == null) {
 				if(code == 'INTERNAL') {
-					alert( '부서명을 입력해주세요' );
+					alert( '부서명을 입력해 주세요.' );
 				} else if(code == 'EXTERNAL') {
-					alert( '거래처명을 입력해주세요' );
+					alert( '거래처명을 입력해 주세요.' );
 				}
 			    $("#department").focus();
 			    return false;
 			}
 			
 			if (name == '' || name == null) {
-			    alert( '이름을 입력해주세요' );
+			    alert( '이름을 입력해 주세요.' );
 			    $("#name").focus();
 			    return false;
 			}
 			
 			if (phone == '' || phone == null) {
-			    alert( '전화번호를 입력해주세요' );
+			    alert( '전화번호를 입력해 주세요.' );
 			    $("#phone").focus();
 			    return false;
 			}
 			
 			if (!phoneRegExp.test(phone)) {
-		        alert('전화번호 형식에 맞춰주세요. (하이픈 "-" 없이 입력)');
+		        alert('전화번호 형식을 확인해 주세요. (하이픈 "-" 없이 입력)');
 		        $("#phone").focus();
 		        return false;
 		    }
 			
 			if (email == '' || email == null) {
-			    alert( '이메일을 입력해주세요' );
+			    alert( '이메일을 입력해 주세요.' );
 			    $("#email").focus();
 			    return false;
 			}
 			
 			if (!emailRegExp.test(email)) {
-		        alert('이메일 형식에 맞춰주세요.');
+		        alert('이메일 형식을 확인해 주세요.');
 		        $("#email").focus();
 		        return false;
 		    }
 			
 			if (pw == '' || pw == null) {
-			    alert( '비밀번호를 입력해주세요' );
+			    alert( '비밀번호를 입력해 주세요.' );
 			    $("#pw").focus();
 			    return false;
 			}
 			
 			if (repw == '' || repw == null) {
-			    alert( '비밀번호 확인 값을 입력해주세요' );
+			    alert( '비밀번호 확인 값을 입력해 주세요.' );
 			    $("#repw").focus();
 			    return false;
 			}
@@ -144,7 +144,7 @@
 			}
 			
 			if (idDupChk == 'unChecked') {
-			    alert( '중복확인 해주세요' );
+			    alert( '중복 확인을 해주세요.' );
 			    $("#id").focus();
 			    return false;
 			} else {
