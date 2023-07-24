@@ -177,7 +177,7 @@
           </div>
           <!-- Card -->
           <div class="relative p-4 h-72 table-container-scroll overflow-auto">
-            <table class="dashboard-table">
+            <table class="dashboard-table"> 
               <tr class="dashboard-tr">
                 <td id="previousDefects" class="dashboard-td defect-font-size""></td>
               </tr>

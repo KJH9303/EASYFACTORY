@@ -168,7 +168,7 @@
             <div id="opratioChart"></div>
           </div>
         </div>
-
+ 
         <!-- Defect monitoring -->
         <div class="bg-white rounded-md border">
           <!-- Card header -->

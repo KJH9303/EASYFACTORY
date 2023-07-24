@@ -97,7 +97,7 @@ public class FebDAO {
                 result = "Param불량: " + format.format(now);
             } else {
                 result = "공정불량: " + format.format(now);
-            }
+            } 
 
             System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●● Defect 작동 ●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●");
             System.out.println("●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●●Random defect: " + result);

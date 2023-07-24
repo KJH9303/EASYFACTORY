@@ -174,7 +174,7 @@
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b border-color red">
             <h4 class="text-lg font-semibold-defect text-gray-500s white">DEFECT MONITORING</h4>
-          </div>
+          </div> 
           <!-- Card -->
           <div class="relative p-4 h-72 table-container-scroll overflow-auto">
             <table class="dashboard-table">

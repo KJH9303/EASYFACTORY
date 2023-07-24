@@ -169,7 +169,7 @@
           </div>
         </div>
 
-        <!-- Defect monitoring -->
+        <!-- Defect monitoring --> 
         <div class="bg-white rounded-md border">
           <!-- Card header -->
           <div class="flex items-center justify-between p-4 border-b border-color red">
