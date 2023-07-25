@@ -18,27 +18,6 @@ import com.issue.vo.IssueVO;
 public class IssueDAO {
 
 	private JdbcTemplate jdbcTemplate;
-	/*
-	private String[] search = new String[] {
-		"where title like '% || %s || %",
-		
-	};
-	
-	HashMap<String, String> wheres = new HashMap<>() {
-	}
-	
-	final static String where = "title like '% || %s || %";
-
-	String makeWhere(String searchType, String keyword) {
-		String sql = null;
-		
-		switch(searchType) {
-		case "title":
-			sql = String.format(where, keyword[0]);
-		}
-		
-		return sql;
-	}*/
 	
 	@Autowired
 	public IssueDAO(DataSource dataSource) {
@@ -56,6 +35,7 @@ public class IssueDAO {
         	issueVO.setAuthor(rs.getString("author"));
         	issueVO.setRegDate(rs.getString("regDate"));
         	issueVO.setModDate(rs.getString("modDate"));
+        	issueVO.setViewCnt(rs.getInt("viewCnt"));
             return issueVO;
         }
     }
@@ -80,6 +60,7 @@ public class IssueDAO {
 				+ "				, AUTHOR"
 				+ "				, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as regDate"
 				+ "				, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as modDate"
+				+ "				, VIEWCNT"
 				+ "			FROM ISSUE"
 				+ "	  ORDER BY NO DESC) b"
 				+ "	  WHERE"
@@ -106,6 +87,7 @@ public class IssueDAO {
 				+ "            		, AUTHOR"
 				+ "            		, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE"
 				+ "            		, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE"
+				+ "					, VIEWCNT"
 				+ "				FROM ISSUE"
 				+ "		ORDER BY NO DESC) b"
 				+ "		WHERE"
@@ -141,10 +123,17 @@ public class IssueDAO {
 				+ "			, AUTHOR"
 				+ "			, REGDATE"
 				+ "			, MODDATE"
+				+ "			, VIEWCNT"
 				+ "		FROM ISSUE"
 				+ "		WHERE NO = ?";
 		IssueVO issueVO = jdbcTemplate.queryForObject(SQL, new Object[]{no}, new issueMapper());
 		return issueVO;
+	}
+	
+	// 조회 수 증가
+	public void viewCntUp(int no) {
+		String SQL = "UPDATE ISSUE SET VIEWCNT = VIEWCNT + 1 WHERE NO = ?";
+		jdbcTemplate.update(SQL, no);
 	}
 	
 	// 글 작성

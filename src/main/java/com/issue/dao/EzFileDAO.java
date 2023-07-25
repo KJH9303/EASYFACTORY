@@ -15,10 +15,6 @@ import com.issue.vo.EzFileVO;
 
 @Repository
 public class EzFileDAO {
-	private static final String SAVEFOLDER = "C:\\easyfactory_file";
-	private static final String ENCTYPE = "UTF-8";
-	private static int MAXSIZE = 10 * 1024 * 1024; // 10MB
-	private static final int DOWNLOAD_BUFF_SIZE = 1024 * 8; // 8KB 
 
 	private JdbcTemplate jdbcTemplate;
 	

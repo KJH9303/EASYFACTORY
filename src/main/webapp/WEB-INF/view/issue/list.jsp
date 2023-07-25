@@ -185,6 +185,7 @@ window.addEventListener('load', updateTime);
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성일자</th>
+                <th>조회수</th>
             </tr>
             <tbody id="posts">
            		<c:if test="${not empty issueList}">
@@ -196,6 +197,7 @@ window.addEventListener('load', updateTime);
 	                		</td>
 	                		<td>${issueList.author}</td>
 	                		<td>${issueList.regDate}</td>
+	                		<td>${issueList.viewCnt}</td>
                 		</tr>
                		</c:forEach>
                		<input type="hidden" id="page" value="${cri.page}" readonly>

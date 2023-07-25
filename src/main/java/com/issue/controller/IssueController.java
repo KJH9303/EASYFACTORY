@@ -118,6 +118,9 @@ public class IssueController {
     	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
     	IssueVO issueVO = issueService.viewContent(no);
     	
+    	// 조회 수 증가
+    	issueService.viewCntUp(no);
+    	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
     	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");

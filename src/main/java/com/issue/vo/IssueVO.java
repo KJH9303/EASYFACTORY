@@ -1,12 +1,5 @@
 package com.issue.vo;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
-// import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class IssueVO {
 	private int no;
 	private String title;
@@ -14,6 +7,7 @@ public class IssueVO {
 	private String author;
 	private String regDate;
 	private String modDate;
+	private int viewCnt;
 	
 	private String searchType;
 	private String keyword;
@@ -22,16 +16,17 @@ public class IssueVO {
 	
 	public IssueVO() {}
 
-	public IssueVO(int no, String title, String content, String author, String regDate, String modDate) {
+	public IssueVO(int no, String title, String content, String author, String regDate, String modDate, int viewCnt) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.author = author;
 		this.regDate = regDate;
 		this.modDate = modDate;
+		this.viewCnt = viewCnt;
 	}
 	
-	public IssueVO(int no, String title, String content, String author, String regDate, String modDate, String searchType, String keyword, String startDate, String endDate) {
+	public IssueVO(int no, String title, String content, String author, String regDate, String modDate, String searchType, String keyword, String startDate, String endDate, int viewCnt) {
 		this.no = no;
 		this.title = title;
 		this.content = content;
@@ -42,6 +37,7 @@ public class IssueVO {
 		this.keyword = keyword;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.viewCnt = viewCnt;
 	}
 
 	public int getNo() {
@@ -92,6 +88,14 @@ public class IssueVO {
 		this.modDate = modDate;
 	}
 
+	public int getViewCnt() {
+		return viewCnt;
+	}
+
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
 	public String getSearchType() {
 		return searchType;
 	}
@@ -127,8 +131,10 @@ public class IssueVO {
 	@Override
 	public String toString() {
 		return "IssueVO [no=" + no + ", title=" + title + ", content=" + content + ", author=" + author + ", regDate="
-				+ regDate + ", modDate=" + modDate + ", searchType=" + searchType + ", keyword=" + keyword
-				+ ", startDate=" + startDate + ", endDate=" + endDate + "]";
+				+ regDate + ", modDate=" + modDate + ", viewCnt=" + viewCnt + ", searchType=" + searchType
+				+ ", keyword=" + keyword + ", startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
+
+	
 
 }

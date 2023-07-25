@@ -21,11 +21,11 @@
 		<div>등록된 파일 : ${fileCnt}</div>
 		<c:forEach items="${fileList}" var="file">
 		    <div>
+		    	<a href="/issue/downloadFile?savename=${file.savename}"><img src="" alt="다운로드"></a>
 		        <input type="text" name="originalname" value="${file.originalname}" readonly> 
 		        <input type="hidden" name="savename" value="${file.savename}" readonly> 
-		        <input type="text" name="fileno" value="${file.fileno}" readonly>
+		        <input type="hidden" name="fileno" value="${file.fileno}" readonly>
 		        <input type="text" name="filesize" value="${file.filesizeFormatted}" readonly>
-		        <a href="/issue/downloadFile?savename=${file.savename}"><img src="" alt="다운로드"></a>
 		    </div>
 		</c:forEach>
 	</c:if>

@@ -10,13 +10,14 @@ CREATE TABLE ISSUE (
       , AUTHOR VARCHAR2(50) NOT NULL
       , REGDATE DATE DEFAULT SYSDATE NOT NULL
       , MODDATE DATE DEFAULT NULL
+      , VIEWCNT NUMBER DEFAULT 0
       , PRIMARY KEY(NO)
 );
-drop table issue;
+
 ----------------------------------------
 ---- 이슈 게시글 번호 SEQUENCE ---------
 ----------------------------------------
-DROP SEQUENCE ISSUE_SEQ;
+
 CREATE SEQUENCE ISSUE_SEQ
        INCREMENT BY 1
        START WITH 1
@@ -94,6 +95,23 @@ INNER JOIN
 ORDER BY
     b.no DESC;
 
+
+SELECT
+	ROWNUM as rno
+	, b.*
+FROM (
+	SELECT
+		NO
+		, TITLE
+		, CONTENT
+		, AUTHOR
+		, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE
+		, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE
+	FROM ISSUE
+		ORDER BY NO DESC) b
+    WHERE
+		ROWNUM BETWEEN 1 AND 10
+		AND regdate BETWEEN '2023-07-01'|| ' 00:00:00' AND '2023-07-24' || ' 23:59:59';
 
 COMMIT;
 

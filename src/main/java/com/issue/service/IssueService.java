@@ -47,6 +47,11 @@ public class IssueService {
 		return issueVO; 
 	}
 	
+	// 조회 수 증가
+	public void viewCntUp(int no) {
+		issueDAO.viewCntUp(no);
+	}
+	
 	// 글 작성
 	public void write(String title, String content, String author) {
 		issueDAO.write(title, content, author);

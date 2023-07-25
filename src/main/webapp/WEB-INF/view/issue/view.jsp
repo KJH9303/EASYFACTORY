@@ -274,19 +274,19 @@
 
     setInterval(updateTime, 1000)
 
-function loadHTMLFile(targetSelector, url, callback) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.querySelector(targetSelector).innerHTML = this.responseText;
-            if (typeof callback === 'function') {
-                callback();
-            }
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
+	function loadHTMLFile(targetSelector, url, callback) {
+	    var xhttp = new XMLHttpRequest();
+	    xhttp.onreadystatechange = function() {
+	        if (this.readyState == 4 && this.status == 200) {
+	            document.querySelector(targetSelector).innerHTML = this.responseText;
+	            if (typeof callback === 'function') {
+	                callback();
+	            }
+	        }
+	    };
+	    xhttp.open("GET", url, true);
+	    xhttp.send();
+	}
 
     // 메인콘텐츠
     document.addEventListener('DOMContentLoaded', function () {
@@ -324,25 +324,33 @@ window.addEventListener('load', updateTime);
     <!-- 게시물 영역 -->
     <div class="container">
         <!-- <h1>글 보기</h1> -->
-        	<input type="hidden" id="no" name="no" value="${issue.no}" readonly><br>
-        	<input type="hidden" id="id" name="id" value="${member.id}" readonly><br>
-            <!-- <label for="title">제목:</label> -->
-            <hr>
-            <input type="text" id="title" name="title" class="border-none f-40" value="${issue.title}" readonly><br><br>
-            <label for="author">작성자 </label>
-            <input type="text" id="author" name="author" class="border-none" value="${issue.author}" readonly>
-            <hr>
-            
-		    <!-- 파일 목록 ajax -->
-			<div id="fileList"></div>
-			<!-- Z글내용 -->
-            <textarea id="content" name="conxtent" class="ta2" readonly>${issue.content}</textarea><br><br>
-            
-            <c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
-            	<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
-            	<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
-            	<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
-           	</c:if>
+       	<input type="hidden" id="no" name="no" value="${issue.no}" readonly><br>
+       	<input type="hidden" id="id" name="id" value="${member.id}" readonly><br>
+           <!-- <label for="title">제목:</label> -->
+           <hr>
+           <input type="text" id="title" name="title" class="border-none f-40" value="${issue.title}" readonly><br><br>
+           <label for="author">작성자</label>
+           <input type="text" id="author" name="author" class="border-none" value="${issue.author}" readonly>
+           <label for="regDate">작성일</label>
+           <input type="text" id="regDate" name="regDate" class="border-none" value="${issue.regDate}" readonly>
+           <c:if test="${issue.modDate != null}">
+           		<label for="modDate">수정일</label>
+           		<input type="text" id="modDate" name="modDate" class="border-none" value="${issue.modDate}" readonly>
+           </c:if>
+           <label for="viewCnt">조회수</label>
+           <input type="text" id="viewCnt" name="viewCnt" class="border-none" value="${issue.viewCnt}" readonly>
+           <hr>
+           
+	    <!-- 파일 목록 ajax -->
+		<div id="fileList"></div>
+		<!-- Z글내용 -->
+        <textarea id="content" name="conxtent" class="ta2" readonly>${issue.content}</textarea><br><br>
+           
+        <c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
+           	<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
+           	<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
+           	<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
+      	</c:if>
         <hr>
 	
 	<!-- 댓글 목록 ajax -->
