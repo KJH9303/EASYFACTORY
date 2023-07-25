@@ -16,6 +16,10 @@ CREATE TABLE ISSUE (
       , PRIMARY KEY(NO)
 );
 
+select * from issue;
+select * from ez_file;
+
+
 ----------------------------------------
 ---- 이슈 게시글 번호 SEQUENCE ---------
 ----------------------------------------

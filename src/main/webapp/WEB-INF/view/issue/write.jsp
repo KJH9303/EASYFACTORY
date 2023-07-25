@@ -79,7 +79,7 @@
                 
                 if (selectNotice === true) {
                 	$("#noticeYN").val("Y");
-                } else {
+                } else if (selectNotice === false) {
                 	$("#noticeYN").val("N");
                 }
                 
@@ -186,9 +186,9 @@
         	<c:if test="${member.id == 'ADMIN'}">
             	<span>공지사항</span>
             	<input type="checkbox" id="notice">
-            	<input type="hidden" id="noticeYN" name="noticeYN" value="N">
             	<br>
             </c:if>
+            <input type="hidden" id="noticeYN" name="noticeYN" value="N">
             
             <input type="text" id="title" name="title" class="ta2" placeholder="제목을 입력해 주세요."><br>
             
