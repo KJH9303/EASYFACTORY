@@ -64,12 +64,12 @@ public class IssueController {
     
     // 글 목록
     @RequestMapping(value="/list", method=RequestMethod.GET)
-    public String getissueList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+    public String getissueList(@ModelAttribute("cri") Criteria cri, Model model, HttpServletRequest request) throws Exception {
     	int totCnt = issueService.issueListCnt();
    	 	model.addAttribute("totCnt", totCnt);
     	List<IssueVO> issueList = issueService.issueList(cri);
     	model.addAttribute("issueList", issueList);
-    	 
+    	
     	PageMaker pageMaker = new PageMaker();
     	pageMaker.setCri(cri);
     	 
@@ -87,13 +87,17 @@ public class IssueController {
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
     	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
     	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	String selectProcess = request.getParameter("selectProcess") == null ? "" : request.getParameter("selectProcess");
+    	
+    	System.out.println("ssssssssssssssssssssssssss" + selectProcess);
+    	
     	String page = request.getParameter("page") == null ? "" : request.getParameter("page").toString();
     	String perPageNum = request.getParameter("perPageNum") == null ? "" : request.getParameter("perPageNum").toString();
     	
-    	int totCnt = issueService.issueSearchCnt(searchType, keyword, startDate, endDate);
+    	int totCnt = issueService.issueSearchCnt(searchType, keyword, startDate, endDate, selectProcess);
    	 	model.addAttribute("totCnt", totCnt);
    	 	
-    	List<IssueVO> searchIsList = issueService.search(searchType, keyword, startDate, endDate, cri);
+    	List<IssueVO> searchIsList = issueService.search(searchType, keyword, startDate, endDate, selectProcess, cri);
     	model.addAttribute("issueList", searchIsList);
     	model.addAttribute("page", page);
     	model.addAttribute("perPageNum", perPageNum);
@@ -101,6 +105,7 @@ public class IssueController {
    	 	model.addAttribute("keyword", keyword);
    	 	model.addAttribute("startDate", startDate);
    	 	model.addAttribute("endDate", endDate);
+   	 	model.addAttribute("selectProcess", selectProcess);
     	
     	PageMaker pageMaker = new PageMaker();
     	pageMaker.setCri(cri);
@@ -125,11 +130,13 @@ public class IssueController {
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
     	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
     	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	String selectProcess = request.getParameter("selectProcess") == null ? "" : request.getParameter("selectProcess");
     	
     	model.addAttribute("searchType", searchType);
    	 	model.addAttribute("keyword", keyword);
    	 	model.addAttribute("startDate", startDate);
    	 	model.addAttribute("endDate", endDate);
+   	 	model.addAttribute("selectProcess", selectProcess);
    	 	
     	model.addAttribute("issue", issueVO);
     	model.addAttribute("cri", cri);
@@ -170,24 +177,30 @@ public class IssueController {
             }
 
             // 다른 필드 값들은 여기서 처리
+            String process = "";
+            String noticeYN = "";
             String title = "";
             String content = "";
             String author = "";
-
+            
             for (FileItem item : items) {
                 if (item.isFormField()) {
-                    if ("title".equals(item.getFieldName())) {
+                	if ("process".equals(item.getFieldName())) {
+                		process = item.getString("UTF-8");
+                    } else if ("noticeYN".equals(item.getFieldName())) {
+                		noticeYN = item.getString("UTF-8");
+                    } else if ("title".equals(item.getFieldName())) {
                         title = item.getString("UTF-8");
                     } else if ("content".equals(item.getFieldName())) {
                         content = item.getString("UTF-8");
                     } else if ("author".equals(item.getFieldName())) {
                         author = item.getString("UTF-8");
-                    }
+                    } 
                 }
             }
 
-            System.out.println("title ::::: " + title + ", content ::::: " + content + ", author ::::: " + author);
-            issueService.write(title, content, author);
+            System.out.println("process ::::: " + process + ", noticeYN ::::: " + noticeYN + "title ::::: " + title + ", content ::::: " + content + ", author ::::: " + author);
+            issueService.write(process, noticeYN, title, content, author);
 
             List<EzFileVO> fileList = new ArrayList<>();
             int totfilesize = 0;
@@ -249,11 +262,13 @@ public class IssueController {
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
     	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
     	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	String selectProcess = request.getParameter("selectProcess") == null ? "" : request.getParameter("selectProcess");
     	
     	model.addAttribute("searchType", searchType);
    	 	model.addAttribute("keyword", keyword);
    	 	model.addAttribute("startDate", startDate);
    	 	model.addAttribute("endDate", endDate);
+   	 	model.addAttribute("selectProcess", selectProcess);
    	 	
     	model.addAttribute("issue", issueVO);
     	model.addAttribute("cri", cri);
@@ -288,6 +303,8 @@ public class IssueController {
             }
 
             // 다른 필드 값들은 여기서 처리
+            String process = "";
+            String noticeYN = "";
             String title = "";
             String content = "";
             String author = "";
@@ -298,10 +315,15 @@ public class IssueController {
             String keyword = "";
             String startDate = "";
             String endDate = "";
+            String selectProcess = "";
 
             for (FileItem item : items) {
                 if (item.isFormField()) {
-                    if ("title".equals(item.getFieldName())) {
+                	if ("process".equals(item.getFieldName())) {
+                		process = item.getString("UTF-8");
+                    } else if ("noticeYN".equals(item.getFieldName())) {
+                    	noticeYN = item.getString("UTF-8");
+                    } else if ("title".equals(item.getFieldName())) {
                         title = item.getString("UTF-8");
                     } else if ("content".equals(item.getFieldName())) {
                         content = item.getString("UTF-8");
@@ -321,6 +343,8 @@ public class IssueController {
                     	startDate = item.getString("UTF-8");
                     } else if ("endDate".equals(item.getFieldName())) {
                     	endDate = item.getString("UTF-8");
+                    } else if ("selectProcess".equals(item.getFieldName())) {
+                    	selectProcess = item.getString("UTF-8");
                     }
                 }
             }
@@ -328,7 +352,7 @@ public class IssueController {
         	ezFileService.deleteFile(no);
             
             System.out.println("title ::::: " + title + ", content ::::: " + content + ", author ::::: " + author);
-            issueService.update(title, content, author, no);
+            issueService.update(process, noticeYN, title, content, author, no);
 
             List<EzFileVO> fileList = new ArrayList<>();
             int totfilesize = 0;
@@ -360,7 +384,7 @@ public class IssueController {
             
             System.out.println("fileList.size() :::: " + fileList.size());
             System.out.println("totfilesize :::: " + totfilesize);
-            return "redirect:/issue/view?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
+            return "redirect:/issue/view?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate+"&selectProcess="+selectProcess;
         }
 
         return "redirect:/issue/view";
@@ -376,11 +400,12 @@ public class IssueController {
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");
     	String startDate = request.getParameter("startDate") == null ? "" : request.getParameter("startDate");
     	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
+    	String selectProcess = request.getParameter("selectProcess") == null ? "" : request.getParameter("selectProcess");
     	
     	int page = cri.getPage();
     	int perPageNum = cri.getPerPageNum();
     	
-    	return "redirect:/issue/list?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;
+    	return "redirect:/issue/list?no="+no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate+"&selectProcess="+selectProcess;
     }
     
     // 댓글 작성 ajax

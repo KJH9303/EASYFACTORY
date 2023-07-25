@@ -61,10 +61,31 @@
                 removeTarget.remove();
             });
             
+            $('input:checkbox[id="notice"]').on('change', function() {
+            	
+            	var selectNotice = $('input:checkbox[id="notice"]').is(":checked")
+            	var noticeYN = $('#noticeYN').val();
+            	if (selectNotice == true) {
+            		noticeYN = "Y";
+            	} else {
+            		noticeYN = "N";
+            	}
+            	
+            	console.log(noticeYN);
+            });
+            
             // 글 작성
             $("#submitBtn").on('click', function() {
                 var title = $("#title").val();
                 var content = $("#content").val();
+                var selectNotice = $('input:checkbox[id="notice"]').is(":checked")
+                var noticeYN = $("#noticeYN").val();
+                
+                if (selectNotice === true) {
+                	noticeYN = "Y";
+                } else {
+                	noticeYN = "N";
+                }
                 
                 if (title.trim() === '') {
                     alert('제목을 입력해 주세요.');
@@ -78,9 +99,8 @@
                     return false;
                 }
                 
-                console.log(title);
-                console.log(content);
                 alert("글 작성 완료.");
+                console.log(noticeYN);
                 $("#writeForm").submit();
             });
         });
@@ -155,19 +175,35 @@
         <div id="jqxFileUpload"></div>
         
         <form id="writeForm" action="/issue/writeSubmit" method="post" enctype="multipart/form-data">
-            <label for="title">제목:</label><br>
-            <input type="text" id="title" name="title" class="ta2"><br>
+        	<select id="process" name="process" size="1" >
+        		<option value="Fabrication">Fabrication</option>
+        		<option value="Oxidation">Oxidation</option>
+        		<option value="Photo">Photo</option>
+        		<option value="Etching">Etching</option>
+        		<option value="Implant">Implant</option>
+        		<option value="Metallization">Metallization</option>
+        		<option value="EDS">EDS</option>
+        		<option value="Packaging">Packaging</option>
+        		<option value="etc">etc</option>
+        	</select>
+        	
+        	<c:if test="${member.id == 'ADMIN'}">
+            	<span>공지사항</span>
+            	<input type="checkbox" id="notice">
+            	<input type="hidden" id="noticeYN" name="noticeYN" value="N">
+            	<br>
+            </c:if>
             
-            <label for="author">작성자</label>
-            <input type="text" id="author" class="border-none" name="author" value="${member.id}" readonly><br><br>
+            <input type="text" id="title" name="title" class="ta2" placeholder="제목을 입력해 주세요."><br>
+            
+            <input type="hidden" id="author" class="border-none" name="author" value="${member.id}" readonly><br><br>
             
             <input type="file" id="file-input" name="originalname" multiple />
 			<h3>업로드된 파일</h3>
 			
 			<div id="preview">
 			</div>
-            <label for="content">내용</label><br>
-            <textarea id="content" name="content" class="ta"></textarea><br><br>
+            <textarea id="content" name="content" class="ta" placeholder="내용을 입력해 주세요."></textarea><br><br>
             
             <input type="button" id="submitBtn" value="글 쓰기" class="custom-btn btn-1 m-b20">
         </form>

@@ -30,6 +30,8 @@ public class IssueDAO {
         public IssueVO mapRow(ResultSet rs, int rowNum) throws SQLException {
         	IssueVO issueVO = new IssueVO();
         	issueVO.setNo(rs.getInt("no"));
+        	issueVO.setProcess(rs.getString("process"));
+        	issueVO.setNoticeYN(rs.getString("noticeYN"));
         	issueVO.setTitle(rs.getString("title"));
         	issueVO.setContent(rs.getString("content"));
         	issueVO.setAuthor(rs.getString("author"));
@@ -55,14 +57,16 @@ public class IssueDAO {
 				+ "	  FROM ("
 				+ "			SELECT"
 				+ "				NO"
+				+ "				, PROCESS"
+				+ "				, NOTICEYN"
 				+ "				, TITLE"
-				+ "				 , CONTENT"
+				+ "				, CONTENT"
 				+ "				, AUTHOR"
 				+ "				, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as regDate"
 				+ "				, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as modDate"
 				+ "				, VIEWCNT"
 				+ "			FROM ISSUE"
-				+ "	  ORDER BY NO DESC) b"
+				+ "	  ORDER BY NOTICEYN DESC, NO DESC) b"
 				+ "	  WHERE"
 				+ "			ROWNUM BETWEEN ? AND ?";
 		int startPage = cri.getRowStart();
@@ -72,7 +76,7 @@ public class IssueDAO {
 	}
 	
 	// 글 검색
-	public List<IssueVO> search(String searchType, String keyword, String startDate, String endDate, Criteria cri) {
+	public List<IssueVO> search(String searchType, String keyword, String startDate, String endDate, String selectProcess, Criteria cri) {
 		int startPage = cri.getRowStart();
 		int endPage = cri.getRowEnd();
 		
@@ -82,6 +86,8 @@ public class IssueDAO {
 				+ "		FROM ("
 				+ "				SELECT"
 				+ "					NO"
+				+ "					, PROCESS"
+				+ "					, NOTICEYN"
 				+ "            		, TITLE"
 				+ "            		, CONTENT"
 				+ "            		, AUTHOR"
@@ -89,25 +95,29 @@ public class IssueDAO {
 				+ "            		, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE"
 				+ "					, VIEWCNT"
 				+ "				FROM ISSUE"
-				+ "		ORDER BY NO DESC) b"
+				+ "		ORDER BY NOTICEYN DESC, NO DESC) b"
 				+ "		WHERE"
 				+ "			ROWNUM BETWEEN ? AND ?";
 		if(searchType.equals("regDate")) {
 			SQL += " AND " + searchType + " BETWEEN '" + startDate + "'|| ' 00:00:00' AND '" + endDate + "' || ' 23:59:59'";
 		} else if(searchType.equals("title") || searchType.equals("content") || searchType.equals("author")) {
 			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + keyword + "%')";
-		} 
+		} else if(searchType.equals("process")) {
+			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + selectProcess + "%')";
+		}
 		List<IssueVO> searchIsList = jdbcTemplate.query(SQL, new Object[]{startPage, endPage}, new issueMapper());
 		return searchIsList;
 	}
 	
 	// 검색어가 일치하는 게시물 갯수
-	public int issueSearchCnt(String searchType, String keyword, String startDate, String endDate) {
+	public int issueSearchCnt(String searchType, String keyword, String startDate, String endDate, String selectProcess) {
 		String SQL = "SELECT COUNT(*) FROM ISSUE WHERE NO > 0";
 		if(searchType.equals("regDate")) {
 			SQL += " and " + searchType + " BETWEEN TO_DATE('" + startDate + " 00:00:00','YYYY-MM-DD HH24:MI:SS') AND TO_DATE('" + endDate + " 23:59:59', 'YYYY-MM-DD HH24:MI:SS')";
 		} else if(searchType.equals("title") || searchType.equals("content") || searchType.equals("author")) {
 			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + keyword + "%')";
+		} else if(searchType.equals("process")) {
+			SQL += " AND UPPER(" + searchType + ") LIKE UPPER('%" + selectProcess + "%')";
 		}
 		
 		int cnt = jdbcTemplate.queryForObject(SQL, Integer.class);
@@ -118,6 +128,8 @@ public class IssueDAO {
 	public IssueVO viewContent(int no) {
 		String SQL = "SELECT"
 				+ "    		NO"
+				+ "			, PROCESS"
+				+ "			, NOTICEYN"
 				+ "			, TITLE"
 				+ "			, CONTENT"
 				+ "			, AUTHOR"
@@ -137,9 +149,11 @@ public class IssueDAO {
 	}
 	
 	// 글 작성
-	public void write(String title, String content, String author) {
+	public void write(String process, String noticeYN, String title, String content, String author) {
 		String SQL = "INSERT INTO ISSUE ("
 				+ "				NO"
+				+ "				, PROCESS"
+				+ "				, NOTICEYN"
 				+ "				, TITLE"
 				+ "				, CONTENT"
 				+ "				, AUTHOR"
@@ -149,18 +163,24 @@ public class IssueDAO {
 				+ "				, ?"
 				+ "				, ?"
 				+ "				, ?"
+				+ "				, ?"
+				+ "				, ?"
 				+ "				, sysdate)";
 		jdbcTemplate.update(
 				SQL
+				, process
+				, noticeYN
 				, title
 				, content
 				, author);
 	}
 	
 	// 글 수정
-	public void update(String title, String content, String author, int no) {
+	public void update(String process, String noticeYN, String title, String content, String author, int no) {
 		String SQL = "UPDATE ISSUE"
 				+ "		SET"
+				+ "			PROCESS = ?"
+				+ "			NOTICEYN = ?"
 				+ "			TITLE = ?"
 				+ ", 		CONTENT = ?"
 				+ ", 		AUTHOR = ?"
@@ -169,7 +189,7 @@ public class IssueDAO {
 				+ "			NO = ?";
 		jdbcTemplate.update (
 				SQL
-				, title, content, author, no);
+				, process, noticeYN, title, content, author, no);
 	}
 	
 	// 글 삭제

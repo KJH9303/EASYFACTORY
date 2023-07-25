@@ -32,8 +32,19 @@
 			$("#startDate, #endDate").datepicker({
 		        dateFormat: "yy-mm-dd",
 		    });
+			$("#selectProcess").hide();
+			$("#selectProcess").val("");
+		} else if (searchType == 'process') {
+			$("#keyword").attr("type", "hidden");
+			$("#keyword").val("");
+			$("#selectProcess").attr("style", "display:'inline'");
+			$("#searchDate").hide();
+			$("#startDate").val("");
+			$("#endDate").val("");
 		} else {
 			$("#keyword").attr("type", "text");
+			$("#selectProcess").hide();
+			$("#selectProcess").val("");
 			$("#searchDate").hide();
 			$("#startDate").val("");
 			$("#endDate").val("");
@@ -43,6 +54,7 @@
 		$("#searchType").on('change', function() {
 			var searchType = $("#searchType").val();
 			var keyword = $("#keyword").val();
+			var process = $("process").val();
 			
 			if(searchType == 'regDate') {
 				$("#keyword").val("");
@@ -51,10 +63,20 @@
 				$("#startDate, #endDate").datepicker({
 			        dateFormat: "yy-mm-dd",
 			    });
+				$("#selectProcess").hide();
+				$("#selectProcess").val("");
+			} else if (searchType == 'process') {
+				$("#keyword").attr("type", "hidden");
+				$("#keyword").val(process);
+				$("#searchDate").hide();
+				$("#startDate").val("");
+				$("#endDate").val("");
+				$("#selectProcess").attr("style", "display:'inline'")
+				$("#selectProcess").val("Fabrication");
 			} else {
-				$("#keyword").val("");
-				$("#startDate, #endDate").val("");
 				$("#keyword").attr("type", "text");
+				$("#selectProcess").hide();
+				$("#selectProcess").val("");
 				$("#searchDate").hide();
 				$("#startDate").val("");
 				$("#endDate").val("");
@@ -66,16 +88,28 @@
 			var searchType = $("#searchType").val();
 			var startDate = $("#startDate").val();
 			var endDate = $("#endDate").val();
-			if(searchType == 'regDate') {
+			var selectProcess = $("#selectProcess").val();
+			
+			if (searchType == 'regDate') {
 				$("#keyword").val("");
+				$("#process").val("");
+				
+				if (startDate != "" && endDate == "") {
+					$("#endDate").val("SYSDATE");
+				} else if (startDate == "" && endDate == "") {
+					$("#searchType").val("title");
+				} else if (startDate > endDate) {
+		        	alert("시작일이 종료일보다 큽니다. 날짜를 다시 지정하세요.");
+		        	return false;
+		        }
+			} else if (searchType == 'process') {
+				$("#keyword").val("");
+				$("#startDate").val("");
+				$("#endDate").val("");
 			} else {
 				$("#startDate").val("");
 				$("#endDate").val("");
 			}
-			if (startDate > endDate) {
-	        	alert("시작일이 종료일보다 큽니다. 날짜를 다시 지정하세요.");
-	        	return false;
-	        }
 			$("#searchForm").submit();
 		});
 		
@@ -92,6 +126,14 @@
        		} else if(id != null || id != "") {
        			location.href="/issue/write";
        		}
+    	});
+    	
+    	// 키워드 초기화
+    	$("#searchClearBtn").on('click', function() {
+    		$("#selectProcess").val("");
+    		$("#keyword").val("");
+    		$("#startDate").val("");
+			$("#endDate").val("");
     	});
     });
     
@@ -120,19 +162,19 @@
 
     setInterval(updateTime, 1000)
 
-function loadHTMLFile(targetSelector, url, callback) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.querySelector(targetSelector).innerHTML = this.responseText;
-            if (typeof callback === 'function') {
-                callback();
-            }
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
+	function loadHTMLFile(targetSelector, url, callback) {
+	    var xhttp = new XMLHttpRequest();
+	    xhttp.onreadystatechange = function() {
+	        if (this.readyState == 4 && this.status == 200) {
+	            document.querySelector(targetSelector).innerHTML = this.responseText;
+	            if (typeof callback === 'function') {
+	                callback();
+	            }
+	        }
+	    };
+	    xhttp.open("GET", url, true);
+	    xhttp.send();
+	}
 
     // 메인콘텐츠
     document.addEventListener('DOMContentLoaded', function () {
@@ -166,14 +208,33 @@ window.addEventListener('load', updateTime);
    				<option value="title"<c:if test="${searchType == 'title'}">selected</c:if>>제 목</option>
    				<option value="content" <c:if test="${searchType == 'content'}">selected</c:if>>내 용</option>
    				<option value="author" <c:if test="${searchType == 'author'}">selected</c:if>>작성자</option>
+   				<option value="process" <c:if test="${searchType == 'process'}">selected</c:if>>공 정</option>
    				<option value="regDate" <c:if test="${searchType == 'regDate'}">selected</c:if>>작성일</option>
 			</select>
 			<input type="text" id="keyword" name="keyword" value="${keyword}" placeholder="검색어 입력" <c:if test="${searchType == 'regDate'}">style="display:'none;'"</c:if>>
+			
+			<!-- 작성일 검색 시 -->
 			<div id="searchDate">
 				<input type="text" id="startDate" name="startDate" value="${startDate}" placeholder="검색 시작 날짜"/> ~ 
 				<input type="text" id="endDate" name="endDate" value="${endDate}" placeholder="검색 종료 날짜"/>
             </div>
+            
+            <!-- 공정 별 검색 시 -->
+           	<select id="selectProcess" name="selectProcess" size="1" >
+           		<option value="" >Select Process</option>
+        		<option value="Fabrication"<c:if test="${selectProcess == 'Fabrication'}">selected</c:if>>Fabrication</option>
+        		<option value="Oxidation"<c:if test="${selectProcess == 'Oxidation'}">selected</c:if>>Oxidation</option>
+        		<option value="Photo"<c:if test="${selectProcess == 'Photo'}">selected</c:if>>Photo</option>
+        		<option value="Etching"<c:if test="${selectProcess == 'Etching'}">selected</c:if>>Etching</option>
+        		<option value="Implant"<c:if test="${selectProcess == 'Implant'}">selected</c:if>>Implant</option>
+        		<option value="Metallization"<c:if test="${selectProcess == 'Metallization'}">selected</c:if>>Metallization</option>
+        		<option value="EDS"<c:if test="${selectProcess == 'EDS'}">selected</c:if>>EDS</option>
+        		<option value="Packaging"<c:if test="${selectProcess == 'Packaging'}">selected</c:if>>Packaging</option>
+        		<option value="etc"<c:if test="${selectProcess == 'etc'}">selected</c:if>>etc</option>
+        	</select>
+            
             <button type="button" id="searchBtn" class="custom-btn btn-1">검색</button>
+            <button type="button" id="searchClearBtn" class="custom-btn btn-1">초기화</button>
         </form>
         <input type="hidden" id="id" value="${member.id}">
 		<c:if test="${totCnt != null}">
@@ -181,7 +242,8 @@ window.addEventListener('load', updateTime);
 		</c:if>
         <table>
             <tr>
-                <th>글번호</th>
+            	<th>글 번호</th>
+            	<th>공정</th>
                 <th>제목</th>
                 <th>작성자</th>
                 <th>작성일자</th>
@@ -191,9 +253,21 @@ window.addEventListener('load', updateTime);
            		<c:if test="${not empty issueList}">
            			<c:forEach items="${issueList}" var="issueList">
            				<tr>
-	                		<td>${issueList.no}</td>
+	                		<c:choose>
+				            	<c:when test="${issueList.noticeYN == 'Y'}">
+				            		<td>[공지]</td>
+				            	</c:when>
+				            	<c:otherwise>
+				            		<td>${issueList.no}</td>
+				            	</c:otherwise>
+		            		</c:choose>
+		            		<td>
+		            			${issueList.process}
+		            		</td>
 	                		<td>
-	                			<a href="/issue/view?no=${issueList.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}">${issueList.title}</a>
+	                			<a href="/issue/view?no=${issueList.no}&page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}&selectProcess=${selectProcess}">
+	                				${issueList.title}
+	                			</a>
 	                		</td>
 	                		<td>${issueList.author}</td>
 	                		<td>${issueList.regDate}</td>
@@ -204,6 +278,7 @@ window.addEventListener('load', updateTime);
                		<input type="hidden" id="perPageNum" value="${cri.perPageNum}" readonly>
                		<input type="hidden" id="searchType" value="${searchType}" readonly>
                		<input type="hidden" id="keyword" value="${keyword}" readonly>
+               		<input type="hidden" id="selectProcess" value="${selectProcess}" readonly>
                	</c:if>
                	<c:if test="${empty issueList}">
                		<tr>

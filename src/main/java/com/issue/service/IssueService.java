@@ -30,14 +30,14 @@ public class IssueService {
 	}
 	
 	// 글 검색
-	public List<IssueVO> search(String searchType, String keyword, String startDate, String endDate, Criteria cri) {
-		List<IssueVO> searchIsList = issueDAO.search(searchType, keyword, startDate, endDate, cri);
+	public List<IssueVO> search(String searchType, String keyword, String startDate, String endDate, String selectProcess, Criteria cri) {
+		List<IssueVO> searchIsList = issueDAO.search(searchType, keyword, startDate, endDate, selectProcess, cri);
 		return searchIsList;
 	}
 	
 	// 키워드와 일치하는 글 갯수
-	public int issueSearchCnt(String searchType, String keyword, String startDate, String endDate) {
-		int cnt = issueDAO.issueSearchCnt(searchType, keyword, startDate, endDate);
+	public int issueSearchCnt(String searchType, String keyword, String startDate, String endDate, String selectProcess) {
+		int cnt = issueDAO.issueSearchCnt(searchType, keyword, startDate, endDate, selectProcess);
 		return cnt;
 	}
 	
@@ -53,13 +53,13 @@ public class IssueService {
 	}
 	
 	// 글 작성
-	public void write(String title, String content, String author) {
-		issueDAO.write(title, content, author);
+	public void write(String process, String noticeYN, String title, String content, String author) {
+		issueDAO.write(process, noticeYN, title, content, author);
 	}
 	
 	// 글 수정
-	public void update(String title, String content, String author, int no) {
-		issueDAO.update(title, content, author, no);
+	public void update(String process, String noticeYN, String title, String content, String author, int no) {
+		issueDAO.update(process, noticeYN, title, content, author, no);
 	}
 	
 	// 글 삭제

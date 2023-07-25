@@ -2,6 +2,8 @@ package com.issue.vo;
 
 public class IssueVO {
 	private int no;
+	private String process;
+	private String noticeYN;
 	private String title;
 	private String content;
 	private String author;
@@ -13,11 +15,14 @@ public class IssueVO {
 	private String keyword;
 	private String startDate;
 	private String endDate;
+	private String selectProcess;
 	
 	public IssueVO() {}
 
-	public IssueVO(int no, String title, String content, String author, String regDate, String modDate, int viewCnt) {
+	public IssueVO(int no, String process, String noticeYN, String title, String content, String author, String regDate, String modDate, int viewCnt) {
 		this.no = no;
+		this.process = process;
+		this.noticeYN = noticeYN;
 		this.title = title;
 		this.content = content;
 		this.author = author;
@@ -26,18 +31,22 @@ public class IssueVO {
 		this.viewCnt = viewCnt;
 	}
 	
-	public IssueVO(int no, String title, String content, String author, String regDate, String modDate, String searchType, String keyword, String startDate, String endDate, int viewCnt) {
+	public IssueVO(int no, String process, String noticeYN, String title, String content, String author, String regDate, String modDate, int viewCnt, String searchType, String keyword
+			, String startDate, String endDate, String selectProcess) {
 		this.no = no;
+		this.process = process;
+		this.noticeYN = noticeYN;
 		this.title = title;
 		this.content = content;
 		this.author = author;
 		this.regDate = regDate;
 		this.modDate = modDate;
+		this.viewCnt = viewCnt;
 		this.searchType = searchType;
 		this.keyword = keyword;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.viewCnt = viewCnt;
+		this.selectProcess = selectProcess;
 	}
 
 	public int getNo() {
@@ -46,6 +55,22 @@ public class IssueVO {
 
 	public void setNo(int no) {
 		this.no = no;
+	}
+
+	public String getProcess() {
+		return process;
+	}
+
+	public void setProcess(String process) {
+		this.process = process;
+	}
+
+	public String getNoticeYN() {
+		return noticeYN;
+	}
+
+	public void setNoticeYN(String noticeYN) {
+		this.noticeYN = noticeYN;
 	}
 
 	public String getTitle() {
@@ -128,13 +153,20 @@ public class IssueVO {
 		this.endDate = endDate;
 	}
 
-	@Override
-	public String toString() {
-		return "IssueVO [no=" + no + ", title=" + title + ", content=" + content + ", author=" + author + ", regDate="
-				+ regDate + ", modDate=" + modDate + ", viewCnt=" + viewCnt + ", searchType=" + searchType
-				+ ", keyword=" + keyword + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+	public String getSelectProcess() {
+		return selectProcess;
 	}
 
-	
+	public void setSelectProcess(String selectProcess) {
+		this.selectProcess = selectProcess;
+	}
+
+	@Override
+	public String toString() {
+		return "IssueVO [no=" + no + ", process=" + process + ", noticeYN=" + noticeYN + ", title=" + title
+				+ ", content=" + content + ", author=" + author + ", regDate=" + regDate + ", modDate=" + modDate
+				+ ", viewCnt=" + viewCnt + ", searchType=" + searchType + ", keyword=" + keyword + ", startDate="
+				+ startDate + ", endDate=" + endDate + ", selectProcess=" + selectProcess + "]";
+	}
 
 }
