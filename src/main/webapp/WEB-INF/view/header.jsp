@@ -87,13 +87,19 @@
                 location.href = "/issue/write";
             });
         });
-        
-    	$(document).ready(function() {
-    		$('#load').hide();
-    	});
     </script>
+    <script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(function (){
+			$('#load').hide();
+		}, 1500)
+	});
+	</script>
 </head>
 <body>
+<div class= "load" id="load">
+	<img src="/resources/img/Ripple-1s-200px (1).gif" alt="loading">
+</div>
 <!-- 헤더 -->
 <div class="header">
     <table class="current-time">
