@@ -64,14 +64,11 @@
             $('input:checkbox[id="notice"]').on('change', function() {
             	
             	var selectNotice = $('input:checkbox[id="notice"]').is(":checked")
-            	var noticeYN = $('#noticeYN').val();
-            	if (selectNotice == true) {
-            		noticeYN = "Y";
+            	if (selectNotice != true) {
+            		$("#noticeYN").val("N");
             	} else {
-            		noticeYN = "N";
+            		$("#noticeYN").val("Y");
             	}
-            	
-            	console.log(noticeYN);
             });
             
             // 글 작성
@@ -79,12 +76,11 @@
                 var title = $("#title").val();
                 var content = $("#content").val();
                 var selectNotice = $('input:checkbox[id="notice"]').is(":checked")
-                var noticeYN = $("#noticeYN").val();
                 
                 if (selectNotice === true) {
-                	noticeYN = "Y";
+                	$("#noticeYN").val("Y");
                 } else {
-                	noticeYN = "N";
+                	$("#noticeYN").val("N");
                 }
                 
                 if (title.trim() === '') {
@@ -100,7 +96,7 @@
                 }
                 
                 alert("글 작성 완료.");
-                console.log(noticeYN);
+                console.log($("#noticeYN").val());
                 $("#writeForm").submit();
             });
         });
