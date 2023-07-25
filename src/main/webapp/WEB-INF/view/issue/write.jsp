@@ -73,9 +73,15 @@
             
             // 글 작성
             $("#submitBtn").on('click', function() {
+            	var process = $("#process").val();
                 var title = $("#title").val();
                 var content = $("#content").val();
                 var selectNotice = $('input:checkbox[id="notice"]').is(":checked")
+                
+                if (process === '') {
+                	alert('관련 공정을 입력해 주세요.');
+                	return false;
+                }
                 
                 if (selectNotice === true) {
                 	$("#noticeYN").val("Y");
@@ -172,6 +178,7 @@
         
         <form id="writeForm" action="/issue/writeSubmit" method="post" enctype="multipart/form-data">
         	<select id="process" name="process" size="1" >
+        		<option value="" >Select Process</option>
         		<option value="Fabrication">Fabrication</option>
         		<option value="Oxidation">Oxidation</option>
         		<option value="Photo">Photo</option>
