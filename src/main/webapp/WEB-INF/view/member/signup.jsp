@@ -9,6 +9,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+	$("#loginBtn").on('click', function() {
+        location.href="/member/login";
+    });
+
     $("#mainBtn").on('click', function() {
         location.href="/main";
     });
