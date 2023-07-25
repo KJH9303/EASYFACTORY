@@ -537,7 +537,7 @@
 	                $('#previousDefects').prepend('<li>' + result + '</li>');
 	            },
 	            complete: function() {
-	                setTimeout(updateRandomDefect, 1000);
+	                setTimeout(updateRandomDefect, 2000);
 	            }
 	        });
 	    }
