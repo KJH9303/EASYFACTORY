@@ -18,8 +18,13 @@
     	
     	// 페이지 진입 시
 		if (id == '' || id == null) {
-			alert("로그인 후 이용해 주세요.");
-			location.href="/member/login";
+			var result = confirm("로그인 하세요.");
+            if (result) {
+                location.href = "/member/login";
+            } else {
+                alert("취소하였습니다.");
+                location.href = "/main";
+            }
 		}
     	
     	var searchType = $("#searchType").val();
