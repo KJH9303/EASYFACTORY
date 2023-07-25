@@ -179,7 +179,7 @@
           <div class="relative p-4 h-72 table-container-scroll overflow-auto">
             <table class="dashboard-table">
               <tr class="dashboard-tr"> 
-                <td id="previousDefects" class="dashboard-td defect-font-size""></td>
+                <td id="previousDefects" class="dashboard-td defect-font-size"></td>
               </tr>
             </table>
           </div>
@@ -327,7 +327,7 @@
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
-	            alert(`에러 발생:(/feb/feb1) ${errorThrown}`);
+	        	console.log(`에러 발생:(/feb/feb1) ${errorThrown}`);
 	        }
 	    });
 	}
@@ -394,7 +394,7 @@
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생:(/feb/select-data-feb5) ${errorThrown}`);
+				console.log(`에러 발생:(/feb/select-data-feb5) ${errorThrown}`);
 			}
 		});
 		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침

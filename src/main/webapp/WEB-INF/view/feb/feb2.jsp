@@ -179,7 +179,7 @@
           <div class="relative p-4 h-72 table-container-scroll overflow-auto">
             <table class="dashboard-table">
               <tr class="dashboard-tr">
-                <td id="previousDefects" class="dashboard-td defect-font-size""></td>
+                <td id="previousDefects" class="dashboard-td defect-font-size"></td>
               </tr>
             </table>
           </div>
@@ -327,7 +327,7 @@
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
-	            alert(`에러 발생:(/feb/feb1) ${errorThrown}`);
+	        	console.log(`에러 발생:(/feb/feb1) ${errorThrown}`);
 	        }
 	    });
 	}
@@ -394,7 +394,7 @@
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생:(/feb/select-data-feb2) ${errorThrown}`);
+				console.log(`에러 발생:(/feb/select-data-feb2) ${errorThrown}`);
 			}
 		});
 		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침
@@ -407,6 +407,9 @@
 		    tr: 0,
 		    fal: 0,
 		    opratio: 0,
+		    usingratio: 0,
+		    temp: 0,
+		    hiredate: 0,
 		  };
 
 		  let rowCount = 0;
@@ -418,6 +421,9 @@
 		      const tr = parseInt(data.tr);
 		      const fal = parseInt(data.fal);
 		      const opratio = parseFloat(data.opratio);
+		      const usingratio = parseFloat(data.usingratio);
+		      const temp = parseFloat(data.temp);
+		      const hiredate = parseFloat(data.hiredate);
 
 		      total.stock = stock;
 		      total.tr = tr;
