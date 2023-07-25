@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-<link rel="stylesheet" href="../../../resources/member/css/login.css">
+<link rel="stylesheet" href="../../../resources/member/css/login.css?after">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <script>
 	$(document).ready(function() {
 		// 메인 페이지
@@ -67,7 +69,7 @@
 			        		},
 			        success: function (result) {
 			            if (result === "exist") {
-			                alert("로그인 성공")
+			               	alert("로그인 성공")
 			                $("#loginForm").submit();
 			            } else {
 			                $("#message").text("아이디 또는 비밀번호가 틀립니다.");
