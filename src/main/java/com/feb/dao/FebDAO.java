@@ -23,9 +23,6 @@ public class FebDAO {
     public Object updateTable;
 	private JdbcTemplate jdbcTemplate;
 	
-	@Autowired
-	FebIndexDAO febIndexDAO;
-
     public FebDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }

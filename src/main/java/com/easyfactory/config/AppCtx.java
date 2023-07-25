@@ -12,7 +12,6 @@ import com.energy.dao.StockDAO;
 import com.energy.service.EnergyService;
 import com.energy.service.StockService;
 import com.feb.dao.FebDAO;
-import com.feb.dao.FebIndexDAO;
 import com.feb.service.FebService;
 import com.issue.dao.EzFileDAO;
 import com.issue.dao.IssueDAO;
@@ -68,11 +67,6 @@ public class AppCtx {
 	@Bean
 	public FebDAO febDAO() {
 		return new FebDAO(dataSource());
-	}
-	
-	@Bean 
-	FebIndexDAO febIndexDAO() {
-		return new FebIndexDAO(dataSource());
 	}
 	
 	@Bean
