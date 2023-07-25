@@ -87,6 +87,10 @@
                 location.href = "/issue/write";
             });
         });
+        
+    	$(document).ready(function() {
+    		$('#load').hide();
+    	});
     </script>
 </head>
 <body>

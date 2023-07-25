@@ -55,8 +55,16 @@
 	  
 	  window.addEventListener('load', updateTime);
   </script>
+  <script>
+	$(document).ready(function() {
+		$('#load').hide();
+	});
+  </script>
 </head>
 <body>
+<div class= "load" id="load">
+	<img src="/resources/img/Pulse-1s-200px.gif" alt="loading">
+</div>
 <div id="headerContainer"></div>
 <div class="flex-1 h-full">
   
