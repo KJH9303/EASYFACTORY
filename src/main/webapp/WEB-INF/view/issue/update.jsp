@@ -13,6 +13,7 @@
 	$(document).ready(function() {
 		var author = $("#author").val();
 		var id = $("#id").val();
+		
 		if (id == '' || id == null) {
 			alert("로그인 후 이용해 주세요.");
 			location.href="/member/login";
@@ -63,9 +64,22 @@
         });
 		
 		$("#submitBtn").on('click', function() {
+			var process = $("#process").val();
 			var title = $("#title").val();
 			var content = $("#content").val();
+			var selectNotice = $('input:checkbox[id="notice"]').is(":checked")
 			
+			if (process === '') {
+            	alert('관련 공정을 입력해 주세요.');
+            	return false;
+            }
+            
+            if (selectNotice === true) {
+            	$("#noticeYN").val("Y");
+            } else if (selectNotice === false) {
+            	$("#noticeYN").val("N");
+            }
+            
 			if( title == '' || title == null) {
 			    alert( '제목를 입력해 주세요' );
 			    $("#title").focus();
@@ -98,6 +112,25 @@
         
         <form id="updateForm" action="/issue/updateSubmit" method="post" enctype="multipart/form-data">
         	<input type="hidden" id="no" name="no" value="${issue.no}" readonly>
+            <select id="process" name="process" size="1">
+        		<option value="" >Select Process</option>
+        		<option value="Fabrication"<c:if test="${issue.process == 'Fabrication'}">selected</c:if>>Fabrication</option>
+        		<option value="Oxidation"<c:if test="${issue.process == 'Oxidation'}">selected</c:if>>Oxidation</option>
+        		<option value="Photo"<c:if test="${issue.process == 'Photo'}">selected</c:if>>Photo</option>
+        		<option value="Etching"<c:if test="${issue.process == 'Etching'}">selected</c:if>>Etching</option>
+        		<option value="Implant"<c:if test="${issue.process == 'Implant'}">selected</c:if>>Implant</option>
+        		<option value="Metallization"<c:if test="${issue.process == 'Metallization'}">selected</c:if>>Metallization</option>
+        		<option value="EDS"<c:if test="${issue.process == 'EDS'}">selected</c:if>>EDS</option>
+        		<option value="Packaging"<c:if test="${issue.process == 'Packaging'}">selected</c:if>>Packaging</option>
+        		<option value="etc"<c:if test="${issue.process == 'etc'}">selected</c:if>>etc</option>
+        	</select>
+        	
+        	<c:if test="${member.id == 'ADMIN'}">
+            	<span>공지사항</span>
+            	<input type="checkbox" id="notice" <c:if test="${issue.noticeYN == 'Y'}">checked</c:if>>
+            </c:if>
+            <input type="hidden" id="noticeYN" name="noticeYN" value="${issue.noticeYN}"><br>
+            
             <label for="title">제목:</label><br>
             <input type="text" id="title" name="title" value="${issue.title}"><br><br>
             

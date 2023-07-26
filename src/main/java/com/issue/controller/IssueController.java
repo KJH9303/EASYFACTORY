@@ -443,7 +443,9 @@ public class IssueController {
     @RequestMapping(value="/updateReply", method=RequestMethod.POST)
     @ResponseBody
     public void updateReply(HttpServletRequest request) {
-    	int reno = Integer.parseInt(request.getParameter("reno"));
+    	String strReNo = request.getParameter("reno");
+    	int reno = (strReNo != null && strReNo.isEmpty() != true) ? Integer.parseInt(strReNo) : 0;
+    	
     	String content = request.getParameter("content");
     	replyIssueService.updateReply(reno, content);
     }
@@ -453,7 +455,8 @@ public class IssueController {
     @RequestMapping(value="/deleteReply", method=RequestMethod.POST)
     @ResponseBody
     public void deleteReply(HttpServletRequest request) throws Exception {
-    	int reno = Integer.parseInt(request.getParameter("reno"));
+    	String strReNo = request.getParameter("reno");
+    	int reno = (strReNo != null && strReNo.isEmpty() != true) ? Integer.parseInt(strReNo) : 0;
         
     	replyIssueService.deleteReply(reno);
     }

@@ -57,7 +57,8 @@ public class ReplyIssueDAO {
 				+ "	  FROM"
 				+ "			ISSUE_RE"
 				+ "	  WHERE"
-				+ "			NO = ?";
+				+ "			NO = ?"
+				+ "	  ORDER BY ReNO DESC";
 		
 		List<ReplyIssueVO> replyList = jdbcTemplate.query(SQL, new Object[]{no}, new issueReMapper());
 		return replyList;

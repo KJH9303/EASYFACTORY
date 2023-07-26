@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="../header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="../header.jsp"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,12 +138,15 @@
         $(document).on('click', "button[name='reply_button_edit']", function() {
             if (isProcessing) {
                 // 중복 클릭 방지: 이미 처리 중인 경우 무시
+                console.log(isProcessing);
                 return;
             }
 
-            var replyDiv = $(this).closest("div");
+            var replyDiv = $(this).closest(".replyListArea");
             var reContent = replyDiv.find("textarea[name='reply_content']");
             var reno = replyDiv.find("input[name='reno']").val();
+            console.log(replyDiv.val());
+            console.log(reno);
             var prevContent = reContent.val();
             var updateBtn = replyDiv.find("button[name='reply_button_update']");
             var cancelBtn = replyDiv.find("button[name='reply_button_cancel']");
@@ -164,7 +168,7 @@
                 return;
             }
 
-            var replyDiv = $(this).closest("div");
+            var replyDiv = $(this).closest(".replyListArea");
             var reContent = replyDiv.find("textarea[name='reply_content']");
             var reno = replyDiv.find("input[name='reno']").val();
             var content = reContent.val();
@@ -196,7 +200,7 @@
 
         // 댓글 수정 취소 버튼 클릭 시
         $(document).on('click', "button[name='reply_button_cancel']", function() {
-            var replyDiv = $(this).closest("div");
+            var replyDiv = $(this).closest(".replyListArea");
             var reContent = replyDiv.find("textarea[name='reply_content']");
             var prevContent = replyDiv.data("prev-content");
 
@@ -214,7 +218,7 @@
                 return;
             }
 
-            var replyDiv = $(this).closest("div");
+            var replyDiv = $(this).closest(".replyListArea");
             var reno = replyDiv.find("input[name='reno']").val();
             var answer = confirm("등록된 댓글을 삭제합니다.");
 
@@ -320,66 +324,72 @@ window.addEventListener('load', updateTime);
 	<input type="hidden" id="keyword" value="${keyword}" readonly>
 	<input type="hidden" id="startDate" value="${startDate}" readonly>
 	<input type="hidden" id="endDate" value="${endDate}" readonly>
+
+	<!-- 게시물 영역 -->
+	<div class="container">
 	
-    <!-- 게시물 영역 -->
-    <div class="container">
-        <!-- <h1>글 보기</h1> -->
-       	<input type="hidden" id="no" name="no" value="${issue.no}" readonly><br>
-       	<input type="hidden" id="id" name="id" value="${member.id}" readonly><br>
-           <!-- <label for="title">제목:</label> -->
-           <hr>
-	           <%-- <input type="text" id="title" name="title" class="border-none fs-40" value="${issue.title}" readonly> --%>
-	           <h1 id="title" class="fs-40">${issue.title}</h1>
-	           <div class="left">
-		           <label for="author" class="mr-5 fs-20"><b>작성자</b></label>
-		           <%-- <input type="text" id="author" name="author" class="border-none w-70" value="${issue.author}" readonly> --%>
-		           <span id="author" class="mr-15 fs-20">${issue.author}</span>
-		           <label for="regDate" class="mr-5 fs-20"><b>작성일</b></label>
-		           <%-- <input type="text" id="regDate" name="regDate" class="border-none w-180" value="${issue.regDate}" readonly> --%>
-		           <span id="regDate" class="mr-15 fs-20">${issue.regDate}</span>
-		           <c:if test="${issue.modDate != null}">
-		           		<label for="modDate" class="mr-5 fs-20"><b>수정일</b></label>
-		           		<%-- <input type="text" id="modDate" name="modDate" class="border-none w-180" value="${issue.modDate}" readonly> --%>
-		           		<span id="modDate" class="mr-15 fs-20">${issue.modDate}</span>
-		           </c:if>
-		           <label for="viewCnt" class="mr-5 fs-20"><b>조회수</b></label>
-		           <%-- <input type="text" id="viewCnt" name="viewCnt" class="border-none w-30" value="${issue.viewCnt}" readonly> --%>
-		           <span id="viewCnt" class="mr-15 fs-20">${issue.viewCnt}</span>
-	           </div>
-           <hr>
-           
-	    <!-- 파일 목록 ajax -->
-		<div id="fileList" class="right"></div>
-		<!-- Z글내용 -->
-        <%-- <textarea id="content" name="conxtent" class="ta2" readonly>${issue.content}</textarea><br><br> --%>
-        <h2 class="m-b40">${issue.content}</h2>
-        <div class="right" style="gap: 5px;">   
-	        <c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
-	           	<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
-	           	<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
-	           	<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
-	      	</c:if>
-      	</div>
-        <hr>
-	
-	<!-- 댓글 목록 ajax -->
-		<div id="replyList"></div>
+		<input type="hidden" id="no" name="no" value="${issue.no}" readonly><br>
+		<input type="hidden" id="id" name="id" value="${member.id}" readonly><br>
+
+		<hr>
 		
+		<h1 id="title" class="fs-40">
+			<c:if test = "${issue.noticeYN eq 'Y'}">[공지]</c:if> ${issue.title}
+		</h1>
+
+		<div class="left">
+			<label for="process" class="mr-5 fs-20"><b>공정</b></label>
+			<span id="process" class="mr-15 fs-20">${issue.process}</span>
+			
+			<label for="author" class="mr-5 fs-20"><b>작성자</b></label>
+			<span id="author" class="mr-15 fs-20">${issue.author}</span>
+			
+			<label for="regDate" class="mr-5 fs-20"><b>작성일</b></label>
+			<span id="regDate" class="mr-15 fs-20">${issue.regDate}</span>
+
+			<c:if test="${issue.modDate != null}">
+				<label for="modDate" class="mr-5 fs-20"><b>수정일</b></label>
+				<span id="modDate" class="mr-15 fs-20">${issue.modDate}</span>
+			</c:if>
+
+			<label for="viewCnt" class="mr-5 fs-20"><b>조회수</b></label>
+			<span id="viewCnt" class="mr-15 fs-20">${issue.viewCnt}</span>
+		</div>
+		<hr>
+
+		<!-- 파일 목록 ajax -->
+		<div id="fileList" class="right"></div>
+		
+		<h2 class="m-b40">${issue.content}</h2>
+		<div class="right" style="gap: 5px;">
+			<c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
+				<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
+				<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
+				<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
+			</c:if>
+		</div>
+		<hr>
+
+		<!-- 댓글 목록 ajax -->
+		<div id="replyList"></div>
+
 		<!-- 댓글 입력 영역 -->
 		<div id="replyContainer">
-	    <h2>댓글 입력</h2>
-	    <form id="replyForm">
-	        <%-- <input type="text" id="reply_author" name="author" class="border-none w-70" value="${member.id}" readonly> --%>
-	        <%-- <span id="author" class="mr-15 fs-20 m-b10">${issue.author}</span> --%>
-	        <textarea class="reply-content ta3 m-b20" id="reply_content" name="content"></textarea>
-	        <div class="right">
-	        	<button type="button" id="replyWriteBtn" class="custom-btn btn-1 m-b20">댓글 작성</button>
-	        </div>
-	    </form>
-	    <hr>
-		    <div class="right">
-		    	<button type="button" name="toListBtn" class="custom-btn btn-1 m-b40">글 목록</button>
-		    </div>
+			<h2>댓글 입력</h2>
+			<form id="replyForm">
+				<input type="hidden" id="reply_author" name="author" class="border-none w-70" value="${member.id}" readonly>
+				<span class="mr-15 fs-20 m-b10">${member.id}</span>
+				
+				<textarea class="reply-content ta3 m-b20" id="reply_content" name="content"></textarea>
+				
+				<div class="right">
+					<button type="button" id="replyWriteBtn" class="custom-btn btn-1 m-b20">댓글 작성</button>
+				</div>
+			</form>
+			<hr>
+			<div class="right">
+				<button type="button" name="toListBtn" class="custom-btn btn-1 m-b40">글 목록</button>
+			</div>
 		</div>
 	</div>
 </body>
