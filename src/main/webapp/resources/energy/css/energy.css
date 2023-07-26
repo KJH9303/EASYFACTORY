@@ -428,7 +428,15 @@ canvas {
   background: #6278FF;
 }
 
-img {
+#energyCostIcon1,
+#energyCostIcon2,
+#energyCostIcon3,
+#energyCostIcon4,
+#energyCostIcon5,
+#energyCostIcon6,
+#energyCostIcon7,
+#energyCostIcon8,
+#energyCostIcon9 {
 	height:30px;
 	width:30px;
 }

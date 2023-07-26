@@ -15,29 +15,35 @@
 </head>
 <body>
 		<c:if test="${empty  replyList}">
-			<div class="tac">등록된 댓글이 없습니다.</div>
+			<div class="tac fs-20">등록된 댓글이 없습니다.</div>
 		</c:if>
 		<c:if test="${not empty replyList}">
-			<div>등록된 댓글 : ${replyCnt}</div>
+			<div class="fs-20">등록된 댓글 : ${replyCnt}</div>
 			<br />
 			<c:forEach items="${replyList}" var="replyList">
 				<div>
-					<input type="text" name="reply_author" class="border-none" value="${replyList.author}"
-						readonly> <input type="hidden" name="reno"
+					<%-- <input type="text" name="reply_author" class="border-none w-70" value="${replyList.author}"
+						readonly> --%>
+						<span class="mr-15 fs-20 m-b10">${replyList.author}</span>
+						<input type="hidden" name="reno"
 						value="${replyList.reno}" readonly>
 					<textarea name="reply_content" class="ta2" readonly>${replyList.content}</textarea>
+					<div>
 					<c:if test="${member.id == replyList.author || member.id eq 'ADMIN'}">
 						<button type="button" name="reply_button_edit" class="custom-btn1 btn-1">수정</button>
 						<button type="button" name="reply_button_delete" class="custom-btn1 btn-1">삭제</button>
 						<button type="button" name="reply_button_update" style="display: none;" class="custom-btn1 btn-1">수정 완료</button>
 						<button type="button" name="reply_button_cancel" style="display: none;" class="custom-btn1 btn-1">수정 취소</button>
 					</c:if>
-					<br />
-						<span>작성일 : </span>
-						<input type="text" name="regDate" class="border-none" value="${replyList.regDate}" readonly>
+					</div>
+
+						<span class="mr-5 fs-20">작성일 : </span>
+						<%-- <input type="text" name="regDate" class="border-none w-180" value="${replyList.regDate}" readonly> --%>
+						<span class="mr-15 fs-20">${replyList.regDate}</span>
 					<c:if test="${replyList.modDate != null}">
-						<span>수정일 : </span>
-						<input type="text" name="modDate" class="border-none" value="${replyList.modDate}" readonly>
+						<span class="mr-5 fs-20">수정일 : </span>
+						<%-- <input type="text" name="modDate" class="border-none w-180" value="${replyList.modDate}" readonly> --%>
+						<span class="mr-15 fs-20">${replyList.modDate}</span>
 					</c:if>
 					<br />
 					<br />

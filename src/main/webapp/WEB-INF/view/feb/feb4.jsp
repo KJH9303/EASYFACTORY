@@ -8,11 +8,13 @@
   <title>4공정: 식각(Etch)공정</title>
   <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">
   <link rel="stylesheet" href="../../../resources/feb/css/feb.css">
-  <script src="../../../resources/feb/js/feb.js"></script>
+  <script src="../../../resources/feb/js/chartOption.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+  <script src="../../../resources/feb/js/download.js"></script>
   <script>
 	  // 현재 날짜, 현재 시간 
 	  // yyyy/mm/dd 
@@ -64,9 +66,12 @@
   <main>
     
     <!-- Content header -->
-    <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
-      <h1>Eaching</h1>
-    </div>
+	<div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
+	    <h1>Eaching</h1>
+	    <button class="bg-white" onclick="showConfirmationAndDownload(dataList)">
+	        <img src="/resources/img/filedown.png" id="downloadBtnFeb4" class="down">
+	    </button>
+	</div>    
     
     <!-- Content -->
     <div class="mt-2">
@@ -179,7 +184,7 @@
           <div class="relative p-4 h-72 table-container-scroll overflow-auto">
             <table class="dashboard-table">
               <tr class="dashboard-tr">
-                <td id="previousDefects" class="dashboard-td defect-font-size""></td>
+                <td id="previousDefects" class="dashboard-td defect-font-size"></td>
               </tr>
             </table>
           </div>
@@ -327,7 +332,7 @@
 	            }
 	        },
 	        error: function(jqXHR, textStatus, errorThrown) {
-	            alert(`에러 발생:(/feb/feb1) ${errorThrown}`);
+	        	console.log(`에러 발생:(/feb/feb1) ${errorThrown}`);
 	        }
 	    });
 	}
@@ -394,7 +399,7 @@
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-				alert(`에러 발생:(/feb/select-data-feb4) ${errorThrown}`);
+				console.log(`에러 발생:(/feb/select-data-feb4) ${errorThrown}`);
 			}
 		});
 		setTimeout(fetchData, 3000); // 3초마다 데이터 새로 고침

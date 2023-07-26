@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="../../../resources/stock/css/stock.css" />
+  <link rel="stylesheet" href="../../../resources/stock/css/stock.css?after" />
   <script src="../../../resources/stock/js/stock.js?after" ></script>
   <script>
 	  // 현재 날짜, 현재 시간 

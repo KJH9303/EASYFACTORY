@@ -15,6 +15,10 @@ public class FebService {
 	public JSONArray selectDataHiredate(String tableName, String startDate, String endDate) {
         return febDAO.selectDataHiredate(tableName, startDate, endDate);
     }
+	
+	public JSONArray downloadData(String tableName) {
+        return febDAO.downloadData(tableName);
+    }
         
     public String getRandomDefect() throws Exception {
 		String result = febDAO.getRandomDefect();

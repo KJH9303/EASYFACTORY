@@ -9,6 +9,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+
     $("#mainBtn").on('click', function() {
         location.href="/main";
     });
@@ -224,8 +225,6 @@ $(document).ready(function() {
 							<input type="password" id="repw" name="repw" placeholder="Retype-Password">
 						</div>
 						<div id="pwCheckMsg"></div>
-                        <!-- 로그인 버튼 -->
-						<button type="button" id="loginBtn" style="color: white; text-decoration-line: none;">Login</button>
                         <!-- 회원가입 버튼 -->
 						<button type="button" id="signupBtn" style="color: white; text-decoration-line: none;">Sign Up</button>
                         <!-- 메인페이지 이동 -->

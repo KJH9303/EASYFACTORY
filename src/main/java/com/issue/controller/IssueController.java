@@ -121,10 +121,12 @@ public class IssueController {
     public void viewContent(@ModelAttribute("cri") Criteria cri, HttpServletRequest request, Model model) throws Exception {
     	String strNo = request.getParameter("no");
     	int no = (strNo != null && strNo.isEmpty() != true) ? Integer.parseInt(strNo) : 0;
-    	IssueVO issueVO = issueService.viewContent(no);
     	
     	// 조회 수 증가
     	issueService.viewCntUp(no);
+    	
+    	// 내용 보기
+    	IssueVO issueVO = issueService.viewContent(no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");

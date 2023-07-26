@@ -89,5 +89,4 @@ public class FebVO {
 	   public void setHiredate(Date hiredate) {
 	      this.hiredate = hiredate;
 	   }
-
 	}

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="../../../resources/issue/css/list.css">
+    <link rel="stylesheet" href="../../../resources/issue/css/list.css?after">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -18,8 +18,13 @@
     	
     	// 페이지 진입 시
 		if (id == '' || id == null) {
-			alert("로그인 후 이용해 주세요.");
-			location.href="/member/login";
+			var result = confirm("로그인 하세요.");
+            if (result) {
+                location.href = "/member/login";
+            } else {
+                alert("취소하였습니다.");
+                location.href = "/main";
+            }
 		}
     	
     	var searchType = $("#searchType").val();
@@ -291,7 +296,9 @@ window.addEventListener('load', updateTime);
         <!-- <div id="paginationInfo"> -->
         	<%@ include file="paginationInfo.jsp" %>
        	<!-- <div id="paginationInfo"> -->
-       	<button type="button" id="writeBtn" class="custom-btn btn-1">새 글 작성</button>  
+       	<div class="right">
+       		<button type="button" id="writeBtn" class="custom-btn btn-1">새 글 작성</button>
+       	</div>  
         <hr>
     </div>
 </body>

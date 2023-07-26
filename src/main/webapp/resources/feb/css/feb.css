@@ -176,6 +176,12 @@ canvas {
   justify-content: space-between;
 }
 
+.flex-start {
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -522,4 +528,53 @@ canvas {
 
 .white {
 	color: white;
+}
+
+/* 다운로드 btn */
+.download {
+  /*width: 55px;*/
+  height: 30px;
+  color: #fff;
+  border-radius: 5px;
+  /* padding: 10px 25px; */
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 2px 2px 2px 0px rgba(255,255,255,.5),
+  7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+/* 1 */
+.down-1 {
+  background: #4B60EB;
+  border: none;
+}
+.down-1:hover {
+  background: #6278FF;
+}
+
+.border {
+	border: solid 1px rgba(0, 0, 0, 0.116);
+}
+
+.white {
+	color: white;
+}
+
+.w-120 {
+	width: 120px;
+}
+
+.bg-white {
+	background: white;
+}
+
+.down {
+	margin-top: 8px;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
 }

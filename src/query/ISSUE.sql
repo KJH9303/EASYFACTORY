@@ -16,6 +16,10 @@ CREATE TABLE ISSUE (
       , PRIMARY KEY(NO)
 );
 
+select * from issue;
+select * from ez_file;
+
+
 ----------------------------------------
 ---- 이슈 게시글 번호 SEQUENCE ---------
 ----------------------------------------
@@ -34,6 +38,8 @@ CREATE SEQUENCE ISSUE_SEQ
 ----------------------------------------
 INSERT INTO ISSUE (
     NO
+    , PROCESS
+    , NOTICEYN
     , TITLE
     , CONTENT
     , AUTHOR
@@ -41,9 +47,11 @@ INSERT INTO ISSUE (
 )
 VALUES (
     ISSUE_SEQ.NEXTVAL
+    , 'Fabrication'
+    , 'N'
     ,'테스트 제목입니다.'
     ,'테스트 내용'
-    , (SELECT ID FROM MEMBER WHERE UPPER(ID) = UPPER('internalTest') AND PW = 'testpw1')
+    , (SELECT ID FROM MEMBER WHERE UPPER(ID) = UPPER('TEST') AND PW = 'test')
     , to_char(sysdate,'yyyy-mm-dd')
 );
 
@@ -54,17 +62,20 @@ SELECT
     ROWNUM as rnum
     , b.*
 FROM (
-        SELECT
-            NO
-            , TITLE
-            , CONTENT
-            , AUTHOR
-            , TO_DATE(TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as REGDATE
-            , TO_DATE(TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as MODDATE
-        FROM ISSUE
-        ORDER BY NO DESC) b
-WHERE
-    ROWNUM BETWEEN 1 AND 10;
+    SELECT
+        NO
+        , PROCESS
+        , NOTICEYN
+        , TITLE
+        , CONTENT
+        , AUTHOR
+        , TO_DATE(TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as REGDATE
+        , TO_DATE(TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as MODDATE
+    FROM ISSUE
+    ORDER BY NOTICEYN DESC
+    , NO DESC
+) b
+WHERE ROWNUM BETWEEN 1 AND 10;
     
 ----------------------------------------
 ---- 작성일 범위로 게시물 COUNT --------
@@ -98,24 +109,4 @@ ORDER BY
     b.no DESC;
 
 
-SELECT
-	ROWNUM as rno
-	, b.*
-FROM (
-	SELECT
-		NO
-        , PROCESS
-        , NOTICEYN
-		, TITLE
-		, CONTENT
-		, AUTHOR
-		, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as REGDATE
-		, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as MODDATE
-	FROM ISSUE
-		ORDER BY NO DESC) b
-    WHERE
-		ROWNUM BETWEEN 1 AND 10
-		AND regdate BETWEEN '2023-07-01'|| ' 00:00:00' AND '2023-07-25' || ' 23:59:59';
-
-COMMIT;
 
