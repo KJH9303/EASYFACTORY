@@ -67,11 +67,12 @@
   <main>
     
     <!-- Content header -->
-    <div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
-      <h1>Wafer Fabrication</h1> 
-      <!-- <button id="downloadBtnFeb2" class="download down-1 w-120">데이터 다운로드</button> -->
-      <button class="bg-white"><img src="/resources/img/filedown.png" id="downloadBtnFeb2" class="down"></button>
-    </div>
+	<div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
+	    <h1>Wafer Fabrication</h1>
+	    <button class="bg-white" onclick="showConfirmationAndDownload(dataList)">
+	        <img src="/resources/img/filedown.png" id="downloadBtnFeb1" class="down">(파일 다운로드)
+	    </button>
+	</div>    
     
     <!-- Content -->
     <div class="mt-2">
