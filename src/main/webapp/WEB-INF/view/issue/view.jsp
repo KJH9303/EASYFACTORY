@@ -324,7 +324,7 @@ window.addEventListener('load', updateTime);
 	<input type="hidden" id="keyword" value="${keyword}" readonly>
 	<input type="hidden" id="startDate" value="${startDate}" readonly>
 	<input type="hidden" id="endDate" value="${endDate}" readonly>
-
+ 
 	<!-- 게시물 영역 -->
 	<div class="container">
 	
