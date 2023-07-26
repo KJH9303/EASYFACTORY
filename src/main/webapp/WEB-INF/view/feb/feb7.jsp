@@ -69,7 +69,7 @@
 	<div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
 	    <h1>EDS</h1>
 	    <button class="bg-white" onclick="showConfirmationAndDownload(dataList)">
-	        <img src="/resources/img/filedown.png" id="downloadBtnFeb7" class="down">
+	        <img src="/resources/img/filedown.png" id="downloadBtnFeb7" class="down">(파일 다운로드)
 	    </button>
 	</div>
 	    
