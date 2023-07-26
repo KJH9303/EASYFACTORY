@@ -89,8 +89,6 @@ public class IssueController {
     	String endDate = request.getParameter("endDate") == null ? "" : request.getParameter("endDate");
     	String selectProcess = request.getParameter("selectProcess") == null ? "" : request.getParameter("selectProcess");
     	
-    	System.out.println("ssssssssssssssssssssssssss" + selectProcess);
-    	
     	String page = request.getParameter("page") == null ? "" : request.getParameter("page").toString();
     	String perPageNum = request.getParameter("perPageNum") == null ? "" : request.getParameter("perPageNum").toString();
     	
