@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View</title>
-<link rel="stylesheet" href="../../../resources/issue/css/view.css">
+<link rel="stylesheet" href="../../../resources/issue/css/view.css?after">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {

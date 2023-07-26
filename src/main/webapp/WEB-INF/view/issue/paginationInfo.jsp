@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<link rel="stylesheet" href="../../../resources/issue/css/list.css">
 <div id="pagination">
 	<div>
 		<ul>
@@ -11,7 +12,7 @@
 
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 				<li style="display: inline;">
-					<a href="${pageMaker.makeQuery(idx)}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}&selectProcess=${selectProcess}">${idx}</a>
+					<a href="${pageMaker.makeQuery(idx)}&searchType=${searchType}&keyword=${keyword}&startDate=${startDate}&endDate=${endDate}&selectProcess=${selectProcess}" class="paging-btn btn-1">${idx}</a>
 				</li>
 			</c:forEach>
 
