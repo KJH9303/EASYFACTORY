@@ -22,6 +22,16 @@ public class MemberDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
+	// ID 중복체크
+	public boolean loginCheck(String id, String pw) {
+		Integer count = jdbcTemplate.queryForObject (
+				"  SELECT COUNT(*)"
+				+ " 	FROM MEMBER "
+				+ "WHERE UPPER(ID) = UPPER(?) AND PW = ?"
+				, new Object[] {id, pw}, Integer.class);
+		return (count == 1) ? true : false;
+	}
+		
 	// 회원가입
 	public void signUp(MemberVO memberVO) {
 		String SQL = "INSERT INTO MEMBER ("
@@ -44,16 +54,6 @@ public class MemberDAO {
 				, memberVO.getEmail()
 				, memberVO.getPw()
 				, memberVO.getRepw());
-	}
-	
-	// ID 중복체크
-	public boolean loginCheck(String id, String pw) {
-		Integer count = jdbcTemplate.queryForObject (
-				"  SELECT COUNT(*)"
-				+ " 	FROM MEMBER "
-				+ "WHERE UPPER(ID) = UPPER(?) AND PW = ?"
-				, new Object[] {id, pw}, Integer.class);
-		return (count == 1) ? true : false;
 	}
 	
 	// id, 비밀번호 체크 Ajax
