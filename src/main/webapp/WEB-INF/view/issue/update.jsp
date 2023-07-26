@@ -132,10 +132,10 @@
             <input type="hidden" id="noticeYN" name="noticeYN" value="${issue.noticeYN}"><br>
             
             <label for="title">제목:</label><br>
-            <input type="text" id="title" name="title" value="${issue.title}"><br><br>
+            <input type="text" id="title" name="title" class="ta2 m-b10" value="${issue.title}">
             
             <label for="author">작성자:</label><br>
-            <input type="text" id="author" name="author" value="${issue.author}" readonly><br><br>
+            <input type="text" id="author" name="author" class="ta2 m-b10" value="${issue.author}" readonly><br><br>
             <input type="hidden" id="id" name="id" value="${member.id}" readonly>
             
             <input type="file" id="file-input" name="originalname" multiple />
@@ -145,11 +145,11 @@
 			</div>
 			
             <label for="content">내용:</label><br>
-            <textarea id="content" name="content" rows="10" cols="50">${issue.content}</textarea><br><br>
-            
-            <input type="button" id="cancelBtn" value="취소">
-            <input type="button" id="submitBtn" value="수정 완료">
-            
+            <textarea id="content" name="content" class="ta">${issue.content}</textarea><br><br>
+            <div class="right" style="gap: 10px;">
+	            <input type="button" id="cancelBtn" class="custom-btn btn-1 m-b20" value="취소">
+	            <input type="button" id="submitBtn" class="custom-btn btn-1 m-b20" value="수정 완료">
+            </div>
             <input type="hidden" id="page" value="${cri.page}" readonly>
         	<input type="hidden" id="perPageNum" value="${cri.perPageNum}" readonly>
             <input type="hidden" id="searchType" value="${searchType}" readonly>
@@ -159,8 +159,9 @@
         </form>
 
         <hr>
-
-        <button type="button" id="toListBtn">목록</button>
+		<div class="right">
+        	<button type="button" id="toListBtn" class="custom-btn btn-1 m-b40">목록</button>
+        </div>
     </div>
 </body>
 </html>

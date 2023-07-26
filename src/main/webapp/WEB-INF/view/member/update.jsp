@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Update</title>
-<link rel="stylesheet" href="../../../resources/member/css/update.css">
+<link rel="stylesheet" href="../../../resources/member/css/update.css?after">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -20,7 +20,7 @@
 			$("#exCode").prop("checked", true);
 		}
 		
-		// 로그인하지 않은 상태일 경우
+		// 로그인하지 않은 상태일 경우ㅠㅡㅇ
 		if (id == null || id == "") {
 			location.href="/main";
 		}

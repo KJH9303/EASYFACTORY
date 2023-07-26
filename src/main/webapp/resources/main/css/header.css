@@ -203,3 +203,6 @@ div {
 	z-index: 1000;
 }
 
+.pointer {
+	cursor: pointer;
+}

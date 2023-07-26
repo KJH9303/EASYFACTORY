@@ -200,7 +200,7 @@
             
             <input type="hidden" id="author" class="border-none" name="author" value="${member.id}" readonly>
             
-            <input type="file" id="file-input" name="originalname" class="border" multiple />
+            <input type="file" id="file-input" name="originalname" multiple />
 			<h3>업로드된 파일</h3>
 			
 			<div id="preview">

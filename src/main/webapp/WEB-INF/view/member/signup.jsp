@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SignUp</title>
-<link rel="stylesheet" href="../../../resources/member/css/signup.css?after">
+<link rel="stylesheet" href="../../../resources/member/css/signup.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -225,10 +225,12 @@ $(document).ready(function() {
 							<input type="password" id="repw" name="repw" placeholder="Retype-Password">
 						</div>
 						<div id="pwCheckMsg"></div>
+						<div class="space-between">
                         <!-- 회원가입 버튼 -->
-						<button type="button" id="signupBtn" style="color: white; text-decoration-line: none;">Sign Up</button>
-                        <!-- 메인페이지 이동 -->
-                        <button type="button" class="main" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
+							<button type="button" id="signupBtn" style="color: white; text-decoration-line: none;">Sign Up</button>
+	                        <!-- 메인페이지 이동 -->
+	                        <button type="button" class="main" id="mainBtn" style="color: white; text-decoration-line: none;">Main</button>
+                        </div>
 					</form>
 				</div>
 			</div>

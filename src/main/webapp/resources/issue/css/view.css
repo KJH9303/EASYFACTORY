@@ -94,7 +94,7 @@ body {
   2px 2px 5px 0px rgba(0, 0, 0, 0.080);
   resize: none;
 }
-/* 
+
 .custom-btn {
   width: 130px;
   height: 40px;
@@ -112,23 +112,43 @@ body {
   7px 7px 20px 0px rgba(0,0,0,.1),
   4px 4px 5px 0px rgba(0,0,0,.1);
   outline: none;
-} */
+}
+
+.custom-btn2 {
+  width: 100px;
+  height: 35px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: 2px 2px 2px 0px rgba(255,255,255,.5),
+  7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+  margin-bottom: 10px;
+}
 
 /* 1 */
-/* .btn-1 {
+.btn-1 {
   background: #4B60EB;
   border: none;
-} */
-/* .btn-1:hover {
+}
+.btn-1:hover {
   background: #6278FF;
-} */
+}
 
 input {
 	font-size: 17px;
 }
 
 .border-none {
-	border: 1px solid black;
+	border: 1px solid white;
 }
 
 .border-none:focus {
@@ -193,4 +213,12 @@ input {
 
 .fs-20 {
 	font-size: 20px;
+}
+
+.fs-15 {
+	font-size: 15px;
+}
+
+.fs-12 {
+	font-size: 12px;
 }

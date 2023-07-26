@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>EASY FACTORY</title>
-    <link href="../../../resources/main/css/header.css?after" rel="stylesheet">
+    <link href="../../../resources/main/css/header.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -110,10 +110,10 @@
                     님 환영합니다.
                 </td>
                 <td rowspan="2">
-                    <button type="button" id="memUpdateBtn">
+                    <button type="button" id="memUpdateBtn" class="pointer">
                         <img src="/resources/img/gear-100s-200px.png">
                     </button>
-                    <button type="button" id="logoutBtn">
+                    <button type="button" id="logoutBtn" class="pointer">
                         <img src="/resources/img/login-100s-200px.png">
                     </button>
                 </td>

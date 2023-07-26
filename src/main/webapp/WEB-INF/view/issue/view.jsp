@@ -154,7 +154,7 @@
             replyDiv.data("prev-content", prevContent);
             
             reContent.removeAttr("readonly");
-            reContent.attr("style", "border: solid 1px rgba(0, 0, 0, 0.300); border-radius: 5px; width: 98%; font-size: 20px; box-shadow: 1px 1px 1px 0px rgba(255, 255, 255, 0.317), 5px 5px 15px 0px rgba(0, 0, 0, 0.080) 2px 2px 5px 0px rgba(0, 0, 0, 0.080); resize: none;");
+            reContent.attr("style", "border: solid 1px rgba(0, 0, 0, 0.300); border-radius: 5px; width: 98%; font-size: 15px; box-shadow: 1px 1px 1px 0px rgba(255, 255, 255, 0.317), 5px 5px 15px 0px rgba(0, 0, 0, 0.080) 2px 2px 5px 0px rgba(0, 0, 0, 0.080); resize: none;");
             
             replyDiv.find("button[name^='reply_button']").hide();
             updateBtn.show();
@@ -205,7 +205,7 @@
             var prevContent = replyDiv.data("prev-content");
 
             reContent.val(prevContent);
-            reContent.attr("style", " border: none; width: 98%; font-size: 20px; resize: none; text-align: left;");
+            reContent.attr("style", " border: 1px white solid; width: 98%; font-size: 15px; resize: none; text-align: left;");
             reContent.attr("readonly", true);
             replyDiv.find("button[name^='reply_button']").show();
             replyDiv.find("button[name='reply_button_update'], button[name='reply_button_cancel']").hide();
@@ -360,12 +360,12 @@ window.addEventListener('load', updateTime);
 		<!-- 파일 목록 ajax -->
 		<div id="fileList" class="right"></div>
 		
-		<h2 class="m-b40">${issue.content}</h2>
+		<h3 class="m-b40">${issue.content}</h3>
 		<div class="right" style="gap: 5px;">
 			<c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
-				<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
-				<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
-				<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
+				<input type="button" id=updateBtn class="custom-btn btn-1 fs-15" value="수정">
+				<input type="button" id=deleteBtn class="custom-btn btn-1 fs-15" value="삭제">
+				<button type="button" name="toListBtn" class="custom-btn btn-1 fs-15">글 목록</button>
 			</c:if>
 		</div>
 		<hr>
@@ -378,7 +378,7 @@ window.addEventListener('load', updateTime);
 			<h2>댓글 입력</h2>
 			<form id="replyForm">
 				<input type="hidden" id="reply_author" name="author" class="border-none w-70" value="${member.id}" readonly>
-				<span class="mr-15 fs-20 m-b10">${member.id}</span>
+				<%-- <span class="mr-15 fs-20 m-b10">${member.id}</span> --%>
 				
 				<textarea class="reply-content ta3 m-b20" id="reply_content" name="content"></textarea>
 				

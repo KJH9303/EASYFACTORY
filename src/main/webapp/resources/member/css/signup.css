@@ -145,3 +145,8 @@ label {
 .no-cssanimations .cb-slideshow li span {
     opacity: 1;
 }
+
+.space-between {
+	display: flex;
+	justify-content: space-between;
+}
