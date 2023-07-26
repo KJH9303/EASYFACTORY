@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="../../../resources/issue/css/list.css">
+    <link rel="stylesheet" href="../../../resources/issue/css/list.css?after">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -296,7 +296,9 @@ window.addEventListener('load', updateTime);
         <!-- <div id="paginationInfo"> -->
         	<%@ include file="paginationInfo.jsp" %>
        	<!-- <div id="paginationInfo"> -->
-       	<button type="button" id="writeBtn" class="custom-btn btn-1">새 글 작성</button>  
+       	<div class="right">
+       		<button type="button" id="writeBtn" class="custom-btn btn-1">새 글 작성</button>
+       	</div>  
         <hr>
     </div>
 </body>

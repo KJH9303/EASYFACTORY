@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write</title>
-    <link rel="stylesheet" href="../../../resources/issue/css/write.css">
+    <link rel="stylesheet" href="../../../resources/issue/css/write.css?after">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1 minimum-scale=1" />        
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -193,27 +193,28 @@
         	<c:if test="${member.id == 'ADMIN'}">
             	<span>공지사항</span>
             	<input type="checkbox" id="notice">
-            	<br>
             </c:if>
             <input type="hidden" id="noticeYN" name="noticeYN" value="N">
             
-            <input type="text" id="title" name="title" class="ta2" placeholder="제목을 입력해 주세요."><br>
+            <input type="text" id="title" name="title" class="ta2 m-b10" placeholder="제목을 입력해 주세요.">
             
-            <input type="hidden" id="author" class="border-none" name="author" value="${member.id}" readonly><br><br>
+            <input type="hidden" id="author" class="border-none" name="author" value="${member.id}" readonly>
             
-            <input type="file" id="file-input" name="originalname" multiple />
+            <input type="file" id="file-input" name="originalname" class="border" multiple />
 			<h3>업로드된 파일</h3>
 			
 			<div id="preview">
 			</div>
-            <textarea id="content" name="content" class="ta" placeholder="내용을 입력해 주세요."></textarea><br><br>
-            
-            <input type="button" id="submitBtn" value="글 쓰기" class="custom-btn btn-1 m-b20">
+            <textarea id="content" name="content" class="ta" placeholder="내용을 입력해 주세요."></textarea>
+            <div class="right">
+            	<input type="button" id="submitBtn" value="글 쓰기" class="custom-btn btn-1 m-b30">
+            </div>
         </form>
 
         <hr>
-
-        <button onclick="location.href='/issue/list'" class="custom-btn btn-1 m-b40">돌아가기</button>
+		<div class="right">
+        	<button onclick="location.href='/issue/list'" class="custom-btn btn-1 m-b40">돌아가기</button>
+        </div>
     </div>
     
 </body>

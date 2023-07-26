@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>View</title>
-<link rel="stylesheet" href="../../../resources/issue/css.view.css">
+<link rel="stylesheet" href="../../../resources/issue/css/view.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -328,29 +328,38 @@ window.addEventListener('load', updateTime);
        	<input type="hidden" id="id" name="id" value="${member.id}" readonly><br>
            <!-- <label for="title">제목:</label> -->
            <hr>
-           <input type="text" id="title" name="title" class="border-none f-40" value="${issue.title}" readonly><br><br>
-           <label for="author">작성자</label>
-           <input type="text" id="author" name="author" class="border-none" value="${issue.author}" readonly>
-           <label for="regDate">작성일</label>
-           <input type="text" id="regDate" name="regDate" class="border-none" value="${issue.regDate}" readonly>
-           <c:if test="${issue.modDate != null}">
-           		<label for="modDate">수정일</label>
-           		<input type="text" id="modDate" name="modDate" class="border-none" value="${issue.modDate}" readonly>
-           </c:if>
-           <label for="viewCnt">조회수</label>
-           <input type="text" id="viewCnt" name="viewCnt" class="border-none" value="${issue.viewCnt}" readonly>
+	           <%-- <input type="text" id="title" name="title" class="border-none fs-40" value="${issue.title}" readonly> --%>
+	           <h1 id="title" class="fs-40">${issue.title}</h1>
+	           <div class="left">
+		           <label for="author" class="mr-5 fs-20"><b>작성자</b></label>
+		           <%-- <input type="text" id="author" name="author" class="border-none w-70" value="${issue.author}" readonly> --%>
+		           <span id="author" class="mr-15 fs-20">${issue.author}</span>
+		           <label for="regDate" class="mr-5 fs-20"><b>작성일</b></label>
+		           <%-- <input type="text" id="regDate" name="regDate" class="border-none w-180" value="${issue.regDate}" readonly> --%>
+		           <span id="regDate" class="mr-15 fs-20">${issue.regDate}</span>
+		           <c:if test="${issue.modDate != null}">
+		           		<label for="modDate" class="mr-5 fs-20"><b>수정일</b></label>
+		           		<%-- <input type="text" id="modDate" name="modDate" class="border-none w-180" value="${issue.modDate}" readonly> --%>
+		           		<span id="modDate" class="mr-15 fs-20">${issue.modDate}</span>
+		           </c:if>
+		           <label for="viewCnt" class="mr-5 fs-20"><b>조회수</b></label>
+		           <%-- <input type="text" id="viewCnt" name="viewCnt" class="border-none w-30" value="${issue.viewCnt}" readonly> --%>
+		           <span id="viewCnt" class="mr-15 fs-20">${issue.viewCnt}</span>
+	           </div>
            <hr>
            
 	    <!-- 파일 목록 ajax -->
-		<div id="fileList"></div>
+		<div id="fileList" class="right"></div>
 		<!-- Z글내용 -->
-        <textarea id="content" name="conxtent" class="ta2" readonly>${issue.content}</textarea><br><br>
-           
-        <c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
-           	<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
-           	<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
-           	<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
-      	</c:if>
+        <%-- <textarea id="content" name="conxtent" class="ta2" readonly>${issue.content}</textarea><br><br> --%>
+        <h2 class="m-b40">${issue.content}</h2>
+        <div class="right" style="gap: 5px;">   
+	        <c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
+	           	<input type="button" id=updateBtn class="custom-btn btn-1" value="수정">
+	           	<input type="button" id=deleteBtn class="custom-btn btn-1" value="삭제">
+	           	<button type="button" name="toListBtn" class="custom-btn btn-1">글 목록</button>
+	      	</c:if>
+      	</div>
         <hr>
 	
 	<!-- 댓글 목록 ajax -->
@@ -360,12 +369,17 @@ window.addEventListener('load', updateTime);
 		<div id="replyContainer">
 	    <h2>댓글 입력</h2>
 	    <form id="replyForm">
-	        <input type="text" id="reply_author" name="author" class="border-none" value="${member.id}" readonly>
-	        <textarea class="reply-content ta" id="reply_content" name="content"></textarea>
-	        <button type="button" id="replyWriteBtn" class="custom-btn1 btn-1">댓글 작성</button>
+	        <%-- <input type="text" id="reply_author" name="author" class="border-none w-70" value="${member.id}" readonly> --%>
+	        <%-- <span id="author" class="mr-15 fs-20 m-b10">${issue.author}</span> --%>
+	        <textarea class="reply-content ta3 m-b20" id="reply_content" name="content"></textarea>
+	        <div class="right">
+	        	<button type="button" id="replyWriteBtn" class="custom-btn btn-1 m-b20">댓글 작성</button>
+	        </div>
 	    </form>
 	    <hr>
-	    <button type="button" name="toListBtn" class="custom-btn btn-1 m-b40">글 목록</button>
+		    <div class="right">
+		    	<button type="button" name="toListBtn" class="custom-btn btn-1 m-b40">글 목록</button>
+		    </div>
 		</div>
 	</div>
 </body>
