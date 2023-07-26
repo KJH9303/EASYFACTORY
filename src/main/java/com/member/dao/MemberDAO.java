@@ -24,11 +24,10 @@ public class MemberDAO {
 	
 	// ID 중복체크
 	public boolean loginCheck(String id, String pw) {
-		Integer count = jdbcTemplate.queryForObject (
-				"  SELECT COUNT(*)"
-				+ " 	FROM MEMBER "
-				+ "WHERE UPPER(ID) = UPPER(?) AND PW = ?"
-				, new Object[] {id, pw}, Integer.class);
+		String SQL = "SELECT COUNT(*)"
+				+ "		FROM MEMBER"
+				+ "		WHERE UPPER(ID) = UPPER(?) AND PW = ?";
+		Integer count = jdbcTemplate.queryForObject (SQL, new Object[] {id, pw}, Integer.class);
 		return (count == 1) ? true : false;
 	}
 		
