@@ -48,7 +48,7 @@ public class EnergyService {
 	        JSONArray jsonArray = new JSONArray();
 	        for (EnergyVO energyData : energyCostsList) {
 	            int costs = energyData.getCosts();
-	            jsonArray.add(costs);
+	            jsonArray.add(costs/10);
 	        }
 	        return jsonArray;
 	    }
@@ -105,7 +105,7 @@ public class EnergyService {
             
         	int[] vals =  energyData.getFebcosts();
         	for( int val : vals) {
-        		jsonArray.add(val);
+        		jsonArray.add(val/10);
         	}
             
         }
@@ -118,7 +118,7 @@ public class EnergyService {
             
         	double[] vals =  energyData.getFebcvusingratio();
         	for( double val : vals) {
-        		jsonArray.add(val);
+        		jsonArray.add(val*1000);
         	}
             
         }

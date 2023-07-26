@@ -166,6 +166,7 @@ public class EnergyController {
         PrintWriter writer = response.getWriter();
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
+        
         List<EnergyVO> energyFebcostsList = energyService.getFebCosts(startDate, endDate);
         List<EnergyVO> energyFebCVusingratioList = energyService.getFebcvusingratio(startDate, endDate);
         JSONArray jsonArray2 = energyService.JsonFebCostsChange(energyFebcostsList);

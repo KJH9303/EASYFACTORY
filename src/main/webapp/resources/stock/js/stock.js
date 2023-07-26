@@ -1,4 +1,4 @@
-ㄴ	// 각 공정별 재고량 차트
+	// 각 공정별 재고량 차트
 	   function FebStockChart(chartData) {
 	   var myChart = echarts.init(document.getElementById('Feb_StockChart'));
 	   var option = {

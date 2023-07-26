@@ -87,8 +87,8 @@
             <!-- 달력 아이콘 추가 -->
             <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon1">
             <!-- 데이트피커 -->
-            <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
-            <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate" value="종료날짜"  style="display: none;" />
+            <input type="text" id="energyCostStartDate1" class="datepicker" name="energyCostStartDate" placeholder="StartDate"    />
+            <input type="text" id="energyCostEndDate1" class="datepicker" name="energyCostEndDate" placeholder="EndDate"     />
             <button id="applyEnergyCost1" class="custom-btn btn-1">Submit</button>
           </div>
         </div>
@@ -103,14 +103,7 @@
               (단위 : EA)
             </span>
           </div>
-          <div class="date">
-            <!-- 달력 아이콘 추가 -->
-            <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon2">
-            <!-- 데이트피커 -->
-            <input type="text" id="energyCostStartDate2" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
-            <input type="text" id="energyCostEndDate2" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
-            <button id="applyEnergyCost2" class="custom-btn btn-1">Submit</button>
-          </div>
+         
         </div>
         <!-- Orders card -->
         <div class="flex items-center justify-between p-4 bg-white">
@@ -127,8 +120,8 @@
             <!-- 달력 아이콘 추가 -->
             <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon3">
             <!-- 데이트피커 -->
-            <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
-            <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
+            <input type="text" id="energyCostStartDate3" class="datepicker" name="energyCostStartDate" placeholder="StartDate"    />
+            <input type="text" id="energyCostEndDate3" class="datepicker" name="energyCostEndDate" placeholder="EndDate"    />
             <button id="applyEnergyCost3" class="custom-btn btn-1">Submit</button>
           </div>
         </div>
@@ -145,8 +138,8 @@
             <div class="flex items-center space-x-2">
               <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon4">
               <!-- 데이트피커 -->
-              <input type="text" id="energyCostStartDate4" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
-              <input type="text" id="energyCostEndDate4" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
+              <input type="text" id="energyCostStartDate4" class="datepicker" name="energyCostStartDate" placeholder="StartDate"    />
+              <input type="text" id="energyCostEndDate4" class="datepicker" name="energyCostEndDate" placeholder="EndDate"    />
               <button id="applyEnergyCost4" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
@@ -165,8 +158,8 @@
             <div class="flex items-center space-x-2">
               <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon5">
               <!-- 데이트피커 -->
-              <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
-              <input type="text" id="energyCostEndDate5" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
+              <input type="text" id="energyCostStartDate5" class="datepicker" name="energyCostStartDate" placeholder="StartDate"    />
+              <input type="text" id="energyCostEndDate5" class="datepicker" name="energyCostEndDate" placeholder="EndDate"    />
               <button id="applyEnergyCost5" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
@@ -185,8 +178,8 @@
             <div class="flex items-center space-x-2">
               <img src="/resources/img/calendar-100s-200px.png" id="energyCostIcon6">
               <!-- 데이트피커 -->
-              <input type="text" id="energyCostStartDate6" class="datepicker" name="energyCostStartDate" value="시작날짜" style="display: none;" />
-              <input type="text" id="energyCostEndDate6" class="datepicker" name="energyCostEndDate" value="종료날짜" style="display: none;" />
+              <input type="text" id="energyCostStartDate6" class="datepicker" name="energyCostStartDate" placeholder="StartDate"    />
+              <input type="text" id="energyCostEndDate6" class="datepicker" name="energyCostEndDate" placeholder="EndDate"    />
               <button id="applyEnergyCost6" class="custom-btn btn-1">Submit</button>
             </div>
           </div>
@@ -211,6 +204,9 @@
       	endDate[cnt] = year + '-' + month + '-' + date;
       }
         $(document).ready(function () {
+	        	// 데이트피커 기본 디폴트값
+	       	 $("input[name='energyCostStartDate']").val(startDate[0]);
+	       	 $("input[name='energyCostEndDate']").val(endDate[0]);
           // 달력 아이콘 클릭 시 데이터 피커를 토글합니다.
           $("#energyCostIcon1").click(function () {
             $("#energyCostStartDate1").toggle();
@@ -257,6 +253,13 @@
 					$(event.target).hide();
 					  startDate[0] = parent.find("input[name='energyCostStartDate']").val();
 					  endDate[0] = parent.find("input[name='energyCostEndDate']").val();
+					  if (new Date(startDate[0]) > new Date(endDate[0])) {
+							alert("시작일이 종료일보다 큽니다.");
+
+							let todayDate = new Date();
+							let formattedTodayDate = todayDate.toJSON().substring(0, 10);
+							startDate[0] = endDate[0] = formattedTodayDate;
+						}
        			}
        			  $.ajax({
 			    url: "/stock/chart10",
@@ -313,6 +316,13 @@
 					  $(event.target).hide();
 					  startDate[2] = parent.find("input[name='energyCostStartDate']").val();
 					  endDate[2] = parent.find("input[name='energyCostEndDate']").val();
+					  if (new Date(startDate[2]) > new Date(endDate[2])) {
+							alert("시작일이 종료일보다 큽니다.");
+
+							let todayDate = new Date();
+							let formattedTodayDate = todayDate.toJSON().substring(0, 10);
+							startDate[2] = endDate[2] = formattedTodayDate;
+						}
 				  }
 				  $.ajax({
 				    url: "/stock/chart11",
@@ -340,6 +350,13 @@
 					$(event.target).hide();
 					  startDate[3] = parent.find("input[name='energyCostStartDate']").val();
 					  endDate[3] = parent.find("input[name='energyCostEndDate']").val();
+					  if (new Date(startDate[3]) > new Date(endDate[3])) {
+							alert("시작일이 종료일보다 큽니다.");
+
+							let todayDate = new Date();
+							let formattedTodayDate = todayDate.toJSON().substring(0, 10);
+							startDate[3] = endDate[3] = formattedTodayDate;
+						}
 	        	  }
 					  $.ajax({
 				          url: "/stock/chart12",
@@ -365,6 +382,13 @@
 					$(event.target).hide();
 					  startDate[4] = parent.find("input[name='energyCostStartDate']").val();
 					  endDate[4] = parent.find("input[name='energyCostEndDate']").val();
+					  if (new Date(startDate[4]) > new Date(endDate[4])) {
+							alert("시작일이 종료일보다 큽니다.");
+
+							let todayDate = new Date();
+							let formattedTodayDate = todayDate.toJSON().substring(0, 10);
+							startDate[4] = endDate[4] = formattedTodayDate;
+						}
 	        	  }
 					  $.ajax({
 				          url: "/stock/chart13",
@@ -390,6 +414,13 @@
 					$(event.target).hide();
 					  startDate[5] = parent.find("input[name='energyCostStartDate']").val();
 					  endDate[5] = parent.find("input[name='energyCostEndDate']").val();
+					  if (new Date(startDate[5]) > new Date(endDate[5])) {
+							alert("시작일이 종료일보다 큽니다.");
+
+							let todayDate = new Date();
+							let formattedTodayDate = todayDate.toJSON().substring(0, 10);
+							startDate[5] = endDate[5] = formattedTodayDate;
+					  }
 	        	  }
 					  $.ajax({
 				          url: "/stock/chart14",
