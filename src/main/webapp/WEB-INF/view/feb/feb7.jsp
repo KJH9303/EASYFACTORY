@@ -66,10 +66,13 @@
   <main>
     
     <!-- Content header -->
-    <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
-      <h1>EDS</h1> <button id="downloadBtnFeb7">데이터 다운로드</button>
-    </div>
-    
+	<div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
+	    <h1>EDS</h1>
+	    <button class="bg-white" onclick="showConfirmationAndDownload(dataList)">
+	        <img src="/resources/img/filedown.png" id="downloadBtnFeb7" class="down">
+	    </button>
+	</div>
+	    
     <!-- Content -->
     <div class="mt-2">
       
@@ -442,6 +445,22 @@
 		  document.querySelector('.opratio-avg').textContent = opratioDecimal;
 		}
 
+	function showConfirmation() {
+	    var result = confirm("파일을 다운로드 하시겠습니까?");
+
+	    // 사용자가 확인 버튼을 눌렀을 때
+	    if (result) {
+	        // 다운로드하는 로직을 추가합니다.
+	        // 예를 들어, 파일 다운로드 링크를 생성하거나 서버로부터 파일을 받아오는 등의 작업을 수행할 수 있습니다.
+
+	        // 아래는 예시로 다운로드할 파일의 링크를 생성하는 방법입니다.
+	        var downloadLink = document.createElement("a");
+	        downloadLink.href = "파일의_다운로드_링크";
+	        downloadLink.download = "파일명"; // 다운로드되는 파일의 이름을 지정합니다.
+	        downloadLink.click(); // 클릭 이벤트를 발생시켜 파일 다운로드를 시작합니다.
+	    }
+	}
+	
 	// 가동율 바차트 ===================================================================================================================
 	function updateOpratioChart(dataList, dateRange = null) {
 	  if (!opratioChart) {

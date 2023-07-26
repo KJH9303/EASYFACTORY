@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>2공정: 산화 공정</title>
   <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">
-  <link rel="stylesheet" href="../../../resources/feb/css/feb.css">
+  <link rel="stylesheet" href="../../../resources/feb/css/feb.css?after">
   <script src="../../../resources/feb/js/chartOption.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
@@ -67,10 +67,12 @@
   <main>
     
     <!-- Content header -->
-    <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
-      <h1>Oxidation</h1> <button id="downloadBtnFeb2" class="download down-1">데이터 다운로드</button>
-      
-    </div>
+	<div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
+	    <h1>Oxidation</h1>
+	    <button class="bg-white" onclick="showConfirmationAndDownload(dataList)">
+	        <img src="/resources/img/filedown.png" id="downloadBtnFeb2" class="down">
+	    </button>
+	</div>
     
     <!-- Content -->
     <div class="mt-2">

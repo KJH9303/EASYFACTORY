@@ -176,6 +176,12 @@ canvas {
   justify-content: space-between;
 }
 
+.flex-start {
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -526,7 +532,7 @@ canvas {
 
 /* 다운로드 btn */
 .download {
-  width: 55px;
+  /*width: 55px;*/
   height: 30px;
   color: #fff;
   border-radius: 5px;
@@ -556,4 +562,19 @@ canvas {
 
 .white {
 	color: white;
+}
+
+.w-120 {
+	width: 120px;
+}
+
+.bg-white {
+	background: white;
+}
+
+.down {
+	margin-top: 8px;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
 }

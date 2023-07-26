@@ -66,10 +66,13 @@
   <main>
     
     <!-- Content header -->
-    <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
-      <h1>Packaging</h1> <button id="downloadBtnFeb8">데이터 다운로드</button>
-    </div>
-    
+	<div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
+	    <h1>Packaging</h1>
+	    <button class="bg-white" onclick="showConfirmationAndDownload(dataList)">
+	        <img src="/resources/img/filedown.png" id="downloadBtnFeb8" class="down">
+	    </button>
+	</div>   
+	 
     <!-- Content -->
     <div class="mt-2">
       
