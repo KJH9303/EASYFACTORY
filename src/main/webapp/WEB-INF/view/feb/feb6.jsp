@@ -8,11 +8,13 @@
   <title>6공정: 금속배선 공정</title>
   <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">
   <link rel="stylesheet" href="../../../resources/feb/css/feb.css">
-  <script src="../../../resources/feb/js/feb.js"></script>
+  <script src="../../../resources/feb/js/chartOption.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+  <script src="../../../resources/feb/js/download.js"></script>
   <script>
 	  // 현재 날짜, 현재 시간 
 	  // yyyy/mm/dd 
@@ -65,7 +67,7 @@
     
     <!-- Content header -->
     <div class="flex items-center justify-between px-4 py-4 border-b lg:py-6">
-      <h1>Metallization</h1>
+      <h1>Metallization</h1> <button id="downloadBtnFeb6">데이터 다운로드</button>
     </div>
     
     <!-- Content -->

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.feb.dao.FebDAO;
 import com.feb.service.FebService;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @Controller
 @RequestMapping("/feb")
 public class FebController {
@@ -29,7 +31,149 @@ public class FebController {
     public void setFebService(FebService febService) {
 		this.febService = febService;
 	}
+    
+    // 엑셀 파일 다운로드
+    @GetMapping("/download-data-feb1")
+    public void downloadDatafeb1(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb1";
+        
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
 
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+            
+            // System.out.println(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/download-data-feb2")
+    public void downloadDatafeb2(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb2";
+
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+            
+            System.out.println(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/download-data-feb3")
+    public void downloadDatafeb3(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb3";
+        
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/download-data-feb4")
+    public void downloadDatafeb4(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb4";
+        
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/download-data-feb5")
+    public void downloadDatafeb5(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb5";
+        
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/download-data-feb6")
+    public void downloadDatafeb6(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb6";
+        
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/download-data-feb7")
+    public void downloadDatafeb7(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb7";
+        
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @GetMapping("/download-data-feb8")
+    public void downloadDatafeb8(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String tableName = "feb8";
+        
+        try {
+            JSONArray jsonArray = febService.downloadData(tableName);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 데이터 가져오기
     @GetMapping("/select-data-feb1")
     public void selectDatafeb1(HttpServletRequest request, HttpServletResponse response) 
     		 throws ServletException, IOException {
