@@ -7,10 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="../../../resources/issue/css/list.css?after">
+    <link rel="stylesheet" href="../../../resources/issue/css/list.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script>
     $(document).ready(function() {
     	
@@ -220,8 +221,8 @@ window.addEventListener('load', updateTime);
 			
 			<!-- 작성일 검색 시 -->
 			<div id="searchDate">
-				<input type="text" id="startDate" name="startDate" value="${startDate}" placeholder="검색 시작 날짜"/> ~ 
-				<input type="text" id="endDate" name="endDate" value="${endDate}" placeholder="검색 종료 날짜"/>
+				<input type="text" class="date" id="startDate" name="startDate" value="${startDate}" placeholder="검색 시작 날짜"/>
+				<input type="text" class="date" id="endDate" name="endDate" value="${endDate}" placeholder="검색 종료 날짜"/>
             </div>
             
             <!-- 공정 별 검색 시 -->
