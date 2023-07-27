@@ -58,24 +58,28 @@ VALUES (
 ----------------------------------------
 ---- 이슈 게시판 글 보기(페이징) -------
 ----------------------------------------
-SELECT
-    ROWNUM as rnum
-    , b.*
-FROM (
-    SELECT
-        NO
-        , PROCESS
-        , NOTICEYN
-        , TITLE
-        , CONTENT
-        , AUTHOR
-        , TO_DATE(TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as REGDATE
-        , TO_DATE(TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS'), 'yyyy-MM-DD HH24:MI:SS') as MODDATE
-    FROM ISSUE
-    ORDER BY NOTICEYN DESC
-    , NO DESC
-) b
-WHERE ROWNUM BETWEEN 1 AND 10;
+"SELECT "
+				+ "			ROWNUM"
+				+ "			, a.*"
+				+ "		FROM ("
+				+ "			SELECT"
+				+ "			ROWNUM rnum"
+				+ "			, b.*"
+				+ "		FROM ("
+				+ "				SELECT"
+				+ "					NO"
+				+ "					, PROCESS"
+				+ "					, NOTICEYN"
+				+ "					, TITLE"
+				+ "					, CONTENT"
+				+ "					, AUTHOR"
+				+ "					, TO_CHAR(REGDATE,'yyyy-MM-DD HH24:MI:SS') as regDate"
+				+ "					, TO_CHAR(MODDATE,'yyyy-MM-DD HH24:MI:SS') as modDate"
+				+ "					, VIEWCNT"
+				+ "				FROM ISSUE"
+				+ "		ORDER BY NOTICEYN DESC, NO DESC) b) a"
+				+ "		WHERE"
+				+ "			rnum BETWEEN ? AND ?";
     
 ----------------------------------------
 ---- 작성일 범위로 게시물 COUNT --------
@@ -108,5 +112,5 @@ INNER JOIN
 ORDER BY
     b.no DESC;
 
-
-
+delete from issue where no > 19;
+commit;

@@ -47,10 +47,20 @@ public class EzFileDAO {
 		
 	// 파일 업로드
 	public void uploadFile(EzFileVO ezFileVO, int no) {
-        String SQL = "INSERT INTO ez_file (fileno, no, originalname, savename, filesize) " +
-                     "VALUES (EZ_FILE_NO_SEQ.NEXTVAL, ?, ?, ?, ?)";
+        String SQL = "INSERT INTO EZ_FILE ("
+        		+ "					FILENO"
+        		+ "					, NO"
+        		+ "					, ORIGINALNAME"
+        		+ "					, SAVENAME"
+        		+ "					, FILESIZE )" 
+                + "	  VALUES (EZ_FILE_NO_SEQ.NEXTVAL, ?, ?, ?, ?)";
         System.out.println(SQL);
-        jdbcTemplate.update(SQL, no, ezFileVO.getOriginalname(), ezFileVO.getSavename(), ezFileVO.getFilesize());
+        jdbcTemplate.update(
+        		SQL
+        		, no
+        		, ezFileVO.getOriginalname()
+        		, ezFileVO.getSavename()
+        		, ezFileVO.getFilesize());
     }
 	
 	// 파일 갯수
