@@ -179,3 +179,21 @@ cell spacing
 	justify-content: flex-end; 
 	align-items: center
 }
+
+.date {
+  border: solid 1px rgba(0, 0, 0, 0.300);
+  border-radius: 5px;
+  width: 100px;
+  padding: 10px 20px;
+  font-size: 15px;
+  box-shadow: 1px 1px 1px 0px rgba(255, 255, 255, 0.317),
+  5px 5px 15px 0px rgba(0, 0, 0, 0.080),
+  2px 2px 5px 0px rgba(0, 0, 0, 0.080);
+  color: red;
+  text-align: center;
+}
+
+.border-none {
+	border: none;
+}
+
