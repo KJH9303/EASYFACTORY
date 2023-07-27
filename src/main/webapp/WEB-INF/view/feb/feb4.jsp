@@ -68,7 +68,7 @@
     <!-- Content header -->
 	<div class="flex items-center flex-start px-4 py-4 border-b lg:py-6">
 	    <h1>Eaching</h1>
-	    <button class="bg-white" onclick="showConfirmationAndDownload(dataList)">
+	    <button class="bg-white2" onclick="showConfirmationAndDownload(dataList)">
 	        <img src="/resources/img/filedown.png" id="downloadBtnFeb4" class="down">(파일 다운로드)
 	    </button>
 	</div>    
