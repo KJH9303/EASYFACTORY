@@ -81,6 +81,7 @@
 				$("#selectProcess").val("Fabrication");
 			} else {
 				$("#keyword").attr("type", "text");
+				$("#keyword").val("");
 				$("#selectProcess").hide();
 				$("#selectProcess").val("");
 				$("#searchDate").hide();
