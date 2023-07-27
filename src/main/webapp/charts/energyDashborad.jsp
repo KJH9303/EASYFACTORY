@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- css, js -->
-  <link rel="stylesheet" href="../../../resources/energy/css/energy.css?after" />
+  <link rel="stylesheet" href="../../../resources/energy/css/energy.css" />
   <script src="../../../resources/energy/js/energy.js?after" ></script>
   <!-- css, js -->
    <script>
