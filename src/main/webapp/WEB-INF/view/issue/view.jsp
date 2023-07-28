@@ -362,10 +362,11 @@ window.addEventListener('load', updateTime);
 		
 		<h3 class="m-b40">${issue.content}</h3>
 		<div class="right" style="gap: 5px;">
-			<c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
+			<c:if test="${member.id == issue.author}">
 				<input type="button" id=updateBtn class="custom-btn btn-1 fs-15" value="수정">
+			</c:if>
+			<c:if test="${member.id == issue.author || member.id eq 'ADMIN'}">
 				<input type="button" id=deleteBtn class="custom-btn btn-1 fs-15" value="삭제">
-				<button type="button" name="toListBtn" class="custom-btn btn-1 fs-15">글 목록</button>
 			</c:if>
 		</div>
 		<hr>

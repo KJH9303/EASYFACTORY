@@ -394,7 +394,12 @@ public class IssueController {
     @RequestMapping(value="/delete", method=RequestMethod.GET)
     public String delete(@ModelAttribute IssueVO issueVO, @ModelAttribute Criteria cri, HttpServletRequest request, Model model) {
     	int no = Integer.parseInt(request.getParameter("no"));
+    	
+    	replyIssueService.deleteAllReply(no);
+    	System.out.println("댓글 삭제 : " + no);
+    	
     	issueService.delete(no);
+    	System.out.println("글 삭제 : " + no);
     	
     	String searchType = request.getParameter("searchType") == null ? "" : request.getParameter("searchType");
     	String keyword = request.getParameter("keyword") == null ? "" : request.getParameter("keyword");

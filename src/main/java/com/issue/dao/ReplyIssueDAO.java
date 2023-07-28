@@ -102,4 +102,10 @@ public class ReplyIssueDAO {
 		String SQL = "DELETE FROM ISSUE_RE WHERE RENO = ?";
 		jdbcTemplate.update(SQL, reno);
 	}
+	
+	// 글 삭제할 때 댓글 모두 삭제
+	public void deleteAllReply(int no) {
+		String SQL = "DELETE FROM ISSUE_RE WHERE NO = ?";
+		jdbcTemplate.update(SQL, no);
+	}
 }

@@ -22,26 +22,29 @@ public class ReplyIssueService {
 		return cnt;
 	}
 	
-	// 글 목록
+	// 댓글 목록
 	public List<ReplyIssueVO> getReplyList(int no) {
 		List<ReplyIssueVO> replyList = replyIssueDAO.getReplyList(no);
 		return replyList;
 	}
 	
-	// 글 작성
+	// 댓글 작성
 	public void writeReply(int no, String content, String author) {
 		replyIssueDAO.writeReply(no, content, author);
 	}
 	
-	// 글 수정
+	// 댓글 수정
 	public void updateReply(int reno, String content) {
 		replyIssueDAO.updateReply(reno, content);
 	}
 	
-	// 글 삭제
+	// 댓글 삭제
 	public void deleteReply(int reno) {
 		replyIssueDAO.deleteReply(reno);
 	}
 	
+	public void deleteAllReply(int no) {
+		replyIssueDAO.deleteAllReply(no);
+	}
 	
 }
