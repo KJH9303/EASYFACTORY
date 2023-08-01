@@ -145,21 +145,13 @@
         <li>
             <a href="#" class="ha">process<span>dashboard</span></a>
             <ul class="submenu">
-                <!-- <li><a id="feb1">1공정: 웨이퍼 제조</a></li> -->
                 <li><a id="feb1">Wafer<br>Fabrication</a></li>
-                <!-- <li><a id="feb2">2공정: 산화 공정</a></li> -->
                 <li><a id="feb2">Oxidation</a></li>
-                <!-- <li><a id="feb3">3공정: 포토(Photo)공정</a></li> -->
                 <li><a id="feb3">Photo<br>Lithography</a></li>
-                <!-- <li><a id="feb4">4공정: 식각(Etch)공정</a></li> -->
                 <li><a id="feb4">Etching</a></li>
-                <!-- <li><a id="feb5">5공정: 이온주입(Implant) 공정</a></li> -->
                 <li><a id="feb5">Implant</a></li>
-                <!-- <li><a id="feb6">6공정: 금속배선 공정</a></li> -->
                 <li><a id="feb6">Metallization</a></li>
-                <!-- <li><a id="feb7">7공정: EDS 공정</a></li> -->
                 <li><a id="feb7">EDS</a></li>
-                <!-- <li><a id="feb8">8공정: 패키징(Packaging) 공정</a></li> -->
                 <li><a id="feb8">Packaging</a></li>
             </ul>
         </li>
@@ -168,6 +160,13 @@
         </li>
         <li>
             <a id="stock" class="ha">inventory<span>management</span></a>
+        </li>
+        <li>
+            <a href="#" class="ha">smart<span>analysis</span></a>
+            <ul class="submenu">
+                <li><a id="EnergySimulation">Energy<br> Simulation</a></li>
+                <li><a id="tatAnalysis">tat(time around time)<br>준비중</a></a></li>
+            </ul>
         </li>
         <li>
             <a id="issueList" class="ha">issue<span>board</span></a>
