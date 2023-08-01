@@ -47,7 +47,7 @@ public class MvcConfig implements WebMvcConfigurer {
 		
 		registry.addViewController("/issue/list").setViewName("issue/list");
 	}
-/*
+/* 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(authCheckInterceptor())
