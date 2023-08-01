@@ -122,7 +122,6 @@
                         
                 success:function(data){
                     if(data === 'InsertSuccess') {
-                        $('#reply_author').val(reply_author);
                         $('#reply_content').val('');
                         viewReply();
                         //location.href="/issue/view?no="+reply_no+"&page="+page+"&perPageNum="+perPageNum+"&searchType="+searchType+"&keyword="+keyword+"&startDate="+startDate+"&endDate="+endDate;

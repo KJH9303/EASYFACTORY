@@ -21,6 +21,8 @@ import com.issue.service.IssueService;
 import com.issue.service.ReplyIssueService;
 import com.member.dao.MemberDAO;
 import com.member.service.MemberService;
+import com.simulation.dao.SimulationDAO;
+import com.simulation.service.SimulationService;
 
 @Configuration
 @EnableTransactionManagement
@@ -124,5 +126,15 @@ public class AppCtx {
 	@Bean
 	public EzFileService ezFileService() {
 		return new EzFileService(ezFileDAO());
+	}
+	
+	@Bean
+	public SimulationDAO simulationDAO() {
+		return new SimulationDAO(dataSource());
+	}
+	
+	@Bean
+	public SimulationService simulationService() {
+		return new SimulationService(simulationDAO());
 	}
 }

@@ -22,7 +22,6 @@
                 location.href="/member/logout";
             });
             
-            
             // 클릭 이벤트 바인딩
             $("a[id^='feb']").on('click', function() {
                 var id = $("#id").val();
@@ -48,6 +47,12 @@
                 var id = $("#id").val();
                 var code = $("#code").val();
                 checkAccess(id, code, "/stock/stockDashboard");
+            });
+            
+            $("#EnergySimulation").on('click', function() {
+                var id = $("#id").val();
+                var code = $("#code").val();
+                checkAccess(id, code, "/analysis/EnergySimulation");
             });
 
             $("#issueList").on('click', function() {
@@ -164,8 +169,8 @@
         <li>
             <a href="#" class="ha">smart<span>analysis</span></a>
             <ul class="submenu">
-                <li><a id="EnergySimulation">Energy<br> Simulation</a></li>
-                <li><a id="tatAnalysis">tat(time around time)<br>준비중</a></a></li>
+                <li><a id="EnergySimulation">Energy<br>Simulation</a></li>
+                <li><a id="tatAnalysis">tat(time around time)<br>준비중</a></li>
             </ul>
         </li>
         <li>

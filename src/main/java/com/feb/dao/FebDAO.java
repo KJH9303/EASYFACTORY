@@ -3,13 +3,18 @@ package com.feb.dao;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.feb.vo.FebIndexVO;
+import com.member.vo.MemberVO;
 
 @Repository
 public class FebDAO {
@@ -19,8 +24,8 @@ public class FebDAO {
 	
     public FebDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-    
+    } 
+	    
     public JSONArray downloadData(String tableName) {
     	final HashMap<String, String> tables = new HashMap<>();
     	tables.put("feb1", "SELECT * FROM feb1 ");
@@ -81,7 +86,6 @@ public class FebDAO {
     	System.out.println(" - startDate : " + startDate);
     	System.out.println(" -   endDate : " + endDate);
 
-    	
         return jdbcTemplate.query(sql, new Object[]{startDate, endDate}, rs -> {
             JSONArray jsonArray = new JSONArray();
             while (rs.next()) {
