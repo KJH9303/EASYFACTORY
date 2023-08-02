@@ -28,11 +28,11 @@ $(document).ready(function() {
 
 		$.ajax({
 			type : 'post',
-			url : '/simulation/searchSm',
+			url : '/feb/simulation',
 			data : {
 				"production" : production,
 			},
-
+			
 			success : function(data) {
 				if (data === 'success') {
 					viewSm();

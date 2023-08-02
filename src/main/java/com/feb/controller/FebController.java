@@ -1,11 +1,12 @@
 package com.feb.controller;
 
+import java.io.Console;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,15 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.feb.dao.FebDAO;
 import com.feb.service.FebService;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Controller
 @RequestMapping("/feb")
@@ -37,20 +36,23 @@ public class FebController {
 		this.febService = febService;
 	}
     
-    @GetMapping("/get-feb-index-view-data")
+    @PostMapping("/simulation") 
     public ResponseEntity<List<Map<String, Object>>> getFebIndexViewData() {
         List<Map<String, Object>> elecData = febService.getFebIndexViewElecData();
         List<Map<String, Object>> costData = febService.getFebIndexViewCostData();
+        List<Map<String, Object>> data = new ArrayList<>();
+        data.addAll(elecData);
+        data.addAll(costData);
 
-        // Combine elecData and costData
-        elecData.addAll(costData);
-
-        if (elecData.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        System.out.printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "+ elecData + costData);
+        if (data.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
 
-        return ResponseEntity.ok(elecData);
+        return ResponseEntity.ok(data);
     }
+
+
 
     // 엑셀 파일 다운로드
     @GetMapping("/download-data-feb1")
