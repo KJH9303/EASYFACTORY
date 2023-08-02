@@ -1,6 +1,8 @@
 package com.feb.controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.feb.dao.FebDAO;
@@ -32,6 +37,21 @@ public class FebController {
 		this.febService = febService;
 	}
     
+    @GetMapping("/get-feb-index-view-data")
+    public ResponseEntity<List<Map<String, Object>>> getFebIndexViewData() {
+        List<Map<String, Object>> elecData = febService.getFebIndexViewElecData();
+        List<Map<String, Object>> costData = febService.getFebIndexViewCostData();
+
+        // Combine elecData and costData
+        elecData.addAll(costData);
+
+        if (elecData.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(elecData);
+    }
+
     // 엑셀 파일 다운로드
     @GetMapping("/download-data-feb1")
     public void downloadDatafeb1(HttpServletRequest request, HttpServletResponse response) 

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -26,6 +27,17 @@ public class FebDAO {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     } 
 	    
+    // 전기사용량, 비용  가져오기
+    public List<Map<String, Object>> getFebIndexViewElecData() {
+        String SQL = "SELECT * FROM feb_index_view_elec";
+        return jdbcTemplate.queryForList(SQL);
+    }
+
+    public List<Map<String, Object>> getFebIndexViewCostData() {
+        String SQL = "SELECT * FROM feb_index_view_cost";
+        return jdbcTemplate.queryForList(SQL);
+    }
+    
     public JSONArray downloadData(String tableName) {
     	final HashMap<String, String> tables = new HashMap<>();
     	tables.put("feb1", "SELECT * FROM feb1 ");
