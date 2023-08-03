@@ -11,58 +11,6 @@
 <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-	// 댓글등록 버튼을 눌렀을 때 댓글 작성 함수 실행
-	$("#calculateBtn").on('click', function() {
-		searchSm();
-	});
-
-	// 생산량 작성
-	function searchSm() {
-		const production = $('#production').val();
-
-		if (production == '') {
-			alert('예상 생산량을 입력하세요');
-			return;
-		}
-
-		$.ajax({
-			type : 'post',
-			url : '/feb/simulation',
-			data : {
-				"production" : production,
-			},
-			
-			success : function(data) {
-				if (data === 'success') {
-					viewSm();
-				} else {
-					alert('로그인 이후 이용해주시기 바랍니다.');
-					location.href = "/member/login";
-				}
-			}
-		}); // $.ajax
-	}; // writeReply()
-	
-	
-    function viewSm() {
-        var production = $("#production").val();
-        $.ajax({
-            url: '/simulation/viewSm',
-            type: 'post',
-            data: {
-            	"production" : production // 게시물 번호를 Ajax 요청 파라미터로 전달
-            },
-            success: function(simulationHtml) {
-                $('#smListArea').html(simulationHtml);
-            }
-        });
-    }
-	
-    viewSm();
-    
-});
-
 	// 현재 날짜, 현재 시간 
 	// yyyy/mm/dd 
 	// hh/mm/ss
@@ -101,16 +49,71 @@ $(document).ready(function() {
 		xhttp.open("GET", url, true);
 		xhttp.send();
 	}
+	
+	// 데이터 가져오기
+	function GetData() {
+	    var production = $("#production").val();
+	    if (production === '') {
+	        alert('예상 생산량을 입력하세요');
+	        return; 
+	    }
+
+	    // 사용자가 입력한 생산량 값을 elecData와 costData 변수에 저장합니다.
+	    var feb_index_view_elec = "feb_index_view_elec";
+	    var feb_index_view_cost = "feb_index_view_cost";
+	    var process_feb = "process_feb";
+
+	    $.ajax({
+	        type: "GET",
+	        url: "/feb/simulation",
+	        dataType: "json",
+	        data: {
+	            feb_index_view_elec: feb_index_view_elec,
+	            feb_index_view_cost: feb_index_view_cost,
+	            process_feb: process_feb
+	        },
+	        success: function(response) {
+	            if (response.Error) {
+	                alert(response.Error);
+	            } else {
+	                // 가져온 데이터를 화면에 표시
+	                var dataList = response;
+	                console.log(dataList);
+	                var html = '<table>';
+	                html += '<tr><th>공정</th><th>전기 사용량(kWh)</th><th>비용(원)</th></tr>';
+	                
+	                for (var i = 0; i < dataList.length; i++) {
+	                    var elecUsing = parseFloat(dataList[i].ELEC_USING);
+	                    var indexCost = parseFloat(dataList[i].INDEX_COST);
+	                    var process_feb = dataList[i].PROCESS_FEB;
+	                    
+	                    var elecUsingMultiplied = elecUsing * parseFloat(production);
+	                    var indexCostMultiplied = indexCost * parseFloat(production);
+	                    
+	                    html += '<tr><td>' + process_feb + '</td><td>' + elecUsingMultiplied + '</td><td>' + indexCostMultiplied + '</td></tr>';
+	                }
+	                html += '</table>';
+	                $('#smListArea').html(html);
+	            }
+	        },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.log(`에러 발생:(/feb/simulation) ${errorThrown}`);
+	        }
+	    });
+	}
+
 </script>
 </head>
 <body>
 	<div class="container">
 		<h2>Energy Analysis Simulation</h2>
+		
 		<label for="production">예상 생산량:</label> 
 		<input type="text" id="production" name="production" placeholder="예상 생산량 입력" required>
-
-		<button type="button" id="calculateBtn">Go</button>
+		
+		<button type="button" id="calculateBtn" onclick="GetData()">Go</button>
 		<div id="smListArea"></div>
+		
 	</div>
 </body>
 </html>

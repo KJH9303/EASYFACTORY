@@ -26,18 +26,38 @@ public class FebDAO {
     public FebDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     } 
-	    
-    // 전기사용량, 비용  가져오기
-    public List<Map<String, Object>> getFebIndexViewElecData() {
-        String SQL = "SELECT * FROM feb_index_view_elec";
-        return jdbcTemplate.queryForList(SQL);
+	
+ // 전기사용량, 비용 가져오기
+    public JSONArray getFebIndexViewData(String feb_index_view_elec, String feb_index_view_cost) {
+    	
+    	System.out.println("feb_index_view_elec : " + feb_index_view_elec + ", feb_index_view_cost : " + feb_index_view_cost);
+
+    	String query = "SELECT "
+    	        + "    a.PROCESS_FEB,"
+    	        + "    a.ELEC_USING,"
+    	        + "    b.INDEX_COST"
+    	        + " FROM " + feb_index_view_elec + " a"
+    	        + " INNER JOIN ("
+    	        + "    SELECT "
+    	        + "        b.PROCESS_FEB,"
+    	        + "        b.INDEX_COST"
+    	        + "    FROM " + feb_index_view_cost + " b"
+    	        + ") b ON a.PROCESS_FEB = b.PROCESS_FEB";
+
+    	return jdbcTemplate.query(query, rs -> {
+    	    JSONArray jsonArray = new JSONArray();
+    	    while (rs.next()) {
+    	        JSONObject row = new JSONObject();
+    	        row.put("PROCESS_FEB", rs.getString("PROCESS_FEB"));
+    	        row.put("ELEC_USING", rs.getString("ELEC_USING"));
+    	        row.put("INDEX_COST", rs.getString("INDEX_COST"));
+    	        jsonArray.add(row);
+    	    }
+    	    System.out.println("bbbbbbbbbbbbbbbb" + jsonArray);
+    	    return jsonArray;
+    	});
     }
 
-    public List<Map<String, Object>> getFebIndexViewCostData() {
-        String SQL = "SELECT * FROM feb_index_view_cost";
-        return jdbcTemplate.queryForList(SQL);
-    }
-    
     public JSONArray downloadData(String tableName) {
     	final HashMap<String, String> tables = new HashMap<>();
     	tables.put("feb1", "SELECT * FROM feb1 ");
