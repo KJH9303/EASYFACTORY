@@ -1,6 +1,7 @@
 package com.energy.service;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,18 +16,15 @@ public class EnergyService {
     public EnergyService(EnergyDAO energyDAO) {
         this.energyDAO = energyDAO;
     }
-   
     public List<EnergyVO> getOpratio(String startDate, String endDate) {
         return energyDAO.getOpratio(startDate, endDate);
     }
     public List<EnergyVO> getUsingratio(String startDate, String endDate) {
         return energyDAO.getUsingratio(startDate, endDate);
     }
-
     public List<EnergyVO> getCosts(String startDate, String endDate) {
         return energyDAO.getCosts(startDate, endDate);
     }
-   
     public List<EnergyVO> getFebOpratio(String startDate, String endDate) {
         return energyDAO.getFebOpratio(startDate, endDate);
     }
@@ -42,100 +40,82 @@ public class EnergyService {
     public List<EnergyVO> getFebcvusingratio(String startDate, String endDate) {
         return energyDAO.getFebCVusingratio(startDate, endDate);
     }
+    
+    public JSONArray convertEnergyDataToJsonArray(List<EnergyVO> energyDataList, String fieldName, double conversionFactor) {
+        JSONArray jsonArray = new JSONArray();
+        for (EnergyVO energyData : energyDataList) {
+            if ("costs".equals(fieldName)) {
+                jsonArray.add((int) (energyData.getCosts() / conversionFactor));
+            } else if ("usingratio".equals(fieldName)) {
+                jsonArray.add(energyData.getUsingratio() / conversionFactor);
+            } else if ("opratio".equals(fieldName)) {
+                jsonArray.add(energyData.getOpratio() / conversionFactor);
+            }
+        }
+        return jsonArray;
+    }
 
-	 // 에너지 사용 비용
-	    public JSONArray JsonCostsChange(List<EnergyVO> energyCostsList) {
-	        JSONArray jsonArray = new JSONArray();
-	        for (EnergyVO energyData : energyCostsList) {
-	            int costs = energyData.getCosts();
-	            jsonArray.add(costs/10);
-	        }
-	        return jsonArray;
-	    }
+    // 에너지 사용 비용
+    public JSONArray JsonCostsChange(List<EnergyVO> energyCostsList) {
+        return convertEnergyDataToJsonArray(energyCostsList, "costs", 10.0);
+    }
+
+    // 에너지 사용량
+    public JSONArray JsonUsingratioChange(List<EnergyVO> energyUsingtioList) {
+        return convertEnergyDataToJsonArray(energyUsingtioList, "usingratio", 1.0);
+    }
+
+    // 가동률
+    public JSONArray JsonOpratioChange(List<EnergyVO> energyOpratioList) {
+        return convertEnergyDataToJsonArray(energyOpratioList, "opratio", 1.0);
+    }
+    private JSONArray intValuesToArray(List<EnergyVO> energyDataList,
+        Function<EnergyVO, int[]> valueExtractor,
+        Function<Integer, Number> converter) {
+			JSONArray jsonArray = new JSONArray();
+			for (EnergyVO energyData : energyDataList) {
+				int[] values = valueExtractor.apply(energyData);
+				for (int value : values) {
+					jsonArray.add(converter.apply(value));
+					}
+				
+				}
+				return jsonArray;
+				}
+			
+	private JSONArray doubleValuesToArray(List<EnergyVO> energyDataList,
+       Function<EnergyVO, double[]> valueExtractor,
+       Function<Double, Number> converter) {
+			JSONArray jsonArray = new JSONArray();
+				for (EnergyVO energyData : energyDataList) {
+				double[] values = valueExtractor.apply(energyData);
+				for (double value : values) {
+					jsonArray.add(converter.apply(value));
+				}
+				
+			}
+			return jsonArray;
+			}
+			// 각 공정별 가동률
+			public JSONArray JsonFebOpratioChange(List<EnergyVO> energyFebopratioList) {
+			return doubleValuesToArray(energyFebopratioList, EnergyVO::getFebopratio, val -> val);
+			}
+			// 각 공정별 생산량
+			public JSONArray JsonFebtrChange(List<EnergyVO> energyFebtrList) {
+			return intValuesToArray(energyFebtrList, EnergyVO::getFebtr, val -> val);
+			}
+			// 각 공정별 비용
+			public JSONArray JsonFebCostsChange(List<EnergyVO> energyFebCostsList) {
+			return intValuesToArray(energyFebCostsList, EnergyVO::getFebcosts, val -> val / 10);
+			}
+			// 각 공정별 비용 승급
+			public JSONArray JsonCVUsingratioChange(List<EnergyVO> energyFebCVUsingratioList) {
+			return doubleValuesToArray(energyFebCVUsingratioList, EnergyVO::getFebcvusingratio, val -> val * 1000);
+			}
+			
+			public JSONArray JsonFebUsingratioChange(List<EnergyVO> energyFebUsingratioList) {
+			return intValuesToArray(energyFebUsingratioList, EnergyVO::getFebusingratio, val -> val);
+			}
 	
-	    // 에너지 사용량
-	    public JSONArray JsonUsingratioChange(List<EnergyVO> energyUsingtioList) {
-	        JSONArray jsonArray = new JSONArray();
-	        for (EnergyVO energyData : energyUsingtioList) {
-	            jsonArray.add(energyData.getUsingratio());
-	        }
-	        return jsonArray;
-	    }
-	   
-	    // 가동률
-	    public JSONArray JsonOpratioChange(List<EnergyVO> energyOpratioList) {
-	        JSONArray jsonArray = new JSONArray();
-	        for (EnergyVO energyData : energyOpratioList) {
-	            jsonArray.add(energyData.getOpratio());
-	        }
-	        return jsonArray;
-	    }
-	  
-    // 공정별 가동률  평균
-    public JSONArray JsonFebOpratioChange(List<EnergyVO> energyFebopratioList) {
-        JSONArray jsonArray = new JSONArray();
-        for (EnergyVO energyData : energyFebopratioList) {
-            
-        	double[] vals =  energyData.getFebopratio();
-        	for( double val : vals) {
-        		jsonArray.add(val);
-        	}
-            
-        }
-        return jsonArray;
-    }
-    // 공정별  총 생산량
-    public JSONArray JsonFebtrChange(List<EnergyVO> energyFebtrList) {
-        JSONArray jsonArray = new JSONArray();
-        
-        for (EnergyVO energyData : energyFebtrList) {
-            
-        	int[] vals =  energyData.getFebtr();
-        	for( int val : vals) {
-        		jsonArray.add(val);
-        	}
-            
-        }
-        return jsonArray;
-    }
-    // 공정별  총 전기비용
-    public JSONArray JsonFebCostsChange(List<EnergyVO> energyFebCostsList) {
-        JSONArray jsonArray = new JSONArray();
-        for (EnergyVO energyData : energyFebCostsList) {
-            
-        	int[] vals =  energyData.getFebcosts();
-        	for( int val : vals) {
-        		jsonArray.add(val/10);
-        	}
-            
-        }
-        return jsonArray;
-    }
-    // 공정별  총생산대비 전력사용량 khw -> w로 변경 하는 쿼리
-    public JSONArray JsonCVUsingratioChange(List<EnergyVO> energyFebCVUsingratioList) {
-        JSONArray jsonArray = new JSONArray();
-        for (EnergyVO energyData : energyFebCVUsingratioList) {
-            
-        	double[] vals =  energyData.getFebcvusingratio();
-        	for( double val : vals) {
-        		jsonArray.add(val*1000);
-        	}
-            
-        }
-        return jsonArray;
-    }
-    // 공절별  전기사용량 
-    public JSONArray JsonFebUsingratioChange(List<EnergyVO> energyFebUsingratioList) {
-        JSONArray jsonArray = new JSONArray();
-        for (EnergyVO energyData : energyFebUsingratioList) {
-            
-        	int[] vals =  energyData.getFebusingratio();
-        	for( int val : vals) {
-        		jsonArray.add(val);
-        	}
-            
-        }
-        return jsonArray;
-    }
 }
 

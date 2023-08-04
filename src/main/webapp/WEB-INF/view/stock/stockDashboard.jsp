@@ -18,6 +18,12 @@
   <link rel="stylesheet" href="../../../resources/stock/css/stock.css?after" />
   <script src="../../../resources/stock/js/stock.js?after" ></script>
   <script>
+  
+  
+  
+  
+  
+  
 	  // 현재 날짜, 현재 시간 
 	  // yyyy/mm/dd 
 	  // hh/mm/ss

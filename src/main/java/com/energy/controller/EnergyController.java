@@ -14,10 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.energy.vo.EnergyVO;
+
+
 import com.energy.service.EnergyService;
 
 @Controller
@@ -37,143 +40,85 @@ public class EnergyController {
     	
     }
     
-    // 에너지 사용비용 :Costs 
-    @PostMapping("/chart1")
-    public void doChart1(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @GetMapping("/chart/{chartType}")
+    public void doGetChart(HttpServletRequest request, HttpServletResponse response,
+                       @PathVariable("chartType") String chartType) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
         PrintWriter writer = response.getWriter();
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
-        
-        List<EnergyVO> energyCostsList = energyService.getCosts(startDate, endDate);
-        JSONArray jsonArray = energyService.JsonCostsChange(energyCostsList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SUM_COSTS", jsonArray);
-        writer.print(jsonObject.toJSONString());
-    }
-   
-    
-  // 총 에너지 사용량 Usingratio
-    @PostMapping("/chart2")
-    public void doChart2(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        List<EnergyVO> energyUsingratioList = energyService.getUsingratio(startDate, endDate);
-        
-        JSONArray jsonArray = energyService.JsonUsingratioChange(energyUsingratioList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("SUM_USINGRATIO", jsonArray);
-        writer.print(jsonObject.toJSONString());
-    }
- 
-    // 가동률:Opratio 
-    @PostMapping("/chart3")
-    public void doChart3(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        
-        List<EnergyVO> energyOpratioList = energyService.getOpratio(startDate, endDate);
-            
-        JSONArray jsonArray = energyService.JsonOpratioChange(energyOpratioList);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("AVERAGE_OPRATIO", jsonArray);
-        writer.print(jsonObject.toJSONString());
-    }
-   
-    // 각 공정 가동률
-    @PostMapping("/chart4")
-    public void doChart4(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        List<EnergyVO> energyAllopratioList = energyService.getFebOpratio(startDate, endDate);
-        
-        JSONArray jsonArray = energyService.JsonFebOpratioChange(energyAllopratioList);
-         writer.print(jsonArray.toJSONString());
-    }
-    // 각 공정 총 생산량
-    @PostMapping("/chart5")
-    public void doChart5(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        
-        List<EnergyVO> energyFebtrList = energyService.getFebTr(startDate, endDate);
-        
-        JSONArray jsonArray = energyService.JsonFebtrChange(energyFebtrList);
-         writer.print(jsonArray.toJSONString());
-    }
-    // 각 공정 총 비용
-    @PostMapping("/chart6")
-    public void doChart6(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        List<EnergyVO> energyFebcostsList = energyService.getFebCosts(startDate, endDate);
-        
-        JSONArray jsonArray2 = energyService.JsonFebCostsChange(energyFebcostsList);
-         writer.print(jsonArray2.toJSONString());
-    }
-    // 각 공정 총 전기사용량
-    @PostMapping("/chart7")
-    public void doChart7(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        List<EnergyVO> energyFebusingratoList = energyService.getFebUsingratio(startDate, endDate);
-        
-        JSONArray jsonArray3 = energyService.JsonFebUsingratioChange(energyFebusingratoList);
-         writer.print(jsonArray3.toJSONString());
-    }
-    // 총 비용대비 총생산량 차트 연결
-    @PostMapping("/chart8")
-    public void doChart8(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        List<EnergyVO> energyFebcostsList = energyService.getFebCosts(startDate, endDate);
-        List<EnergyVO> energyFebtrList = energyService.getFebTr(startDate, endDate);
-        JSONArray jsonArray2 = energyService.JsonFebCostsChange(energyFebcostsList);
-        JSONArray jsonArray = energyService.JsonFebtrChange(energyFebtrList);
 
-        
-        String responseJson = String.format("{\"febcosts\": %s, \"febtr\": %s}", jsonArray2.toJSONString(), jsonArray.toJSONString());
-        System.out.println("[ChartController] responseJson: " + responseJson); // 추가되어야 하는 코드
-        writer.print(responseJson);
-    }
-    // 총 비용 대비 총 에너지 사용량 차트연결
-    @PostMapping("/chart9")
-    public void doChart9(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setContentType("text/html; charset=utf-8");
-        PrintWriter writer = response.getWriter();
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
-        
-        List<EnergyVO> energyFebcostsList = energyService.getFebCosts(startDate, endDate);
-        List<EnergyVO> energyFebCVusingratioList = energyService.getFebcvusingratio(startDate, endDate);
-        JSONArray jsonArray2 = energyService.JsonFebCostsChange(energyFebcostsList);
-        JSONArray jsonArray = energyService.JsonCVUsingratioChange(energyFebCVusingratioList);
+        JSONArray jsonArray = null;
+        JSONObject jsonObject = null;
 
-        String responseJson = String.format("{\"febcosts\": %s, \"febcvusingratio\": %s}", jsonArray2.toJSONString(), jsonArray.toJSONString());
-        writer.print(responseJson);
+        switch (chartType) {
+            case "1":
+                List<EnergyVO> energyCostsList = energyService.getCosts(startDate, endDate);
+                jsonArray = energyService.JsonCostsChange(energyCostsList);
+                jsonObject = new JSONObject();
+                jsonObject.put("SUM_COSTS", jsonArray);
+                break;
+            case "2":
+                List<EnergyVO> energyUsingratioList = energyService.getUsingratio(startDate, endDate);
+                jsonArray = energyService.JsonUsingratioChange(energyUsingratioList);
+                jsonObject = new JSONObject();
+                jsonObject.put("SUM_USINGRATIO", jsonArray);
+                break;
+            case "3":
+                List<EnergyVO> energyOpratioList = energyService.getOpratio(startDate, endDate);
+                jsonArray = energyService.JsonOpratioChange(energyOpratioList);
+                jsonObject = new JSONObject();
+                jsonObject.put("AVERAGE_OPRATIO", jsonArray);
+                break;
+            case "4":
+                List<EnergyVO> energyAllopratioList = energyService.getFebOpratio(startDate, endDate);   
+                jsonArray = energyService.JsonFebOpratioChange(energyAllopratioList);
+                writer.print(jsonArray.toJSONString());
+                break;
+            case "5":
+                List<EnergyVO> energyFebtrList = energyService.getFebTr(startDate, endDate);
+                jsonArray = energyService.JsonFebtrChange(energyFebtrList);
+                writer.print(jsonArray.toJSONString());
+                break;
+            case "6":
+                List<EnergyVO> energyFebcostsList = energyService.getFebCosts(startDate, endDate);
+                jsonArray = energyService.JsonFebCostsChange(energyFebcostsList);
+                writer.print(jsonArray.toJSONString());
+                break;
+            case "7":
+                List<EnergyVO> energyFebusingratoList = energyService.getFebUsingratio(startDate, endDate);
+                jsonArray = energyService.JsonFebUsingratioChange(energyFebusingratoList);
+                writer.print(jsonArray.toJSONString());
+                break;
+            case "8":
+                List<EnergyVO> energyFebcostsList8 = energyService.getFebCosts(startDate, endDate);
+                List<EnergyVO> energyFebtrList8 = energyService.getFebTr(startDate, endDate);
+                JSONArray jsonArrayCosts8 = energyService.JsonFebCostsChange(energyFebcostsList8);
+                JSONArray jsonArrayTr8 = energyService.JsonFebtrChange(energyFebtrList8);
+                String responseJson8 = String.format("{\"febcosts\": %s, \"febtr\": %s}",
+                        jsonArrayCosts8.toJSONString(), jsonArrayTr8.toJSONString());
+                writer.print(responseJson8);
+                return;
+            case "9":
+                List<EnergyVO> energyFebcostsList9 = energyService.getFebCosts(startDate, endDate);
+                List<EnergyVO> energyFebCVusingratioList9 = energyService.getFebcvusingratio(startDate, endDate);
+                JSONArray jsonArrayCosts9 = energyService.JsonFebCostsChange(energyFebcostsList9);
+                JSONArray jsonArrayCVUsingratio9 = energyService.JsonCVUsingratioChange(energyFebCVusingratioList9);
+                String responseJson9 = String.format("{\"febcosts\": %s, \"febcvusingratio\": %s}",
+                        jsonArrayCosts9.toJSONString(), jsonArrayCVUsingratio9.toJSONString());
+                writer.print(responseJson9);
+                return;
+            default:
+                // 처리할 수 없는 chartType에 대한 에러 처리
+                break;
+        }
+
+        if (jsonObject != null) {
+            writer.print(jsonObject.toJSONString());
+        } else {
+            // 에러 처리
+        }
     }
 }
    

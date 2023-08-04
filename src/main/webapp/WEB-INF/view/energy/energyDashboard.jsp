@@ -345,8 +345,8 @@
 					startDate[0] = endDate[0] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart1",
-					method: "POST",
+					url: "/energy/chart/1",
+					method: "GET",
 					data: {
 						startDate: startDate[0],
 						endDate: endDate[0]
@@ -379,8 +379,8 @@
 					startDate[1] = endDate[1] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart2",
-					method: "POST",
+					url: "/energy/chart/2",
+					method: "GET",
 					data: {
 						startDate: startDate[1],
 						endDate: endDate[1]
@@ -413,8 +413,8 @@
 					startDate[2] = endDate[2] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart3",
-					method: "POST",
+					url: "/energy/chart/3",
+					method: "GET",
 					data: {
 						startDate: startDate[2],
 						endDate: endDate[2]
@@ -448,8 +448,8 @@
 					startDate[3] = endDate[3] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart4",
-					type: "POST",
+					url: "/energy/chart/4",
+					type: "GET",
 					data: { 
 						startDate: startDate[3], 
 						endDate: endDate[3]
@@ -481,8 +481,8 @@
 					startDate[4] = endDate[4] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart5",
-					type: "POST",
+					url: "/energy/chart/5",
+					type: "GET",
 					data: { 
 						startDate: startDate[4], 
 						endDate: endDate[4]
@@ -514,8 +514,8 @@
 					startDate[5] = endDate[5] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart6",
-					type: "POST",
+					url: "/energy/chart/6",
+					type: "GET",
 					data: { 
 						startDate: startDate[5], 
 						endDate: endDate[5]
@@ -547,8 +547,8 @@
 					startDate[6] = endDate[6] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart7",
-					type: "POST",
+					url: "/energy/chart/7",
+					type: "GET",
 					data: { 
 						startDate: startDate[6], 
 						endDate: endDate[6]
@@ -580,8 +580,8 @@
 					startDate[7] = endDate[7] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart8",
-					type: "POST",
+					url: "/energy/chart/8",
+					type: "GET",
 					data: { 
 						startDate: startDate[7], 
 						endDate: endDate[7]
@@ -615,8 +615,8 @@
 					startDate[8] = endDate[8] = formattedTodayDate;
 				}
 				$.ajax({
-					url: "/energy/chart9",
-					type: "POST",
+					url: "/energy/chart/9",
+					type: "GET",
 					data: { 
 						startDate: startDate[8], 
 						endDate: endDate[8]
@@ -671,15 +671,15 @@
      
       // 페이지 delfault값 (Sysdate기준) setinterval
 	   function drawCharts() {
-	  applyDateRange1(null, "/energy/chart1", "#value1", "SUM_COSTS");
-	  applyDateRange2(null, "/energy/chart2", "#value2", "SUM_USINGRATIO");
-	  applyDateRange3(null, "/energy/chart3", "#value3", "AVERAGE_OPRATIO");
-	  applyDateRange4(null, "/energy/chart4");
-	  applyDateRange5(null, "/energy/chart5");
-	  applyDateRange6(null, "/energy/chart6");
-	  applyDateRange7(null, "/energy/chart7");
-	  applyDateRange8(null, "/energy/chart8");
-	  applyDateRange9(null, "/energy/chart9");
+	  applyDateRange1(null, "/energy/chart/1", "#value1", "SUM_COSTS");
+	  applyDateRange2(null, "/energy/chart/2", "#value2", "SUM_USINGRATIO");
+	  applyDateRange3(null, "/energy/chart/3", "#value3", "AVERAGE_OPRATIO");
+	  applyDateRange4(null, "/energy/chart/4");
+	  applyDateRange5(null, "/energy/chart/5");
+	  applyDateRange6(null, "/energy/chart/6");
+	  applyDateRange7(null, "/energy/chart/7");
+	  applyDateRange8(null, "/energy/chart/8");
+	  applyDateRange9(null, "/energy/chart/9");
 	}
   </script>
 </div>

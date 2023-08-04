@@ -173,7 +173,7 @@
                 <li><a id="tatAnalysis">tat(time around time)<br>준비중</a></li>
             </ul>
         </li>
-        <li>
+         <li>
             <a id="issueList" class="ha">issue<span>board</span></a>
         </li>
         <li>
