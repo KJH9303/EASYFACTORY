@@ -1,8 +1,5 @@
 package com.feb.service;
 
-import java.util.List;
-import java.util.Map;
-
 import org.json.simple.JSONArray;
 
 import com.feb.dao.FebDAO;
@@ -28,12 +25,7 @@ public class FebService {
 		return result;
 	}
     
-	public List<Map<String, Object>> getFebIndexViewElecData() {
-        return febDAO.getFebIndexViewElecData();
+	public JSONArray getFebIndexViewData(String feb_index_view_elec, String feb_index_view_cost) {
+        return febDAO.getFebIndexViewData(feb_index_view_elec, feb_index_view_cost);
     }
-	
-	public List<Map<String, Object>> getFebIndexViewCostData() {
-        return febDAO.getFebIndexViewCostData();
-    }
-    
 }

@@ -1,6 +1,5 @@
 package com.feb.controller;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,23 +35,45 @@ public class FebController {
 		this.febService = febService;
 	}
     
+    @GetMapping("/simulation")
+    public void getFebIndexViewData(HttpServletRequest request, HttpServletResponse response) 
+    		 throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        String feb_index_view_elec = request.getParameter("feb_index_view_elec");
+        String feb_index_view_cost = request.getParameter("feb_index_view_cost");
+        
+        try {
+            JSONArray jsonArray = febService.getFebIndexViewData(feb_index_view_elec, feb_index_view_cost);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+            System.out.println("ddddddddddddddddddddd" + jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    /*
     @PostMapping("/simulation") 
-    public ResponseEntity<List<Map<String, Object>>> getFebIndexViewData() {
-        List<Map<String, Object>> elecData = febService.getFebIndexViewElecData();
-        List<Map<String, Object>> costData = febService.getFebIndexViewCostData();
-        List<Map<String, Object>> data = new ArrayList<>();
-        data.addAll(elecData);
-        data.addAll(costData);
+    public void getFebIndexViewData(HttpServletRequest request, HttpServletResponse response) 
+   		 throws ServletException, IOException {	
+        request.setCharacterEncoding("utf-8");
+        String elecData elecData = febService.getFebIndexViewElecData();
+        String costData costData = febService.getFebIndexViewCostData();
 
         System.out.printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "+ elecData + costData);
-        if (data.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        try {
+            JSONArray jsonArray = febService.getFebIndexViewElecData(elecData);
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(jsonArray.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        return ResponseEntity.ok(data);
     }
-
-
+	*/
 
     // 엑셀 파일 다운로드
     @GetMapping("/download-data-feb1")

@@ -149,5 +149,21 @@ SELECT PROCESS_FEB, avg(Difficulty) as Difficulty
 
 SELECT * FROM feb_index_view_elec;
 SELECT * FROM feb_index_view_cost;
+
 SELECT * FROM feb_index_view_production;
 SELECT * FROM feb_index_view_Difficulty;
+
+SELECT elec_using AS elecData, InDex_Cost AS costData FROM feb_index_view_elec, feb_index_view_cost;
+
+SELECT 
+    a.process_feb,
+    a.elec_using,
+    b.InDex_Cost
+FROM feb_index_view_elec a
+INNER JOIN (
+    SELECT
+        b.process_feb,
+        b.InDex_Cost
+    FROM feb_index_view_cost b
+) b ON a.process_feb = b.process_feb;
+
