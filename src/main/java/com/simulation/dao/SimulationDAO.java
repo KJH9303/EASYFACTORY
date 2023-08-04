@@ -43,7 +43,6 @@ public class SimulationDAO {
     	        row.put("INDEX_COST", rs.getString("INDEX_COST"));
     	        jsonArray.add(row);
     	    }
-    	    System.out.println("bbbbbbbbbbbbbbbb" + jsonArray);
     	    return jsonArray;
     	});
     }

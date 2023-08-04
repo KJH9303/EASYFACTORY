@@ -39,7 +39,6 @@ public class SimulationController {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonArray.toString());
-            System.out.println("ddddddddddddddddddddd" + jsonArray);
         } catch (Exception e) {
             e.printStackTrace();
         }

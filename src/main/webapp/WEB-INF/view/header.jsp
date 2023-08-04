@@ -55,10 +55,10 @@
                 checkAccess(id, code, "/analysis/energySimulation");
             });
             
-            $("#tatAnalysis").on('click', function() {
+            $("#tat").on('click', function() {
                 var id = $("#id").val();
                 var code = $("#code").val();
-                checkAccess(id, code, "/tat/tatAnalysis");
+                checkAccess(id, code, "/tat/tat");
             });
 
             $("#issueList").on('click', function() {
@@ -179,7 +179,7 @@
             </ul>
         </li>
          <li>
-            <a id="tatAnalysis" class="ha">작업관리<span>tat analysis</span></a>
+            <a id="tat" class="ha">작업관리<span>tat Management</span></a>
         </li>
          <li>
             <a id="issueList" class="ha">issue<span>board</span></a>

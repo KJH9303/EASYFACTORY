@@ -62,7 +62,7 @@
 <body>
     
     <div class="container">
-        <h2>TAT(Time Around Time) Analysis System</h2>
+        <h2>TAT(Time Around Time) Management System</h2>
     
         <label for="startTime">작업 시작:</label>
         <input type="text" id="startTime" name="startTime" placeholder="내용을 입력하세요." required>
