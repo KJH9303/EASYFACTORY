@@ -10,67 +10,72 @@
 <title>Energy Simulation</title>
 <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../../../resources/feb/js/time.js"></script>
 <script>
-	// 현재 날짜, 현재 시간 
-	// yyyy/mm/dd 
-	// hh/mm/ss
-	function updateTime() {
-		var currentTime = new Date();
-		var hours = currentTime.getHours();
-		var minutes = currentTime.getMinutes();
-		var seconds = currentTime.getSeconds();
-		var year = currentTime.getFullYear();
-		var month = ("0" + (currentTime.getMonth() + 1)).slice(-2);
-		var day = ("0" + currentTime.getDate()).slice(-2);
 
-		hours = ("0" + hours).slice(-2);
-		minutes = ("0" + minutes).slice(-2);
-		seconds = ("0" + seconds).slice(-2);
+    // 타임스탬프를 저장할 변수
+        var startTimeStamp;
+        var startButtonClickTime;
 
-		var timeString = hours + ":" + minutes + ":" + seconds;
-		var dateString = year + "/" + month + "/" + day;
+        function onStartClick() {
+            var startTime = document.getElementById("startTime").value;
+            if (!startTime) {
+                alert("작업 내용을 입력하세요.");
+                return;
+            }
+            var currentDate = new Date();
+            startTimeStamp = currentDate.getTime();
+            startButtonClickTime = startTimeStamp;
+            document.getElementById("workDetails").innerHTML = "작업 내용: " + startTime + "    ,시작 시간: " + (currentDate.toLocaleTimeString());
+            
+        }
 
-		document.getElementById("time").innerHTML = timeString;
-		document.getElementById("date").innerHTML = dateString;
-	}
+        function onEndClick() {
+            var endTime = document.getElementById("endTime").value; // "startTime" 대신 "endTime" 사용
+            if (!endTime) {
+                alert("작업 내용을 입력하세요.");
+                return;
+            }
+            var currentDate = new Date();
+            var endTimeStamp = currentDate.getTime();
+            document.getElementById("workDetails").innerHTML += "<br>작업 종료: " + endTime + "    ,종료 시간: " + (currentDate.toLocaleTimeString());
+            var duration = endTimeStamp - startTimeStamp;
+            var durationInSeconds = duration / 1000;
+            document.getElementById("workDetails").innerHTML += "<br>작업 소요 시간: " + durationInSeconds + "초";
+        }
 
-	setInterval(updateTime, 1000)
+        // 함수를 추가하여 화면에 시간과 날짜를 출력합니다.
+        function updateDateTime() {
+            var currentDate = new Date();
+            var dateElement = document.getElementById("date");
+            var timeElement = document.getElementById("time");
 
-	function loadHTMLFile(targetSelector, url, callback) {
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				document.querySelector(targetSelector).innerHTML = this.responseText;
-				if (typeof callback === 'function') {
-					callback();
-				}
-			}
-		};
-		xhttp.open("GET", url, true);
-		xhttp.send();
-	}
-	
-	// 데이터 가져오기 기능
-	function GetData() {
-	    var startTime = $("#startTime").val();
-        // 유효성 검사
-	    if (startTime === '') {
-	        alert('작업 내용을 입력하세요.');
-	        return; 
-	    }
+            var dateString = currentDate.toLocaleDateString();
+            var timeString = currentDate.toLocaleTimeString();
+
+            dateElement.textContent = dateString;
+            timeElement.textContent = timeString;
+        }
 
 </script>
 </head>
 <body>
-	<div class="container">
-		<h2>T.A.T(Time Around Time) Analysis System</h2>
-		
-		<label for="startTime">작업 시작:</label> 
-		<input type="text" id="startTime" name="startTime" placeholder="작업 내용" required>
-		
-		<button type="button" id="calculateBtn" onclick="GetData()">Start</button>
-		<button type="button" id="calculateBtn" onclick="GetData()">End</button>
-		
-	</div>
+    <p>Date: <span id="date"></span></p>
+    <p>Time: <span id="time"></span></p>
+    
+    <div class="container">
+        <h2>TAT(Time Around Time) Analysis System</h2>
+    
+        <label for="startTime">작업 시작:</label>
+        <input type="text" id="startTime" name="startTime" placeholder="내용을 입력하세요." required>
+        <button type="button" id="startBtn" onclick="onStartClick()">Start</button>
+    
+	    <label for="endTime">작업 종료:</label>
+		<input type="text" id="endTime" name="endTime" placeholder="내용을 입력하세요." required>
+		<button type="button" id="endBtn" onclick="onEndClick()">End</button>
+
+        <!-- 작업 내용을 표시할 요소를 추가합니다 -->
+        <p id="workDetails"></p>
+    </div>
 </body>
 </html>

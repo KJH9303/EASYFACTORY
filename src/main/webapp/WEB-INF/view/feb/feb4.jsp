@@ -9,54 +9,13 @@
   <link href="../../resources/img/logoicon.jpg" rel="shortcut icon" type="image/x-icon">
   <link rel="stylesheet" href="../../../resources/feb/css/feb.css">
   <script src="../../../resources/feb/js/chartOption.js"></script>
+  <script src="../../../resources/feb/js/time.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpine-collective/alpine-magic-helpers@0.5.x/dist/component.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.1.2/echarts.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
   <script src="../../../resources/feb/js/download.js"></script>
-  <script>
-	  // 현재 날짜, 현재 시간 
-	  // yyyy/mm/dd 
-	  // hh/mm/ss
-	  function updateTime() {
-	      var currentTime = new Date();
-	      var hours = currentTime.getHours();
-	      var minutes = currentTime.getMinutes();
-	      var seconds = currentTime.getSeconds();
-	      var year = currentTime.getFullYear();
-	      var month = ("0" + (currentTime.getMonth() + 1)).slice(-2);
-	      var day = ("0" + currentTime.getDate()).slice(-2);
-	
-	      hours = ("0" + hours).slice(-2);
-	      minutes = ("0" + minutes).slice(-2);
-	      seconds = ("0" + seconds).slice(-2);
-	
-	      var timeString = hours + ":" + minutes + ":" + seconds;
-	      var dateString = year + "/" + month + "/" + day;
-	
-	      document.getElementById("time").innerHTML = timeString;
-	      document.getElementById("date").innerHTML = dateString;
-	  }
-	
-	  setInterval(updateTime, 1000)
-	
-	function loadHTMLFile(targetSelector, url, callback) {
-	  var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	      if (this.readyState == 4 && this.status == 200) {
-	          document.querySelector(targetSelector).innerHTML = this.responseText;
-	          if (typeof callback === 'function') {
-	              callback();
-	          }
-	      }
-	  };
-	  xhttp.open("GET", url, true);
-	  xhttp.send();
-	}
-	  
-	  window.addEventListener('load', updateTime);
-  </script>
 </head>
 <body>
 <div id="headerContainer"></div>
