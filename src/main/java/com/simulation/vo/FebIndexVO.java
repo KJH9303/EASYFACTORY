@@ -1,4 +1,4 @@
-package com.feb.vo;
+package com.simulation.vo;
 
 public class FebIndexVO {
 

@@ -34,46 +34,6 @@ public class FebController {
     public void setFebService(FebService febService) {
 		this.febService = febService;
 	}
-    
-    @GetMapping("/simulation")
-    public void getFebIndexViewData(HttpServletRequest request, HttpServletResponse response) 
-    		 throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        String feb_index_view_elec = request.getParameter("feb_index_view_elec");
-        String feb_index_view_cost = request.getParameter("feb_index_view_cost");
-        
-        try {
-            JSONArray jsonArray = febService.getFebIndexViewData(feb_index_view_elec, feb_index_view_cost);
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jsonArray.toString());
-            System.out.println("ddddddddddddddddddddd" + jsonArray);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    /*
-    @PostMapping("/simulation") 
-    public void getFebIndexViewData(HttpServletRequest request, HttpServletResponse response) 
-   		 throws ServletException, IOException {	
-        request.setCharacterEncoding("utf-8");
-        String elecData elecData = febService.getFebIndexViewElecData();
-        String costData costData = febService.getFebIndexViewCostData();
-
-        System.out.printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ "+ elecData + costData);
-        try {
-            JSONArray jsonArray = febService.getFebIndexViewElecData(elecData);
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jsonArray.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-	*/
 
     // 엑셀 파일 다운로드
     @GetMapping("/download-data-feb1")

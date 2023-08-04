@@ -6,7 +6,7 @@ CREATE TABLE FEB1 (
     fal          NUMBER(5,0),
     stock        NUMBER(6,0),
     costs        NUMBER(10,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE FEB2 (
     fal          NUMBER(5,0),
     stock        NUMBER(6,0),
     costs        NUMBER(10,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE FEB3 (
     fal          NUMBER(5,0),
     stock        NUMBER(6,0),
     costs        NUMBER(10,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 
@@ -39,7 +39,7 @@ CREATE TABLE FEB4 (
     fal          NUMBER(4,0),
     stock        NUMBER(6,0),
     costs        NUMBER(30,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 
@@ -50,7 +50,7 @@ CREATE TABLE FEB5 (
     fal          NUMBER(5,0),
     stock        NUMBER(6,0),
     costs        NUMBER(10,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 
@@ -61,7 +61,7 @@ CREATE TABLE FEB6 (
     fal          NUMBER(5,0),
     stock        NUMBER(6,0),
     costs        NUMBER(10,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 
@@ -72,7 +72,7 @@ CREATE TABLE FEB7 (
     fal          NUMBER(5,0),
     stock        NUMBER(6,0),
     costs        NUMBER(10,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 
@@ -83,7 +83,7 @@ CREATE TABLE FEB8 (
     fal          NUMBER(5,0),
     stock        NUMBER(6,0),
     costs        NUMBER(10,0),
-    usingratio   NUMBER(4,2),
+    usingratio   NUMBER(10,2),
     hiredate     DATE
 );
 

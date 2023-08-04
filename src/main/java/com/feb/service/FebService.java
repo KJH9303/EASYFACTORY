@@ -24,8 +24,4 @@ public class FebService {
 		String result = febDAO.getRandomDefect();
 		return result;
 	}
-    
-	public JSONArray getFebIndexViewData(String feb_index_view_elec, String feb_index_view_cost) {
-        return febDAO.getFebIndexViewData(feb_index_view_elec, feb_index_view_cost);
-    }
 }

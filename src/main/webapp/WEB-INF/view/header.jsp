@@ -52,13 +52,13 @@
             $("#EnergySimulation").on('click', function() {
                 var id = $("#id").val();
                 var code = $("#code").val();
-                checkAccess(id, code, "/analysis/EnergySimulation");
+                checkAccess(id, code, "/analysis/energySimulation");
             });
             
             $("#tatAnalysis").on('click', function() {
                 var id = $("#id").val();
                 var code = $("#code").val();
-                checkAccess(id, code, "/analysis/tatAnalysis");
+                checkAccess(id, code, "/tat/tatAnalysis");
             });
 
             $("#issueList").on('click', function() {
@@ -176,8 +176,10 @@
             <a href="#" class="ha">smart<span>analysis</span></a>
             <ul class="submenu">
                 <li><a id="EnergySimulation">Energy<br>Simulation</a></li>
-                <li><a id="tatAnalysis">tat(time around time)<br>준비중</a></li>
             </ul>
+        </li>
+         <li>
+            <a id="tatAnalysis" class="ha">작업관리<span>tat analysis</span></a>
         </li>
          <li>
             <a id="issueList" class="ha">issue<span>board</span></a>

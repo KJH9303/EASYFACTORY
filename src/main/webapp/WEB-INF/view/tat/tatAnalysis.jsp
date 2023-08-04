@@ -13,7 +13,6 @@
 <script src="../../../resources/feb/js/time.js"></script>
 <script>
 
-    // 타임스탬프를 저장할 변수
         var startTimeStamp;
         var startButtonClickTime;
 
@@ -26,22 +25,23 @@
             var currentDate = new Date();
             startTimeStamp = currentDate.getTime();
             startButtonClickTime = startTimeStamp;
-            document.getElementById("workDetails").innerHTML = "작업 내용: " + startTime + "    ,시작 시간: " + (currentDate.toLocaleTimeString());
-            
+            document.getElementById("workDetails").innerHTML = "작업 시작: " + startTime + "시작 시간: " + (currentDate.toLocaleTimeString());
         }
 
         function onEndClick() {
-            var endTime = document.getElementById("endTime").value; // "startTime" 대신 "endTime" 사용
+            var endTime = document.getElementById("endTime").value; 
             if (!endTime) {
                 alert("작업 내용을 입력하세요.");
                 return;
             }
             var currentDate = new Date();
             var endTimeStamp = currentDate.getTime();
-            document.getElementById("workDetails").innerHTML += "<br>작업 종료: " + endTime + "    ,종료 시간: " + (currentDate.toLocaleTimeString());
+            document.getElementById("workDetails").innerHTML += "<br>작업 종료: " + endTime + "종료 시간: " + (currentDate.toLocaleTimeString());
             var duration = endTimeStamp - startTimeStamp;
-            var durationInSeconds = duration / 1000;
-            document.getElementById("workDetails").innerHTML += "<br>작업 소요 시간: " + durationInSeconds + "초";
+            var hours = Math.floor(duration / 3600000);
+            var minutes = Math.floor((duration % 3600000) / 60000);
+            var seconds = Math.floor((duration % 60000) / 1000);
+            document.getElementById("workDetails").innerHTML += "<br>작업 소요 시간: " + hours + "시 " + minutes + "분 " + seconds + "초";
         }
 
         // 함수를 추가하여 화면에 시간과 날짜를 출력합니다.
@@ -60,8 +60,6 @@
 </script>
 </head>
 <body>
-    <p>Date: <span id="date"></span></p>
-    <p>Time: <span id="time"></span></p>
     
     <div class="container">
         <h2>TAT(Time Around Time) Analysis System</h2>

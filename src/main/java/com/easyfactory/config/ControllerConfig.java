@@ -16,6 +16,8 @@ import com.issue.service.IssueService;
 import com.issue.service.ReplyIssueService;
 import com.member.controller.MemberController;
 import com.member.service.MemberService;
+import com.simulation.controller.SimulationController;
+import com.simulation.service.SimulationService;
 
 @Configuration
 public class ControllerConfig {
@@ -43,6 +45,9 @@ public class ControllerConfig {
 	
 	@Autowired
 	private EzFileService ezFileService;
+	
+	@Autowired
+	private SimulationService simulationService;
 	
 	@Bean
 	public MemberController memberController() {
@@ -80,4 +85,10 @@ public class ControllerConfig {
 		return issueController;
 	}
 	
+	@Bean
+	public SimulationController simulationController() {
+		SimulationController simulationController = new SimulationController();
+		simulationController.setSimulationService(simulationService);
+		return simulationController;
+	}
 }
