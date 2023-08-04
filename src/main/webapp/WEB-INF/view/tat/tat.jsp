@@ -13,49 +13,72 @@
 <script src="../../../resources/feb/js/time.js"></script>
 <script>
 
-        var startTimeStamp;
-        var startButtonClickTime;
+	var startTimeStamp;
+	var startButtonClickTime;
 
-        function onStartClick() {
-            var startTime = document.getElementById("startTime").value;
-            if (!startTime) {
-                alert("작업 내용을 입력하세요.");
-                return;
-            }
-            var currentDate = new Date();
-            startTimeStamp = currentDate.getTime();
-            startButtonClickTime = startTimeStamp;
-            document.getElementById("workDetails").innerHTML = "작업 시작: " + startTime + "시작 시간: " + (currentDate.toLocaleTimeString());
-        }
+	function onStartClick() {
+		var startTime = document.getElementById("startTime").value;
+		if (!startTime) {
+			alert("작업 내용을 입력하세요.");
+			return;
+		}
+		var currentDate = new Date();
+		startTimeStamp = currentDate.getTime();
+		startButtonClickTime = startTimeStamp;
 
-        function onEndClick() {
-            var endTime = document.getElementById("endTime").value; 
-            if (!endTime) {
-                alert("작업 내용을 입력하세요.");
-                return;
-            }
-            var currentDate = new Date();
-            var endTimeStamp = currentDate.getTime();
-            document.getElementById("workDetails").innerHTML += "<br>작업 종료: " + endTime + "종료 시간: " + (currentDate.toLocaleTimeString());
-            var duration = endTimeStamp - startTimeStamp;
-            var hours = Math.floor(duration / 3600000);
-            var minutes = Math.floor((duration % 3600000) / 60000);
-            var seconds = Math.floor((duration % 60000) / 1000);
-            document.getElementById("workDetails").innerHTML += "<br>작업 소요 시간: " + hours + "시 " + minutes + "분 " + seconds + "초";
-        }
+		var row = document.createElement("tr");
+		var cell1 = document.createElement("td");
+		var cell2 = document.createElement("td");
+		var cell3 = document.createElement("td");
+		var cell4 = document.createElement("td");
+		var cell5 = document.createElement("td");
 
-        // 함수를 추가하여 화면에 시간과 날짜를 출력합니다.
-        function updateDateTime() {
-            var currentDate = new Date();
-            var dateElement = document.getElementById("date");
-            var timeElement = document.getElementById("time");
+		cell1.textContent = startTime;
+		cell2.textContent = currentDate.toLocaleTimeString();
+		cell3.textContent = "-";
+		cell4.textContent = "-";
+		cell5.textContent = "-";
+		
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		row.appendChild(cell3);
+		row.appendChild(cell4);
+		row.appendChild(cell5);
+		document.getElementById("workDetails").appendChild(row);
+	}
 
-            var dateString = currentDate.toLocaleDateString();
-            var timeString = currentDate.toLocaleTimeString();
+	function onEndClick() {
+		var endTime = document.getElementById("endTime").value;
+		if (!endTime) {
+			alert("작업 내용을 입력하세요.");
+			return;
+		}
+		var currentDate = new Date();
+		var endTimeStamp = currentDate.getTime();
+		endButtonClickTime = endTimeStamp; 
 
-            dateElement.textContent = dateString;
-            timeElement.textContent = timeString;
-        }
+		var rows = document.getElementById("workDetails").getElementsByTagName(
+				"tr");
+		var lastRow = rows[rows.length - 1];
+		var cells = lastRow.getElementsByTagName("td");
+
+		cells[2].textContent = endTime;
+		cells[3].textContent = currentDate.toLocaleTimeString();
+		cells[4].textContent = getDuration(endTimeStamp - startTimeStamp);
+		
+		console.log(cells[4].textContent);
+	}
+
+	function getDuration(duration) {
+		if (duration) {
+			var hours = Math.floor(duration / 3600000);
+			var minutes = Math.floor((duration % 3600000) / 60000);
+			var seconds = Math.floor((duration % 60000) / 1000);
+			return hours + "시 " + minutes + "분 " + seconds + "초";
+		} else {
+			return "-";
+		}
+	}
 
 </script>
 </head>
@@ -73,7 +96,18 @@
 		<button type="button" id="endBtn" onclick="onEndClick()">End</button>
 
         <!-- 작업 내용을 표시할 요소를 추가합니다 -->
-        <p id="workDetails"></p>
+         <table id="workTable">
+            <thead>
+                <tr>
+                    <th>작업 내용</th>
+                    <th>시작 시간</th>
+                    <th>작업 내용</th>
+                    <th>종료 시간</th>
+                    <th>작업 소요 시간</th>
+                </tr>
+            </thead>
+            <tbody id="workDetails"></tbody>
+        </table>
     </div>
 </body>
 </html>
