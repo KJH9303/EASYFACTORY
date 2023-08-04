@@ -54,6 +54,12 @@
                 var code = $("#code").val();
                 checkAccess(id, code, "/analysis/EnergySimulation");
             });
+            
+            $("#tatAnalysis").on('click', function() {
+                var id = $("#id").val();
+                var code = $("#code").val();
+                checkAccess(id, code, "/analysis/tatAnalysis");
+            });
 
             $("#issueList").on('click', function() {
                 var id = $("#id").val();

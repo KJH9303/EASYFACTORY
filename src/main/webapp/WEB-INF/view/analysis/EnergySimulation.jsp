@@ -50,15 +50,19 @@
 		xhttp.send();
 	}
 	
-	// 데이터 가져오기
+	// 데이터 가져오기 기능
 	function GetData() {
 	    var production = $("#production").val();
+        // 유효성 검사
 	    if (production === '') {
 	        alert('예상 생산량을 입력하세요');
 	        return; 
 	    }
+        if (isNaN(production)) {
+	        alert("숫자를 입력해주세요.");
+	        return; // 함수 종료
+    	}
 
-	    // 사용자가 입력한 생산량 값을 elecData와 costData 변수에 저장합니다.
 	    var feb_index_view_elec = "feb_index_view_elec";
 	    var feb_index_view_cost = "feb_index_view_cost";
 	    var process_feb = "process_feb";
@@ -82,16 +86,22 @@
 	                var html = '<table>';
 	                html += '<tr><th>공정</th><th>전기 사용량(kWh)</th><th>비용(원)</th></tr>';
 	                
-	                for (var i = 0; i < dataList.length; i++) {
-	                    var elecUsing = parseFloat(dataList[i].ELEC_USING);
-	                    var indexCost = parseFloat(dataList[i].INDEX_COST);
-	                    var process_feb = dataList[i].PROCESS_FEB;
-	                    
-	                    var elecUsingMultiplied = elecUsing * parseFloat(production);
-	                    var indexCostMultiplied = indexCost * parseFloat(production);
-	                    
-	                    html += '<tr><td>' + process_feb + '</td><td>' + elecUsingMultiplied + '</td><td>' + indexCostMultiplied + '</td></tr>';
-	                }
+	                // 통화 포맷에 맞게 변환할 로케일을 지정
+	                var formatter = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' });
+
+				    for (var i = 0; i < dataList.length; i++) {
+				        var elecUsing = parseFloat(dataList[i].ELEC_USING);
+				        var indexCost = parseFloat(dataList[i].INDEX_COST);
+				        var process_feb = dataList[i].PROCESS_FEB;
+				
+				        var elecUsingMultiplied = elecUsing + parseFloat(production);
+				        var indexCostMultiplied = indexCost * elecUsingMultiplied;
+				
+				        // 통화 포맷 적용 (formattedIndexCostMultiplied에만 적용)
+				        var formattedIndexCostMultiplied = indexCostMultiplied.toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' });
+				
+				        html += '<tr><td>' + process_feb + '</td><td>' + elecUsingMultiplied + '</td><td>' + formattedIndexCostMultiplied + '</td></tr>';
+				    }
 	                html += '</table>';
 	                $('#smListArea').html(html);
 	            }
