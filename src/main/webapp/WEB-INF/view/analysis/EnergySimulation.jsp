@@ -89,6 +89,17 @@
 	                // 통화 포맷에 맞게 변환할 로케일을 지정
 	                var formatter = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' });
 
+	                var febTextMapping = {
+	                	    "feb1": "WATER FABRICATION",
+	                	    "feb2": "OXIDATION",
+	                	    "feb3": "PHOTO LITHOGRAPHY",
+	                	    "feb4": "ETCHING",
+	                	    "feb5": "IMPLANT",
+	                	    "feb6": "METALLIZATION",
+	                	    "feb7": "EDS",
+	                	    "feb8": "PACKAGING",
+	                	};
+	                
 				    for (var i = 0; i < dataList.length; i++) {
 				        var elecUsing = parseFloat(dataList[i].ELEC_USING);
 				        var indexCost = parseFloat(dataList[i].INDEX_COST);
@@ -99,8 +110,10 @@
 				
 				        // 통화 포맷 적용 (formattedIndexCostMultiplied에만 적용)
 				        var formattedIndexCostMultiplied = indexCostMultiplied.toLocaleString('ko-KR', { style: 'currency', currency: 'KRW' });
+				        
+				        var febText = febTextMapping[process_feb] || process_feb;
 				
-				        html += '<tr><td>' + process_feb + '</td><td>' + elecUsingMultiplied + '</td><td>' + formattedIndexCostMultiplied + '</td></tr>';
+				        html += '<tr><td>' + febText + '</td><td>' + elecUsingMultiplied + '</td><td>' + formattedIndexCostMultiplied + '</td></tr>';
 				    }
 	                html += '</table>';
 	                $('#smListArea').html(html);
