@@ -49,7 +49,7 @@
 	                var html = '<table>';
 	                html += '<tr><th>공정</th><th>전기 사용량(kWh)</th><th>비용(원)</th></tr>';
 	                
-	                // 통화 포맷에 맞게 변환할 로케일을 지정
+	                // 통화 포맷
 	                var formatter = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' });
 
 	                var febTextMapping = {

@@ -96,7 +96,6 @@
         </div>
       </div>
 
-      <!--------------------------------------------------------- -->
       <!-- gauge Chart -->
       <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3">
         <!-- Doughnut chart card -->
@@ -217,6 +216,7 @@
 <!-- All javascript code in this project for now is just for demo DON'T RELY ON IT  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
 	<script>
+	// 차트 변수 선언
 	let opratioChart, gaugeChart, usingratioChart, costsChart, lineChart;
 	
 	var opratio = null;
@@ -259,7 +259,6 @@
 	            }
 	            costs = true;
 	            break;
-	            
 	            
 	    }
 
